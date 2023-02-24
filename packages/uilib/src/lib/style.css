@@ -1,0 +1,54 @@
+html {
+	margin:  0;
+	padding: 0;
+}
+
+body {
+	font-family: monospace;
+	font-size:   12px;
+	padding:     1rem;
+
+	background-color: #222222;
+    color:            white;
+
+}
+
+* {
+    box-sizing: border-box;
+}
+
+h1,h2,h3,h4,h5{
+    display: inline-block;
+}
+
+ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+li{
+	padding: 0;
+	margin: 0;
+}
+li.current a{
+    color:white
+}
+
+p {
+    margin: 0;
+    padding: 0;
+}
+
+a{
+    color: gray;
+}
+
+a:active {
+    color: white;
+}
+
+:root{
+
+    --border-radius: 4px;
+
+}
