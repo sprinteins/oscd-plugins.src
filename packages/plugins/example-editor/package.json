@@ -1,5 +1,5 @@
 {
-  "name": "@sprinteins-openscd-plugins/example-editor",
+  "name": "@oscd-plugins/example-editor",
   "private": true,
   "version": "0.0.0",
   "type": "module",
