@@ -8,6 +8,7 @@ echo moving and commiting at $output_path
 
 git switch -C ${branch_name} origin/${branch_name}
 
+rm -rf ./dist
 mv -v -f ./$output_path/dist ./ && \
 git add --force ./dist && \
 git commit -m "update plugin" && \
