@@ -18,4 +18,4 @@ git add ./package.json && \
 git commit -m "update plugin" && \
 git push origin
  
-git checkout $current_branch 
+# git checkout $current_branch 
