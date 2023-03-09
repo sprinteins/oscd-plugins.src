@@ -3,7 +3,7 @@
 </script>
 
 <main>
-  <h1>Example Editor</h1>
+  <h1>Example Editor 2</h1>
 </main>
 
 <style>
