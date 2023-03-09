@@ -2,7 +2,9 @@
 	"name": "@oscd-plugins/uilib",
 	"version": "0.0.1",
 	"scripts": {
-		"dev": "vite dev",
+		"dev": "npm run build:watch",
+		"//uilib": "we use this to only start the uilib",
+		"uilib": "vite dev",
 		"build": "vite build",
 		"build:lib": "svelte-kit sync && svelte-package",
 		"build:watch": "svelte-kit sync && svelte-package --watch",
