@@ -21,8 +21,8 @@ if [ $? -gt 0 ]; then
 	exit $?
 fi
 
-# git rm -rf .
-# git commit --allow-empty -m "init"
+git rm -rf . && \
+git commit --allow-empty -m "init"
 
-#git push -u origin "'${branch_name}'"
+git push -u origin "'${branch_name}'"
 git checkout $current_branch 
