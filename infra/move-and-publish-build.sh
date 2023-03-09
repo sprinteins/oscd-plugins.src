@@ -11,7 +11,7 @@ git switch -C ${branch_name} origin/${branch_name}
 git pull
 
 rm -rf ./dist
-mv -v -f ./$output_path/dist ./
+# mv -v -f ./$output_path/dist ./
 # git add --force ./dist && \
 # git commit -m "update plugin" && \
 # git push origin
