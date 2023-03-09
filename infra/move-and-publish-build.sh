@@ -12,7 +12,7 @@ git pull
 
 rm -rf ./dist && \
 mv -v -f ./$output_path/dist ./ && \
-mv -v -f ./$output_path/package.json ./ && \
+cp -v -f ./$output_path/package.json ./ && \
 git add --force ./dist && \
 git add ./package.json && \
 git commit -m "update plugin" && \
