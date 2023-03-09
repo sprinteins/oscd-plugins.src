@@ -4,9 +4,24 @@ importers:
 
   .:
     specifiers:
-      turborepo: ^0.0.1
+      '@oscd-plugins/uilib': ../uilib/package
+      '@sveltejs/vite-plugin-svelte': ^2.0.2
+      '@tsconfig/svelte': ^3.0.0
+      svelte: ^3.55.1
+      svelte-check: ^2.10.3
+      tslib: ^2.5.0
+      typescript: ^4.9.3
+      vite: ^4.1.0
     dependencies:
-      turborepo: 0.0.1
+      '@oscd-plugins/uilib': link:../uilib/package
+    devDependencies:
+      '@sveltejs/vite-plugin-svelte': 2.0.2_svelte@3.55.1+vite@4.1.4
+      '@tsconfig/svelte': 3.0.0
+      svelte: 3.55.1
+      svelte-check: 2.10.3_svelte@3.55.1
+      tslib: 2.5.0
+      typescript: 4.9.4
+      vite: 4.1.4
 
   packages/plugins/example-editor:
     specifiers:
@@ -17,6 +32,27 @@ importers:
       tslib: ^2.5.0
       typescript: ^4.9.3
       vite: ^4.1.0
+    devDependencies:
+      '@sveltejs/vite-plugin-svelte': 2.0.2_svelte@3.55.1+vite@4.1.4
+      '@tsconfig/svelte': 3.0.0
+      svelte: 3.55.1
+      svelte-check: 2.10.3_svelte@3.55.1
+      tslib: 2.5.0
+      typescript: 4.9.4
+      vite: 4.1.4
+
+  packages/plugins/network:
+    specifiers:
+      '@oscd-plugins/uilib': ../uilib/package
+      '@sveltejs/vite-plugin-svelte': ^2.0.2
+      '@tsconfig/svelte': ^3.0.0
+      svelte: ^3.55.1
+      svelte-check: ^2.10.3
+      tslib: ^2.5.0
+      typescript: ^4.9.3
+      vite: ^4.1.0
+    dependencies:
+      '@oscd-plugins/uilib': link:../uilib/package
     devDependencies:
       '@sveltejs/vite-plugin-svelte': 2.0.2_svelte@3.55.1+vite@4.1.4
       '@tsconfig/svelte': 3.0.0
@@ -1956,10 +1992,6 @@ packages:
       tslib: 1.14.1
       typescript: 4.9.4
     dev: true
-
-  /turborepo/0.0.1:
-    resolution: {integrity: sha512-x+4Q9iy252nr6zuU/TvQIF4na8OVLe2pBTwTJKA/aTPzdR4W8q0uhEj/U69G09IznNDjMg8jXG2nm9gan4KQ1g==}
-    dev: false
 
   /type-check/0.4.0:
     resolution: {integrity: sha512-XleUoc9uwGXqjWwXaUTZAmzMcFZ5858QA2vvx1Ur5xIcixXIP+8LnFDgRplU30us6teqdlskFfu+ae4K79Ooew==}
