@@ -4,11 +4,8 @@ plugin_name=$3
 
 current_branch=$(git rev-parse --abbrev-ref HEAD)
 
-# echo git diff $current_branch:./$plugin_root/package.json $branch_name:./package.json
 diff_wc=$(git diff $current_branch:./$plugin_root/package.json $branch_name:./package.json | wc -l)
-# echo diff_ec=$diff_ec
 diff_wc_nr=$((diff_wc))
-echo diff_wc_nr=$diff_wc_nr
 
 if [ $diff_wc_nr -eq 0 ]; then
 	echo "no change, stopping"
@@ -16,11 +13,9 @@ if [ $diff_wc_nr -eq 0 ]; then
 fi
 
 echo "found change, building"
-echo "---pwd----"
-pwd
 
 ./infra/ensure-build-branch.sh $branch_name
-pnpm install
-turbo run build --filter=$plugin_name...
-# turbo run build --filter=@oscd-plugins/network...
+
+pnpm install && turbo run build --filter=$plugin_name...
+
 ./infra/move-and-publish-build.sh $plugin_root $branch_name
