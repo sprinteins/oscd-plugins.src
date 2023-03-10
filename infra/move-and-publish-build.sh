@@ -8,7 +8,7 @@ echo _MNP_: moving and commiting at $output_path
 
 
 git fetch && \
-git switch ${branch_name} && \
+git checkout ${branch_name} && \
 exit 1
 git pull
 
