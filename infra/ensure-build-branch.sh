@@ -5,12 +5,21 @@ echo ensuring build branch at ${branch_name}
 
 current_branch=$(git rev-parse --abbrev-ref HEAD)
 
-git ls-remote --exit-code --heads origin ${branch_name} > /dev/null
-has_branch=$?
+res=$(git rev-parse --verify build/network/stable | wc -l)
+nr_of_local_branches=$(($res))
 
-if [ $has_branch = "2" ]; then
-	echo "EBB: no branch, creating"
-	git switch --orphan "${branch_name}"
+git ls-remote --exit-code --heads origin ${branch_name} > /dev/null
+has_remote_branch=$?
+
+if [ $has_remote_branch!= "2" ]; then
+
+	if [ $nr_of_local_branches -eq 0 ]; then
+		echo "EBB: no branch, creating"
+		git switch --orphan ${branch_name}
+	else
+		git switch ${branch_name}
+	fi
+	
 else
 	echo "EBB: has branch, exiting"
 	exit 0
