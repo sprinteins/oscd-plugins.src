@@ -5,7 +5,7 @@ echo _EBB_: ensuring build branch at ${branch_name}
 
 current_branch=$(git rev-parse --abbrev-ref HEAD)
 
-res=$(git rev-parse --verify build/network/stable | wc -l)
+res=$(git rev-parse --verify ${branch_name} | wc -l)
 nr_of_local_branches=$(($res))
 
 git ls-remote --exit-code --heads origin ${branch_name} > /dev/null
