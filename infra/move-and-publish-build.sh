@@ -22,8 +22,9 @@ mv -v -f ./$plugin_root/dist ./ && \
 git checkout $current_branch -- ./$plugin_root/package.json && \
 mv -v -f ./$plugin_root/package.json ./ && \
 git add --force ./dist && \
-git add ./package.json
+git add ./package.json && \
 git commit -m "update plugin" && \
-git push origin ${branch_name}
+git push origin ${branch_name} && \
+git reset --hard
  
 git checkout $current_branch 
