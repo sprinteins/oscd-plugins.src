@@ -9,16 +9,16 @@ git ls-remote --exit-code --heads origin ${branch_name} > /dev/null
 has_branch=$?
 
 if [ $has_branch = "2" ]; then
-	echo "no branch, creating"
+	echo "EBB: no branch, creating"
 	git switch --orphan "${branch_name}"
 else
-	echo "has branch, exiting"
+	echo "EBB: has branch, exiting"
 	exit 0
 	# git switch -C ${branch_name} origin/${branch_name}
 fi
 
 if [ $? -gt 0 ]; then
-	echo "something went wrong, exiting"
+	echo "EBB: something went wrong, exiting"
 	exit $?
 fi
 
