@@ -12,6 +12,8 @@ if [ diff_wc_nr -eq 0 ]; then
 	exit 0
 fi
 
+echo "found change, building"
+exit 0
 ./infra/ensure-build-branch.sh $branch_name
 
 pnpm install
