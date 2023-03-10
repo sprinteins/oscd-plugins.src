@@ -7,7 +7,7 @@ current_branch=$(git rev-parse --abbrev-ref HEAD)
 echo moving and commiting at $output_path
 
 git fetch && \
-git switch -c ${branch_name} origin/${branch_name} && \
+git switch ${branch_name} origin/${branch_name} && \
 git pull
 
 if [ $? -gt 0 ]; then
@@ -21,6 +21,6 @@ cp -v -f ./$output_path/package.json ./ && \
 git add --force ./dist && \
 git add ./package.json && \
 git commit -m "update plugin" && \
-git push origin
+git push origin ${branch_name}
  
 # git checkout $current_branch 
