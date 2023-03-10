@@ -28,4 +28,5 @@ git commit -m "update plugin" && \
 git push origin ${branch_name} && \
 git reset --hard
  
-git checkout $current_branch 
+git checkout $current_branch  && \
+git reset --hard
