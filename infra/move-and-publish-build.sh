@@ -20,8 +20,6 @@ fi
 exit 1
 rm -rf ./dist && \
 mv -v -f ./$plugin_root/dist ./ && \
-git checkout $current_branch -- ./$plugin_root/package.json && \
-git reset && \
 mv -v -f ./$plugin_root/package.json ./ && \
 git add --force ./dist && \
 git add ./package.json && \
