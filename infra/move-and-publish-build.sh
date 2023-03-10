@@ -9,9 +9,9 @@ echo _MNP_: moving and commiting at $plugin_root
 
 git fetch && \
 git checkout ${branch_name} && \
-exit 1
 git pull
 
+exit 0
 if [ $? -gt 0 ]; then
 	echo "_MNP_: something went wrong, exiting"
 	exit $?
