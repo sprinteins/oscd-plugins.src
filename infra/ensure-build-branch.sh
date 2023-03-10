@@ -10,7 +10,8 @@ has_remote_branch=$?
 
 if [ $has_remote_branch = "2" ]; then
 
-	git switch ${branch_name}
+	git branch -D ${branch_name}
+	git switch -c ${branch_name}
 
 else
 	echo "_EBB_: remote branch found, exiting"
