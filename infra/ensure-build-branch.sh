@@ -11,7 +11,7 @@ nr_of_local_branches=$(($res))
 git ls-remote --exit-code --heads origin ${branch_name} > /dev/null
 has_remote_branch=$?
 
-if [ $has_remote_branch!= "2" ]; then
+if [ $has_remote_branch = "2" ]; then
 
 	if [ $nr_of_local_branches -eq 0 ]; then
 		echo "EBB: no branch, creating"
@@ -19,7 +19,7 @@ if [ $has_remote_branch!= "2" ]; then
 	else
 		git switch ${branch_name}
 	fi
-	
+
 else
 	echo "EBB: has branch, exiting"
 	exit 0
