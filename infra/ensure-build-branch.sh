@@ -12,7 +12,7 @@ if [ $has_remote_branch = "2" ]; then
 
 	echo "_EBB_: no remote branch, creating"
 
-	git branch -D ${branch_name} && \
+	git branch -D ${branch_name}
 	git checkout --orphan ${branch_name} && \
 	git reset
 
