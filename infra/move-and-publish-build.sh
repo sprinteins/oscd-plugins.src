@@ -18,6 +18,9 @@ if [ $? -gt 0 ]; then
 fi
 
 rm -rf ./dist && \
+git checkout $current_branch -- ./$plugin_root/dist && \
+git checkout $current_branch -- ./$plugin_root/package.json && \
+git reset && \
 mv -v -f ./$plugin_root/dist ./ && \
 mv -v -f ./$plugin_root/package.json ./ && \
 git add --force ./dist && \
