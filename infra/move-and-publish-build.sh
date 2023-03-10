@@ -15,6 +15,7 @@ if [ $? -gt 0 ]; then
 	exit $?
 fi
 
+exit 1
 rm -rf ./dist && \
 mv -v -f ./$output_path/dist ./ && \
 cp -v -f ./$output_path/package.json ./ && \
