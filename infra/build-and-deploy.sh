@@ -16,6 +16,7 @@ if [ $diff_wc_nr -eq 0 ]; then
 fi
 
 echo "found change, building"
+pwd
 
 ./infra/ensure-build-branch.sh $branch_name
 
