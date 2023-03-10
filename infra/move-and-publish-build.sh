@@ -7,7 +7,7 @@ current_branch=$(git rev-parse --abbrev-ref HEAD)
 echo moving and commiting at $output_path
 
 git fetch && \
-git switch -C ${branch_name} origin/${branch_name} && \
+git switch -c ${branch_name} origin/${branch_name} && \
 git pull
 
 if [ $? -gt 0 ]; then
