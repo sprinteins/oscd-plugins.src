@@ -1,7 +1,7 @@
 
 branch_name=$1
 
-echo ensuring build branch at ${branch_name}
+echo _EBB_: ensuring build branch at ${branch_name}
 
 current_branch=$(git rev-parse --abbrev-ref HEAD)
 
