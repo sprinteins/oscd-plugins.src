@@ -6,6 +6,8 @@ current_branch=$(git rev-parse --abbrev-ref HEAD)
 
 echo _MNP_: moving and commiting at $output_path
 
+exit 1
+
 git fetch && \
 git switch ${branch_name} && \
 git pull
@@ -15,7 +17,6 @@ if [ $? -gt 0 ]; then
 	exit $?
 fi
 
-exit 1
 rm -rf ./dist && \
 mv -v -f ./$output_path/dist ./ && \
 cp -v -f ./$output_path/package.json ./ && \
