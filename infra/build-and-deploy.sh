@@ -19,7 +19,7 @@ echo "found change, building"
 pwd
 
 ./infra/ensure-build-branch.sh $branch_name
-
+exit 0
 pnpm install
 # turbo run build --filter=@oscd-plugins/network...
 turbo run build --filter=$plugin_name...
