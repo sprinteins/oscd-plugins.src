@@ -17,6 +17,7 @@ if [ $? -gt 0 ]; then
 	exit $?
 fi
 
+exit 1
 rm -rf ./dist && \
 mv -v -f ./$plugin_root/dist ./ && \
 git checkout $current_branch -- ./$plugin_root/package.json && \
