@@ -1,6 +1,6 @@
 plugin_root=$1
 branch_name=$2
-plugin_name=$2
+plugin_name=$3
 
 current_branch=$(git rev-parse --abbrev-ref HEAD)
 
@@ -21,7 +21,6 @@ pwd
 
 ./infra/ensure-build-branch.sh $branch_name
 pnpm install
-echo turbo run build --filter=$plugin_name...
-exit 0
+turbo run build --filter=$plugin_name...
 # turbo run build --filter=@oscd-plugins/network...
 ./infra/move-and-publish-build.sh $plugin_root $branch_name
