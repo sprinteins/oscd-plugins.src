@@ -154,7 +154,7 @@ function R(t) {
   let e;
   return {
     c() {
-      e = H("main"), e.innerHTML = "<h1>Example Editor v0.0.5</h1>";
+      e = H("main"), e.innerHTML = "<h1>Example Editor v0.0.6</h1>";
     },
     m(n, o) {
       B(n, e, o);
