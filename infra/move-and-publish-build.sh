@@ -6,10 +6,10 @@ current_branch=$(git rev-parse --abbrev-ref HEAD)
 
 echo _MNP_: moving and commiting at $output_path
 
-exit 1
 
 git fetch && \
 git switch ${branch_name} && \
+exit 1
 git pull
 
 if [ $? -gt 0 ]; then
