@@ -5,9 +5,9 @@ name: Network _ Build and Deploy
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "infra/actions" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "infra/actions" ]
 
 jobs:
   build:
