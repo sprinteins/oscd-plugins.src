@@ -27,4 +27,5 @@ git add ./package.json && \
 git commit -m "update plugin" && \
 git push origin ${branch_name} && \
  
+git reset --hard
 git checkout --force $current_branch
