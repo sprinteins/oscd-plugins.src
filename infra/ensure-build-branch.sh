@@ -29,4 +29,4 @@ fi
 git commit --allow-empty -m "init" && \
 git push -u origin ${branch_name}
 
-git checkout $current_branch 
+git checkout --force $current_branch 
