@@ -14,20 +14,21 @@ has_remote_branch=$?
 if [ $has_remote_branch = "2" ]; then
 
 	if [ $nr_of_local_branches -eq 0 ]; then
-		echo "EBB: no branch, creating"
+		echo "_EBB_: no local or remote branch, creating local"
 		git switch --orphan ${branch_name}
 	else
+		echo "_EBB_: found local branch, switching"
 		git switch ${branch_name}
 	fi
 
 else
-	echo "EBB: has branch, exiting"
+	echo "_EBB_: remote branch found, exiting"
 	exit 0
 	# git switch -C ${branch_name} origin/${branch_name}
 fi
 
 if [ $? -gt 0 ]; then
-	echo "EBB: something went wrong, exiting"
+	echo "_EBB_: something went wrong, exiting"
 	exit $?
 fi
 
