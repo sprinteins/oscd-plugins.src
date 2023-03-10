@@ -25,4 +25,4 @@ git add --force ./dist && \
 git commit -m "update plugin" && \
 git push origin ${branch_name}
  
-# git checkout $current_branch 
+git checkout $current_branch 
