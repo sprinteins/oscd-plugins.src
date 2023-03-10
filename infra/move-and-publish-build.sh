@@ -11,7 +11,7 @@ git fetch && \
 git checkout ${branch_name} && \
 git pull
 
-exit 0
+# exit 0
 if [ $? -gt 0 ]; then
 	echo "_MNP_: something went wrong, exiting"
 	exit $?
