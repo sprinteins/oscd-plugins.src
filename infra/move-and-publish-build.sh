@@ -19,7 +19,7 @@ fi
 
 rm -rf ./dist && \
 mv -v -f ./$plugin_root/dist ./ && \
-git checkout infra/actions -- ./$plugin_root/package.json && \
+git checkout $current_branch -- ./$plugin_root/package.json && \
 mv -v -f ./$plugin_root/package.json ./ && \
 git add --force ./dist && \
 git commit -m "update plugin" && \
