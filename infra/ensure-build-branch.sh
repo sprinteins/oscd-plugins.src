@@ -13,13 +13,13 @@ has_remote_branch=$?
 
 if [ $has_remote_branch = "2" ]; then
 
-	if [ $nr_of_local_branches -eq 0 ]; then
-		echo "_EBB_: no local or remote branch, creating local"
-		git switch --orphan ${branch_name}
-	else
-		echo "_EBB_: found local branch, switching"
+	# if [ $nr_of_local_branches -eq 0 ]; then
+		# echo "_EBB_: no local or remote branch, creating local"
+		# git switch ${branch_name}
+	# else
+		# echo "_EBB_: found local branch, switching"
 		git switch ${branch_name}
-	fi
+	# fi
 
 else
 	echo "_EBB_: remote branch found, exiting"
