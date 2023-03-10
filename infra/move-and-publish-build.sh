@@ -4,14 +4,14 @@ branch_name=$2
 
 current_branch=$(git rev-parse --abbrev-ref HEAD)
 
-echo moving and commiting at $output_path
+echo _MNP_: moving and commiting at $output_path
 
 git fetch && \
-git switch ${branch_name} origin/${branch_name} && \
+git switch ${branch_name} && \
 git pull
 
 if [ $? -gt 0 ]; then
-	echo "MNP: something went wrong, exiting"
+	echo "_MNP_: something went wrong, exiting"
 	exit $?
 fi
 
