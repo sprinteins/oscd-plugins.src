@@ -21,7 +21,7 @@ rm -rf ./dist && \
 mv -v -f ./$output_path/dist ./ && \
 cp -v -f ./$output_path/package.json ./ && \
 git add --force ./dist && \
-git add ./package.json && \
+git checkout infra/actions -- packages/plugins/network/package.json && \
 git commit -m "update plugin" && \
 git push origin ${branch_name}
  
