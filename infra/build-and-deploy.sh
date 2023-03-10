@@ -20,8 +20,8 @@ echo "---pwd----"
 pwd
 
 ./infra/ensure-build-branch.sh $branch_name
-exit 0
 pnpm install
+echo turbo run build --filter=$plugin_name...
+exit 0
 # turbo run build --filter=@oscd-plugins/network...
-turbo run build --filter=$plugin_name...
 ./infra/move-and-publish-build.sh $plugin_root $branch_name
