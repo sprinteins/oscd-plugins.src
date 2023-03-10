@@ -1,10 +1,10 @@
 
-output_path=$1
+plugin_root=$1
 branch_name=$2
 
 current_branch=$(git rev-parse --abbrev-ref HEAD)
 
-echo _MNP_: moving and commiting at $output_path
+echo _MNP_: moving and commiting at $plugin_root
 
 
 git fetch && \
@@ -18,10 +18,10 @@ if [ $? -gt 0 ]; then
 fi
 
 rm -rf ./dist && \
-mv -v -f ./$output_path/dist ./ && \
-cp -v -f ./$output_path/package.json ./ && \
+mv -v -f ./$plugin_root/dist ./ && \
+git checkout infra/actions -- ./$plugin_root/package.json && \
+mv -v -f ./$plugin_root/package.json ./ && \
 git add --force ./dist && \
-git checkout infra/actions -- packages/plugins/network/package.json && \
 git commit -m "update plugin" && \
 git push origin ${branch_name}
  
