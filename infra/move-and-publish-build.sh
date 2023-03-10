@@ -7,7 +7,7 @@ current_branch=$(git rev-parse --abbrev-ref HEAD)
 echo _MNP_: moving and commiting at $plugin_root
 
 
-git fetch && \
+git fetch --prune && \
 git checkout ${branch_name} && \
 git pull
 
