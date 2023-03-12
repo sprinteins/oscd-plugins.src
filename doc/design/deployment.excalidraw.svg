@@ -1,0 +1,16 @@
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 100" width="220" height="100">
+  <!-- svg-source:excalidraw -->
+  <!-- payload-type:application/vnd.excalidraw+json --><!-- payload-version:2 --><!-- payload-start -->eyJ2ZXJzaW9uIjoiMSIsImVuY29kaW5nIjoiYnN0cmluZyIsImNvbXByZXNzZWQiOnRydWUsImVuY29kZWQiOiJ4nHVSTYvbMFx1MDAxML3vrzDudZtcdTAwMGbHibdcdTAwMGKlsJtcci2UpTSHQktcdTAwMGaqNLGFZUlI42TTkP++YzmsRGh1XHUwMDEwzLyZeW8+TjdZluPRQn6f5fDCmZLCsUN+O/j34Lw0mqBcItje9I6HyFx1MDAwNtH6++m0Y65cdTAwMDW0inGY7KXvmfLYXHUwMDBiaSbcdFOJ0PlPw//MOvhoTSfQTVwiyXtcdTAwMTBcdTAwMTKNXHUwMDFiuUBBXHUwMDA3XHUwMDFhPVX/RXaWncKfqHPAkelaQUhcYlBcInB+7Xw2OmgtqnJWfViWb7j0a1wiQ1x1MDAxMFx1MDAwNO5IMEREXHUwMDA0XHUwMDFl0f/8XFx826zF9vtG79uv9WbtI+dOKrXFo1xumryhVlwi5tGZXHUwMDE2fkiBXHKh8yv//7Kc6etGg1x1MDAxZnqfvXmNZVxc4nGoM4vecVx1MDAwMGncXHUwMDBiWWVcdTAwMTntIaNIMkbuR6No0sT9blx1MDAxNl5k/8N4W5NcdTAwMDQtYlxmXHUwMDA3UVxuXHUwMDE2Y1x1MDAwZZeO0rpccsi6QXLeJVxcXHUwMDEwprqoimK1WFZcdTAwMTFcdTAwMThcYuxcdTAwMTdcdTAwMTG2+zttXFyLS+O6VypqXHUwMDFhgKfkXCJiTm9cdTAwMDVcdTAwMWJ3N19Vd8tqUZTlKtmukrq9LqdcZm/juoP3TH8omjNrt0glXHRcdTAwMWVPjsRKsZV/w/FcXFrI91x1MDAxMlx1MDAwZVx1MDAwZv+Y1C68nILOoVx1MDAxYV1cdTAwMDdcZopP55vzK6TJ5lx1MDAxMCJ9<!-- payload-end -->
+  <defs>
+    <style class="style-fonts">
+      @font-face {
+        font-family: "Virgil";
+        src: url("https://unpkg.com/@excalidraw/excalidraw@0.14.1/dist/excalidraw-assets/Virgil.woff2");
+      }
+      @font-face {
+        font-family: "Cascadia";
+        src: url("https://unpkg.com/@excalidraw/excalidraw@0.14.1/dist/excalidraw-assets/Cascadia.woff2");
+      }
+    </style>
+  </defs>
+  <rect x="0" y="0" width="220" height="100" fill="#ffffff"></rect><g stroke-linecap="round" transform="translate(10 10) rotate(0 100 40)"><path d="M0 0 L200 0 L200 80 L0 80" stroke="none" stroke-width="0" fill="#ced4da"></path><path d="M0 0 C68.67 0, 137.34 0, 200 0 M0 0 C57.21 0, 114.41 0, 200 0 M200 0 C200 18.37, 200 36.75, 200 80 M200 0 C200 20.02, 200 40.04, 200 80 M200 80 C149.73 80, 99.46 80, 0 80 M200 80 C131.32 80, 62.65 80, 0 80 M0 80 C0 55.46, 0 30.92, 0 0 M0 80 C0 50.63, 0 21.26, 0 0" stroke="#000000" stroke-width="1" fill="none"></path></g></svg>
