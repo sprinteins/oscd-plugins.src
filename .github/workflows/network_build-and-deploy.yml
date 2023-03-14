@@ -15,6 +15,6 @@ jobs:
     if: needs.check.outputs.has_change == 'true'
     uses: "./.github/workflows/build.yml"
     with:
-      oscd_plugin_pat: ${{ secrets.PAT_REPO_OSCD_PLUGINS }}
+      oscd_plugin_pat: "${{ secrets.PAT_REPO_OSCD_PLUGINS }}"
       plugin-root: "./packages/plugins/network"
       plugin-branch: "build/network"
