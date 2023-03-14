@@ -64,7 +64,7 @@ jobs:
       - name: Build Plugin
         run: |
           pnpm install && \
-          turbo run build --filter=@oscd-plugins/network...
+          pnpm turbo run build --filter=@oscd-plugins/network...
      
       - name: Prep-Build
         run: mkdir _build_ && cd _build_
