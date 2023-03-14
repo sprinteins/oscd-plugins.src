@@ -89,6 +89,7 @@ jobs:
         with:
           repository: sprinteins/oscd-plugins
           ref: build/network
+          path: _build_
 
       - name: Debug
         run: |
