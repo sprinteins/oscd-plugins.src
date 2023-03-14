@@ -2,20 +2,21 @@ name: "Check Version for Change"
 on:
   workflow_call:
     inputs:
-      oscd_plugin_pat:
-        required: true
-        type: string
       plugin-root: #e.g.: ./packages/plugins/network
         required: true
         type: string
       plugin-branch: #e.g.: build/network
         required: true
         type: string
+    secrets:
+      PAT_REPO_OSCD_PLUGINS:
+        required: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      PAT_TOKEN: ${{ inputs.oscd_plugin_pat }}
+      PAT_TOKEN: ${{ secrets.PAT_REPO_OSCD_PLUGINS }}
     steps:
       - name: Checkout oscd-plugins.src
         uses: actions/checkout@v3
