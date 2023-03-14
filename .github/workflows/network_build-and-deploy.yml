@@ -5,7 +5,7 @@ on:
       - infra/actions
 jobs:
   check:
-    uses: "./.github/workflow/check_version.yml@infra/actions"
+    uses: "./.github/workflows/check_version.yml@infra/actions"
     with:
       plugin-root: "./packages/plugins/network"
       plugin-branch: "build/network"
