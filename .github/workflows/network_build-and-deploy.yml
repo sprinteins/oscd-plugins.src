@@ -74,11 +74,9 @@ jobs:
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
-
-      - name: Debug
-          run: |
-            pwd
-            ls -l
+      
+      - name: debug
+        run: pwd && ls -l
       
       - name: Build Plugin
         run: make network build
