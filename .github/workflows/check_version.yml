@@ -8,6 +8,9 @@ on:
       plugin-branch: #e.g.: build/network
         required: true
         type: string
+    outputs:
+      has_change: 
+        value: ${{ jobs.check.outputs.has_change }}
 jobs:
   check:
     runs-on: ubuntu-latest
