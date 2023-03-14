@@ -36,7 +36,8 @@ jobs:
       - name: Compare Versions
         id: compare
         run: |
-          if [ old_version != new_version ]; then
+          echo ${{ steps.old_version.outputs.version }} = ${{steps.new_version.outputs.version}}
+          if [ ${{ steps.old_version.outputs.version }} != ${{steps.new_version.outputs.version}} ]; then
             echo "change found"
             echo "has_change=true" >> "$GITHUB_OUTPUT"
           else 
