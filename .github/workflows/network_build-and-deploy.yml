@@ -79,7 +79,7 @@ jobs:
         run: pwd && ls -l
       
       - name: Build Plugin
-        run: make network build
+        run: make network-build
      
       - name: Prep-Build
         run: mkdir _build_ && cd _build_
