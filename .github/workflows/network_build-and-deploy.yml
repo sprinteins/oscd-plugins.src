@@ -54,7 +54,7 @@ jobs:
       - name: Checkout oscd-plugins.src
         uses: actions/checkout@v3
         
-      - uses: pnpm/action-setup@v3
+      - uses: pnpm/action-setup@v2
         name: Install pnpm
         id: pnpm-install
         with:
@@ -90,9 +90,3 @@ jobs:
           git add .
           git commit -m "Update file"
           git push https://tamasrusz:$PAT_TOKEN@github.com/sprinteins/oscd-plugins.git HEAD:build/network
-        
-      - name: Checkout oscd-plugins
-        uses: actions/checkout@v2
-        with:
-          repository: sprinteins/oscd-plugins
-          ref: build/network
