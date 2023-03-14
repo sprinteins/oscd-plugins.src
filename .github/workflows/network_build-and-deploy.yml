@@ -60,11 +60,23 @@ jobs:
         with:
           version: 7
           run_install: false
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+      
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
       
       - name: Build Plugin
-        run: |
-          pnpm install && \
-          pnpm turbo run build --filter=@oscd-plugins/network...
+        run: make network build
      
       - name: Prep-Build
         run: mkdir _build_ && cd _build_
