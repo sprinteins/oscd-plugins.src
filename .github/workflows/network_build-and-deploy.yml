@@ -1,29 +1,98 @@
-# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
-
-name: Network _ Build and Deploy
-
+name: "Network: Build and Deploy"
 on:
   push:
-    branches: [ "infra/actions" ]
-  pull_request:
-    branches: [ "infra/actions" ]
-
+    branches:
+      - infra/actions
 jobs:
-  build:
-
+  check:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [18.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
+    outputs:
+      has_change: ${{ steps.compare.outputs.has_change }}
     steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: make network-stable
+      - name: Checkout oscd-plugins.src
+        uses: actions/checkout@v2
+      
+      - name: Retrieve New Version
+        id: new_version
+        run: |
+          cd ./packages/plugins/network
+          echo "version=$(npm pkg get version)" >> "$GITHUB_OUTPUT"
+          
+      - name: Checkout oscd-plugins
+        uses: actions/checkout@v2
+        with:
+          repository: sprinteins/oscd-plugins
+          ref: build/network
+
+      - name: Retrieve Old Version
+        id: old_version
+        run: |
+          if test -f "package.json"; then
+            echo "version=$(npm pkg get version)" >> "$GITHUB_OUTPUT"
+          else
+            echo "version=_" >> "$GITHUB_OUTPUT"
+          fi
+          
+      - name: Compare Versions
+        id: compare
+        run: |
+          if [ old_version != new_version ]; then
+            echo "change found"
+            echo "has_change=true" >> "$GITHUB_OUTPUT"
+          else 
+            echo "no change detected"
+            echo "has_change=false" >> "$GITHUB_OUTPUT"
+          fi
+      
+  build:
+    if: needs.check.outputs.has_change == 'true'
+    runs-on: ubuntu-latest
+    needs: [check]
+    env:
+      PAT_TOKEN: ${{ secrets.PAT_REPO_OSCD_PLUGINS }}
+    steps:
+      - name: Checkout oscd-plugins.src
+        uses: actions/checkout@v2
+        
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        id: pnpm-install
+        with:
+          version: 7
+          run_install: false
+      
+      - name: Build Plugin
+        run: |
+          pnpm install && \
+          turbo run build --filter=@oscd-plugins/network...
+     
+      - name: Prep-Build
+        run: mkdir _build_ && cd _build_
+       
+      - name: Checkout oscd-plugins
+        uses: actions/checkout@v2
+        with:
+          repository: sprinteins/oscd-plugins
+          ref: build/network
+
+      - name: Debug
+        run: |
+          pwd
+          ls -l
+          
+      - name: Add built files
+        run: |
+          mv -f $GITHUB_WORKSPACE/packages/plugins/network/dist ./
+          mv -f $GITHUB_WORKSPACE/packages/plugins/network/package.json ./
+          git config --unset-all http.https://github.com/.extraheader
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git add .
+          git commit -m "Update file"
+          git push https://tamasrusz:$PAT_TOKEN@github.com/sprinteins/oscd-plugins.git HEAD:build/network
+        
+      - name: Checkout oscd-plugins
+        uses: actions/checkout@v2
+        with:
+          repository: sprinteins/oscd-plugins
+          ref: build/network

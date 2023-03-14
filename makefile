@@ -7,9 +7,6 @@ uilib: ## Start UI-Lib in dev mode
 network: ## Start the network plugin in dev mode
 	turbo run dev --filter=@oscd-plugins/network...
 
-network-stable: ## Build and publish stable version of the network plugin
-	@./infra/build-and-deploy.sh packages/plugins/network build/network/stable @oscd-plugins/network
-	# ./infra/ensure-build-branch.sh build/network/stable
-	# pnpm install
-	# turbo run build --filter=@oscd-plugins/network...
-	# ./infra/move-and-publish-build.sh packages/plugins/network build/network/stable
+network-build: ## Build and publish stable version of the network plugin
+	pnpm install
+	turbo run build --filter=@oscd-plugins/network...
