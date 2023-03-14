@@ -10,7 +10,7 @@ jobs:
       has_change: ${{ steps.compare.outputs.has_change }}
     steps:
       - name: Checkout oscd-plugins.src
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       
       - name: Retrieve New Version
         id: new_version
@@ -19,7 +19,7 @@ jobs:
           echo "version=$(npm pkg get version)" >> "$GITHUB_OUTPUT"
           
       - name: Checkout oscd-plugins
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: sprinteins/oscd-plugins
           ref: build/network
@@ -52,9 +52,9 @@ jobs:
       PAT_TOKEN: ${{ secrets.PAT_REPO_OSCD_PLUGINS }}
     steps:
       - name: Checkout oscd-plugins.src
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         
-      - uses: pnpm/action-setup@v2
+      - uses: pnpm/action-setup@v3
         name: Install pnpm
         id: pnpm-install
         with:
