@@ -1,0 +1,78 @@
+name: "Check Version for Change"
+on:
+  workflow_call:
+    inputs:
+      oscd_plugin_pat:
+        required: true
+        type: string
+      plugin-root: #e.g.: ./packages/plugins/network
+        required: true
+        type: string
+      plugin-branch: #e.g.: build/network
+        required: true
+        type: string
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      PAT_TOKEN: ${{ inputs.oscd_plugin_pat }}
+    steps:
+      - name: Checkout oscd-plugins.src
+        uses: actions/checkout@v3
+        
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        id: pnpm-install
+        with:
+          version: 7
+          run_install: false
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+      
+      - name: Setup pnpm cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+      
+      - name: debug
+        run: pwd && ls -l
+      
+      - name: Build Plugin
+        # run: pnpm install && pnpm turbo run build --filter=./packages/plugins/network...
+        run: pnpm install && pnpm turbo run build --filter=${{ inputs.plugin-root }}...
+     
+      - name: Prep-Build
+        run: mkdir _build_ && cd _build_
+       
+      - name: Checkout oscd-plugins
+        uses: actions/checkout@v2
+        with:
+          repository: sprinteins/oscd-plugins
+          # ref: build/network
+          ref: ${{ inputs.plugin-branch }}
+          path: _build_
+
+      - name: Debug
+        run: |
+          pwd
+          ls -l _build_
+          
+      - name: Add built files
+        run: |
+          cd _build_
+          # mv -f $GITHUB_WORKSPACE/packages/plugins/network/dist ./
+          mv -f $GITHUB_WORKSPACE/${{ inputs.plugin-root }}/dist ./
+          mv -f $GITHUB_WORKSPACE/${{ inputs.plugin-root }}/package.json ./
+          git config --unset-all http.https://github.com/.extraheader
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git add .
+          git commit -m "Update file"
+          git push https://tamasrusz:$PAT_TOKEN@github.com/sprinteins/oscd-plugins.git HEAD:${{ inputs.plugin-branch }}

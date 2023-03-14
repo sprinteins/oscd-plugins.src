@@ -9,106 +9,12 @@ jobs:
     with:
       plugin-root: "./packages/plugins/network"
       plugin-branch: "build/network"
-#   check:
-#     runs-on: ubuntu-latest
-#     outputs:
-#       has_change: ${{ steps.compare.outputs.has_change }}
-#     steps:
-#       - name: Checkout oscd-plugins.src
-#         uses: actions/checkout@v3
-      
-#       - name: Retrieve New Version
-#         id: new_version
-#         run: |
-#           cd ./packages/plugins/network
-#           echo "version=$(npm pkg get version)" >> "$GITHUB_OUTPUT"
-          
-#       - name: Checkout oscd-plugins
-#         uses: actions/checkout@v3
-#         with:
-#           repository: sprinteins/oscd-plugins
-#           ref: build/network
-
-#       - name: Retrieve Old Version
-#         id: old_version
-#         run: |
-#           if test -f "package.json"; then
-#             echo "version=$(npm pkg get version)" >> "$GITHUB_OUTPUT"
-#           else
-#             echo "version=_" >> "$GITHUB_OUTPUT"
-#           fi
-          
-#       - name: Compare Versions
-#         id: compare
-#         run: |
-#           if [ old_version != new_version ]; then
-#             echo "change found"
-#             echo "has_change=true" >> "$GITHUB_OUTPUT"
-#           else 
-#             echo "no change detected"
-#             echo "has_change=false" >> "$GITHUB_OUTPUT"
-#           fi
-      
+  
   build:
-    if: needs.check.outputs.has_change == 'true'
-    runs-on: ubuntu-latest
     needs: [check]
-    env:
-      PAT_TOKEN: ${{ secrets.PAT_REPO_OSCD_PLUGINS }}
-    steps:
-      - name: Checkout oscd-plugins.src
-        uses: actions/checkout@v3
-        
-      - uses: pnpm/action-setup@v2
-        name: Install pnpm
-        id: pnpm-install
-        with:
-          version: 7
-          run_install: false
-
-      - name: Get pnpm store directory
-        id: pnpm-cache
-        shell: bash
-        run: |
-          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
-      
-      - name: Setup pnpm cache
-        uses: actions/cache@v3
-        with:
-          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
-      
-      - name: debug
-        run: pwd && ls -l
-      
-      - name: Build Plugin
-        run: make network-build
-     
-      - name: Prep-Build
-        run: mkdir _build_ && cd _build_
-       
-      - name: Checkout oscd-plugins
-        uses: actions/checkout@v2
-        with:
-          repository: sprinteins/oscd-plugins
-          ref: build/network
-          path: _build_
-
-      - name: Debug
-        run: |
-          pwd
-          ls -l _build_
-          
-      - name: Add built files
-        run: |
-          cd _build_
-          mv -f $GITHUB_WORKSPACE/packages/plugins/network/dist ./
-          mv -f $GITHUB_WORKSPACE/packages/plugins/network/package.json ./
-          git config --unset-all http.https://github.com/.extraheader
-          git config --local user.email "actions@github.com"
-          git config --local user.name "GitHub Actions"
-          git add .
-          git commit -m "Update file"
-          git push https://tamasrusz:$PAT_TOKEN@github.com/sprinteins/oscd-plugins.git HEAD:build/network
+    if: needs.check.outputs.has_change == 'true'
+    uses: "./.github/workflows/build.yml"
+    with:
+      oscd_plugin_pat: ${{ secrets.PAT_REPO_OSCD_PLUGINS }}
+      plugin-root: "./packages/plugins/network"
+      plugin-branch: "build/network"
