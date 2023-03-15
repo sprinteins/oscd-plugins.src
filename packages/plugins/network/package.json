@@ -1,13 +1,14 @@
 {
   "name": "@oscd-plugins/network",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.8",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "check": "svelte-check --tsconfig ./tsconfig.json"
+    "check": "svelte-check --tsconfig ./tsconfig.json",
+    "version": "echo $npm_package_version"
   },
   "dependencies": {
     "@oscd-plugins/uilib": "../uilib/package"

@@ -1,0 +1,19 @@
+name: "Network: Build and Deploy"
+on:
+  push:
+    branches:
+      - main
+jobs:
+  check:
+    uses: "./.github/workflows/check_version.yml"
+    with:
+      plugin-name: network
+  
+  build:
+    needs: [check]
+    if: needs.check.outputs.has_change == 'true'
+    uses: "./.github/workflows/build.yml"
+    with:
+      plugin-name: network
+    secrets:
+      PAT_REPO_OSCD_PLUGINS: ${{ secrets.PAT_REPO_OSCD_PLUGINS }}
