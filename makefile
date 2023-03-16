@@ -5,7 +5,7 @@ uilib: ## Start UI-Lib in dev mode
 	turbo run uilib --filter=@oscd-plugins/uilib
 
 network: ## Start the network plugin in dev mode
-	turbo run dev --filter=@oscd-plugins/network...
+	turbo run build:watch --filter=@oscd-plugins/network...
 
 network-build: ## Build and publish stable version of the network plugin
 	pnpm install
