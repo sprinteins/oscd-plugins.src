@@ -4,13 +4,14 @@ import { svelte } from '@sveltejs/vite-plugin-svelte'
 // https://vitejs.dev/config/
 export default defineConfig({
 	plugins: [svelte({
+		configFile: "svelte.config.build.js",
 		compilerOptions:{
-			customElement:false,
+			customElement:true,
 		}
 	})],
 	build:{
 		lib:{
-			entry: "src/plugin.svelte",
+			entry: "src/lib/index.js",
 			formats: ['es'],
 		}
 	}

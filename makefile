@@ -1,12 +1,17 @@
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
-uilib: ## Start UI-Lib in dev mode
-	turbo run uilib --filter=@oscd-plugins/uilib
+uilib: _install ## Start UI-Lib in dev mode
+	turbo run dev --filter=./packages/uilib...
 
-network: ## Start the network plugin in dev mode
-	turbo run build:watch --filter=@oscd-plugins/network...
+communication-explorer: _install ## Start the communication explorer plugin in dev mode
+	turbo run build:watch --filter=./packages/plugins/communication-explorer...
 
-network-build: ## Build and publish stable version of the network plugin
+network-explorer: _install ## Start the network explorer plugin in dev mode
+	turbo run build:watch --filter=./packages/plugins/network-explorer...
+
+diffing-tool: _install ## Start the network explorer plugin in dev mode
+	turbo run build:watch --filter=./packages/plugins/diffing-tool...
+
+_install:
 	pnpm install
-	pnpm turbo run build --filter=./packages/plugins/network...

@@ -11,8 +11,9 @@ const config = {
 		adapter: adapter(),
 		files:{
 			routes: "src/lib",
-		}
-	}
+		},
+
+	},
 };
 
 export default config;

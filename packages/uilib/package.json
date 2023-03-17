@@ -1,19 +1,24 @@
 {
 	"name": "@oscd-plugins/uilib",
 	"version": "0.0.1",
+	"main": "dist/uilib.js",
 	"scripts": {
-		"dev": "npm run build:watch",
+		"//dev": "npm run build:watch",
 		"//uilib": "we use this to only start the uilib",
-		"uilib": "vite dev",
+		"dev": "vite dev",
 		"build": "vite build",
-		"build:lib": "svelte-kit sync && svelte-package",
-		"build:watch": "svelte-kit sync && svelte-package --watch",
+		"//build:lib": "svelte-kit sync && svelte-package",
+		"build:lib": "vite build --config vite.config.build.ts",
+		"build:watch": "npm run build:lib -- --watch",
 		"prepublishOnly": "echo 'Did you mean to publish `./package/`, instead of `./`?' && exit 1",
 		"test": "playwright test",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"test:unit": "vitest",
 		"lint": "eslint ."
+	},
+	"dependencies": {
+		"@oscd-plugins/core": "../core"
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.28.1",

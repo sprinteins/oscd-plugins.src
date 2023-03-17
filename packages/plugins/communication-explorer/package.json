@@ -1,7 +1,7 @@
 {
-  "name": "@oscd-plugins/network",
+  "name": "@oscd-plugins/communication-explorer",
   "private": true,
-  "version": "0.0.10",
+  "version": "0.0.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -13,7 +13,7 @@
     "version": "echo $npm_package_version"
   },
   "dependencies": {
-    "@oscd-plugins/uilib": "../uilib/package",
+    "@oscd-plugins/uilib": "../../uilib",
     "concurrently": "^7.6.0"
   },
   "devDependencies": {
