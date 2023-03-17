@@ -3,11 +3,9 @@
 	"version": "0.0.1",
 	"main": "dist/uilib.js",
 	"scripts": {
-		"//dev": "npm run build:watch",
 		"//uilib": "we use this to only start the uilib",
 		"dev": "vite dev",
-		"build": "vite build",
-		"//build:lib": "svelte-kit sync && svelte-package",
+		"build": "npm run build:lib",
 		"build:lib": "vite build --config vite.config.build.ts",
 		"build:watch": "npm run build:lib -- --watch",
 		"prepublishOnly": "echo 'Did you mean to publish `./package/`, instead of `./`?' && exit 1",
