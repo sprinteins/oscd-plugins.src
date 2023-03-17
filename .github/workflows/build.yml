@@ -39,9 +39,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
       
-      - name: debug
-        run: pwd && ls -l
-      
       - name: Build Plugin
         run: pnpm install && pnpm turbo run build --filter=./packages/plugins/${{ inputs.plugin-name }}...
      
