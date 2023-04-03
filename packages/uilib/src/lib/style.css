@@ -8,8 +8,13 @@ body {
 	font-size:   12px;
 	padding:     1rem;
 
+	background-color: var(--color-white-dark);
+	color: 			  vaR(--color-blue-dark);
+
+/* 	
 	background-color: #222222;
-    color:            white;
+    color:            white; 
+*/
 
 }
 
@@ -31,7 +36,7 @@ li{
 	margin: 0;
 }
 li.current a{
-    color:white
+    color: var(--color-dark);
 }
 
 p {
@@ -44,7 +49,7 @@ a{
 }
 
 a:active {
-    color: white;
+    color: var(--color-blue);
 }
 
 :root{

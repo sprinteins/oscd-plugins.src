@@ -74,7 +74,7 @@
 	}
 	sidebar li.current::before {
 		content: "> ";
-		color: white;
+		color: var(--color-blue);
 
 	}
 	a {

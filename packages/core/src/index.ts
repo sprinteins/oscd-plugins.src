@@ -1,4 +1,2 @@
-export class B {
-
-	public name ="d"
-}
+export * from "./scd"
+export * from "./use-cases"

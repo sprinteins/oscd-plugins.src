@@ -12,4 +12,4 @@ This project is a simple svelte-kit based component library.
 5. Create examples of your components
 
 > **ℹ️ Tip:** see the sample button component for examples
-> [./src/lib/components/button/+page.svelte](./src/lib/components/button/+page.svelte)
+> [./src/lib/components/button/+page.svelte](src/lib/components/button/+page.svelte)
