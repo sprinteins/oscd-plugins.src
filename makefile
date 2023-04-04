@@ -2,7 +2,7 @@ help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 core: _install
-	pnpm turbo run
+	pnpm -C ./packages/core run test:watch
 
 uilib: _install ## Start UI-Lib in dev mode
 	pnpm turbo run dev --filter=./packages/uilib...
