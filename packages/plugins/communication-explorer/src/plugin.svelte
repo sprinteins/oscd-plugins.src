@@ -6,12 +6,6 @@
   $: console.log({msg:"comm_exp doc", doc})
 </script>
 
-
 {#if doc}
   <tscd-communication-explorer root={doc}></tscd-communication-explorer>
 {/if}
-
-
-<style>
-
-</style>

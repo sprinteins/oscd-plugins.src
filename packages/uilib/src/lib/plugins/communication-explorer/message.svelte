@@ -40,30 +40,3 @@
 		<path d={path} class="path"></path>
 	{/if}
 </g>
-
-
-<style>
-	.path, .path-strong, .path-hover-box {
-		fill: none;
-		cursor: pointer;
-	}
-	.path {
-		stroke-width: 0.0625rem;
-	}
-	.path-hover-box {
-		stroke-width: .8rem;
-		stroke: transparent;
-		opacity: .1;
-	}
-	.path-strong {
-		stroke-width: 0.275rem;
-		stroke: #00ff00;
-		opacity: 0;
-	}
-	.path-hover-box:hover ~ .path-strong,
-	.path-strong:hover {
-		opacity: 1 !important;
-	}
-	
-	
-</style>
