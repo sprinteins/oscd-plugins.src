@@ -4,6 +4,7 @@
 }
 .path {
 	stroke-width: 0.0625rem;
+	stroke: var(--color-black, #000);
 }
 .path-hover-box {
 	stroke-width: .8rem;
@@ -13,6 +14,7 @@
 .path-strong {
 	stroke-width: 0.275rem;
 	stroke: #00ff00;
+	stroke: var(--color-yellow);
 	opacity: 0;
 }
 .path-hover-box:hover ~ .path-strong,
