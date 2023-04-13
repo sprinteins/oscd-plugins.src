@@ -1,9 +1,12 @@
 <script lang="ts">
 	import type { ElkNode } from "elkjs/lib/elk-api";
 	import IED from "./ied.svelte"
+	import Message from "./message.svelte"
+	// import "./ied.svelte"
+	// import "./message.svelte"
 	
-	const ZOOM_WIDTH = 5
-	const ZOOM_HEIGHT = 5
+	const ZOOM_WIDTH = 3
+	const ZOOM_HEIGHT = 3
 	
 	// 
 	// Inputs
@@ -14,7 +17,9 @@
 
 
 </script>
+<svelte:options tag="tscd-diagram" />
 
+{#if rootNode}
 <diagram>
 	<svg viewBox={`0 0 ${rootNode.width*ZOOM_WIDTH} ${rootNode.height*ZOOM_HEIGHT}`} xmlns="http://www.w3.org/2000/svg">
 		{#if rootNode.children }
@@ -24,9 +29,15 @@
 			</foreignObject>
 		{/each}
 		{/if}
+
+		{#if rootNode.edges}
+		{#each rootNode.edges as edge}
+			<Message edge={edge} />
+		{/each}
+		{/if}
 	</svg>
 </diagram>
-
+{/if}
 
 <style>
 	

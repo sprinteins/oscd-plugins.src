@@ -24,6 +24,10 @@
 
 </script>
 
+<svelte:head>
+	<title>OpenSCD Plugin Library (OPL)</title>
+</svelte:head>
+
 <main>
 	<sidebar>
 		<nav>

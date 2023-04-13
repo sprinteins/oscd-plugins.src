@@ -1,13 +1,12 @@
 <script lang="ts">
 	import { IED, UCCommunicationInformation, SCDQueries } from "@oscd-plugins/core"
 	import { calculateLayout } from "./node-layout"
-	import "../../style/core.css"
+	import Theme from "../../style/theme.svelte"
 	import Diagram from "./diagram.svelte"
   	import type { ElkNode } from "elkjs/lib/elk-api";
 
 	export let root: Element
 	
-
 	const config = {
 		width:  200,
 		height: 30,
@@ -33,10 +32,11 @@
 
 </script>
 
-
 <svelte:options tag="tscd-communication-explorer" />
-<communication-explorer>
+
+<Theme />
+<span class="root">
 	{#await rootNode then value}
 		<Diagram rootNode={value} nodeWidth={config.width} nodeHeight={config.height} />
 	{/await}
-</communication-explorer>
+</span>

@@ -1,7 +1,10 @@
 <script>
+    import Theme from "../../../style/theme.svelte";
     export let name=""
+    
 </script>
 
+<Theme />
 <example>
     <div>
         <h3>{name}</h3>

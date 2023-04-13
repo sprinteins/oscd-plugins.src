@@ -1,12 +1,6 @@
 import { InputExtRefElement, SCDQueries } from "../scd/scd-query";
 
-/**
- * 1. query ied=`IED[name="${iedName}"]`
- * 2. gseControl=ied.queryAll `GSEControl`
- * 	2.1 ied.query `DataSet[name="${gseControl.datSet}"]`
- * 3. ld = gseContro.closes("LDevice")
- * 4.  subnetwork = document.query `SubNetwork ConnectedAP[iedName="${ied.name}"] GSE[ldInst="${ld.inst}"][cbName="${gseControl.name}"]`
- * 
+/** 
  * The name is temporary, rename it if you have a better one
  */
 export class UCCommunicationInformation {
