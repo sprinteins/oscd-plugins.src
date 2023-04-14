@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { IED, UCCommunicationInformation, SCDQueries } from "@oscd-plugins/core"
+	import { UCCommunicationInformation, SCDQueries } from "@oscd-plugins/core"
 	import { calculateLayout } from "./node-layout"
 	import Theme from "../../style/theme.svelte"
 	import Diagram from "./diagram.svelte"
