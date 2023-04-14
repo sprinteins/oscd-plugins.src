@@ -32,7 +32,7 @@
 
 </script>
 
-<svelte:options tag="tscd-communication-explorer" />
+<svelte:options tag="tscd-communication-explore-v0" />
 
 <Theme />
 <span class="root">

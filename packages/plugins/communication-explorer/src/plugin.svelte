@@ -9,7 +9,7 @@
 </script>
 
 {#if doc}
-  <tscd-communication-explorer root={doc}></tscd-communication-explorer>
+  <tscd-communication-explorer-v0 root={doc}></tscd-communication-explorer-v0>
 {/if}
 
 <input type="hidden" name="package-name" value={pckg.name} />
