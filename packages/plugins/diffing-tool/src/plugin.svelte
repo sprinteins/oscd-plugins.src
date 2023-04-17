@@ -1,11 +1,16 @@
 <script lang="ts">
-  import "@oscd-plugins/uilib"
+  import { DiffingTool } from "@oscd-plugins/uilib/src/lib/plugins/diffing-tool"
+  import * as pckg from "../package.json"
 </script>
+
 <svelte:options tag={null} />
 
 <main>
-  <h1 class="tscd-h1">Diffing Tool</h1>
-  <tscd-diffing-tool></tscd-diffing-tool>
+  <DiffingTool />
+
+<input type="hidden" name="package-name" value={pckg.name} />
+<input type="hidden" name="package-version" value={pckg.version} />
+
 </main>
 
 <style>

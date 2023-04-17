@@ -8,13 +8,13 @@ uilib: _install ## Start UI-Lib in dev mode
 	pnpm turbo run dev --filter=./packages/uilib...
 
 communication-explorer: _install ## Start the communication explorer plugin in dev mode
-	pnpm turbo run build:watch --filter=./packages/plugins/communication-explorer...
+	pnpm -C ./packages/plugins/communication-explorer run build:watch
 
 network-explorer: _install ## Start the network explorer plugin in dev mode
-	pnpm turbo run build:watch --filter=./packages/plugins/network-explorer...
+	pnpm -C ./packages/plugins/network-explorer run build:watch
 
 diffing-tool: _install ## Start the network explorer plugin in dev mode
-	pnpm turbo run build:watch --filter=./packages/plugins/diffing-tool...
+	pnpm -C ./packages/plugins/diffing-tool run build:watch
 
 _install:
 	pnpm install

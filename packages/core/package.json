@@ -2,8 +2,9 @@
   "name": "@oscd-plugins/core",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/index.js",
-  "types": "dist/src/index.d.ts",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "//types": "dist/src/index.d.ts",
   "scripts": {
     "//build": "tsc --project .",
     "esbuild": "esbuild src/index.ts --bundle --outfile=dist/index.js --format=esm --platform=node",

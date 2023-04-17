@@ -1,7 +1,8 @@
 {
 	"name": "@oscd-plugins/uilib",
 	"version": "0.0.1",
-	"main": "dist/uilib.js",
+	"main": "src/lib/index.ts",
+	"types": "src/lib/index.ts",
 	"scripts": {
 		"//uilib": "we use this to only start the uilib",
 		"dev": "vite dev",

@@ -31,7 +31,6 @@
 	$: console.log({level:"dev", msg:"new document", root})
 
 </script>
-
 <svelte:options tag="tscd-communication-explorer" />
 
 <Theme />
@@ -40,3 +39,4 @@
 		<Diagram rootNode={value} nodeWidth={config.width} nodeHeight={config.height} />
 	{/await}
 </span>
+

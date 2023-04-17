@@ -5,7 +5,7 @@ export class SCDQueries {
 		
 	){}
 
-
+	
 	public static SelectorGSE = "GSE"
 	public searchGSEs(options?:CommonOptions): GSEElement[]{
 		return this.searchElement<GSEElement>(SCDQueries.SelectorGSE, ["ldInst", "cbName"], options)

@@ -8,8 +8,11 @@
 	class:dangerous
 	on:click
 >
+button:
 	<slot></slot>
 </button>
+<svelte:options tag="tscd-button" />
+
 
 <style>
 	button{

@@ -1,10 +1,14 @@
 <script lang="ts">
-  import "@oscd-plugins/uilib"
+  import { NetworkExplorer } from  "@oscd-plugins/uilib/src/lib/plugins/network-explorer"
+  import * as pckg from "../package.json"
 </script>
+<svelte:options tag={null} />
 
 <main>
-  <h1>Network Explorer</h1>
-  <tscd-network-explorer></tscd-network-explorer>
+  <NetworkExplorer />
+
+  <input type="hidden" name="package-name" value={pckg.name} />
+  <input type="hidden" name="package-version" value={pckg.version} />
 </main>
 
 <style>
