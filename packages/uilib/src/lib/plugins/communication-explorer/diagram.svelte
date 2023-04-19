@@ -2,6 +2,7 @@
 	import type { ElkNode } from "elkjs/lib/elk-api";
 	import IED from "./ied.svelte"
 	import Message from "./message.svelte"
+	import {selectedIEDNode} from "../../stores/selectedFilter"
 	// import "./ied.svelte"
 	// import "./message.svelte"
 	
@@ -18,6 +19,20 @@
 	export let nodeWidth: number
 	export let nodeHeight: number
 
+	function selectNode(node: ElkNode) {
+		selectedIEDNode.update(values => {
+			if (values != undefined) {
+				values.selectedIED = node
+			} else {
+				values = {
+					selectedIED: node,
+					incomingConnections: true,
+					outgoingConnections: true,
+				}
+			}
+			return values
+		}) 
+	}
 
 </script>
 <svelte:options tag="tscd-diagram" />
@@ -28,7 +43,8 @@
 	<svg viewBox={`0 0 ${WIDTH} ${HEIGHT}`} xmlns="http://www.w3.org/2000/svg">
 		{#if rootNode.children }
 		{#each rootNode.children as node}
-			<foreignObject x={node.x} y={node.y} width={nodeWidth} height={nodeHeight}>
+			<!-- svelte-ignore a11y-click-events-have-key-events -->
+			<foreignObject x={node.x} y={node.y} width={nodeWidth} height={nodeHeight} on:click={() => selectNode(node)}>
 				<IED node={node} width={nodeWidth} height={nodeHeight} />
 			</foreignObject>
 		{/each}
@@ -42,7 +58,3 @@
 	</svg>
 </diagram>
 {/if}
-
-<style>
-	
-</style>

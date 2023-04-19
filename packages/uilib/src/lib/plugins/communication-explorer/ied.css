@@ -7,9 +7,26 @@
 	/* height:  100%; */
 	cursor: pointer;
 	padding: 0.2rem;
+	transition: background-color 200ms ease-in-out;
 }
 
 .ied:hover{
 	background-color: var(--color-blue-light);
 	color: 			  var(--color-blue);
+}
+
+.ied-selected{
+	background-color: var(--color-blue-light);
+	color: 			  var(--color-blue);
+}
+
+.focus {
+	background-color: var(--color-ied-focus);
+}
+.focus:hover {
+	background-color: var(--color-ied-focus-hover);
+} 
+
+.isNotRelevant {
+	background-color: #ccc !important;
 }

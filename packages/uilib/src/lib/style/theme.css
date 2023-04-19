@@ -15,6 +15,9 @@
 	--letter-spacing: .2px;
 
 	--font-family: "Avenir Next", sans-serif;
+
+	--color-ied-focus: burlywood;
+	--color-ied-focus-hover: blanchedalmond;
 }
 
 :root, :host {

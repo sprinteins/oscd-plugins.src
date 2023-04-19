@@ -21,3 +21,7 @@
 .path-strong:hover {
 	opacity: 1 !important;
 }
+
+.irrelevant {
+	opacity: .2 !important;
+}
