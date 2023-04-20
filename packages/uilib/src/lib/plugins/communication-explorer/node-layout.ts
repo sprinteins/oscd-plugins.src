@@ -1,90 +1,98 @@
-import ELK, { type ElkNode } from "elkjs/lib/elk.bundled";
+import ELK, { type ElkExtendedEdge, type ElkNode } from "elkjs/lib/elk.bundled";
 import type { IED, IEDCommInfo } from "@oscd-plugins/core";
-import type { SelectedFilter } from "../../stores/selectedFilter"
-import {selectedIEDNode} from "../../stores/selectedFilter"
-import { onDestroy } from "svelte";
+import type { IEDConnection, IEDNode, RootNode } from "../../components/diagram/nodes";
+import type { SelectedFilter } from "./selected-filter-store"
 
-type Direction = "incoming" | "outgoing" | "both"
 
 type Config = {
 	width: number,
 	height: number,
-	filterDirection?: Direction
-	selectedIEDName?: string
 }
 
-type Edge = {
-	id: string,
-	sources: string[],
-	targets: string[],
-	isRelevant: boolean
-}
-export async function calculateLayout(ieds: IEDCommInfo[], config: Config, selectedIED: SelectedFilter): Promise<ElkNode>{
+export async function calculateLayout(ieds: IEDCommInfo[], config: Config, selectionFilter: SelectedFilter): Promise<RootNode>{
 
-	
+	const hasSelection = Boolean(selectionFilter.selectedIED)
 
-	const children = ieds.map( (ied,ii) => {
-		return { 
-			id: 	Id(ii), 
-			width:  config.width, 
-			height: config.height, 
-		}
-	}) 
-
-	console.log("generate with target: ", selectedIED);
-	
-	
-	const direction = config.filterDirection || "both" 
-	const edges = ieds.map( (ied, ii) => { 
-		return Object.keys(ied.received).map( sourceIEDName => { 
-			let isRelevant = true 
-			const isThereFocus = selectedIED != undefined
-			
-			if (isThereFocus) { 
-				let isFocuesIED = false 
-				
-				if (direction === "incoming") 	{ 	isFocuesIED = config.selectedIEDName === ied.iedName 	} 
-				if (direction === "outgoing") 	{ 	isFocuesIED = config.selectedIEDName === sourceIEDName 	} 
-				if (direction === "both") 		{ 
-													isFocuesIED = config.selectedIEDName === sourceIEDName || 
-													config.selectedIEDName === ied.iedName 
-												} 
-				
-				isRelevant = isFocuesIED 
-			} 
-			
+	const edges: IEDConnection[] = ieds.map( (targetIED, ii) => { 
+		return Object.keys(targetIED.received).map( sourceIEDName => { 
+		
 			const sourceIEDIndex = ieds.findIndex((sourceIED) => sourceIED.iedName === sourceIEDName)
+			const sourceIED = ieds[sourceIEDIndex]
+
+			let isRelevant = true
+			if(hasSelection){
+
+				if(selectionFilter.outgoingConnections && !selectionFilter.incomingConnections){
+					isRelevant = targetIED.iedName === selectionFilter.selectedIED?.label
+				}
+
+				if(selectionFilter.incomingConnections && !selectionFilter.outgoingConnections ){
+					isRelevant = sourceIED.iedName === selectionFilter.selectedIED?.label
+				}
+
+				if(selectionFilter.incomingConnections && selectionFilter.outgoingConnections ){
+					isRelevant = sourceIED.iedName === selectionFilter.selectedIED?.label ||
+								 targetIED.iedName === selectionFilter.selectedIED?.label
+				}
+
+			}
 
 			return { 
 				id: `connection_${Id(sourceIEDIndex)}_${Id(ii)}`, 
 				sources: [Id(sourceIEDIndex)], 
 				targets: [Id(ii)], 
-				isRelevant: isRelevant, 
+				isRelevant,
+				relevantIEDNames: [targetIED.iedName, sourceIED.iedName],
 			} 
 		}) 
 	}).flat() 
 
-	console.log("erg: ", edges);
-	
-	
+
+	const relevantEdges = edges.filter(edge => edge.isRelevant)
+	const relevantNodes = new Set<string>()
+	relevantEdges.forEach(edge => {
+		edge.relevantIEDNames?.forEach(iedName => { relevantNodes.add(iedName) })
+	})
+
+	const children: IEDNode[] = ieds.map( (ied,ii) => {
+		let isRelevant = true
+		if(hasSelection){
+			isRelevant = relevantNodes.has(ied.iedName) || selectionFilter.selectedIED?.label === ied.iedName
+		}
+		return {
+			id: 	Id(ii),
+			width:  config.width,
+			height: config.height,
+			label:  ied.iedName,
+			isRelevant: isRelevant,
+		}
+	}) 
+
 	const elk = new ELK() 
 	
 	// https://www.eclipse.org/elk/reference/algorithms.html 
 	const graph: ElkNode = { 
 		id: "graph-root", 
 		layoutOptions: { 
-			// "elk.algorithm": "org.eclipse.elk.force", 
-			// "elk.algorithm": "org.eclipse.elk.stress", 
-			"elk.algorithm": "org.eclipse.elk.layered", 
-			// "elk.algorithm": "org.eclipse.elk.mrtree", 
-			// "elk.algorithm": "org.eclipse.elk.radial", 
-			"org.eclipse.elk.layered.unnecessaryBendpoints": "true", 
+			// "elk.algorithm": "org.eclipse.elk.force",
+			// "elk.algorithm": "org.eclipse.elk.stress",
+			"elk.algorithm": "org.eclipse.elk.layered",
+			// "elk.algorithm": "org.eclipse.elk.mrtree",
+			// "elk.algorithm": "org.eclipse.elk.radial",
+			"org.eclipse.elk.layered.unnecessaryBendpoints": "true",
+			// "org.eclipse.elk.layered.nodePlacement.bk.fixedAlignment": "LEFTDOWN",
+			// "org.eclipse.elk.layered.nodePlacement.bk.fixedAlignment": "BALANCED",
+			"org.eclipse.elk.layered.nodePlacement.bk.fixedAlignment": "RIGHTUP",
+			// "org.eclipse.elk.layered.nodePlacement.bk.fixedAlignment": "LEFTUP",
+			// "org.eclipse.elk.layered.nodePlacement.bk.fixedAlignment": "NONE",
+			"org.eclipse.elk.direction": "LEFT",
+			// "org.eclipse.elk.debugMode": "true",
 		}, 
 		children, 
 		edges, 
 	} 
 
-	const nodes = await elk.layout(graph) 
+	const nodes = (await elk.layout(graph)) as RootNode
 
 	return nodes; 
 } 

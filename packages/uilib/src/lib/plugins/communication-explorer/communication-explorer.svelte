@@ -2,10 +2,10 @@
 	import { UCCommunicationInformation, SCDQueries } from "@oscd-plugins/core"
 	import { calculateLayout } from "./node-layout"
 	import Theme from "../../style/theme.svelte"
-	import Diagram from "./diagram.svelte"
-  	import type { ElkNode } from "elkjs/lib/elk-api";
-    import Sidebar from "../../components/sidebar/sidebar.svelte";
-	import {selectedIEDNode, type SelectedFilter} from "../../stores/selectedFilter"
+	import { Diagram, type IEDNode, type RootNode } from "../../components/diagram"	
+	import {selectedIEDNode, selectNode, type SelectedFilter} from "./selected-filter-store"
+	import css from "./communication-explorer.css?inline"
+  	import { Sidebar } from "./sidebar";
 
 	export let root: Element
 
@@ -14,38 +14,46 @@
 		height: 30,
 	}
 
-	let rootNode: Promise<ElkNode>
+	let rootNode: Promise<RootNode>
 	async function initInfos(root: Element, selectedFilter: SelectedFilter){
 		if(!root){
-			console.log({level:"dev", msg:"initInfos: no root"})
+			console.info({level:"info", msg:"initInfos: no root"})
 			return
 		}
-		console.log({level:"dev", msg:"creating infos"})
 		const scdQueries = new SCDQueries(root)
 		const ucci = new UCCommunicationInformation(scdQueries)
 		const iedInfos = ucci.IEDCommInfos()
-		console.log({level:"dev", msg:"iedinfos", iedInfos})
 
 		rootNode = calculateLayout(iedInfos, config, selectedFilter)
-		rootNode.then( (v) => console.log({level:"dev", msg:"initinfos", rootNode:v}) )
+	}
+
+	// 
+	// Actions
+	// 
+	function handleIEDClick(e: CustomEvent<IEDNode>){
+		selectNode(e.detail)
 	}
 	
-	// reactive regeneration on startup + when selectedIEDNode changes
 	$: initInfos(root, $selectedIEDNode)
-
-	$: console.log({level:"dev", msg:"new document", root})
 
 </script>
 <svelte:options tag="tscd-communication-explorer" />
+<svelte:element this="style">{@html css}</svelte:element>
 
 <Theme />
-<div style="position: relative; font-size: 12px; min-height: 80vh;">
+<communication-explorer>
 	<span class="root">
 		{#await rootNode then value}
-			{#if $selectedIEDNode?.selectedIED != undefined}
+			{#if $selectedIEDNode?.selectedIED}
 				<Sidebar rootNode={value} />
 			{/if}
-			<Diagram rootNode={value} nodeWidth={config.width} nodeHeight={config.height} />
+			<Diagram 
+				rootNode={value} 
+				on:iedclick={handleIEDClick}
+				selectedIEDID={$selectedIEDNode.selectedIED?.id??""}
+				isIncomingConnection={$selectedIEDNode.incomingConnections}
+				isOutgoingConnection={$selectedIEDNode.outgoingConnections}
+			/>
 		{/await}
 	</span>
-</div>
+</communication-explorer>

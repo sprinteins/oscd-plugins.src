@@ -41,7 +41,6 @@ suite("UCCommunicationInformation", () => {
 				received: {}
 			}
 		]
-		console.log("iedCommInfos:", JSON.stringify(iedCommInfos, undefined, 4))
 		
 		// we don't check it yet
 		for(const iedCommInfo of iedCommInfos){

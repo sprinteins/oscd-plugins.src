@@ -1,27 +1,17 @@
 <script lang="ts">
+    import { selectedIEDNode } from "../selected-filter-store";
     import ConnectionSelector from "./assets/connection-selector.svg";
     import css from './sidebar.css?inline';
-    import type { ElkNode } from "elkjs/lib/elk-api";
-    import {selectedIEDNode} from "../../stores/selectedFilter"
     import { onDestroy } from "svelte";
+    import { selectNode } from "../selected-filter-store";
+    import type { IEDNode, RootNode } from "../../../components/diagram";
 
-    export let rootNode: ElkNode
+    export let rootNode: RootNode
 
     let selectValue: string = ""
     let showIncomingConnections: boolean = true
     let showOutgoingConnections: boolean = true
     let showSelectAtLeastOneConnectionDirectionMessage: boolean = false
-
-    function setSelectedNode() {
-         rootNode.children?.find((value: ElkNode) => {
-            if (value.id == selectValue) {
-                selectedIEDNode.update(selected => {
-                    selected.selectedIED = value
-                    return selected
-                })
-            }
-        })
-    }
 
     function clearSelection() {
         selectedIEDNode.update(value => {
@@ -31,6 +21,15 @@
             return value
         })
     }
+
+    let selectedNode: IEDNode | undefined
+    function setSelectedNode(e: Event) {
+        const target = e.target as HTMLSelectElement
+        selectedNode = rootNode.children.find(node => node.id === target.value)
+        if (selectedNode) {
+            selectNode(selectedNode)
+        }
+    }   
 
     function changeConnectionDirection() {
         selectedIEDNode.update(value => {
@@ -70,11 +69,11 @@
             <img src={ConnectionSelector} alt="connection selector">
             <label>
                 <span>Show Connections</span>
-                <select bind:value={selectValue} on:change={setSelectedNode}>
+                <select value={selectValue} on:change={setSelectedNode}>
                     <option value="" disabled>Select a Node</option>
                     {#if rootNode && rootNode.children}
                         {#each rootNode.children as node}
-                            <option selected={selectValue === node.id} value={node.id}>{node.id}</option>
+                            <option selected={selectValue === node.id} value={node.id}>{node.label}</option>
                         {/each}
                     {/if}
                 </select>

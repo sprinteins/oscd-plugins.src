@@ -5,7 +5,7 @@ core: _install
 	pnpm -C ./packages/core run test:watch
 
 uilib: _install ## Start UI-Lib in dev mode
-	pnpm turbo run dev --filter=./packages/uilib...
+	pnpm -C ./packages/uilib run dev
 
 communication-explorer: _install ## Start the communication explorer plugin in dev mode
 	pnpm -C ./packages/plugins/communication-explorer run build:watch

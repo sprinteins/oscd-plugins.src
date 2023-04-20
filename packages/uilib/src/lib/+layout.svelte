@@ -5,15 +5,15 @@
 
 	const modules = import.meta.glob('./(components|plugins)/**/\+page.svelte')
 	$: paths = Object
-		.keys(modules)
+		.keys(modules) 
 		.map(path => path.replace("/+page.svelte","").replace("./","/") )
 		.map(path => ({link:path, label:path, isActive: $page.route.id === path}))
 		.map(path=> ({...path, label: path.label.replace("/components/","").replace("/plugins/","")}))
-		.map(function beautifyLabel(path){ return {...path, label: beautifyHyphenCase(path.label) }  })
+		.map(path => { return {...path, label: beautifyHyphenCase(path.label) } })
 		
 	function beautifyHyphenCase(hyphenCaseLabel: string): string{
 		return hyphenCaseLabel
-		.split("-")
+		.split(/-|\//)
 		.map( str => capitalizeFirstLetter(str) )
 		.join(" ")
 	}

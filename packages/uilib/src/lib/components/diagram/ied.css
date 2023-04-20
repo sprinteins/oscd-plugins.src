@@ -1,13 +1,12 @@
 .ied{
 	display: block;
 	border:  var(--color-blue-dark) thin solid;
-	/* width:   var(--width, 100%); */
-	/* height:  var(--height, 100%); */
-	/* width:   100%; */
-	/* height:  100%; */
+	height: 100%;
+	width: 100%;
 	cursor: pointer;
 	padding: 0.2rem;
 	transition: background-color 200ms ease-in-out;
+	box-sizing: border-box;
 }
 
 .ied:hover{
@@ -27,6 +26,6 @@
 	background-color: var(--color-ied-focus-hover);
 } 
 
-.isNotRelevant {
-	background-color: #ccc !important;
+.isIrrelevant {
+	opacity: 0.2;
 }

@@ -19,9 +19,9 @@
 }
 .path-hover-box:hover ~ .path-strong,
 .path-strong:hover {
-	opacity: 1 !important;
+	opacity: 1;
 }
 
 .irrelevant {
-	opacity: .2 !important;
+	opacity: .2;
 }
