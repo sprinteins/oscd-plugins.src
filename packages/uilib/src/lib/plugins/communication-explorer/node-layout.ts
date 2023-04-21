@@ -14,9 +14,14 @@ export async function calculateLayout(ieds: IEDCommInfo[], config: Config, selec
 	const hasSelection = Boolean(selectionFilter.selectedIED)
 
 	const edges: IEDConnection[] = ieds.map( (targetIED, ii) => { 
-		return Object.keys(targetIED.received).map( sourceIEDName => { 
+		const iedConnections: IEDConnection[] = []
+		Object.keys(targetIED.received).forEach( sourceIEDName => { 
 		
 			const sourceIEDIndex = ieds.findIndex((sourceIED) => sourceIED.iedName === sourceIEDName)
+			if(sourceIEDIndex === -1) {
+				console.warn({level:"warn", msg:"calculateLayout: source IED not found, continuing", sourceIEDName, ieds})
+				return
+			}
 			const sourceIED = ieds[sourceIEDIndex]
 
 			let isRelevant = true
@@ -37,14 +42,16 @@ export async function calculateLayout(ieds: IEDCommInfo[], config: Config, selec
 
 			}
 
-			return { 
+			const connection = { 
 				id: `connection_${Id(sourceIEDIndex)}_${Id(ii)}`, 
 				sources: [Id(sourceIEDIndex)], 
 				targets: [Id(ii)], 
 				isRelevant,
 				relevantIEDNames: [targetIED.iedName, sourceIED.iedName],
 			} 
+			iedConnections.push(connection)
 		}) 
+		return iedConnections
 	}).flat() 
 
 

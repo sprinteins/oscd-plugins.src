@@ -1,10 +1,10 @@
 <script lang="ts">
   import { CommunicationExplorer } from "@oscd-plugins/uilib/src/lib/plugins/communication-explorer"
   import * as pckg from "../package.json"
-
+  
+  // Inputs
   export let doc: XMLDocument
 
-  $: console.log({msg:"comm_exp new doc", doc})
 </script>
 <svelte:options tag={null} />
 
