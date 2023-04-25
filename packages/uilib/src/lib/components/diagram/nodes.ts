@@ -1,4 +1,4 @@
-import type { ElkExtendedEdge, ElkNode } from "elkjs";
+import type { ElkExtendedEdge, ElkNode } from "elkjs"
 import type { MessageType } from "@oscd-plugins/core"
 
 export type IEDNode = Omit<ElkNode, "edges"> & {

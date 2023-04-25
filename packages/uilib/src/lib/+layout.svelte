@@ -1,25 +1,25 @@
 <script lang="ts">
 	import "$lib/style.css"
-	import { page }  from '$app/stores';
+	import { page }  from "$app/stores"
 	
 
-	const modules = import.meta.glob('./(components|plugins)/**/\+page.svelte')
+	const modules = import.meta.glob("./(components|plugins)/**/+page.svelte")
 	$: paths = Object
 		.keys(modules) 
 		.map(path => path.replace("/+page.svelte","").replace("./","/") )
-		.map(path => ({link:path, label:path, isActive: $page.route.id === path}))
+		.map(path => ({link: path, label: path, isActive: $page.route.id === path}))
 		.map(path=> ({...path, label: path.label.replace("/components/","").replace("/plugins/","")}))
 		.map(path => { return {...path, label: beautifyHyphenCase(path.label) } })
 		
 	function beautifyHyphenCase(hyphenCaseLabel: string): string{
 		return hyphenCaseLabel
-		.split(/-|\//)
-		.map( str => capitalizeFirstLetter(str) )
-		.join(" ")
+			.split(/-|\//)
+			.map( str => capitalizeFirstLetter(str) )
+			.join(" ")
 	}
 
 	function capitalizeFirstLetter(str: string) {
-		return str.charAt(0).toUpperCase() + str.slice(1);
+		return str.charAt(0).toUpperCase() + str.slice(1)
 	}
 
 </script>

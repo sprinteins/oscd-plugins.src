@@ -6,11 +6,11 @@ export class Input{
 	public readonly extRefs: InputExtRef[] = []
 
 	constructor(input?: Partial<Input>){
-        const newThis: Input = {
-            ...this,
-            ...input,
-        }
-        Object.setPrototypeOf(newThis, Input.prototype)
-        return newThis
-    }
+		const newThis: Input = {
+			...this,
+			...input,
+		}
+		Object.setPrototypeOf(newThis, Input.prototype)
+		return newThis
+	}
 }

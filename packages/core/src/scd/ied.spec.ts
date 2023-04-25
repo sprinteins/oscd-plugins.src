@@ -1,7 +1,5 @@
 import {expect, suite, test} from "vitest"
-import { elementToInputExtRef, SelectorInputExtRef } from "./input-extref.xml"
 import { InputExtRef } from "./input-extref"
-import { elementToDataSet, SelectorDataset } from "./dataset.xml"
 import { DataSet } from "./dataset"
 import { FCDA } from "./fcda"
 import { elementToIED, SelectorIED } from "./ied.xml"
@@ -35,16 +33,16 @@ suite("IED", () => {
 			</AccessPoint>
 		</IED>`
 		const parser = new DOMParser()
-    	const doc = parser.parseFromString(xmlStr, "text/xml") as unknown as Element
+		const doc = parser.parseFromString(xmlStr, "text/xml") as unknown as Element
 		const el = doc.querySelector(SelectorIED)
 		if(el === null){
 			throw new Error("msg='could not find IED element'")
 		}
 
 		const expectedIED = new IED({
-			name:"IED1",
-			dataSets:[new DataSet({
-				name: "GooseDataSet1",
+			name:     "IED1",
+			dataSets: [new DataSet({
+				name:  "GooseDataSet1",
 				fcdas: [new FCDA({
 					ldInst:  "CBSW",
 					prefix:  "test_",
@@ -52,26 +50,26 @@ suite("IED", () => {
 					lnInst:  "2",
 					doName:  "Pos",
 					daName:  "stVal",
-					fc:      "ST"
-				})]
+					fc:      "ST",
+				})],
 			})],
 			inputs: [new Input({
-				iedName:"IED1",
+				iedName: "IED1",
 				extRefs: [new InputExtRef({
-					iedName:"IED1",
-					serviceType:"GOOSE",
-					ldInst:"CircuitBreaker_CB1",
-					lnClass:"XCBR",
-					lnInst:"1",
-					prefix:"test_",
-					doName:"Pos",
-					daName:"stVal",
-					srcLDInst:"CircuitBreaker_CB1",
-					srcPrefix:"test01_",
-					srcLNClass:"LLN0",
-					srcCBName:"GCB",
-				})]
-			})]
+					iedName:     "IED1",
+					serviceType: "GOOSE",
+					ldInst:      "CircuitBreaker_CB1",
+					lnClass:     "XCBR",
+					lnInst:      "1",
+					prefix:      "test_",
+					doName:      "Pos",
+					daName:      "stVal",
+					srcLDInst:   "CircuitBreaker_CB1",
+					srcPrefix:   "test01_",
+					srcLNClass:  "LLN0",
+					srcCBName:   "GCB",
+				})],
+			})],
 		})
 
 		// 

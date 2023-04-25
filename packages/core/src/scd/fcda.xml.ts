@@ -10,6 +10,6 @@ export function elementToFCDA(el: Element): FCDA{
 		lnInst:  el.getAttribute( "lnInst" )  ?? "",
 		doName:  el.getAttribute( "doName" )  ?? "",
 		daName:  el.getAttribute( "daName" )  ?? "",
-		fc: 	 el.getAttribute( "fc" ) 	  ?? "",
+		fc: 	    el.getAttribute( "fc" ) 	  ?? "",
 	})
 }

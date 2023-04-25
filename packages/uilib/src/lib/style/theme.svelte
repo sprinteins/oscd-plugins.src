@@ -1,6 +1,6 @@
 <script lang="ts">
 
-	import css from './theme.css?inline';
+	import css from "./theme.css?inline"
 
 </script>
 

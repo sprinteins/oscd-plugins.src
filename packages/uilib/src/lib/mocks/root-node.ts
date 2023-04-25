@@ -1,18 +1,18 @@
-import ELK, { type ElkNode } from "elkjs/lib/elk.bundled";
-import type { IEDNode, RootNode } from "../components/diagram";
+import ELK, { type ElkNode } from "elkjs/lib/elk.bundled"
+import type { IEDNode, RootNode } from "../components/diagram"
 
 const config = {
-	width: 100,
+	width:  100,
 	height: 30,
 }
 
 
 export async function generateMockRootNode(): Promise<RootNode>{
 
-	let id=-1;
+	let id=-1
 	function ID(){
 		id++
-		return String(id);
+		return String(id)
 	}
 	
 	function Label(prefix = "IED "){
@@ -34,7 +34,7 @@ export async function generateMockRootNode(): Promise<RootNode>{
 		{id: ID(), width: config.width, height: config.height, label: Label()},
 		{id: ID(), width: config.width, height: config.height, label: Label()},
 		
-		{id: ID(), width: 12*(config.width+20), height: 30, label: Label("bus"), x: 10, y:10},
+		{id: ID(), width: 12*(config.width+20), height: 30, label: Label("bus"), x: 10, y: 10},
 		
 		{id: ID(), width: config.width, height: config.height, label: Label()},
 		{id: ID(), width: config.width, height: config.height, label: Label()},
@@ -68,9 +68,9 @@ export async function generateMockRootNode(): Promise<RootNode>{
 	
 	]
 	
-	let edgeId=0;
+	let edgeId=0
 	function EdgeID(){
-		return String(edgeId++);
+		return String(edgeId++)
 	}
 	
 	const edges = [
@@ -122,10 +122,10 @@ export async function generateMockRootNode(): Promise<RootNode>{
 	
 	// https://www.eclipse.org/elk/reference/algorithms.html
 	const graph: ElkNode = {
-		id: "graph-root",
+		id:            "graph-root",
 		layoutOptions: {
-			"elk.algorithm": "org.eclipse.elk.layered",
-			"org.eclipse.elk.direction": "UP",
+			"elk.algorithm":                                           "org.eclipse.elk.layered",
+			"org.eclipse.elk.direction":                               "UP",
 			"org.eclipse.elk.layered.nodePlacement.bk.fixedAlignment": "LEFTDOWN",
 		},
 		children,

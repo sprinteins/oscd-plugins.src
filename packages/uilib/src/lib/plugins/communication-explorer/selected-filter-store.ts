@@ -1,5 +1,5 @@
-import { writable } from 'svelte/store';
-import type { IEDNode } from "../../components/diagram";
+import { writable } from "svelte/store"
+import type { IEDNode } from "../../components/diagram"
 import { MessageType } from "@oscd-plugins/core"
 
 export type SelectedFilter = {
@@ -10,15 +10,15 @@ export type SelectedFilter = {
 }
 
 export const defaultSelection: SelectedFilter = {
-    selectedIED: undefined,
-    incomingConnections: true,
-    outgoingConnections: true,
-    selectedMessageTypes: [
-        MessageType.GOOSe,
-        MessageType.MMS,
-        MessageType.Reports,
-        MessageType.SampledValues
-    ],
+	selectedIED:          undefined,
+	incomingConnections:  true,
+	outgoingConnections:  true,
+	selectedMessageTypes: [
+		MessageType.GOOSe,
+		MessageType.MMS,
+		MessageType.Reports,
+		MessageType.SampledValues,
+	],
 }
 
-export const selectedIEDNode = writable<SelectedFilter>(defaultSelection);
+export const selectedIEDNode = writable<SelectedFilter>(defaultSelection)

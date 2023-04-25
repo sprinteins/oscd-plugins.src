@@ -1,4 +1,4 @@
-import { InputExtRefElement, SCDQueries } from "../scd/scd-query";
+import { InputExtRefElement, SCDQueries } from "../scd/scd-query"
 
 /** 
  * The name is temporary, rename it if you have a better one
@@ -6,7 +6,7 @@ import { InputExtRefElement, SCDQueries } from "../scd/scd-query";
 export class UCCommunicationInformation {
 
 	constructor(
-		private readonly scdQueries: SCDQueries
+		private readonly scdQueries: SCDQueries,
 	){}
 
 	// public IEDCommInfo(): IEDCommInfo[]{
@@ -20,7 +20,7 @@ export class UCCommunicationInformation {
 		const ieds = this.scdQueries.searchIEDs()
 		
 		
-		for(let ied of ieds){
+		for(const ied of ieds){
 			const iedCommInfo: Partial<IEDCommInfo> = {}
 			//  `IEDCommInfo.iedName`
 			iedCommInfo.iedName = ied.name
@@ -40,15 +40,16 @@ export class UCCommunicationInformation {
 				iedBuckets[iedName].push(extRef)
 			}
 			iedCommInfo.received = {}
+			const receivedMessages = iedCommInfo.received 
 			Object.keys(iedBuckets).forEach(iedName => {
 				const messages = iedBuckets[iedName].map( msg => {
 					return {
-						iedName: 	 msg.iedName,
+						iedName: 	   msg.iedName,
 						srcCBName: 	 msg.srcCBName,
 						serviceType: msg.serviceType,
 					}
 				})
-				iedCommInfo.received![iedName] = messages
+				receivedMessages[iedName] = messages
 			})
 			
 			
@@ -58,9 +59,9 @@ export class UCCommunicationInformation {
 			// `IEDCommInfo.published`
 			iedCommInfo.published = []
 			
-			const gseControls = this.scdQueries.searchGSEControls({root:ied.element})
+			const gseControls = this.scdQueries.searchGSEControls({root: ied.element})
 			
-			for(let gseControl of gseControls){
+			for(const gseControl of gseControls){
 				// GSEControls without a data set are irrelevant
 				if(gseControl.datSet === ""){ continue }
 
@@ -70,7 +71,7 @@ export class UCCommunicationInformation {
 				message.dataSetName = gseControl.datSet
 				const ldevice = this.scdQueries.searchElementsLDParent(gseControl.element)
 				if(!ldevice){
-					console.warn({level:"warning", msg:"could not find GSE Control's parent LD, continuing", gseControl, ied: ied.name})
+					console.warn({level: "warning", msg: "could not find GSE Control's parent LD, continuing", gseControl, ied: ied.name})
 					continue
 				}
 				message.LDeviceInst = ldevice.inst
@@ -80,17 +81,17 @@ export class UCCommunicationInformation {
 				const gse = this.scdQueries.searchGSE(ldevice.inst, gseControl.name)
 				if(!gse){
 					console.warn({
-						level:"warning", 
-						msg:"could not find GSE, continuing ", 
-						ldInst: ldevice.inst,
+						level:          "warning", 
+						msg:            "could not find GSE, continuing ", 
+						ldInst:         ldevice.inst,
 						gseControlName: gseControl.name,
-						ied: ied.name,
+						ied:            ied.name,
 					})
 					continue
 				}
 				const subNetwork = this.scdQueries.searchElementsParentSubnetwork(gse.element)
 				if(!subNetwork){
-					console.warn({level:"warnin", msg:"could not find GSE's parent SubNetwork, continuing", gse})
+					console.warn({level: "warnin", msg: "could not find GSE's parent SubNetwork, continuing", gse})
 					continue
 				}
 				message.subNetworkName = subNetwork.name

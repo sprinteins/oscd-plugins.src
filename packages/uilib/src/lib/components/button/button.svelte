@@ -4,7 +4,7 @@
 </script>
 
 <button 
-	class:block 
+	class:block
 	class:dangerous
 	on:click
 >

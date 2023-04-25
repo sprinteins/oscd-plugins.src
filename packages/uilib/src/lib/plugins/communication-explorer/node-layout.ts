@@ -1,6 +1,6 @@
-import ELK, { type ElkNode } from "elkjs/lib/elk.bundled";
-import type { IEDCommInfo } from "@oscd-plugins/core";
-import type { IEDConnection, IEDNode, RootNode } from "../../components/diagram/nodes";
+import ELK, { type ElkNode } from "elkjs/lib/elk.bundled"
+import type { IEDCommInfo } from "@oscd-plugins/core"
+import type { IEDConnection, IEDNode, RootNode } from "../../components/diagram/nodes"
 import type { SelectedFilter } from "./"
 import { MessageType } from "@oscd-plugins/core"
 
@@ -13,20 +13,20 @@ type Config = {
 export async function calculateLayout(ieds: IEDCommInfo[], config: Config, selectionFilter: SelectedFilter): Promise<RootNode> {
 
 	const hasSelection = Boolean(selectionFilter.selectedIED)
-
+	
 	const edges: IEDConnection[] = ieds.map( (targetIED, ii) => { 
 		const iedConnections: IEDConnection[] = []
 		Object.keys(targetIED.received).forEach( sourceIEDName => { 
-		
+			
 			const sourceIEDIndex = ieds.findIndex((sourceIED) => sourceIED.iedName === sourceIEDName)
 			if(sourceIEDIndex === -1) {
-				console.warn({level:"warn", msg:"calculateLayout: source IED not found, continuing", sourceIEDName, ieds})
+				console.warn({level: "warn", msg: "calculateLayout: source IED not found, continuing", sourceIEDName, ieds})
 				return
 			}
 			const sourceIED = ieds[sourceIEDIndex]
 
-			const selectedMessageTypes: string[] = selectionFilter.selectedMessageTypes;
-			const messageType = MessageType.GOOSe;
+			const selectedMessageTypes: string[] = selectionFilter.selectedMessageTypes
+			const messageType = MessageType.GOOSe
 			const isRelevantMessageType: boolean = selectedMessageTypes.includes(messageType)
 
 			let isRelevant = true
@@ -45,21 +45,21 @@ export async function calculateLayout(ieds: IEDCommInfo[], config: Config, selec
 				}
 				
 			}
-
+			
 			const connection = { 
-				id: `connection_${Id(sourceIEDIndex)}_${Id(ii)}`, 
-				sources: [Id(sourceIEDIndex)], 
-				targets: [Id(ii)], 
+				id:               `connection_${Id(sourceIEDIndex)}_${Id(ii)}`, 
+				sources:          [Id(sourceIEDIndex)], 
+				targets:          [Id(ii)], 
 				isRelevant,
 				relevantIEDNames: [targetIED.iedName, sourceIED.iedName],
-				messageType: messageType,
+				messageType:      messageType,
 			} 
 			iedConnections.push(connection)
 		}) 
 		return iedConnections
 	}).flat() 
-
-
+	
+	
 	const relevantEdges = edges.filter(edge => edge.isRelevant)
 	const relevantNodes = new Set<string>()
 	relevantEdges.forEach(edge => {
@@ -72,10 +72,10 @@ export async function calculateLayout(ieds: IEDCommInfo[], config: Config, selec
 			isRelevant = relevantNodes.has(ied.iedName) || selectionFilter.selectedIED?.label === ied.iedName
 		}
 		return {
-			id: Id(ii),
-			width: config.width,
-			height: config.height,
-			label: ied.iedName,
+			id:         Id(ii),
+			width:      config.width,
+			height:     config.height,
+			label:      ied.iedName,
 			isRelevant: isRelevant,
 		}
 	})
@@ -84,20 +84,20 @@ export async function calculateLayout(ieds: IEDCommInfo[], config: Config, selec
 
 	// https://www.eclipse.org/elk/reference/algorithms.html 
 	const graph: ElkNode = {
-		id: "graph-root",
+		id:            "graph-root",
 		layoutOptions: {
 			// "elk.algorithm": "org.eclipse.elk.force",
 			// "elk.algorithm": "org.eclipse.elk.stress",
-			"elk.algorithm": "org.eclipse.elk.layered",
+			"elk.algorithm":                                           "org.eclipse.elk.layered",
 			// "elk.algorithm": "org.eclipse.elk.mrtree",
 			// "elk.algorithm": "org.eclipse.elk.radial",
-			"org.eclipse.elk.layered.unnecessaryBendpoints": "true",
+			"org.eclipse.elk.layered.unnecessaryBendpoints":           "true",
 			// "org.eclipse.elk.layered.nodePlacement.bk.fixedAlignment": "LEFTDOWN",
 			// "org.eclipse.elk.layered.nodePlacement.bk.fixedAlignment": "BALANCED",
 			"org.eclipse.elk.layered.nodePlacement.bk.fixedAlignment": "RIGHTUP",
 			// "org.eclipse.elk.layered.nodePlacement.bk.fixedAlignment": "LEFTUP",
 			// "org.eclipse.elk.layered.nodePlacement.bk.fixedAlignment": "NONE",
-			"org.eclipse.elk.direction": "LEFT",
+			"org.eclipse.elk.direction":                               "LEFT",
 			// "org.eclipse.elk.debugMode": "true",
 		},
 		children,
@@ -106,7 +106,7 @@ export async function calculateLayout(ieds: IEDCommInfo[], config: Config, selec
 
 	const nodes = (await elk.layout(graph)) as RootNode
 
-	return nodes;
+	return nodes
 }
 
 function checkRelevance(selectionFilter: SelectedFilter, targetIED: IEDCommInfo, sourceIED: IEDCommInfo): boolean {

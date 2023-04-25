@@ -1,26 +1,26 @@
 <svelte:options tag="tscd-diagram" />
 
 <script lang="ts">
-	import cssDiagram from "./diagram.scss?inline";
-	import cssIED from "./ied.css?inline";
-	import cssMessage from "./message.css?inline";
-	import type { IEDNode, RootNode } from "./nodes";
-	import IED from "./ied.svelte";
-	import Message from "./message.svelte";
-	import { createEventDispatcher } from "svelte";
+	import cssDiagram from "./diagram.scss?inline"
+	import cssIED from "./ied.css?inline"
+	import cssMessage from "./message.css?inline"
+	import type { IEDNode, RootNode } from "./nodes"
+	import IED from "./ied.svelte"
+	import Message from "./message.svelte"
+	import { createEventDispatcher } from "svelte"
 
 	//
 	// Inputs
 	//
-	export let rootNode: RootNode;
-	export let selectedIEDID: string | undefined = undefined;
+	export let rootNode: RootNode
+	export let selectedIEDID: string | undefined = undefined
 
 	//
 	// Setup
 	//
-	const dispatch = createEventDispatcher();
+	const dispatch = createEventDispatcher()
 	function dispatchIEDClick(node: IEDNode) {
-		dispatch("iedclick", node);
+		dispatch("iedclick", node)
 	}
 </script>
 

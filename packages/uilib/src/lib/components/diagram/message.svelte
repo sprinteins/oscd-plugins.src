@@ -1,47 +1,50 @@
 <svelte:options tag="tscd-message" />
 
 <script lang="ts">
-	import { path as d3Path } from "d3-path";
-	import type { ElkEdgeSection } from "elkjs/lib/elk-api";
-	import type { IEDConnection } from "./nodes";
+	import { path as d3Path } from "d3-path"
+	import type { IEDConnection } from "./nodes"
 	import { MessageType } from "@oscd-plugins/core"
 
 
 	//
 	// Input
 	//
-	export let edge: IEDConnection;
+	export let edge: IEDConnection
 
-	let path: string;
-	$: path = edge && draw(edge.sections![0]);
-
+	let path: string
+	$: path = draw(edge)
 
 
 	const defaultColor = "var(--color-black)"
 	const messageTypeToColorMap: {[key in MessageType]: string} = {
-		[MessageType.GOOSe]: 		 "var(--color-green)",
-		[MessageType.MMS]: 			 defaultColor,
-		[MessageType.Reports]: 		 defaultColor,
+		[MessageType.GOOSe]: 		      "var(--color-green)",
+		[MessageType.MMS]: 			       defaultColor,
+		[MessageType.Reports]: 		    defaultColor,
 		[MessageType.SampledValues]: defaultColor,
 	}
 
-	$: pathColor = calcPathColor(edge);
+	$: pathColor = calcPathColor(edge)
 
 
-	function draw(section: ElkEdgeSection): string {
-		if (!section) return ""
+	function draw(edge?: IEDConnection): string{
+		const sections = edge?.sections??[]
+		if(sections.length??0 < 1){ return "" }
+
+		const section = sections[0]
+
+		if(!section){ return "" }
 		
-		const path = d3Path();
-		path.moveTo(section.startPoint.x, section.startPoint.y);
+		const path = d3Path()
+		path.moveTo(section.startPoint.x, section.startPoint.y)
 
 		if (section.bendPoints) {
 			section.bendPoints.forEach((b) => {
-				path.lineTo(b.x, b.y);
-			});
+				path.lineTo(b.x, b.y)
+			})
 		}
-		path.lineTo(section.endPoint.x, section.endPoint.y);
-
-		return path.toString();
+		path.lineTo(section.endPoint.x, section.endPoint.y)
+	
+		return path.toString()
 	}
 
 	function calcPathColor(edge?: IEDConnection): string {

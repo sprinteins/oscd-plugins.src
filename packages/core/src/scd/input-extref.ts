@@ -14,11 +14,11 @@ export class InputExtRef{
 	public readonly srcCBName: 	 string = ""
 
 	constructor(inputExtRef?: Partial<InputExtRef>){
-        const newThis: InputExtRef = {
-            ...this,
-            ...inputExtRef,
-        }
-        Object.setPrototypeOf(newThis, InputExtRef.prototype)
-        return newThis
-    }
+		const newThis: InputExtRef = {
+			...this,
+			...inputExtRef,
+		}
+		Object.setPrototypeOf(newThis, InputExtRef.prototype)
+		return newThis
+	}
 }

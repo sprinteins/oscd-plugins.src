@@ -1,17 +1,16 @@
-import { sveltekit } from '@sveltejs/kit/vite';
-import { defineConfig } from 'vitest/config'
-import type { UserConfig } from 'vite';
+import { sveltekit } from "@sveltejs/kit/vite"
+import { defineConfig } from "vitest/config"
 
 
 export default defineConfig({
 	plugins: [sveltekit()],
-	server:{
-		port: 53515
+	server:  {
+		port: 53515,
 	},
-	test:{
-		include: ['src/**/*.{test,spec}.{js,ts}'],
+	test: {
+		include:     ["src/**/*.{test,spec}.{js,ts}"],
 		environment: "jsdom",
-		setupFiles: "test.setup.ts",
+		setupFiles:  "test.setup.ts",
 	},
 })
 

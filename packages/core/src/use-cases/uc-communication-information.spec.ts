@@ -1,6 +1,6 @@
-import { expect, suite, test } from "vitest";
-import { SCDQueries } from "../scd/scd-query";
-import { IEDCommInfo, UCCommunicationInformation } from "./uc-communication-information";
+import { expect, suite, test } from "vitest"
+import { SCDQueries } from "../scd/scd-query"
+import { IEDCommInfo, UCCommunicationInformation } from "./uc-communication-information"
 import { xmlStr } from "../../testfiles/simple_v5"
 
 suite("UCCommunicationInformation", () => {
@@ -16,7 +16,6 @@ suite("UCCommunicationInformation", () => {
 
 
 		// Note: use this if you want to debug the document in browser
-		// @ts-ignore
 		// globalThis.scd = doc
 
 		//
@@ -29,17 +28,17 @@ suite("UCCommunicationInformation", () => {
 		// 
 		const expectedIEDCommInfos: IEDCommInfo[] = [
 			{
-				iedName: "IED1",
+				iedName:   "IED1",
 				published: [
 					{
 						gseControlName: "GCB",
-						dataSetName: "GooseDataSet1",
-						LDeviceInst: "CircuitBreaker_CB1",
-						subNetworkName: "StationBus"
-					}
+						dataSetName:    "GooseDataSet1",
+						LDeviceInst:    "CircuitBreaker_CB1",
+						subNetworkName: "StationBus",
+					},
 				],
-				received: {}
-			}
+				received: {},
+			},
 		]
 		
 		// we don't check it yet

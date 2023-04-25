@@ -7,9 +7,9 @@ suite("FCDA", () => {
 		// 
 		// Arrange
 		// 
-		const xmlStr = `<FCDA ldInst="CircuitBreaker_CB1" prefix="test" lnClass="XCBR" lnInst="1" doName="Pos" daName="stVal" fc="ST"/>`
+		const xmlStr = "<FCDA ldInst=\"CircuitBreaker_CB1\" prefix=\"test\" lnClass=\"XCBR\" lnInst=\"1\" doName=\"Pos\" daName=\"stVal\" fc=\"ST\"/>"
 		const parser = new DOMParser()
-    	const doc = parser.parseFromString(xmlStr, "text/xml") as unknown as Element
+		const doc = parser.parseFromString(xmlStr, "text/xml") as unknown as Element
 		const el = doc.querySelector(SelectorFCDA)
 		if(el === null){
 			throw new Error("msg='could not find FCDA element'")
@@ -22,7 +22,7 @@ suite("FCDA", () => {
 			lnInst:  "1",
 			doName:  "Pos",
 			daName:  "stVal",
-			fc:      "ST"
+			fc:      "ST",
 		})
 
 		// 

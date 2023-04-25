@@ -10,11 +10,11 @@ export class FCDA{
 
 
 	constructor(fcda?: Partial<FCDA>){
-        const newThis: FCDA = {
-            ...this,
-            ...fcda,
-        }
-        Object.setPrototypeOf(newThis, FCDA.prototype)
-        return newThis
-    }
+		const newThis: FCDA = {
+			...this,
+			...fcda,
+		}
+		Object.setPrototypeOf(newThis, FCDA.prototype)
+		return newThis
+	}
 }

@@ -1,7 +1,7 @@
 
 export class SCDQueries {
 	constructor(
-		private readonly root: Element
+		private readonly root: Element,
 		
 	){}
 
@@ -60,22 +60,22 @@ export class SCDQueries {
 			options,
 		)
 		if(elements.length !== 1){
-			console.log({level:"error", msg:"we found not exactly one element", length:elements.length})
+			console.log({level: "error", msg: "we found not exactly one element", length: elements.length})
 			return
 		}
 		return elements[0]
 	}
 
-	public searchSubNetworkByGOOSE( iedName: string, ldInst: string, gseControlName: string){
+	// public searchSubNetworkByGOOSE( iedName: string, ldInst: string, gseControlName: string){
 
-	}
+	// }
 
 	// We don't use the the standard functions because we look for parent elements
 	public static SelectorLD = "LDevice"
 	public searchElementsLDParent(element: Element): Optional<LDeviceElement>{
 		const el = element.closest(SCDQueries.SelectorLD)
 		if(!el){
-			console.log({level:"error", msg:"could not find LD parent", element})
+			console.log({level: "error", msg: "could not find LD parent", element})
 			return
 		}
 		const ld = createElement<LDeviceElement>(el,["inst"])
@@ -88,13 +88,13 @@ export class SCDQueries {
 		const elements = this.searchElement<GSEElement>(selector,["cbName","ldInst"], options)
 		if(elements.length !== 1){
 			console.error({
-				level:"error", 
-				msg:"we did not found exaclty one GSE element", 
+				level:  "error", 
+				msg:    "we did not found exaclty one GSE element", 
 				length: elements.length, 
 				ldInst,
 				cbName,
 				selector,
-				root: this.root,
+				root:   this.root,
 				options,
 			})
 			return
@@ -107,7 +107,7 @@ export class SCDQueries {
 	public searchElementsParentSubnetwork(element: Element): Optional<SubNetworkElement>{
 		const el = element.closest(SCDQueries.SelectorSubNetwork)
 		if(!el){
-			console.error({level:"error", msg:"could not find SubNetwork parent", element})
+			console.error({level: "error", msg: "could not find SubNetwork parent", element})
 			return
 		}
 
@@ -139,7 +139,7 @@ export class SCDQueries {
 // function createElement<T extends SCDElement>(el: Element, attributeList: (keyof T)[]): T{
 function createElement<T extends SCDElement>(el: Element, attributeList: AttributeList<T>[]): T{
 	const obj: {[key: string]: unknown} = { element: el }
-	for(let attr of attributeList){
+	for(const attr of attributeList){
 		const key = attr as string
 		obj[key] = el.getAttribute(key) ?? ""
 	}
@@ -181,8 +181,7 @@ export type SubNetworkElement = SCDElement & {
 	name: string
 }
 
-export type InputElement = SCDElement & {	
-}
+export type InputElement = SCDElement
 
 export type InputExtRefElement = SCDElement & {	
 	iedName: 	 string,

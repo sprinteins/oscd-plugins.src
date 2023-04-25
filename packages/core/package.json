@@ -16,18 +16,26 @@
     "//build:watch": "npm run build -- --watch",
     "dev": "npm run build:watch",
     "test": "npm run test:watch --run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "lint": "eslint .",
+    "fix": "eslint . --fix"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/xml2js": "^0.4.11",
+    "@typescript-eslint/eslint-plugin": "^5.43.0",
     "@vitest/browser": "^0.29.7",
     "concurrently": "^7.6.0",
+    "eslint": "^8.0.1",
+    "eslint-config-standard-with-typescript": "^34.0.1",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-n": "^15.0.0",
+    "eslint-plugin-promise": "^6.0.0",
     "happy-dom": "^8.9.0",
     "safaridriver": "^0.0.4",
-    "typescript": "^5.0.2",
+    "typescript": "4.9.4",
     "vitest": "^0.29.7",
     "webdriverio": "^8.6.7"
   },

@@ -1,32 +1,31 @@
 <svelte:options tag="tscd-sidebar" />
 
 <script lang="ts">
-    import { selectedIEDNode } from "../";
-    import ConnectionSelector from "./assets/connection-selector.svg";
-    import css from "./sidebar.css?inline";
-    import { selectNode, clearSelection, changeMessageConnectionFilterDirection, setSelectedMessageTypes } from "../";
-    import type { IEDNode, RootNode } from "../../../components/diagram";
-    import { MessageType } from "@oscd-plugins/core";
-    import MessageTypeFilter from "./message-type-filter/message-type-filter.svelte";
+    import { selectedIEDNode } from "../"
+    import ConnectionSelector from "./assets/connection-selector.svg"
+    import css from "./sidebar.css?inline"
+    import { selectNode, clearSelection, changeMessageConnectionFilterDirection } from "../"
+    import type { IEDNode, RootNode } from "../../../components/diagram"
+    import MessageTypeFilter from "./message-type-filter/message-type-filter.svelte"
 
-    export let rootNode: RootNode;
+    export let rootNode: RootNode
 
-    let selectValue: string                 = $selectedIEDNode?.selectedIED?.id ?? "";
-    let showIncomingConnections: boolean    = $selectedIEDNode?.incomingConnections;
-    let showOutgoingConnections: boolean    = $selectedIEDNode?.outgoingConnections;
+    let selectValue: string                 = $selectedIEDNode?.selectedIED?.id ?? ""
+    let showIncomingConnections: boolean    = $selectedIEDNode?.incomingConnections
+    let showOutgoingConnections: boolean    = $selectedIEDNode?.outgoingConnections
 
-    let selectedNode: IEDNode | undefined;
+    let selectedNode: IEDNode | undefined
 
     function setSelectedNode(e: Event) {
-        const target = e.target as HTMLSelectElement;
-        selectedNode = rootNode.children.find(node => node.id === target.value)
-        if (selectedNode) {
-            selectNode(selectedNode);
-        }
+    	const target = e.target as HTMLSelectElement
+    	selectedNode = rootNode.children.find(node => node.id === target.value)
+    	if (selectedNode) {
+    		selectNode(selectedNode)
+    	}
     }
 
     function changeConnectionDirection() {
-        changeMessageConnectionFilterDirection(showIncomingConnections, showOutgoingConnections)
+    	changeMessageConnectionFilterDirection(showIncomingConnections, showOutgoingConnections)
     }
 
 </script>

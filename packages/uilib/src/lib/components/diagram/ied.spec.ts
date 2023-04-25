@@ -1,8 +1,8 @@
-import { render, fireEvent, screen } from "@testing-library/svelte";
-import {describe, it, expect} from "vitest";
+import { render, screen } from "@testing-library/svelte"
+import {describe, it, expect} from "vitest"
 
 import IED from "./ied.svelte"
-import type { IEDNode } from "./nodes";
+import type { IEDNode } from "./nodes"
 
 
 
@@ -12,14 +12,14 @@ describe("IED", () => {
 		const label = "IED1"
 	
 		const node: IEDNode = {
-			id: label,
-			label: label,
+			id:         label,
+			label:      label,
 			isRelevant: true,
-			x: 0,
-			y: 0,
-			width: 100,
-			height: 100,
-			edges: [],
+			x:          0,
+			y:          0,
+			width:      100,
+			height:     100,
+			edges:      [],
 		}
 
 
@@ -33,14 +33,14 @@ describe("IED", () => {
 		const label = "IED1"
 	
 		const node: IEDNode = {
-			id: label,
-			label: label,
+			id:         label,
+			label:      label,
 			isRelevant: false,
-			x: 0,
-			y: 0,
-			width: 100,
-			height: 100,
-			edges: [],
+			x:          0,
+			y:          0,
+			width:      100,
+			height:     100,
+			edges:      [],
 		}
 
 		render(IED, { node })
@@ -54,14 +54,14 @@ describe("IED", () => {
 		const label = "IED1"
 	
 		const node: IEDNode = {
-			id: label,
-			label: label,
+			id:         label,
+			label:      label,
 			isRelevant: true,
-			x: 0,
-			y: 0,
-			width: 100,
-			height: 100,
-			edges: [],
+			x:          0,
+			y:          0,
+			width:      100,
+			height:     100,
+			edges:      [],
 		}
 
 		render(IED, { node, isSelected: true })

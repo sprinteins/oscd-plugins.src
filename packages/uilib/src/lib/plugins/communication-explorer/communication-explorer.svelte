@@ -8,36 +8,36 @@
 	import { Diagram, type IEDNode, type RootNode } from "../../components/diagram"	
 	import {selectedIEDNode, selectNode, type SelectedFilter} from "./"
 	import css from "./communication-explorer.css?inline"
-    import { Sidebar } from "./sidebar";
+	import { Sidebar } from "./sidebar"
 
-	export let root: Element;
+	export let root: Element
 
 	const config = {
-		width: 200,
+		width:  200,
 		height: 30,
-	};
+	}
 
-	let rootNode: Promise<RootNode>;
+	let rootNode: Promise<RootNode>
 	async function initInfos(root: Element, selectedFilter: SelectedFilter) {
 		if (!root) {
-			console.info({ level: "info", msg: "initInfos: no root" });
-			return;
+			console.info({ level: "info", msg: "initInfos: no root" })
+			return
 		}
-		const scdQueries = new SCDQueries(root);
-		const ucci = new UCCommunicationInformation(scdQueries);
-		const iedInfos = ucci.IEDCommInfos();
+		const scdQueries = new SCDQueries(root)
+		const ucci = new UCCommunicationInformation(scdQueries)
+		const iedInfos = ucci.IEDCommInfos()
 
-		rootNode = calculateLayout(iedInfos, config, selectedFilter);
+		rootNode = calculateLayout(iedInfos, config, selectedFilter)
 	}
 
 	//
 	// Actions
 	//
 	function handleIEDClick(e: CustomEvent<IEDNode>) {
-		selectNode(e.detail);
+		selectNode(e.detail)
 	}
 
-	$: initInfos(root, $selectedIEDNode);
+	$: initInfos(root, $selectedIEDNode)
 </script>
 
 <svelte:element this="style">{@html css}</svelte:element>

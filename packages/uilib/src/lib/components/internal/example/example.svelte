@@ -1,5 +1,5 @@
 <script>
-    import Theme from "../../../style/theme.svelte";
+    import Theme from "../../../style/theme.svelte"
     export let name=""
     
 </script>

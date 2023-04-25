@@ -1,5 +1,5 @@
-import { expect, suite, test } from "vitest";
-import { GSEElement, SCDQueries } from "./scd-query";
+import { expect, suite, test } from "vitest"
+import { GSEElement, SCDQueries } from "./scd-query"
 
 suite("SCD Queries", () => {
 	suite("GSE Queries", () => {
@@ -12,14 +12,14 @@ suite("SCD Queries", () => {
 
 		const featureTests: TestCase[] = [
 			{
-				desc: "first test",
-				xmlStr: `<GSE ldInst="CircuitBreaker_CB1" cbName="GCB"></GSE>`,
+				desc:             "first test",
+				xmlStr:           "<GSE ldInst=\"CircuitBreaker_CB1\" cbName=\"GCB\"></GSE>",
 				expectedElements: [
 					{
 						ldInst: "CircuitBreaker_CB1",
 						cbName: "GCB",
-					}
-				]
+					},
+				],
 			},
 		]
 

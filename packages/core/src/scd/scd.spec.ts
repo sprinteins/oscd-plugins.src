@@ -34,38 +34,38 @@ suite("SCD", () => {
 				</AccessPoint>
 			</IED>`
 		
-			const expectedIED = new IED({
-				name:"IED1",
-				dataSets:[new DataSet({
-					name: "GooseDataSet1",
-					fcdas: [new FCDA({
-						ldInst:  "CBSW",
-						prefix:  "test_",
-						lnClass: "XSWI",
-						lnInst:  "2",
-						doName:  "Pos",
-						daName:  "stVal",
-						fc:      "ST"
-					})]
+		const expectedIED = new IED({
+			name:     "IED1",
+			dataSets: [new DataSet({
+				name:  "GooseDataSet1",
+				fcdas: [new FCDA({
+					ldInst:  "CBSW",
+					prefix:  "test_",
+					lnClass: "XSWI",
+					lnInst:  "2",
+					doName:  "Pos",
+					daName:  "stVal",
+					fc:      "ST",
 				})],
-				inputs: [new Input({
-					iedName:"IED1",
-					extRefs: [new InputExtRef({
-						iedName:"IED1",
-						serviceType:"GOOSE",
-						ldInst:"CircuitBreaker_CB1",
-						lnClass:"XCBR",
-						lnInst:"1",
-						prefix:"test_",
-						doName:"Pos",
-						daName:"stVal",
-						srcLDInst:"CircuitBreaker_CB1",
-						srcPrefix:"test01_",
-						srcLNClass:"LLN0",
-						srcCBName:"GCB",
-					})]
-				})]
-			})
+			})],
+			inputs: [new Input({
+				iedName: "IED1",
+				extRefs: [new InputExtRef({
+					iedName:     "IED1",
+					serviceType: "GOOSE",
+					ldInst:      "CircuitBreaker_CB1",
+					lnClass:     "XCBR",
+					lnInst:      "1",
+					prefix:      "test_",
+					doName:      "Pos",
+					daName:      "stVal",
+					srcLDInst:   "CircuitBreaker_CB1",
+					srcPrefix:   "test01_",
+					srcLNClass:  "LLN0",
+					srcCBName:   "GCB",
+				})],
+			})],
+		})
 
 		// 
 		// Act
@@ -75,7 +75,7 @@ suite("SCD", () => {
 			throw new Error("scd expected")
 		}
 		const ieds = scd.extractIEDs()
-		console.log({level:"test", msg: "extract ieds", ieds})
+		console.log({level: "test", msg: "extract ieds", ieds})
 		// 
 		// Assert
 		// 

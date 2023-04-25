@@ -18,7 +18,7 @@ export function elementToInputs(el: Element): Input[]{
 	const inputs = Object.keys(extRefBuckets).map( (iedName) => {
 		return new Input({
 			iedName,
-			extRefs: extRefBuckets[iedName]
+			extRefs: extRefBuckets[iedName],
 		})
 	})
 

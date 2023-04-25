@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { generateMockRootNode } from "../../../mocks/root-node";
-	import Sidebar from "./sidebar.svelte"
+  import { generateMockRootNode } from "../../../mocks/root-node"
+import Sidebar from "./sidebar.svelte"
 
-	const rootNode = generateMockRootNode()
+const rootNode = generateMockRootNode()
 
 </script>
 
