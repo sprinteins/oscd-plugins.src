@@ -1,64 +1,38 @@
+<svelte:options tag="tscd-sidebar" />
+
 <script lang="ts">
-    import { selectedIEDNode } from "../selected-filter-store";
+    import { selectedIEDNode } from "../";
     import ConnectionSelector from "./assets/connection-selector.svg";
-    import css from './sidebar.css?inline';
-    import { onDestroy } from "svelte";
-    import { selectNode } from "../selected-filter-store";
+    import css from "./sidebar.css?inline";
+    import { selectNode, clearSelection, changeMessageConnectionFilterDirection, setSelectedMessageTypes } from "../";
     import type { IEDNode, RootNode } from "../../../components/diagram";
+    import { MessageType } from "@oscd-plugins/core";
+    import MessageTypeFilter from "./message-type-filter/message-type-filter.svelte";
 
-    export let rootNode: RootNode
+    export let rootNode: RootNode;
 
-    let selectValue: string = ""
-    let showIncomingConnections: boolean = true
-    let showOutgoingConnections: boolean = true
-    let showSelectAtLeastOneConnectionDirectionMessage: boolean = false
+    let selectValue: string                 = $selectedIEDNode?.selectedIED?.id ?? "";
+    let showIncomingConnections: boolean    = $selectedIEDNode?.incomingConnections;
+    let showOutgoingConnections: boolean    = $selectedIEDNode?.outgoingConnections;
 
-    function clearSelection() {
-        selectedIEDNode.update(value => {
-            value.incomingConnections = true
-            value.outgoingConnections = true
-            value.selectedIED = undefined
-            return value
-        })
-    }
+    let selectedNode: IEDNode | undefined;
 
-    let selectedNode: IEDNode | undefined
     function setSelectedNode(e: Event) {
-        const target = e.target as HTMLSelectElement
+        const target = e.target as HTMLSelectElement;
         selectedNode = rootNode.children.find(node => node.id === target.value)
         if (selectedNode) {
-            selectNode(selectedNode)
-        }
-    }   
-
-    function changeConnectionDirection() {
-        selectedIEDNode.update(value => {
-            value.incomingConnections = showIncomingConnections
-            value.outgoingConnections = showOutgoingConnections
-            return value
-        })
-
-        if (!showIncomingConnections && !showOutgoingConnections) {
-            showSelectAtLeastOneConnectionDirectionMessage = true
-        } else {
-            showSelectAtLeastOneConnectionDirectionMessage = false
+            selectNode(selectedNode);
         }
     }
 
-    const unsubscribe = selectedIEDNode.subscribe(value => {
-        showIncomingConnections = value?.incomingConnections
-        showOutgoingConnections = value?.outgoingConnections
-        selectValue = value?.selectedIED?.id ?? ""
-    })
-    onDestroy(unsubscribe)
+    function changeConnectionDirection() {
+        changeMessageConnectionFilterDirection(showIncomingConnections, showOutgoingConnections)
+    }
 
 </script>
 
-<svelte:options tag="tscd-sidebar" />
-
 <div class="sidebar sidebar-right">
     <div class="sidebar-content">
-
         <!-- svelte-ignore a11y-missing-attribute -->
         <!-- svelte-ignore a11y-click-events-have-key-events -->
         <a on:click={clearSelection}>
@@ -66,29 +40,40 @@
         </a>
 
         <div class="ied-nodes">
-            <img src={ConnectionSelector} alt="connection selector">
+            <img src={ConnectionSelector} alt="connection selector" />
             <label>
                 <span>Show Connections</span>
                 <select value={selectValue} on:change={setSelectedNode}>
                     <option value="" disabled>Select a Node</option>
                     {#if rootNode && rootNode.children}
                         {#each rootNode.children as node}
-                            <option selected={selectValue === node.id} value={node.id}>{node.label}</option>
+                            <option
+                                selected={selectValue === node.id}
+                                value={node.id}>{node.label}
+                            </option>
                         {/each}
                     {/if}
                 </select>
             </label>
         </div>
 
-        <hr>
-    
+        <hr />
+
         <div class="connection-type">
             <label>
-                <input type="checkbox" bind:checked={showIncomingConnections} on:change={changeConnectionDirection}>
+                <input
+                    type="checkbox"
+                    bind:checked={showIncomingConnections}
+                    on:change={changeConnectionDirection}
+                />
                 <span>Incoming Connection</span>
             </label>
             <label>
-                <input type="checkbox" bind:checked={showOutgoingConnections} on:change={changeConnectionDirection}>
+                <input
+                    type="checkbox"
+                    bind:checked={showOutgoingConnections}
+                    on:change={changeConnectionDirection}
+                />
                 <span>Outgoing Connection</span>
             </label>
             {#if !showIncomingConnections && !showOutgoingConnections}
@@ -96,9 +81,10 @@
             {/if}
         </div>
 
-        <!-- <hr> -->
+        <hr />
 
-    </div>
+        <MessageTypeFilter />
 
     <svelte:element this="style">{@html css}</svelte:element>
+    </div>
 </div>

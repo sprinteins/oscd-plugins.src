@@ -1,27 +1,37 @@
-.path, .path-strong, .path-hover-box {
+.path,
+.path-strong,
+.path-hover-box {
 	fill: none;
 	cursor: pointer;
 }
+
 .path {
-	stroke-width: 0.0625rem;
+	stroke-width: 0.08rem;
 	stroke: var(--color-black, #000);
 }
+
 .path-hover-box {
 	stroke-width: .8rem;
 	stroke: transparent;
 	opacity: .1;
 }
+
 .path-strong {
 	stroke-width: 0.275rem;
 	stroke: #00ff00;
 	stroke: var(--color-yellow);
 	opacity: 0;
 }
-.path-hover-box:hover ~ .path-strong,
+
+.path-hover-box:hover~.path-strong,
 .path-strong:hover {
 	opacity: 1;
 }
 
 .irrelevant {
 	opacity: .2;
+}
+
+.message-type-goose {
+	stroke: red;
 }

@@ -1,7 +1,8 @@
-import ELK, { type ElkExtendedEdge, type ElkNode } from "elkjs/lib/elk.bundled";
-import type { IED, IEDCommInfo } from "@oscd-plugins/core";
+import ELK, { type ElkNode } from "elkjs/lib/elk.bundled";
+import type { IEDCommInfo } from "@oscd-plugins/core";
 import type { IEDConnection, IEDNode, RootNode } from "../../components/diagram/nodes";
-import type { SelectedFilter } from "./selected-filter-store"
+import type { SelectedFilter } from "./"
+import { MessageType } from "@oscd-plugins/core"
 
 
 type Config = {
@@ -9,7 +10,7 @@ type Config = {
 	height: number,
 }
 
-export async function calculateLayout(ieds: IEDCommInfo[], config: Config, selectionFilter: SelectedFilter): Promise<RootNode>{
+export async function calculateLayout(ieds: IEDCommInfo[], config: Config, selectionFilter: SelectedFilter): Promise<RootNode> {
 
 	const hasSelection = Boolean(selectionFilter.selectedIED)
 
@@ -24,22 +25,25 @@ export async function calculateLayout(ieds: IEDCommInfo[], config: Config, selec
 			}
 			const sourceIED = ieds[sourceIEDIndex]
 
+			const selectedMessageTypes: string[] = selectionFilter.selectedMessageTypes;
+			const messageType = MessageType.GOOSe;
+			const isRelevantMessageType: boolean = selectedMessageTypes.includes(messageType)
+
 			let isRelevant = true
-			if(hasSelection){
+			if (hasSelection) {
 
-				if(selectionFilter.outgoingConnections && !selectionFilter.incomingConnections){
-					isRelevant = targetIED.iedName === selectionFilter.selectedIED?.label
+				isRelevant = checkRelevance(selectionFilter, targetIED, sourceIED)
+
+				if (isRelevant && !isRelevantMessageType) {
+					isRelevant = false
+				} 
+
+			} else {
+
+				if (!isRelevantMessageType) {
+					isRelevant = false
 				}
-
-				if(selectionFilter.incomingConnections && !selectionFilter.outgoingConnections ){
-					isRelevant = sourceIED.iedName === selectionFilter.selectedIED?.label
-				}
-
-				if(selectionFilter.incomingConnections && selectionFilter.outgoingConnections ){
-					isRelevant = sourceIED.iedName === selectionFilter.selectedIED?.label ||
-								 targetIED.iedName === selectionFilter.selectedIED?.label
-				}
-
+				
 			}
 
 			const connection = { 
@@ -48,6 +52,7 @@ export async function calculateLayout(ieds: IEDCommInfo[], config: Config, selec
 				targets: [Id(ii)], 
 				isRelevant,
 				relevantIEDNames: [targetIED.iedName, sourceIED.iedName],
+				messageType: messageType,
 			} 
 			iedConnections.push(connection)
 		}) 
@@ -61,26 +66,26 @@ export async function calculateLayout(ieds: IEDCommInfo[], config: Config, selec
 		edge.relevantIEDNames?.forEach(iedName => { relevantNodes.add(iedName) })
 	})
 
-	const children: IEDNode[] = ieds.map( (ied,ii) => {
+	const children: IEDNode[] = ieds.map((ied, ii) => {
 		let isRelevant = true
-		if(hasSelection){
+		if (hasSelection) {
 			isRelevant = relevantNodes.has(ied.iedName) || selectionFilter.selectedIED?.label === ied.iedName
 		}
 		return {
-			id: 	Id(ii),
-			width:  config.width,
+			id: Id(ii),
+			width: config.width,
 			height: config.height,
-			label:  ied.iedName,
+			label: ied.iedName,
 			isRelevant: isRelevant,
 		}
-	}) 
+	})
 
-	const elk = new ELK() 
-	
+	const elk = new ELK()
+
 	// https://www.eclipse.org/elk/reference/algorithms.html 
-	const graph: ElkNode = { 
-		id: "graph-root", 
-		layoutOptions: { 
+	const graph: ElkNode = {
+		id: "graph-root",
+		layoutOptions: {
 			// "elk.algorithm": "org.eclipse.elk.force",
 			// "elk.algorithm": "org.eclipse.elk.stress",
 			"elk.algorithm": "org.eclipse.elk.layered",
@@ -94,16 +99,37 @@ export async function calculateLayout(ieds: IEDCommInfo[], config: Config, selec
 			// "org.eclipse.elk.layered.nodePlacement.bk.fixedAlignment": "NONE",
 			"org.eclipse.elk.direction": "LEFT",
 			// "org.eclipse.elk.debugMode": "true",
-		}, 
-		children, 
-		edges, 
-	} 
+		},
+		children,
+		edges,
+	}
 
 	const nodes = (await elk.layout(graph)) as RootNode
 
-	return nodes; 
-} 
+	return nodes;
+}
 
-function Id(something:unknown): string { 
+function checkRelevance(selectionFilter: SelectedFilter, targetIED: IEDCommInfo, sourceIED: IEDCommInfo): boolean {
+	let isRelevant = true
+
+	if (selectionFilter.outgoingConnections && !selectionFilter.incomingConnections) {
+		isRelevant = targetIED.iedName === selectionFilter.selectedIED?.label
+	}
+
+	if (selectionFilter.incomingConnections && !selectionFilter.outgoingConnections) {
+		isRelevant = sourceIED.iedName === selectionFilter.selectedIED?.label
+	}
+
+	if (selectionFilter.incomingConnections && selectionFilter.outgoingConnections) {
+		isRelevant = sourceIED.iedName === selectionFilter.selectedIED?.label ||
+			targetIED.iedName === selectionFilter.selectedIED?.label
+	}
+
+	return isRelevant
+}
+
+function Id(something: unknown): string {
 	return `ied-${something}`
 }
+
+
