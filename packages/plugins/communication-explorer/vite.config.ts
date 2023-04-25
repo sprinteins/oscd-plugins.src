@@ -12,7 +12,7 @@ export default defineConfig({
 		lib:{
 			entry: "src/plugin.svelte",
 			formats: ['es'],
-		}
+		},
 	}
 })
 	

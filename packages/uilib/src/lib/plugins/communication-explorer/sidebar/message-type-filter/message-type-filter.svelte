@@ -1,3 +1,4 @@
+<svelte:options tag="tscd-message-type-filter" />
 <script lang="ts">
     import css from "./message-type-filter.css?inline"
     import { selectedIEDNode, setSelectedMessageTypes } from "../../"

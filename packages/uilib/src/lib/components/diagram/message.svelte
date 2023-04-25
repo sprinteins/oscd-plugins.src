@@ -26,12 +26,12 @@
 	$: pathColor = calcPathColor(edge)
 
 
-	function draw(edge?: IEDConnection): string{
+	function draw(edge?: IEDConnection): string {
 		const sections = edge?.sections??[]
-		if(sections.length??0 < 1){ return "" }
-
+		if(sections.length === 0){ return "" }
+		
 		const section = sections[0]
-
+		
 		if(!section){ return "" }
 		
 		const path = d3Path()
