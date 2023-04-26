@@ -17,9 +17,9 @@
 
 	const defaultColor = "var(--color-black)"
 	const messageTypeToColorMap: {[key in MessageType]: string} = {
-		[MessageType.GOOSe]:         "var(--color-green)",
-		[MessageType.MMS]:	         defaultColor,
-		[MessageType.SampledValues]: defaultColor,
+		[MessageType.GOOSe]:         "var(--color-message-goose)",
+		[MessageType.MMS]:	         "var(--color-message-mms)",
+		[MessageType.SampledValues]: "var(--color-message-sampledvalues)",
 	}
 
 	$: pathColor = calcPathColor(edge)
