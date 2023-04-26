@@ -44,14 +44,14 @@
 
 <Theme />
 <communication-explorer>
-	<span class="root">
+	<div class="root">
 		{#await rootNode then value}
-			<Sidebar rootNode={value} />
 			<Diagram
 				rootNode={value}
 				on:iedclick={handleIEDClick}
 				selectedIEDID={$selectedIEDNode.selectedIED?.id ?? ""}
 			/>
+			<Sidebar rootNode={value} />
 		{/await}
-	</span>
+	</div>
 </communication-explorer>

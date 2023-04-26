@@ -1,5 +1,5 @@
 import type { IEDNode } from "../../components/diagram"
-import { MessageType } from "@oscd-plugins/core"
+import { MessageType, allMessageTypes } from "@oscd-plugins/core"
 import { selectedIEDNode } from "./"
 
 export function selectNode(node: IEDNode) {
@@ -15,7 +15,7 @@ export function clearSelection() {
 	selectedIEDNode.set({
 		incomingConnections:  true,
 		outgoingConnections:  true,
-		selectedMessageTypes: [],
+		selectedMessageTypes: [...allMessageTypes],
 		selectedIED:          undefined,
 	})
 }

@@ -34,9 +34,11 @@
     <div class="sidebar-content">
         <!-- svelte-ignore a11y-missing-attribute -->
         <!-- svelte-ignore a11y-click-events-have-key-events -->
-        <a on:click={clearSelection}>
-            <button>Clear all</button>
-        </a>
+        <div class="actions">
+            <a class="clear-all" on:click={clearSelection}>
+                Clear all
+            </a>
+        </div>
 
         <div class="ied-nodes">
             <img src={ConnectionSelector} alt="connection selector" />

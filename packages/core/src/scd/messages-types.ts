@@ -3,3 +3,9 @@ export const enum MessageType {
 	MMS = "MMS",
 	SampledValues = "SampledValues",
 }
+
+export const allMessageTypes = [
+	MessageType.GOOSe,
+	MessageType.MMS,
+	MessageType.SampledValues,
+] as const
