@@ -2,7 +2,7 @@ import ELK, { type ElkNode } from "elkjs/lib/elk.bundled"
 import type { IEDCommInfo } from "@oscd-plugins/core"
 import type { IEDConnection, IEDNode, RootNode } from "../../components/diagram/nodes"
 import type { SelectedFilter } from "./"
-import { MessageType } from "@oscd-plugins/core"
+import { messageTypeXMLMap } from "@oscd-plugins/core"
 
 
 type Config = {
@@ -11,10 +11,6 @@ type Config = {
 	// heightPerConnection: number,
 }
 
-const messageTypeMap:{[key: string]: MessageType} = {
-	"GOOSE": MessageType.GOOSe,
-	"SMV":   MessageType.SampledValues,
-}
 
 export async function calculateLayout(ieds: IEDCommInfo[], config: Config, selectionFilter: SelectedFilter): Promise<RootNode> {
 
@@ -33,7 +29,7 @@ export async function calculateLayout(ieds: IEDCommInfo[], config: Config, selec
 			const sourceIED = ieds[sourceIEDIndex]
 
 			const selectedMessageTypes: string[] = selectionFilter.selectedMessageTypes
-			const messageType = messageTypeMap[message.serviceType]
+			const messageType = messageTypeXMLMap[message.serviceType]
 			const isRelevantMessageType: boolean = selectedMessageTypes.includes(messageType)
 
 			let isRelevant = true
