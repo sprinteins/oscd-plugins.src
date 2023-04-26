@@ -47,7 +47,6 @@
 <communication-explorer>
 	<div class="root">
 		{#if rootNode}
-			<Sidebar rootNode={rootNode} />
 			<Diagram
 				rootNode={rootNode}
 				on:iedclick={handleIEDClick}
