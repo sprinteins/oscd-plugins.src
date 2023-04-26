@@ -7,6 +7,8 @@ export type SelectedFilter = {
     incomingConnections: boolean;
     outgoingConnections: boolean;
     selectedMessageTypes: string[];
+	hideIrrelevantStuff: boolean;
+	nameFilter: string;
 }
 
 export const defaultSelection: SelectedFilter = {
@@ -18,6 +20,8 @@ export const defaultSelection: SelectedFilter = {
 		MessageType.MMS,
 		MessageType.SampledValues,
 	],
+	hideIrrelevantStuff: false,
+	nameFilter:          "",
 }
 
 export const selectedIEDNode = writable<SelectedFilter>(defaultSelection)

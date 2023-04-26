@@ -12,11 +12,16 @@ export function selectNode(node: IEDNode) {
 }
 
 export function clearSelection() {
-	selectedIEDNode.set({
-		incomingConnections:  true,
-		outgoingConnections:  true,
-		selectedMessageTypes: [...allMessageTypes],
-		selectedIED:          undefined,
+	selectedIEDNode.update(selectedFilter => {
+		return {
+			...selectedFilter,
+			incomingConnections:  true,
+			outgoingConnections:  true,
+			selectedMessageTypes: [...allMessageTypes],
+			selectedIED:          undefined,
+		// 	hideIrrelevantStuff:  false,
+		// 	nameFilter:           "",
+		}
 	})
 }
 
@@ -49,6 +54,24 @@ export function setSelectedMessageTypes(type: MessageType, isActived: boolean) {
 		return {
 			...value, 
 			selectedMessageTypes: addOrRemoveMessageType(value.selectedMessageTypes, type, isActived),
+		}
+	})
+}
+
+export function setHideIrrelevantStuff(hide: boolean) {
+	selectedIEDNode.update((value) => {
+		return {
+			...value, 
+			hideIrrelevantStuff: hide,
+		}
+	})
+}
+
+export function setNameFilter(filter: string) {
+	selectedIEDNode.update((value) => {
+		return {
+			...value, 
+			nameFilter: filter,
 		}
 	})
 }

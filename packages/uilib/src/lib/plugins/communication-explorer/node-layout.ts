@@ -17,10 +17,14 @@ const messageTypeMap:{[key: string]: MessageType} = {
 }
 
 export async function calculateLayout(ieds: IEDCommInfo[], config: Config, selectionFilter: SelectedFilter): Promise<RootNode> {
-
 	const hasSelection = Boolean(selectionFilter.selectedIED)
+
+		
+	if(selectionFilter.nameFilter !== ""){
+		ieds = ieds.filter(ied => ied.iedName.toLowerCase().includes(selectionFilter.nameFilter.toLowerCase()))
+	}
 	
-	const edges: IEDConnection[] = ieds.map( (targetIED, ii) => { 
+	let edges: IEDConnection[] = ieds.map( (targetIED, ii) => { 
 		const iedConnections: IEDConnection[] = []
 		targetIED.received.forEach( message => {
 
@@ -73,10 +77,10 @@ export async function calculateLayout(ieds: IEDCommInfo[], config: Config, selec
 		edge.relevantIEDNames?.forEach(iedName => { relevantNodes.add(iedName) })
 	})
 
-	const children: IEDNode[] = ieds.map((ied, ii) => {
+	let children: IEDNode[] = ieds.map((ied, ii) => {
 		let isRelevant = true
 		if (hasSelection) {
-			isRelevant = relevantNodes.has(ied.iedName) || selectionFilter.selectedIED?.label === ied.iedName
+			isRelevant = relevantNodes.has(ied.iedName) || selectionFilter.selectedIED?.label === ied.iedName	
 		}
 
 		// Note: maybe for later
@@ -96,6 +100,11 @@ export async function calculateLayout(ieds: IEDCommInfo[], config: Config, selec
 	})
 
 	const elk = new ELK()
+
+	if(selectionFilter.hideIrrelevantStuff){
+		children = children.filter(child => child.isRelevant)
+		edges = edges.filter(edge => edge.isRelevant)
+	}
 
 	// https://www.eclipse.org/elk/reference/algorithms.html 
 	const graph: ElkNode = {

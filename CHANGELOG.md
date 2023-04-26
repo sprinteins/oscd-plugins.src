@@ -8,6 +8,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## Communication Explorer [Unreleased] 
 
+## Communication Explorer [0.0.11] - 2023-04-26 
+
+### Added
+
+- Experiment: hide irrelevant stuff
+- Experiment: search by IED name
+
 ## Communication Explorer [0.0.10] - 2023-04-26 
 
 ### Added

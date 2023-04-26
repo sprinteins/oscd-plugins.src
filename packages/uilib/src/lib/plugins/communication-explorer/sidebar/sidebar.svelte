@@ -1,10 +1,17 @@
 <svelte:options tag="tscd-sidebar" />
 
 <script lang="ts">
-    import { selectedIEDNode } from "../"
+
+    import { selectedIEDNode } from "../selected-filter-store"
+    import { 
+        selectNode, 
+        clearSelection, 
+        changeMessageConnectionFilterDirection,
+        setHideIrrelevantStuff,
+        setNameFilter,
+     } from "../selected-filter-store-functions"
     import ConnectionSelector from "./assets/connection-selector.svg"
     import css from "./sidebar.css?inline"
-    import { selectNode, clearSelection, changeMessageConnectionFilterDirection } from "../"
     import type { IEDNode, RootNode } from "../../../components/diagram"
     import MessageTypeFilter from "./message-type-filter/message-type-filter.svelte"
 
@@ -26,6 +33,16 @@
 
     function changeConnectionDirection() {
     	changeMessageConnectionFilterDirection(showIncomingConnections, showOutgoingConnections)
+    }
+
+    function handleHideIrrelevantStuffChange(e: Event){
+        const target = e.target as HTMLInputElement
+        setHideIrrelevantStuff(target.checked)
+    }
+
+    function handleNameFilterChange(e: Event){
+        const target = e.target as HTMLInputElement
+        setNameFilter(target.value)
     }
 
 </script>
@@ -85,6 +102,29 @@
         <hr />
 
         <MessageTypeFilter />
+
+        <hr />
+        <h2>Experiments</h2>
+           
+        <div class="checkbox-group">
+            <label>
+                <input 
+                    type="checkbox" 
+                    checked={$selectedIEDNode.hideIrrelevantStuff}
+                    on:change={handleHideIrrelevantStuffChange}
+                />
+                <span>Hide irrelevant stuff</span>
+            </label>
+        </div>
+
+        <label>
+            <span>IED prefix search:</span>
+            <input type="text"
+                placeholder="e.g.: XAT"
+                value={$selectedIEDNode.nameFilter}
+                on:input={handleNameFilterChange}
+            />
+        </label>
 
     <svelte:element this="style">{@html css}</svelte:element>
     </div>
