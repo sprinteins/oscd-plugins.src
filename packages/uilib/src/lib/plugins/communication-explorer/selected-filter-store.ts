@@ -16,7 +16,6 @@ export const defaultSelection: SelectedFilter = {
 	selectedMessageTypes: [
 		MessageType.GOOSe,
 		MessageType.MMS,
-		MessageType.Reports,
 		MessageType.SampledValues,
 	],
 }

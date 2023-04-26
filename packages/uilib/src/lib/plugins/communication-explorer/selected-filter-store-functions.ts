@@ -47,7 +47,6 @@ export function setSelectedMessageTypes(name: string, state: boolean, oldList?: 
 
 	if      (name === MessageType.GOOSe)         { updatedList = addOrRemoveMessageType(oldList, MessageType.GOOSe,         state) }
 	else if (name === MessageType.MMS)           { updatedList = addOrRemoveMessageType(oldList, MessageType.MMS,           state) }
-	else if (name === MessageType.Reports)       { updatedList = addOrRemoveMessageType(oldList, MessageType.Reports,       state) }
 	else if (name === MessageType.SampledValues) { updatedList = addOrRemoveMessageType(oldList, MessageType.SampledValues, state) }
     
 	selectedIEDNode.update((value) => {
