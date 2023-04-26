@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## Communication Explorer [Unreleased] 
+
+### Added
+
+- Added Sampled Value Messages to the Communication Explorer
+
+### Fixed
+
+- fixed flickering of the view in case of any change
+
 ## Communication Explorer [0.0.9] - 2023-04-21
 
 ### Fixed
