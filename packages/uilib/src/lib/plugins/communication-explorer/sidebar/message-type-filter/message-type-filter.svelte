@@ -4,16 +4,17 @@
     import { selectedIEDNode, setSelectedMessageTypes } from "../../"
     import { MessageType } from "@oscd-plugins/core"
 
-    let selectedMessageTypeGOOSe: boolean           = $selectedIEDNode?.selectedMessageTypes?.includes(MessageType.GOOSe)
-    let selectedMessageTypeMMS: boolean             = $selectedIEDNode?.selectedMessageTypes?.includes(MessageType.MMS)
-    let selectedMessageTypeSampledValues: boolean   = $selectedIEDNode?.selectedMessageTypes?.includes(MessageType.SampledValues)
+    $: selectedMessageTypes = $selectedIEDNode.selectedMessageTypes
+    function isSelected(messageType: MessageType, selectedMessages:string[] = []) {
+        return selectedMessages.includes(messageType)
+    }
 
     function setTargetMessageType(e: Event) {
     	const element = e?.target as HTMLInputElement
-    	const name = element?.name
+    	const name = element?.name as MessageType
     	const value = element?.checked
 
-    	setSelectedMessageTypes(name, value, $selectedIEDNode?.selectedMessageTypes)
+    	setSelectedMessageTypes(name, value)
     }
 </script>
 
@@ -22,7 +23,7 @@
         <input 
             type="checkbox" 
             on:change={setTargetMessageType} 
-            bind:checked={selectedMessageTypeMMS} 
+            checked={isSelected(MessageType.MMS, selectedMessageTypes)} 
             name={MessageType.MMS} />
         <span>MMS</span>
     </label>
@@ -30,7 +31,7 @@
         <input 
             type="checkbox" 
             on:change={setTargetMessageType} 
-            bind:checked={selectedMessageTypeGOOSe} 
+            checked={isSelected(MessageType.GOOSe, selectedMessageTypes)} 
             name={MessageType.GOOSe} />
         <span>GOOSe</span>
     </label>
@@ -38,7 +39,7 @@
         <input 
             type="checkbox" 
             on:change={setTargetMessageType} 
-            bind:checked={selectedMessageTypeSampledValues} 
+            checked={isSelected(MessageType.SampledValues, selectedMessageTypes)} 
             name={MessageType.SampledValues} />
         <span>Sampled Values</span>
     </label>

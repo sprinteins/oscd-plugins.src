@@ -11,6 +11,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added
 
 - Added Sampled Value Messages to the Communication Explorer
+- Filter by message type
 
 ### Fixed
 
