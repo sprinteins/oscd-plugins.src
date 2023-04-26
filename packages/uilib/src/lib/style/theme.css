@@ -20,6 +20,15 @@
 
 	--color-ied-focus: burlywood;
 	--color-ied-focus-hover: blanchedalmond;
+
+	--color-message-goose: #288409;
+	--color-message-mms: #007D80;
+	--color-message-sampledvalues: #3253A8;
+	
+	/* cb = colorblind */
+	/* --color-message-goose-cb: #3BC40E; */
+	/* --color-message-mms-cb: #00BCBF; */
+	/* --color-message-sampledvalues-cb: #407CF5; */
 }
 
 :root, :host {

@@ -19,7 +19,7 @@
 	}
 
 	let rootNode: RootNode | undefined = undefined
-	// TODO: maybe have a mutex if there are too many changes
+	// Note: maybe have a mutex if there are too many changes
 	async function initInfos(root: Element, selectedFilter: SelectedFilter) {
 		if (!root) {
 			console.info({ level: "info", msg: "initInfos: no root" })
@@ -45,7 +45,7 @@
 
 <Theme />
 <communication-explorer>
-	<span class="root">
+	<div class="root">
 		{#if rootNode}
 			<Sidebar rootNode={rootNode} />
 			<Diagram
@@ -53,6 +53,7 @@
 				on:iedclick={handleIEDClick}
 				selectedIEDID={$selectedIEDNode.selectedIED?.id ?? ""}
 			/>
+			<Sidebar rootNode={rootNode} />
 		{/if}
-	</span>
+	</div>
 </communication-explorer>

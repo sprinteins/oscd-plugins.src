@@ -6,7 +6,6 @@
 
     let selectedMessageTypeGOOSe: boolean           = $selectedIEDNode?.selectedMessageTypes?.includes(MessageType.GOOSe)
     let selectedMessageTypeMMS: boolean             = $selectedIEDNode?.selectedMessageTypes?.includes(MessageType.MMS)
-    let selectedMessageTypeReports: boolean         = $selectedIEDNode?.selectedMessageTypes?.includes(MessageType.Reports)
     let selectedMessageTypeSampledValues: boolean   = $selectedIEDNode?.selectedMessageTypes?.includes(MessageType.SampledValues)
 
     function setTargetMessageType(e: Event) {
@@ -34,14 +33,6 @@
             bind:checked={selectedMessageTypeGOOSe} 
             name={MessageType.GOOSe} />
         <span>GOOSe</span>
-    </label>
-    <label>
-        <input 
-            type="checkbox" 
-            on:change={setTargetMessageType} 
-            bind:checked={selectedMessageTypeReports} 
-            name={MessageType.Reports} />
-        <span>Reports</span>
     </label>
     <label>
         <input 

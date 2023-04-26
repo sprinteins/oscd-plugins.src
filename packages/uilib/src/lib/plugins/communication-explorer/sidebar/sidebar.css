@@ -2,16 +2,7 @@ hr {
     margin: 2rem 0;
 }
 .sidebar {
-    position: absolute;
-    left: 0;
-    top: 0;
     height: 100%;
-}
-
-.sidebar.sidebar-right {
-    right: 0;
-    left: inherit;
-    border-left: 2px solid #000000;
 }
 .sidebar .sidebar-content {
     padding: 1rem;
@@ -52,4 +43,28 @@ hr {
 
 input[type="checkbox"] {
     accent-color: #000000;
+}
+
+.actions {
+    display: flex;
+    flex-direction: row-reverse;
+    margin-bottom: 1rem;
+}
+
+.actions .clear-all {
+    cursor: pointer;
+    border: 1px solid rgba(0,0,0,0);
+    border-radius: 5px;
+    padding: 6px 8px;
+    transition: border-color 200ms ease-in-out;
+}
+
+.actions .clear-all:hover {
+    border-color: rgba(0,0,0,.3);
+}
+
+.connection-type label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }

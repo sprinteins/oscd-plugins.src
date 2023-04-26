@@ -19,7 +19,6 @@
 	const messageTypeToColorMap: {[key in MessageType]: string} = {
 		[MessageType.GOOSe]:         "var(--color-green)",
 		[MessageType.MMS]:	         defaultColor,
-		[MessageType.Reports]:       defaultColor,
 		[MessageType.SampledValues]: defaultColor,
 	}
 

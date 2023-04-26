@@ -4,3 +4,10 @@ communication-explorer {
 	font-size:  12px; 
 	min-height: 80vh
 }
+
+.root {
+	display: grid;
+	grid-template-columns: auto minmax(150px, 25%);
+	background-color: #ffffff;
+	height: calc(100vh - 128px);
+}
