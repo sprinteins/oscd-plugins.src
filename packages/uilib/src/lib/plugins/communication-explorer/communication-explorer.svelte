@@ -15,9 +15,11 @@
 	const config = {
 		width:  200,
 		height: 30,
+		// heightPerConnection: 20,
 	}
 
-	let rootNode: Promise<RootNode>
+	let rootNode: RootNode | undefined = undefined
+	// Note: maybe have a mutex if there are too many changes
 	async function initInfos(root: Element, selectedFilter: SelectedFilter) {
 		if (!root) {
 			console.info({ level: "info", msg: "initInfos: no root" })
@@ -26,8 +28,7 @@
 		const scdQueries = new SCDQueries(root)
 		const ucci = new UCCommunicationInformation(scdQueries)
 		const iedInfos = ucci.IEDCommInfos()
-
-		rootNode = calculateLayout(iedInfos, config, selectedFilter)
+		rootNode = await calculateLayout(iedInfos, config, selectedFilter)
 	}
 
 	//
@@ -45,13 +46,13 @@
 <Theme />
 <communication-explorer>
 	<div class="root">
-		{#await rootNode then value}
+		{#if rootNode}
 			<Diagram
-				rootNode={value}
+				rootNode={rootNode}
 				on:iedclick={handleIEDClick}
 				selectedIEDID={$selectedIEDNode.selectedIED?.id ?? ""}
 			/>
-			<Sidebar rootNode={value} />
-		{/await}
+			<Sidebar rootNode={rootNode} />
+		{/if}
 	</div>
 </communication-explorer>

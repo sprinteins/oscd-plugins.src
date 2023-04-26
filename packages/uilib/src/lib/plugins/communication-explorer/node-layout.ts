@@ -8,6 +8,12 @@ import { MessageType } from "@oscd-plugins/core"
 type Config = {
 	width: number,
 	height: number,
+	// heightPerConnection: number,
+}
+
+const messageTypeMap:{[key: string]: MessageType} = {
+	"GOOSE": MessageType.GOOSe,
+	"SMV":   MessageType.SampledValues,
 }
 
 export async function calculateLayout(ieds: IEDCommInfo[], config: Config, selectionFilter: SelectedFilter): Promise<RootNode> {
@@ -16,8 +22,9 @@ export async function calculateLayout(ieds: IEDCommInfo[], config: Config, selec
 	
 	const edges: IEDConnection[] = ieds.map( (targetIED, ii) => { 
 		const iedConnections: IEDConnection[] = []
-		Object.keys(targetIED.received).forEach( sourceIEDName => { 
-			
+		targetIED.received.forEach( message => {
+
+			const sourceIEDName = message.iedName
 			const sourceIEDIndex = ieds.findIndex((sourceIED) => sourceIED.iedName === sourceIEDName)
 			if(sourceIEDIndex === -1) {
 				console.warn({level: "warn", msg: "calculateLayout: source IED not found, continuing", sourceIEDName, ieds})
@@ -26,7 +33,7 @@ export async function calculateLayout(ieds: IEDCommInfo[], config: Config, selec
 			const sourceIED = ieds[sourceIEDIndex]
 
 			const selectedMessageTypes: string[] = selectionFilter.selectedMessageTypes
-			const messageType = MessageType.GOOSe
+			const messageType = messageTypeMap[message.serviceType]
 			const isRelevantMessageType: boolean = selectedMessageTypes.includes(messageType)
 
 			let isRelevant = true
@@ -71,6 +78,14 @@ export async function calculateLayout(ieds: IEDCommInfo[], config: Config, selec
 		if (hasSelection) {
 			isRelevant = relevantNodes.has(ied.iedName) || selectionFilter.selectedIED?.label === ied.iedName
 		}
+
+		// Note: maybe for later
+		// let height = config.height
+		// const nrConnections = ied.received.length + ied.published.length
+		// if(nrConnections>0){
+		// 	height = config.heightPerConnection * nrConnections
+		// }
+
 		return {
 			id:         Id(ii),
 			width:      config.width,

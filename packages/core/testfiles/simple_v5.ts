@@ -100,7 +100,7 @@ export const xmlStr=`<?xml version="1.0" encoding="UTF-8"?>
 			</ConnectedAP>
 		</SubNetwork>
 	</Communication>
-	<IED name="IED1" type="DummyIED" manufacturer="DummyManufactorer" configVersion="1" originalSclVersion="2007" originalSclRevision="B" owner="DummyOwner">
+	<IED name="IED1" type="DummyIED2" manufacturer="DummyManufactorer2" configVersion="1" originalSclVersion="2007" originalSclRevision="B" owner="DummyOwner">
 		<AccessPoint name="P1">
 			<Server>
 				<Authentication none="true"/>
@@ -119,9 +119,22 @@ export const xmlStr=`<?xml version="1.0" encoding="UTF-8"?>
 							<ExtRef iedName="IED4" serviceType="GOOSE" ldInst="CircuitBreaker_CB1" lnClass="CSWI" lnInst="1" prefix="" doName="Pos" daName="stVal" srcLDInst="CircuitBreaker_CB1" srcPrefix="" srcLNClass="LLN0" srcCBName="GCB"/>
 							<ExtRef iedName="IED4" serviceType="GOOSE" ldInst="CircuitBreaker_CB1" lnClass="XCBR" lnInst="1" prefix="" doName="Pos" daName="q" srcLDInst="CircuitBreaker_CB1" srcPrefix="" srcLNClass="LLN0" srcCBName="GCB"/>
 							<ExtRef iedName="IED4" serviceType="GOOSE" ldInst="CircuitBreaker_CB1" lnClass="XCBR" lnInst="1" prefix="" doName="Pos" daName="stVal" srcLDInst="CircuitBreaker_CB1" srcPrefix="" srcLNClass="LLN0" srcCBName="GCB"/>
-							<ExtRef iedName="IED2" serviceType="GOOSE" ldInst="CBSW" lnClass="XSWI" lnInst="2" prefix="" doName="Pos" daName="stVal" srcLDInst="CBSW" srcPrefix="" srcLNClass="LLN0" srcCBName="GCB"/>
-							<ExtRef iedName="IED2" serviceType="GOOSE" ldInst="CBSW" lnClass="XSWI" lnInst="2" prefix="" doName="Pos" daName="q" srcLDInst="CBSW" srcPrefix="" srcLNClass="LLN0" srcCBName="GCB"/>
-							<ExtRef iedName="IED2" serviceType="GOOSE" ldInst="CBSW" lnClass="XSWI" lnInst="3" prefix="" doName="Pos" daName="q" srcLDInst="CBSW" srcPrefix="" srcLNClass="LLN0" srcCBName="GCB"/>
+							<ExtRef iedName="IED3" serviceType="SMV" ldInst="MU01" lnClass="TCTR" lnInst="1" prefix="I01A" doName="Amp" daName="instMag.i" srcLDInst="MU01" srcPrefix="" srcLNClass="LLN0" srcCBName="MSVCB01"/>
+							<ExtRef iedName="IED3" serviceType="SMV" ldInst="MU01" lnClass="TCTR" lnInst="1" prefix="I01A" doName="Amp" daName="q" srcLDInst="MU01" srcPrefix="" srcLNClass="LLN0" srcCBName="MSVCB01"/>
+							<ExtRef iedName="IED3" serviceType="SMV" ldInst="MU01" lnClass="TCTR" lnInst="2" prefix="I01B" doName="Amp" daName="instMag.i" srcLDInst="MU01" srcPrefix="" srcLNClass="LLN0" srcCBName="MSVCB01"/>
+							<ExtRef iedName="IED3" serviceType="SMV" ldInst="MU01" lnClass="TCTR" lnInst="2" prefix="I01B" doName="Amp" daName="q" srcLDInst="MU01" srcPrefix="" srcLNClass="LLN0" srcCBName="MSVCB01"/>
+							<ExtRef iedName="IED3" serviceType="SMV" ldInst="MU01" lnClass="TCTR" lnInst="3" prefix="I01C" doName="Amp" daName="instMag.i" srcLDInst="MU01" srcPrefix="" srcLNClass="LLN0" srcCBName="MSVCB01"/>
+							<ExtRef iedName="IED3" serviceType="SMV" ldInst="MU01" lnClass="TCTR" lnInst="3" prefix="I01C" doName="Amp" daName="q" srcLDInst="MU01" srcPrefix="" srcLNClass="LLN0" srcCBName="MSVCB01"/>
+							<ExtRef iedName="IED3" serviceType="SMV" ldInst="MU01" lnClass="TCTR" lnInst="4" prefix="I01N" doName="Amp" daName="instMag.i" srcLDInst="MU01" srcPrefix="" srcLNClass="LLN0" srcCBName="MSVCB01"/>
+							<ExtRef iedName="IED3" serviceType="SMV" ldInst="MU01" lnClass="TCTR" lnInst="4" prefix="I01N" doName="Amp" daName="q" srcLDInst="MU01" srcPrefix="" srcLNClass="LLN0" srcCBName="MSVCB01"/>
+							<ExtRef iedName="IED3" serviceType="SMV" ldInst="MU01" lnClass="TVTR" lnInst="1" prefix="U01A" doName="Vol" daName="instMag.i" srcLDInst="MU01" srcPrefix="" srcLNClass="LLN0" srcCBName="MSVCB01"/>
+							<ExtRef iedName="IED3" serviceType="SMV" ldInst="MU01" lnClass="TVTR" lnInst="1" prefix="U01A" doName="Vol" daName="q" srcLDInst="MU01" srcPrefix="" srcLNClass="LLN0" srcCBName="MSVCB01"/>
+							<ExtRef iedName="IED3" serviceType="SMV" ldInst="MU01" lnClass="TVTR" lnInst="2" prefix="U01B" doName="Vol" daName="instMag.i" srcLDInst="MU01" srcPrefix="" srcLNClass="LLN0" srcCBName="MSVCB01"/>
+							<ExtRef iedName="IED3" serviceType="SMV" ldInst="MU01" lnClass="TVTR" lnInst="2" prefix="U01B" doName="Vol" daName="q" srcLDInst="MU01" srcPrefix="" srcLNClass="LLN0" srcCBName="MSVCB01"/>
+							<ExtRef iedName="IED3" serviceType="SMV" ldInst="MU01" lnClass="TVTR" lnInst="3" prefix="U01C" doName="Vol" daName="instMag.i" srcLDInst="MU01" srcPrefix="" srcLNClass="LLN0" srcCBName="MSVCB01"/>
+							<ExtRef iedName="IED3" serviceType="SMV" ldInst="MU01" lnClass="TVTR" lnInst="3" prefix="U01C" doName="Vol" daName="q" srcLDInst="MU01" srcPrefix="" srcLNClass="LLN0" srcCBName="MSVCB01"/>
+							<ExtRef iedName="IED3" serviceType="SMV" ldInst="MU01" lnClass="TVTR" lnInst="4" prefix="U01N" doName="Vol" daName="instMag.i" srcLDInst="MU01" srcPrefix="" srcLNClass="LLN0" srcCBName="MSVCB01"/>
+							<ExtRef iedName="IED3" serviceType="SMV" ldInst="MU01" lnClass="TVTR" lnInst="4" prefix="U01N" doName="Vol" daName="q" srcLDInst="MU01" srcPrefix="" srcLNClass="LLN0" srcCBName="MSVCB01"/>
 						</Inputs>
 						<GSEControl type="GOOSE" appID="0001" fixedOffs="false" confRev="1" name="GCB" datSet="GooseDataSet1">
 							<IEDName apRef="P1" ldInst="CircuitBreaker_CB1" lnClass="CSWI" lnInst="1">IED2</IEDName>
@@ -221,13 +234,6 @@ export const xmlStr=`<?xml version="1.0" encoding="UTF-8"?>
 							<FCDA ldInst="CBSW" prefix="" lnClass="XSWI" lnInst="2" doName="Pos" daName="q" fc="ST"/>
 							<FCDA ldInst="CBSW" prefix="" lnClass="XSWI" lnInst="3" doName="Pos" daName="q" fc="ST"/>
 						</DataSet>
-						<Inputs>
-							<ExtRef iedName="IED4" serviceType="GOOSE" ldInst="CircuitBreaker_CB1" lnClass="XCBR" lnInst="1" prefix="" doName="Pos" daName="stVal" srcLDInst="CircuitBreaker_CB1" srcPrefix="" srcLNClass="LLN0" srcCBName="GCB"/>
-							<ExtRef iedName="IED4" serviceType="GOOSE" ldInst="CircuitBreaker_CB1" lnClass="XCBR" lnInst="1" prefix="" doName="Pos" daName="q" srcLDInst="CircuitBreaker_CB1" srcPrefix="" srcLNClass="LLN0" srcCBName="GCB"/>
-							<ExtRef iedName="IED4" serviceType="GOOSE" ldInst="CircuitBreaker_CB1" lnClass="CSWI" lnInst="1" prefix="" doName="Pos" daName="stVal" srcLDInst="CircuitBreaker_CB1" srcPrefix="" srcLNClass="LLN0" srcCBName="GCB"/>
-							<ExtRef iedName="IED4" serviceType="GOOSE" ldInst="Disconnectors" lnClass="XSWI" lnInst="1" prefix="DC" doName="Pos" daName="stVal" srcLDInst="CircuitBreaker_CB1" srcPrefix="" srcLNClass="LLN0" srcCBName="GCB"/>
-							<ExtRef iedName="IED4" serviceType="GOOSE" ldInst="Disconnectors" lnClass="XSWI" lnInst="1" prefix="DC" doName="Pos" daName="q" srcLDInst="CircuitBreaker_CB1" srcPrefix="" srcLNClass="LLN0" srcCBName="GCB"/>
-						</Inputs>
 						<GSEControl type="GOOSE" appID="0002" fixedOffs="false" confRev="1" name="GCB" datSet="GooseDataSet1">
 						</GSEControl>
 					</LN0>
