@@ -60,9 +60,9 @@
         <div class="ied-nodes">
             <img src={ConnectionSelector} alt="connection selector" />
             <label>
-                <span>Show Connections</span>
+                <span>Select an IED</span>
                 <select value={selectValue} on:change={setSelectedNode}>
-                    <option value="" disabled>Select a Node</option>
+                    <option value="" disabled>Select a IED</option>
                     {#if rootNode && rootNode.children}
                         {#each rootNode.children as node}
                             <option

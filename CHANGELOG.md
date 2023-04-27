@@ -8,6 +8,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## Communication Explorer [Unreleased] 
 
+## Communication Explorer [0.0.12] - 2023-04-27
+
+### Fixed
+
+- Rename Labels in Sidebar Panel
+
 ## Communication Explorer [0.0.11] - 2023-04-26 
 
 ### Added
