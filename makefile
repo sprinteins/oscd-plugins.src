@@ -18,3 +18,6 @@ diffing-tool: _install ## Start the network explorer plugin in dev mode
 
 _install:
 	pnpm install
+
+_start-scd:
+	bash ./_scripts/run-openscd.sh
