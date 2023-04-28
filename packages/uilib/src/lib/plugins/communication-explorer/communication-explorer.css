@@ -7,7 +7,9 @@ communication-explorer {
 
 .root {
 	display: grid;
-	grid-template-columns: auto minmax(150px, 25%);
+	grid-template-columns: auto 400px;
 	background-color: #ffffff;
 	height: calc(100vh - 128px);
+	width: 100%;
+	overflow-x: hidden;
 }

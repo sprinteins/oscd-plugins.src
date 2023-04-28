@@ -3,6 +3,7 @@ hr {
 }
 .sidebar {
     height: 100%;
+    width: 400px;
 }
 .sidebar .sidebar-content {
     padding: 1rem;
