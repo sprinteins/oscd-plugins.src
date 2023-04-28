@@ -28,7 +28,7 @@
 	display: none;
 }
 
-.show-selected-path {
+.selected .path-selected {
 	display: block;
 }
 
@@ -39,8 +39,4 @@
 
 .irrelevant {
 	opacity: .2;
-}
-
-.message-type-goose {
-	stroke: red;
 }

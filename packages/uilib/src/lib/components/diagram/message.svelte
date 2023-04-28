@@ -4,23 +4,20 @@
 	import { path as d3Path } from "d3-path";
 	import type { IEDConnection } from "./nodes";
 	import { MessageType } from "@oscd-plugins/core";
-	import { selectedIEDNode } from "../../plugins/communication-explorer";
 
 	//
 	// Input
 	//
 	export let edge: IEDConnection;
-	export let isSelected: boolean;
+	export let isSelected = false;
 
 	let path: string;
 	$: path = draw(edge);
-	$: selectedConnection =
-		$selectedIEDNode?.selectedConnection?.id === edge?.id;
 
 	const defaultColor = "var(--color-black)";
 	const messageTypeToColorMap: { [key in MessageType]: string } = {
-		[MessageType.GOOSe]: "var(--color-message-goose)",
-		[MessageType.MMS]: "var(--color-message-mms)",
+		[MessageType.GOOSe]:         "var(--color-message-goose)",
+		[MessageType.MMS]:           "var(--color-message-mms)",
 		[MessageType.SampledValues]: "var(--color-message-sampledvalues)",
 	};
 
@@ -61,13 +58,18 @@
 	}
 </script>
 
-<g on:click on:keypress data-testid="connection">
+<g 
+	on:click 
+	on:keypress 
+	class:show-selected-path={isSelected}
+	class:selected={isSelected}
+	data-testid="connection"
+>
 	{#if path}
 		<path d={path} class="path-hover-box" />
 		<path d={path} class="path-strong" />
 		<path
 			d={path}
-			class:show-selected-path={selectedConnection}
 			class="path-selected"
 			style="stroke: {pathColor};"
 		/>

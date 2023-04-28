@@ -28,7 +28,7 @@ describe("Messages", () => {
 		render(Message, { edge: connection, isSelected })
 		const element = screen.getByTestId("connection")
 		expect(element).toBeDefined
-		expect(element.classList.contains("show-selected-path")).toBeFalsy
+		expect(element.classList.contains("show-selected-path")).toBeFalsy()
 	})
 
 	it("renders", async () => {
@@ -52,7 +52,7 @@ describe("Messages", () => {
 		render(Message, { edge: connection, isSelected })
 		const element = screen.getByTestId("connection")
 		expect(element).toBeDefined
-		expect(element.classList.contains("show-selected-path")).toBeTruthy
+		expect(Array.from(element.classList)).toContain("show-selected-path")
 	})
 
 })
