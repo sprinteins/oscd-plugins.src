@@ -1,77 +1,70 @@
 <svelte:options tag="tscd-message" />
 
 <script lang="ts">
-	import { path as d3Path } from "d3-path"
-	import type { IEDConnection } from "./nodes"
-	import { MessageType } from "@oscd-plugins/core"
-	import { createEventDispatcher } from "svelte"
-    import { selectedIEDNode } from "../../plugins/communication-explorer";
-
+	import { path as d3Path } from "d3-path";
+	import type { IEDConnection } from "./nodes";
+	import { MessageType } from "@oscd-plugins/core";
+	import { selectedIEDNode } from "../../plugins/communication-explorer";
 
 	//
 	// Input
 	//
-	export let edge: IEDConnection
+	export let edge: IEDConnection;
+	export let isSelected: boolean;
 
-	let path: string
-	$: path = draw(edge)
-	$: selectedConnection = $selectedIEDNode?.selectedConnection?.id === edge?.id
-	$: console.log("log!", $selectedIEDNode?.selectedConnection?.id, edge?.id)
+	let path: string;
+	$: path = draw(edge);
+	$: selectedConnection =
+		$selectedIEDNode?.selectedConnection?.id === edge?.id;
 
-
-	const defaultColor = "var(--color-black)"
-	const messageTypeToColorMap: {[key in MessageType]: string} = {
-		[MessageType.GOOSe]:         "var(--color-message-goose)",
-		[MessageType.MMS]:	         "var(--color-message-mms)",
+	const defaultColor = "var(--color-black)";
+	const messageTypeToColorMap: { [key in MessageType]: string } = {
+		[MessageType.GOOSe]: "var(--color-message-goose)",
+		[MessageType.MMS]: "var(--color-message-mms)",
 		[MessageType.SampledValues]: "var(--color-message-sampledvalues)",
-	}
+	};
 
-	$: pathColor = calcPathColor(edge)
-
+	$: pathColor = calcPathColor(edge);
 
 	function draw(edge?: IEDConnection): string {
-		const sections = edge?.sections??[]
-		if(sections.length === 0){ return "" }
-		
-		const section = sections[0]
-		
-		if(!section){ return "" }
-		
-		const path = d3Path()
-		path.moveTo(section.startPoint.x, section.startPoint.y)
+		const sections = edge?.sections ?? [];
+		if (sections.length === 0) {
+			return "";
+		}
+
+		const section = sections[0];
+
+		if (!section) {
+			return "";
+		}
+
+		const path = d3Path();
+		path.moveTo(section.startPoint.x, section.startPoint.y);
 
 		if (section.bendPoints) {
 			section.bendPoints.forEach((b) => {
-				path.lineTo(b.x, b.y)
-			})
+				path.lineTo(b.x, b.y);
+			});
 		}
-		path.lineTo(section.endPoint.x, section.endPoint.y)
-	
-		return path.toString()
+		path.lineTo(section.endPoint.x, section.endPoint.y);
+
+		return path.toString();
 	}
 
 	function calcPathColor(edge?: IEDConnection): string {
-		if(!edge?.messageType){ return defaultColor }
+		if (!edge?.messageType) {
+			return defaultColor;
+		}
 
-		const color = messageTypeToColorMap[edge.messageType]
-		return color || defaultColor
-	}
-
-	const dispatch = createEventDispatcher()
-	function dispatchConnectionClick(connection: IEDConnection) {
-		dispatch("connectionClick", connection)
+		const color = messageTypeToColorMap[edge.messageType];
+		return color || defaultColor;
 	}
 </script>
 
-<!-- svelte-ignore a11y-click-events-have-key-events -->
-<g on:click={() => dispatchConnectionClick(edge)}>
+<g on:click on:keypress data-testid="connection">
 	{#if path}
-		<path 
-			d={path} 
-			class="path-hover-box" />
-		<path 
-			d={path} 
-			class="path-strong" />
+		<path d={path} class="path-hover-box" />
+		<path d={path} class="path-strong" />
 		<path
 			d={path}
 			class:show-selected-path={selectedConnection}

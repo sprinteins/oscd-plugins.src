@@ -1,10 +1,12 @@
 hr {
     margin: 2rem 0;
 }
+
 .sidebar {
     height: 100%;
-    width: 400px;
+    width: var(--sidebar-width);
 }
+
 .sidebar .sidebar-content {
     padding: 1rem;
     background-color: #ede8d7;
@@ -45,7 +47,7 @@ hr {
 
 input[type="checkbox"] {
     accent-color: #000000;
-    margin:       0;
+    margin: 0;
 }
 
 .actions {
@@ -56,14 +58,14 @@ input[type="checkbox"] {
 
 .actions .clear-all {
     cursor: pointer;
-    border: 1px solid rgba(0,0,0,0);
+    border: 1px solid rgba(0, 0, 0, 0);
     border-radius: 5px;
     padding: 6px 8px;
     transition: border-color 200ms ease-in-out;
 }
 
 .actions .clear-all:hover {
-    border-color: rgba(0,0,0,.3);
+    border-color: rgba(0, 0, 0, .3);
 }
 
 .checkbox-group label,
