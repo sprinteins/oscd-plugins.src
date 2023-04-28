@@ -5,8 +5,8 @@
 	import { UCCommunicationInformation, SCDQueries } from "@oscd-plugins/core"
 	import { calculateLayout } from "./node-layout"
 	import Theme from "../../style/theme.svelte"
-	import { Diagram, type IEDNode, type RootNode } from "../../components/diagram"	
-	import {selectedIEDNode, selectNode, type SelectedFilter} from "./"
+	import { Diagram, type IEDConnection, type IEDNode, type RootNode } from "../../components/diagram"	
+	import {selectedIEDNode, selectIEDNode, type SelectedFilter, selectConnection} from "./"
 	import css from "./communication-explorer.css?inline"
 	import { Sidebar } from "./sidebar"
 
@@ -35,7 +35,12 @@
 	// Actions
 	//
 	function handleIEDClick(e: CustomEvent<IEDNode>) {
-		selectNode(e.detail)
+		selectIEDNode(e.detail)
+		console.log("IED: ", $selectedIEDNode.selectedIED, " Connection: ", $selectedIEDNode.selectedConnection);
+	}
+	function handleConnectionClick(e: CustomEvent<IEDConnection>) {
+		selectConnection(e.detail);
+		console.log("IED: ", $selectedIEDNode.selectedIED, " Connection: ", $selectedIEDNode.selectedConnection);
 	}
 
 	$: initInfos(root, $selectedIEDNode)
@@ -50,6 +55,7 @@
 			<Diagram
 				rootNode={rootNode}
 				on:iedclick={handleIEDClick}
+				on:connectionClick={handleConnectionClick}
 				selectedIEDID={$selectedIEDNode.selectedIED?.id ?? ""}
 			/>
 			<Sidebar rootNode={rootNode} />

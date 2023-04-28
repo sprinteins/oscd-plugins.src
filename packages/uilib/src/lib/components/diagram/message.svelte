@@ -4,6 +4,8 @@
 	import { path as d3Path } from "d3-path"
 	import type { IEDConnection } from "./nodes"
 	import { MessageType } from "@oscd-plugins/core"
+	import { createEventDispatcher } from "svelte"
+    import { selectedIEDNode } from "../../plugins/communication-explorer";
 
 
 	//
@@ -13,6 +15,8 @@
 
 	let path: string
 	$: path = draw(edge)
+	$: selectedConnection = $selectedIEDNode?.selectedConnection?.id === edge?.id
+	$: console.log("log!", $selectedIEDNode?.selectedConnection?.id, edge?.id)
 
 
 	const defaultColor = "var(--color-black)"
@@ -52,12 +56,28 @@
 		const color = messageTypeToColorMap[edge.messageType]
 		return color || defaultColor
 	}
+
+	const dispatch = createEventDispatcher()
+	function dispatchConnectionClick(connection: IEDConnection) {
+		dispatch("connectionClick", connection)
+	}
 </script>
 
-<g>
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+<g on:click={() => dispatchConnectionClick(edge)}>
 	{#if path}
-		<path d={path} class="path-hover-box" />
-		<path d={path} class="path-strong" />
+		<path 
+			d={path} 
+			class="path-hover-box" />
+		<path 
+			d={path} 
+			class="path-strong" />
+		<path
+			d={path}
+			class:show-selected-path={selectedConnection}
+			class="path-selected"
+			style="stroke: {pathColor};"
+		/>
 		<path
 			d={path}
 			class:irrelevant={!edge.isRelevant}

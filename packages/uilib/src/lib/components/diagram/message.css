@@ -1,6 +1,7 @@
 .path,
 .path-strong,
-.path-hover-box {
+.path-hover-box,
+.path-selected {
 	fill: none;
 	cursor: pointer;
 }
@@ -18,9 +19,17 @@
 
 .path-strong {
 	stroke-width: 0.275rem;
-	stroke: #00ff00;
 	stroke: var(--color-yellow);
 	opacity: 0;
+}
+
+.path-selected {
+	stroke-width: 0.275rem;
+	display: none;
+}
+
+.show-selected-path {
+	display: block;
 }
 
 .path-hover-box:hover~.path-strong,

@@ -10,6 +10,8 @@
 
 {#if doc}
   <CommunicationExplorer root={doc?.documentElement} />
+
+  
 {/if}
 
 

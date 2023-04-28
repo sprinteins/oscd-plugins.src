@@ -52,7 +52,10 @@
 
 			{#if rootNode.edges}
 				{#each rootNode.edges as edge}
-					<Message {edge} />
+					<Message 
+						on:connectionClick
+						edge={edge} 
+					/>
 				{/each}
 			{/if}
 		</svg>
