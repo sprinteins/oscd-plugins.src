@@ -13,11 +13,13 @@
     import css from "./sidebar.css?inline";
     import type { IEDNode, RootNode } from "../../../components/diagram";
     import MessageTypeFilter from "./message-type-filter/message-type-filter.svelte";
+    import ConnectionTypeFilter from "./connection-type-filter/connection-type-filter.svelte";
 
     export let rootNode: RootNode;
 
     $: IEDSelection = $selectedIEDNode?.selectedIED?.id ?? "";
     $: ConnectionSelection = $selectedIEDNode.selectedConnection;
+    $: selectedMessageTypes = $selectedIEDNode.selectedMessageTypes;
     $: showIncomingConnections = $selectedIEDNode?.incomingConnections;
     $: showOutgoingConnections = $selectedIEDNode?.outgoingConnections;
     $: isIedFiltersDisabled =
@@ -82,33 +84,19 @@
 
         <hr />
 
-        <div class="connection-type">
-            <label>
-                <input
-                    type="checkbox"
-                    bind:checked={showIncomingConnections}
-                    on:change={changeConnectionDirection}
-                    disabled={isIedFiltersDisabled}
-                />
-                <span>Incoming Connection</span>
-            </label>
-            <label>
-                <input
-                    type="checkbox"
-                    bind:checked={showOutgoingConnections}
-                    on:change={changeConnectionDirection}
-                    disabled={isIedFiltersDisabled}
-                />
-                <span>Outgoing Connection</span>
-            </label>
-            {#if !showIncomingConnections && !showOutgoingConnections}
-                <span>*You have to select at least one</span>
-            {/if}
-        </div>
+        <ConnectionTypeFilter
+            on:change={changeConnectionDirection}
+            {isIedFiltersDisabled}
+            bind:showIncomingConnections
+            bind:showOutgoingConnections
+        />
 
         <hr />
 
-        <MessageTypeFilter filterDisabled={isIedFiltersDisabled} />
+        <MessageTypeFilter
+            {selectedMessageTypes}
+            filterDisabled={isIedFiltersDisabled}
+        />
 
         <hr />
 

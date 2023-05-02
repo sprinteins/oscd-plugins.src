@@ -1,0 +1,13 @@
+.checkbox-group,
+.connection-type {
+    display: flex;
+    flex-direction: column;
+    user-select: none;
+}
+
+.checkbox-group label,
+.connection-type label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}

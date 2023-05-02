@@ -6,8 +6,8 @@
     import { MessageType } from "@oscd-plugins/core";
 
     export let filterDisabled: boolean;
+    export let selectedMessageTypes: string[];
 
-    $: selectedMessageTypes = $selectedIEDNode.selectedMessageTypes;
     function isSelected(
         messageType: MessageType,
         selectedMessages: string[] = []
@@ -32,6 +32,7 @@
             checked={isSelected(MessageType.MMS, selectedMessageTypes)}
             disabled={filterDisabled}
             name={MessageType.MMS}
+            data-testid="exampleFilterToBeChecked"
         />
         <span>MMS</span>
     </label>
