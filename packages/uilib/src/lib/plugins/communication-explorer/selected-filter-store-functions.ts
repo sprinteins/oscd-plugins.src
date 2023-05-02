@@ -30,8 +30,7 @@ export function clearSelection() {
 			outgoingConnections:  true,
 			selectedMessageTypes: [...allMessageTypes],
 			selectedIED:          undefined,
-		// 	hideIrrelevantStuff:  false,
-		// 	nameFilter:           "",
+			selectedConnection:   undefined,
 		}
 	})
 }

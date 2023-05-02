@@ -74,7 +74,7 @@
 			<Diagram
 				{rootNode}
 				on:iedclick={handleIEDClick}
-				on:connectionClick={handleConnectionClick}
+				on:connectionclick={handleConnectionClick}
 				selectedIEDID={$selectedIEDNode.selectedIED?.id}
 				selectedConnectionID={$selectedIEDNode?.selectedConnection?.id}
 			/>
