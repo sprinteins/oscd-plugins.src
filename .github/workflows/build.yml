@@ -38,12 +38,15 @@ jobs:
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
+
+      - name: Install Dependencies
+        run: pnpm install 
       
       - name: Run Tests
-        run: (cd ./packages/uilib; pnpm test:unit --run)
+        run: (cd ./packages/uilib ; pnpm test:unit --run)
         
       - name: Build Plugin
-        run: pnpm install && pnpm -C ./packages/plugins/${{ inputs.plugin-name }} run build
+        run: pnpm -C ./packages/plugins/${{ inputs.plugin-name }} run build
      
       - name: Prep-Build
         run: mkdir _build_ && cd _build_
