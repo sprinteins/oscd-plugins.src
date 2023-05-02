@@ -1,42 +1,46 @@
 /* VARIABLES */
-:root, :host {
-	--color-white:          #FFFFFF;
-	--color-white-dark:     #f2f2f2;
-	--color-yellow:         #D9D800;
-	--color-blue:           #004552;
-	--color-blue-dark:      #14343e;
-	--color-blue-1:         #3253A8;
-	--color-blue-light:     #e5ecee;
-	--color-torques:        #007D80;
-	--color-green: 		    #288409;
-	--color-black:          #000000;
-	--color-beige-1:        burlywood;
-	--color-beige-2: 		blanchedalmond;
-	--color-pink: 			#C73C61;	
+:root,
+:host {
+	--color-white: #FFFFFF;
+	--color-white-dark: #f2f2f2;
+	--color-yellow: #D9D800;
+	--color-blue: #004552;
+	--color-blue-dark: #14343e;
+	--color-blue-1: #3253A8;
+	--color-blue-light: #e5ecee;
+	--color-torques: #007D80;
+	--color-green: #288409;
+	--color-black: #000000;
+	--color-beige-1: burlywood;
+	--color-beige-2: blanchedalmond;
+	--color-pink: #C73C61;
 
-	--color-primary:   var(--color-yellow);
+	--color-primary: var(--color-yellow);
 	--color-secondary: var(--color-blue);
-	--color-text: 	   var(--color-white);
+	--color-text: var(--color-white);
 
 	--border-radius: 4px;
 	--letter-spacing: .2px;
 
 	--font-family: "Avenir Next", sans-serif;
 
-	--color-ied-focus: 		 var(--color-beige-1);
+	--color-ied-focus: var(--color-beige-1);
 	--color-ied-focus-hover: var(--color-beige-2);
 
-	--color-message-goose:         var(--color-green);
-	--color-message-mms: 		   var(--color-blue-1);
+	--color-message-goose: var(--color-green);
+	--color-message-mms: var(--color-blue-1);
 	--color-message-sampledvalues: var(--color-pink);
-	
+
 	/* cb = colorblind */
 	/* --color-message-goose-cb: #3BC40E; */
 	/* --color-message-mms-cb: #00BCBF; */
 	/* --color-message-sampledvalues-cb: #407CF5; */
+
+	--sidebar-width: 400px;
 }
 
-:root, :host {
+:root,
+:host {
 	font-family: var(--font-family);
 	letter-spacing: var(--letter-spacing);
 }

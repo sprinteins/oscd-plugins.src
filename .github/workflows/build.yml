@@ -39,6 +39,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
       
+      - name: Run Tests
+        run: (cd ./packages/uilib; pnpm test:unit --run)
+        
       - name: Build Plugin
         run: pnpm install && pnpm -C ./packages/plugins/${{ inputs.plugin-name }} run build
      

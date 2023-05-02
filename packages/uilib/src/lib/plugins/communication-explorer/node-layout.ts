@@ -58,7 +58,7 @@ export async function calculateLayout(ieds: IEDCommInfo[], config: Config, selec
 			}
 			
 			const connection = { 
-				id:               `connection_${Id(sourceIEDIndex)}_${Id(ii)}`, 
+				id:               `con_${Id(sourceIEDIndex)}_${Id(ii)}_${messageType}`, 
 				sources:          [Id(sourceIEDIndex)], 
 				targets:          [Id(ii)], 
 				isRelevant,

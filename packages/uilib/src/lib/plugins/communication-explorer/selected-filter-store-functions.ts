@@ -1,12 +1,23 @@
-import type { IEDNode } from "../../components/diagram"
+import type { IEDConnection, IEDNode } from "../../components/diagram"
 import { MessageType, allMessageTypes } from "@oscd-plugins/core"
 import { selectedIEDNode } from "./"
 
-export function selectNode(node: IEDNode) {
+export function selectIEDNode(node: IEDNode) {
 	selectedIEDNode.update(selectedFilter => {
 		return {
 			...selectedFilter,
-			selectedIED: node,
+			selectedIED:        node,
+			selectedConnection: undefined,
+		}
+	})
+}
+
+export function selectConnection(connection: IEDConnection) {
+	selectedIEDNode.update(selectedFilter => {
+		return {
+			...selectedFilter,
+			selectedConnection: connection,
+			selectedIED:        undefined,
 		}
 	})
 }
@@ -19,8 +30,7 @@ export function clearSelection() {
 			outgoingConnections:  true,
 			selectedMessageTypes: [...allMessageTypes],
 			selectedIED:          undefined,
-		// 	hideIrrelevantStuff:  false,
-		// 	nameFilter:           "",
+			selectedConnection:   undefined,
 		}
 	})
 }

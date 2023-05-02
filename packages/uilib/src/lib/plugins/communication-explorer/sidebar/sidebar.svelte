@@ -4,7 +4,7 @@
 
     import { selectedIEDNode } from "../selected-filter-store"
     import { 
-        selectNode, 
+        selectIEDNode, 
         clearSelection, 
         changeMessageConnectionFilterDirection,
         setHideIrrelevantStuff,
@@ -17,9 +17,10 @@
 
     export let rootNode: RootNode
 
-    let selectValue: string                 = $selectedIEDNode?.selectedIED?.id ?? ""
-    let showIncomingConnections: boolean    = $selectedIEDNode?.incomingConnections
-    let showOutgoingConnections: boolean    = $selectedIEDNode?.outgoingConnections
+    $: IEDSelection = $selectedIEDNode?.selectedIED?.id ?? ""
+    $: ConnectionSelection = $selectedIEDNode.selectedConnection
+    $: showIncomingConnections = $selectedIEDNode?.incomingConnections
+    $: showOutgoingConnections = $selectedIEDNode?.outgoingConnections
 
     let selectedNode: IEDNode | undefined
 
@@ -27,7 +28,7 @@
     	const target = e.target as HTMLSelectElement
     	selectedNode = rootNode.children.find(node => node.id === target.value)
     	if (selectedNode) {
-    		selectNode(selectedNode)
+    		selectIEDNode(selectedNode)
     	}
     }
 
@@ -61,12 +62,12 @@
             <img src={ConnectionSelector} alt="connection selector" />
             <label>
                 <span>Select an IED</span>
-                <select value={selectValue} on:change={setSelectedNode}>
+                <select value={IEDSelection} on:change={setSelectedNode}>
                     <option value="" disabled>Select a IED</option>
                     {#if rootNode && rootNode.children}
                         {#each rootNode.children as node}
                             <option
-                                selected={selectValue === node.id}
+                                selected={IEDSelection === node.id}
                                 value={node.id}>{node.label}
                             </option>
                         {/each}
@@ -102,6 +103,27 @@
         <hr />
 
         <MessageTypeFilter />
+
+        <hr />
+
+        <table>
+            <tr>
+                <td>ID:</td>
+                <td>{ConnectionSelection?.id}</td>
+            </tr>
+            <tr>
+                <td>Sources:</td>
+                <td>{ConnectionSelection?.sources}</td>
+            </tr>
+            <tr>
+                <td>Targets:</td>
+                <td>{ConnectionSelection?.targets}</td>
+            </tr>
+            <tr>
+                <td>MessageType:</td>
+                <td>{ConnectionSelection?.messageType}</td>
+            </tr>
+        </table>
 
         <hr />
         <h2>Experiments</h2>

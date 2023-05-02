@@ -1,13 +1,15 @@
 communication-explorer {
-	display: 	block;
-	position:   relative; 
-	font-size:  12px; 
+	display: block;
+	position: relative;
+	font-size: 12px;
 	min-height: 80vh
 }
 
 .root {
 	display: grid;
-	grid-template-columns: auto minmax(150px, 25%);
+	grid-template-columns: auto var(--sidebar-width);
 	background-color: #ffffff;
 	height: calc(100vh - 128px);
+	width: 100%;
+	overflow-x: hidden;
 }

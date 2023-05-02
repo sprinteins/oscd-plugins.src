@@ -1,26 +1,31 @@
 <svelte:options tag="tscd-diagram" />
 
 <script lang="ts">
-	import cssDiagram from "./diagram.scss?inline"
-	import cssIED from "./ied.css?inline"
-	import cssMessage from "./message.css?inline"
-	import type { IEDNode, RootNode } from "./nodes"
-	import IED from "./ied.svelte"
-	import Message from "./message.svelte"
-	import { createEventDispatcher } from "svelte"
+	import cssDiagram from "./diagram.scss?inline";
+	import cssIED from "./ied.css?inline";
+	import cssMessage from "./message.css?inline";
+	import type { IEDNode, RootNode } from "./nodes";
+	import IED from "./ied.svelte";
+	import Message from "./message.svelte";
+	import { createEventDispatcher } from "svelte";
+	import type { ElkExtendedEdge } from "elkjs";
 
 	//
 	// Inputs
 	//
-	export let rootNode: RootNode
-	export let selectedIEDID: string | undefined = undefined
+	export let rootNode: RootNode;
+	export let selectedIEDID: string | undefined = undefined;
+	export let selectedConnectionID: string | undefined = undefined;
 
 	//
 	// Setup
 	//
-	const dispatch = createEventDispatcher()
+	const dispatch = createEventDispatcher();
 	function dispatchIEDClick(node: IEDNode) {
-		dispatch("iedclick", node)
+		dispatch("iedclick", node);
+	}
+	function dispatchConnectionClick(connection: ElkExtendedEdge) {
+		dispatch("connectionclick", connection);
 	}
 </script>
 
@@ -52,7 +57,11 @@
 
 			{#if rootNode.edges}
 				{#each rootNode.edges as edge}
-					<Message {edge} />
+					<Message
+						{edge}
+						isSelected={selectedConnectionID === edge?.id}
+						on:click={() => dispatchConnectionClick(edge)}
+					/>
 				{/each}
 			{/if}
 		</svg>
