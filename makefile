@@ -24,5 +24,5 @@ plugins: communication-explorer # shortcut
 _install:
 	pnpm install
 
-_start-scd:
+start-scd:
 	bash ./_scripts/run-openscd.sh
