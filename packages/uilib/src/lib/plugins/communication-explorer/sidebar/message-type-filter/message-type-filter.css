@@ -9,3 +9,7 @@
     align-items: center;
     gap: 0.5rem;
 }
+
+.message-type label input[disabled]+span {
+    color: rgba(0, 0, 0, 0.4);
+}

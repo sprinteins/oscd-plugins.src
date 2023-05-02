@@ -50,6 +50,10 @@ input[type="checkbox"] {
     margin: 0;
 }
 
+label input[disabled]+span {
+    color: rgba(0, 0, 0, 0.4);
+}
+
 .actions {
     display: flex;
     flex-direction: row-reverse;

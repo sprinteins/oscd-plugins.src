@@ -1,51 +1,56 @@
 <svelte:options tag="tscd-sidebar" />
 
 <script lang="ts">
-
-    import { selectedIEDNode } from "../selected-filter-store"
-    import { 
-        selectIEDNode, 
-        clearSelection, 
+    import { selectedIEDNode } from "../selected-filter-store";
+    import {
+        selectIEDNode,
+        clearSelection,
         changeMessageConnectionFilterDirection,
         setHideIrrelevantStuff,
         setNameFilter,
-     } from "../selected-filter-store-functions"
-    import ConnectionSelector from "./assets/connection-selector.svg"
-    import css from "./sidebar.css?inline"
-    import type { IEDNode, RootNode } from "../../../components/diagram"
-    import MessageTypeFilter from "./message-type-filter/message-type-filter.svelte"
+    } from "../selected-filter-store-functions";
+    import ConnectionSelector from "./assets/connection-selector.svg";
+    import css from "./sidebar.css?inline";
+    import type { IEDNode, RootNode } from "../../../components/diagram";
+    import MessageTypeFilter from "./message-type-filter/message-type-filter.svelte";
 
-    export let rootNode: RootNode
+    export let rootNode: RootNode;
 
-    $: IEDSelection = $selectedIEDNode?.selectedIED?.id ?? ""
-    $: ConnectionSelection = $selectedIEDNode.selectedConnection
-    $: showIncomingConnections = $selectedIEDNode?.incomingConnections
-    $: showOutgoingConnections = $selectedIEDNode?.outgoingConnections
+    $: IEDSelection = $selectedIEDNode?.selectedIED?.id ?? "";
+    $: ConnectionSelection = $selectedIEDNode.selectedConnection;
+    $: showIncomingConnections = $selectedIEDNode?.incomingConnections;
+    $: showOutgoingConnections = $selectedIEDNode?.outgoingConnections;
+    $: isIedFiltersDisabled =
+        $selectedIEDNode?.selectedConnection !== undefined;
 
-    let selectedNode: IEDNode | undefined
+    let selectedNode: IEDNode | undefined;
 
     function setSelectedNode(e: Event) {
-    	const target = e.target as HTMLSelectElement
-    	selectedNode = rootNode.children.find(node => node.id === target.value)
-    	if (selectedNode) {
-    		selectIEDNode(selectedNode)
-    	}
+        const target = e.target as HTMLSelectElement;
+        selectedNode = rootNode.children.find(
+            (node) => node.id === target.value
+        );
+        if (selectedNode) {
+            selectIEDNode(selectedNode);
+        }
     }
 
     function changeConnectionDirection() {
-    	changeMessageConnectionFilterDirection(showIncomingConnections, showOutgoingConnections)
+        changeMessageConnectionFilterDirection(
+            showIncomingConnections,
+            showOutgoingConnections
+        );
     }
 
-    function handleHideIrrelevantStuffChange(e: Event){
-        const target = e.target as HTMLInputElement
-        setHideIrrelevantStuff(target.checked)
+    function handleHideIrrelevantStuffChange(e: Event) {
+        const target = e.target as HTMLInputElement;
+        setHideIrrelevantStuff(target.checked);
     }
 
-    function handleNameFilterChange(e: Event){
-        const target = e.target as HTMLInputElement
-        setNameFilter(target.value)
+    function handleNameFilterChange(e: Event) {
+        const target = e.target as HTMLInputElement;
+        setNameFilter(target.value);
     }
-
 </script>
 
 <div class="sidebar sidebar-right">
@@ -53,9 +58,7 @@
         <!-- svelte-ignore a11y-missing-attribute -->
         <!-- svelte-ignore a11y-click-events-have-key-events -->
         <div class="actions">
-            <a class="clear-all" on:click={clearSelection}>
-                Clear all
-            </a>
+            <a class="clear-all" on:click={clearSelection}> Clear all </a>
         </div>
 
         <div class="ied-nodes">
@@ -68,7 +71,8 @@
                         {#each rootNode.children as node}
                             <option
                                 selected={IEDSelection === node.id}
-                                value={node.id}>{node.label}
+                                value={node.id}
+                                >{node.label}
                             </option>
                         {/each}
                     {/if}
@@ -84,6 +88,7 @@
                     type="checkbox"
                     bind:checked={showIncomingConnections}
                     on:change={changeConnectionDirection}
+                    disabled={isIedFiltersDisabled}
                 />
                 <span>Incoming Connection</span>
             </label>
@@ -92,6 +97,7 @@
                     type="checkbox"
                     bind:checked={showOutgoingConnections}
                     on:change={changeConnectionDirection}
+                    disabled={isIedFiltersDisabled}
                 />
                 <span>Outgoing Connection</span>
             </label>
@@ -102,7 +108,7 @@
 
         <hr />
 
-        <MessageTypeFilter />
+        <MessageTypeFilter filterDisabled={isIedFiltersDisabled} />
 
         <hr />
 
@@ -127,11 +133,11 @@
 
         <hr />
         <h2>Experiments</h2>
-           
+
         <div class="checkbox-group">
             <label>
-                <input 
-                    type="checkbox" 
+                <input
+                    type="checkbox"
                     checked={$selectedIEDNode.hideIrrelevantStuff}
                     on:change={handleHideIrrelevantStuffChange}
                 />
@@ -141,13 +147,14 @@
 
         <label>
             <span>IED prefix search:</span>
-            <input type="text"
+            <input
+                type="text"
                 placeholder="e.g.: XAT"
                 value={$selectedIEDNode.nameFilter}
                 on:input={handleNameFilterChange}
             />
         </label>
 
-    <svelte:element this="style">{@html css}</svelte:element>
+        <svelte:element this="style">{@html css}</svelte:element>
     </div>
 </div>
