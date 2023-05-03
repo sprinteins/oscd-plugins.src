@@ -4,12 +4,12 @@
 
     import { selectedIEDNode } from "../selected-filter-store"
     import { 
-        selectIEDNode, 
-        clearSelection, 
-        changeMessageConnectionFilterDirection,
-        setHideIrrelevantStuff,
-        setNameFilter,
-     } from "../selected-filter-store-functions"
+    	selectIEDNode, 
+    	clearSelection, 
+    	changeMessageConnectionFilterDirection,
+    	setHideIrrelevantStuff,
+    	setNameFilter,
+    } from "../selected-filter-store-functions"
     import ConnectionSelector from "./assets/connection-selector.svg"
     import css from "./sidebar.css?inline"
     import type { IEDNode, RootNode } from "../../../components/diagram"
@@ -37,13 +37,13 @@
     }
 
     function handleHideIrrelevantStuffChange(e: Event){
-        const target = e.target as HTMLInputElement
-        setHideIrrelevantStuff(target.checked)
+    	const target = e.target as HTMLInputElement
+    	setHideIrrelevantStuff(target.checked)
     }
 
     function handleNameFilterChange(e: Event){
-        const target = e.target as HTMLInputElement
-        setNameFilter(target.value)
+    	const target = e.target as HTMLInputElement
+    	setNameFilter(target.value)
     }
 
 </script>

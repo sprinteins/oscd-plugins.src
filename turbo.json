@@ -17,6 +17,12 @@
 			"outputs": [
 				"dist/**"
 			]
+		},
+		"lint": {
+			"cache": false
+		},
+		"fix": {
+			"cache": false
 		}
 	}
 }

@@ -16,6 +16,8 @@ network-explorer: _install ## Start the network explorer plugin in dev mode
 diffing-tool: _install ## Start the network explorer plugin in dev mode
 	pnpm -C ./packages/plugins/diffing-tool run build:watch
 
+fix:
+	pnpm turbo fix
 uilib-tests: _install
 	(cd ./packages/uilib ; pnpm test:unit)
 

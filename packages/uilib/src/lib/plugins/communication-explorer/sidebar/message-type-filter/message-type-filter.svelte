@@ -6,7 +6,7 @@
 
     $: selectedMessageTypes = $selectedIEDNode.selectedMessageTypes
     function isSelected(messageType: MessageType, selectedMessages:string[] = []) {
-        return selectedMessages.includes(messageType)
+    	return selectedMessages.includes(messageType)
     }
 
     function setTargetMessageType(e: Event) {
