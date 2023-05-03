@@ -1,4 +1,6 @@
 <script lang="ts">
+    import css from "./connection-type-filter.css?inline";
+
     export let isIedFiltersDisabled: boolean = false;
     export let showIncomingConnections: boolean;
     export let showOutgoingConnections: boolean;
@@ -28,3 +30,5 @@
         <span>*You have to select at least one</span>
     {/if}
 </div>
+
+<svelte:element this="style">{@html css}</svelte:element>
