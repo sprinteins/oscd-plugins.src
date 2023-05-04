@@ -32,13 +32,6 @@ hr {
     align-items: center;
 }
 
-.checkbox-group,
-.connection-type {
-    display: flex;
-    flex-direction: column;
-    user-select: none;
-}
-
 .goos-messages {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -65,12 +58,5 @@ input[type="checkbox"] {
 }
 
 .actions .clear-all:hover {
-    border-color: rgba(0, 0, 0, .3);
-}
-
-.checkbox-group label,
-.connection-type label {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+    border-color: var(--color-text-disabled-1);
 }

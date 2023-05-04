@@ -1,9 +1,9 @@
 <script lang="ts">
-    import { Example } from "$lib/components/internal"
-    import MessageTypeFilter from "./message-type-filter.svelte"
+    import { Example } from "$lib/components/internal";
+    import { MessageTypeFilter } from "./";
 </script>
 
 <Example name="Communication Explorer">
-    <MessageTypeFilter />
-	<!-- <tscd-communication-explorer root={doc} ></tscd-communication-explorer> -->
+    <MessageTypeFilter filterDisabled={false} selectedMessageTypes={[]} />
+    <!-- <tscd-communication-explorer root={doc} ></tscd-communication-explorer> -->
 </Example>
