@@ -27,12 +27,13 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: sprinteins/oscd-plugins
-          ref: build/${{ inputs.plugin-name }}
+          ref: gh-pages
 
       - name: Retrieve Old Version
         id: old_version
         run: |
-          if test -f "package.json"; then
+          if test -f "./${{ inputs.plugin-name }}/package.json"; then
+          cd ./${{ inputs.plugin-name }}
             echo "version=$(npm pkg get version)" >> "$GITHUB_OUTPUT"
           else
             echo "version=_" >> "$GITHUB_OUTPUT"
