@@ -1,40 +1,40 @@
 <svelte:options tag="tscd-sidebar" />
 
 <script lang="ts">
-    import { selectedIEDNode } from "../selected-filter-store";
+    import { selectedIEDNode } from "../selected-filter-store"
     import {
-        selectIEDNode,
-        clearSelection,
-        changeMessageConnectionFilterDirection,
-        setHideIrrelevantStuff,
-        setNameFilter,
-    } from "../selected-filter-store-functions";
-    import ConnectionSelector from "./assets/connection-selector.svg";
-    import css from "./sidebar.css?inline";
-    import type { IEDNode, RootNode } from "../../../components/diagram";
-    import { MessageTypeFilter } from "./message-type-filter";
-    import { ConnectionTypeFilter } from "./connection-type-filter";
+    	selectIEDNode,
+    	clearSelection,
+    	changeMessageConnectionFilterDirection,
+    	setHideIrrelevantStuff,
+    	setNameFilter,
+    } from "../selected-filter-store-functions"
+    import ConnectionSelector from "./assets/connection-selector.svg"
+    import css from "./sidebar.css?inline"
+    import type { IEDNode, RootNode } from "../../../components/diagram"
+    import { MessageTypeFilter } from "./message-type-filter"
+    import { ConnectionTypeFilter } from "./connection-type-filter"
 
-    export let rootNode: RootNode;
+    export let rootNode: RootNode
 
-    $: IEDSelection = $selectedIEDNode?.selectedIED?.id ?? "";
-    $: ConnectionSelection = $selectedIEDNode.selectedConnection;
-    $: selectedMessageTypes = $selectedIEDNode.selectedMessageTypes;
-    $: showIncomingConnections = $selectedIEDNode?.incomingConnections;
-    $: showOutgoingConnections = $selectedIEDNode?.outgoingConnections;
+    $: IEDSelection = $selectedIEDNode?.selectedIED?.id ?? ""
+    $: ConnectionSelection = $selectedIEDNode.selectedConnection
+    $: selectedMessageTypes = $selectedIEDNode.selectedMessageTypes
+    $: showIncomingConnections = $selectedIEDNode?.incomingConnections
+    $: showOutgoingConnections = $selectedIEDNode?.outgoingConnections
     $: isIedFiltersDisabled =
-        $selectedIEDNode?.selectedConnection !== undefined;
+        $selectedIEDNode?.selectedConnection !== undefined
 
-    let selectedNode: IEDNode | undefined;
+    let selectedNode: IEDNode | undefined
 
     function setSelectedNode(e: Event) {
-        const target = e.target as HTMLSelectElement;
-        selectedNode = rootNode.children.find(
-            (node) => node.id === target.value
-        );
-        if (selectedNode) {
-            selectIEDNode(selectedNode);
-        }
+    	const target = e.target as HTMLSelectElement
+    	selectedNode = rootNode.children.find(
+    		(node) => node.id === target.value
+    	)
+    	if (selectedNode) {
+    		selectIEDNode(selectedNode)
+    	}
     }
 
     // function changeConnectionDirection(e: Event) {
@@ -52,13 +52,13 @@
     // }
 
     function handleHideIrrelevantStuffChange(e: Event) {
-        const target = e.target as HTMLInputElement;
-        setHideIrrelevantStuff(target.checked);
+    	const target = e.target as HTMLInputElement
+    	setHideIrrelevantStuff(target.checked)
     }
 
     function handleNameFilterChange(e: Event) {
-        const target = e.target as HTMLInputElement;
-        setNameFilter(target.value);
+    	const target = e.target as HTMLInputElement
+    	setNameFilter(target.value)
     }
 </script>
 

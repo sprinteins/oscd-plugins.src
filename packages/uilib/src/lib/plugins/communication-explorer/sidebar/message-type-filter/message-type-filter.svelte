@@ -1,26 +1,26 @@
 <svelte:options tag="tscd-message-type-filter" />
 
 <script lang="ts">
-    import css from "./message-type-filter.css?inline";
-    import { setSelectedMessageTypes } from "../../";
-    import { MessageType } from "@oscd-plugins/core";
+    import css from "./message-type-filter.css?inline"
+    import { setSelectedMessageTypes } from "../../"
+    import { MessageType } from "@oscd-plugins/core"
 
-    export let filterDisabled: boolean;
-    export let selectedMessageTypes: string[];
+    export let filterDisabled: boolean
+    export let selectedMessageTypes: string[]
 
     function isSelected(
-        messageType: MessageType,
-        selectedMessages: string[] = []
+    	messageType: MessageType,
+    	selectedMessages: string[] = []
     ) {
-        return selectedMessages.includes(messageType);
+    	return selectedMessages.includes(messageType)
     }
 
     function setTargetMessageType(e: Event) {
-        const element = e?.target as HTMLInputElement;
-        const name = element?.name as MessageType;
-        const value = element?.checked;
+    	const element = e?.target as HTMLInputElement
+    	const name = element?.name as MessageType
+    	const value = element?.checked
 
-        setSelectedMessageTypes(name, value);
+    	setSelectedMessageTypes(name, value)
     }
 </script>
 

@@ -10,8 +10,6 @@
 
 {#if doc}
   <CommunicationExplorer root={doc?.documentElement} />
-
-  
 {/if}
 
 <input type="hidden" name="package-name" value={pckg.name} />

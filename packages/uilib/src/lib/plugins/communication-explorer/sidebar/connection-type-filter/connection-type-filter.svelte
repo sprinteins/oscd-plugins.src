@@ -1,36 +1,36 @@
 <svelte:options tag="tscd-connection-type-filter" />
 
 <script lang="ts">
-    import { changeMessageConnectionFilterDirection } from "../../selected-filter-store-functions";
-    import css from "./connection-type-filter.css?inline";
+    import { changeMessageConnectionFilterDirection } from "../../selected-filter-store-functions"
+    import css from "./connection-type-filter.css?inline"
 
-    export let isIedFiltersDisabled: boolean = false;
-    export let showIncomingConnections: boolean;
-    export let showOutgoingConnections: boolean;
+    export let isIedFiltersDisabled = false
+    export let showIncomingConnections: boolean
+    export let showOutgoingConnections: boolean
 
     function setConnectionDirection(e: Event) {
-        const element = e.target as HTMLInputElement;
-        const name: string = element.name;
-        const isChecked: boolean = element.checked;
+    	const element = e.target as HTMLInputElement
+    	const name: string = element.name
+    	const isChecked: boolean = element.checked
 
-        switch (name) {
-            case "incoming":
-                changeMessageConnectionFilterDirection(
-                    isChecked,
-                    showOutgoingConnections
-                );
-                break;
+    	switch (name) {
+    	case "incoming":
+    		changeMessageConnectionFilterDirection(
+    			isChecked,
+    			showOutgoingConnections
+    		)
+    		break
 
-            case "outgoing":
-                changeMessageConnectionFilterDirection(
-                    showIncomingConnections,
-                    isChecked
-                );
-                break;
+    	case "outgoing":
+    		changeMessageConnectionFilterDirection(
+    			showIncomingConnections,
+    			isChecked
+    		)
+    		break
 
-            default:
-                break;
-        }
+    	default:
+    		break
+    	}
     }
 </script>
 

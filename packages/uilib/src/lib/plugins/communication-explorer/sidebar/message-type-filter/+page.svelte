@@ -1,6 +1,6 @@
 <script lang="ts">
-    import { Example } from "$lib/components/internal";
-    import { MessageTypeFilter } from "./";
+    import { Example } from "$lib/components/internal"
+    import { MessageTypeFilter } from "./"
 </script>
 
 <Example name="Communication Explorer">
