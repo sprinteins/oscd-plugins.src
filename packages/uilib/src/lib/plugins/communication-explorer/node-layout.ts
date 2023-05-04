@@ -17,7 +17,8 @@ const messageTypeMap:{[key: string]: MessageType} = {
 }
 
 export async function calculateLayout(ieds: IEDCommInfo[], config: Config, selectionFilter: SelectedFilter): Promise<RootNode> {
-	const hasSelection = Boolean(selectionFilter.selectedIED)
+	const hasIEDSelection = Boolean(selectionFilter.selectedIED)
+	const hasConnectionSelection = Boolean(selectionFilter.selectedConnection)
 
 		
 	if(selectionFilter.nameFilter !== ""){
@@ -41,7 +42,7 @@ export async function calculateLayout(ieds: IEDCommInfo[], config: Config, selec
 			const isRelevantMessageType: boolean = selectedMessageTypes.includes(messageType)
 
 			let isRelevant = true
-			if (hasSelection) {
+			if (hasIEDSelection) {
 
 				isRelevant = checkRelevance(selectionFilter, targetIED, sourceIED)
 
@@ -79,8 +80,14 @@ export async function calculateLayout(ieds: IEDCommInfo[], config: Config, selec
 
 	let children: IEDNode[] = ieds.map((ied, ii) => {
 		let isRelevant = true
-		if (hasSelection) {
+		if (hasIEDSelection) {
 			isRelevant = relevantNodes.has(ied.iedName) || selectionFilter.selectedIED?.label === ied.iedName	
+		} else if (hasConnectionSelection) {
+			const isInSourceNodeList = Boolean(selectionFilter.selectedConnection?.sources.includes(ied.iedIdentifier))
+			const isInTargetNodeList = Boolean(selectionFilter.selectedConnection?.targets.includes(ied.iedIdentifier))
+
+			isRelevant = isInSourceNodeList || isInTargetNodeList
+			console.log(isRelevant, ied.iedName, selectionFilter.selectedConnection?.sources, selectionFilter.selectedConnection?.targets)
 		}
 
 		// Note: maybe for later
