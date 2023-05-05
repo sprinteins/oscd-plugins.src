@@ -1,0 +1,16 @@
+.connection-type {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    user-select: none;
+}
+
+.connection-type label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+label input[disabled]+span {
+    color: var(--color-text-disabled-1)
+}

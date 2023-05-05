@@ -1,60 +1,60 @@
 <svelte:options tag="tscd-message" />
 
 <script lang="ts">
-	import { path as d3Path } from "d3-path";
-	import type { IEDConnection } from "./nodes";
-	import { MessageType } from "@oscd-plugins/core";
+	import { path as d3Path } from "d3-path"
+	import type { IEDConnection } from "./nodes"
+	import { MessageType } from "@oscd-plugins/core"
 
 	//
 	// Input
 	//
-	export let edge: IEDConnection;
-	export let isSelected = false;
+	export let edge: IEDConnection
+	export let isSelected = false
 
-	let path: string;
-	$: path = draw(edge);
+	let path: string
+	$: path = draw(edge)
 
-	const defaultColor = "var(--color-black)";
+	const defaultColor = "var(--color-black)"
 	const messageTypeToColorMap: { [key in MessageType]: string } = {
 		[MessageType.GOOSe]:         "var(--color-message-goose)",
 		[MessageType.MMS]:           "var(--color-message-mms)",
 		[MessageType.SampledValues]: "var(--color-message-sampledvalues)",
-	};
+	}
 
-	$: pathColor = calcPathColor(edge);
+	$: pathColor = calcPathColor(edge)
 
 	function draw(edge?: IEDConnection): string {
-		const sections = edge?.sections ?? [];
+		const sections = edge?.sections ?? []
 		if (sections.length === 0) {
-			return "";
+			return ""
 		}
 
-		const section = sections[0];
+		const section = sections[0]
 
 		if (!section) {
-			return "";
+			return ""
 		}
 
-		const path = d3Path();
-		path.moveTo(section.startPoint.x, section.startPoint.y);
+		const path = d3Path()
+		path.moveTo(section.startPoint.x, section.startPoint.y)
 
 		if (section.bendPoints) {
 			section.bendPoints.forEach((b) => {
-				path.lineTo(b.x, b.y);
-			});
+				path.lineTo(b.x, b.y)
+			})
 		}
-		path.lineTo(section.endPoint.x, section.endPoint.y);
+		path.lineTo(section.endPoint.x, section.endPoint.y)
 
-		return path.toString();
+		return path.toString()
 	}
 
 	function calcPathColor(edge?: IEDConnection): string {
 		if (!edge?.messageType) {
-			return defaultColor;
+			return defaultColor
 		}
 
-		const color = messageTypeToColorMap[edge.messageType];
-		return color || defaultColor;
+		const color = messageTypeToColorMap[edge.messageType]
+		return color || defaultColor
 	}
 </script>
 

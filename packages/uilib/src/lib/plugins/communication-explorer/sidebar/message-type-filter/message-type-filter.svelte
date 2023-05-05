@@ -1,12 +1,18 @@
 <svelte:options tag="tscd-message-type-filter" />
+
 <script lang="ts">
     import css from "./message-type-filter.css?inline"
-    import { selectedIEDNode, setSelectedMessageTypes } from "../../"
+    import { setSelectedMessageTypes } from "../../"
     import { MessageType } from "@oscd-plugins/core"
 
-    $: selectedMessageTypes = $selectedIEDNode.selectedMessageTypes
-    function isSelected(messageType: MessageType, selectedMessages:string[] = []) {
-        return selectedMessages.includes(messageType)
+    export let filterDisabled: boolean
+    export let selectedMessageTypes: string[]
+
+    function isSelected(
+    	messageType: MessageType,
+    	selectedMessages: string[] = []
+    ) {
+    	return selectedMessages.includes(messageType)
     }
 
     function setTargetMessageType(e: Event) {
@@ -20,27 +26,37 @@
 
 <div class="message-type">
     <label>
-        <input 
-            type="checkbox" 
-            on:change={setTargetMessageType} 
-            checked={isSelected(MessageType.MMS, selectedMessageTypes)} 
-            name={MessageType.MMS} />
+        <input
+            type="checkbox"
+            on:change={setTargetMessageType}
+            checked={isSelected(MessageType.MMS, selectedMessageTypes)}
+            disabled={filterDisabled}
+            name={MessageType.MMS}
+            data-testid="exampleFilterToBeChecked"
+        />
         <span>MMS</span>
     </label>
     <label>
-        <input 
-            type="checkbox" 
-            on:change={setTargetMessageType} 
-            checked={isSelected(MessageType.GOOSe, selectedMessageTypes)} 
-            name={MessageType.GOOSe} />
+        <input
+            type="checkbox"
+            on:change={setTargetMessageType}
+            checked={isSelected(MessageType.GOOSe, selectedMessageTypes)}
+            disabled={filterDisabled}
+            name={MessageType.GOOSe}
+        />
         <span>GOOSe</span>
     </label>
     <label>
-        <input 
-            type="checkbox" 
-            on:change={setTargetMessageType} 
-            checked={isSelected(MessageType.SampledValues, selectedMessageTypes)} 
-            name={MessageType.SampledValues} />
+        <input
+            type="checkbox"
+            on:change={setTargetMessageType}
+            checked={isSelected(
+                MessageType.SampledValues,
+                selectedMessageTypes
+            )}
+            disabled={filterDisabled}
+            name={MessageType.SampledValues}
+        />
         <span>Sampled Values</span>
     </label>
 </div>
