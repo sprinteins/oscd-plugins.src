@@ -655,7 +655,7 @@ export const xmlStr=`<?xml version="1.0" encoding="UTF-8"?>
 		<DOType cdc="LPL" id="Dummy.XCBR1.NamPlt">
 			<DA fc="DC" name="vendor" bType="VisString255"/>
 			<DA fc="DC" name="swRev" bType="VisString255"/>
-			<DA fc="DC" name="d" bType="VisString255"/>
+			<DA fc="DC" name="d" bType="VisSt
 		</DOType>
 		<DOType cdc="SPC" id="Dummy.XCBR1.BlkOpn">
 			<DA fc="ST" name="stVal" bType="BOOLEAN"/>
@@ -670,6 +670,12 @@ export const xmlStr=`<?xml version="1.0" encoding="UTF-8"?>
 			<DA fc="ST" name="t" bType="Timestamp"/>
 		</DOType>
 		<DOType cdc="ORG" id="Dummy.ORG">
+			<DA name="setSrcRef" bType="ObjRef" dchg="true" fc="SP"/>
+		</DOType>
+		<DOType cdc="ORG" id="Dummy.ORG_2">
+			<DA name="setSrcRef" bType="ObjRef" dchg="true" fc="SP"/>
+		</DOType>
+		<DOType cdc="ORG" id="Dummy.ORG_3">
 			<DA name="setSrcRef" bType="ObjRef" dchg="true" fc="SP"/>
 		</DOType>
 		<DOType cdc="SPS" id="OpenSCD_SPS_simple">

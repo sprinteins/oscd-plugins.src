@@ -16,7 +16,10 @@ network-explorer: _install ## Start the network explorer plugin in dev mode
 diffing-tool: _install ## Start the network explorer plugin in dev mode
 	pnpm -C ./packages/plugins/diffing-tool run build:watch
 
-fix:
+dedupe: _install ## Start the communication explorer plugin in dev mode
+	pnpm -C ./packages/plugins/dedupe run build:watch
+
+fix: _install ## Fix eslint errors
 	pnpm turbo fix
 uilib-tests: _install
 	(cd ./packages/uilib ; pnpm test:unit)

@@ -114,7 +114,11 @@ export class SCDQueries {
 		const subNetowk = createElement<SubNetworkElement>(el, ["name"])
 		return subNetowk
 	}
-	
+
+	public static DOType = "DOType"
+	public searchDOTypes(options?:CommonOptions): DOTypeElement[]{
+		return this.searchElement<DOTypeElement>(SCDQueries.DOType, ["id"], options)
+	}
 
 	// 
 	// Privates
@@ -145,6 +149,11 @@ function createElement<T extends SCDElement>(el: Element, attributeList: Attribu
 	}
 
 	return obj as T
+}
+
+export type DOTypeElement = SCDElement & {
+	id: string
+	cdc: string
 }
 
 export type CommonOptions = {

@@ -2,6 +2,7 @@ import { IEDElement, InputExtRefElement, SCDQueries } from "../scd/scd-query"
 
 /** 
  * The name is temporary, rename it if you have a better one
+ * UC = Use Case
  */
 export class UCCommunicationInformation {
 
