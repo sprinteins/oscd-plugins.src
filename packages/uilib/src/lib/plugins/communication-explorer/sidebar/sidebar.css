@@ -19,9 +19,11 @@ hr {
     display: flex;
     align-items: center;
     gap: 1rem;
+    margin-bottom: 2rem;
 }
 
 .ied-nodes img {
+    margin-top: .9rem;
     height: 1.3rem;
     width: 1.3rem;
 }
@@ -29,18 +31,20 @@ hr {
 .ied-nodes label {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
+    flex-grow: 1;
+    max-width: 80%;
+}
+
+.ied-nodes select {
+    width: 100%;
+    padding: .5rem 1rem;
 }
 
 .goos-messages {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: .5rem
-}
-
-input[type="checkbox"] {
-    accent-color: #000000;
-    margin: 0;
 }
 
 .actions {

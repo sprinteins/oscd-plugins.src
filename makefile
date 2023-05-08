@@ -21,6 +21,7 @@ dedupe: _install ## Start the communication explorer plugin in dev mode
 
 fix: _install ## Fix eslint errors
 	pnpm turbo fix
+	
 uilib-tests: _install
 	(cd ./packages/uilib ; pnpm test:unit)
 

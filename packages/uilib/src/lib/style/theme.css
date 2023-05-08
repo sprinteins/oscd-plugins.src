@@ -1,6 +1,7 @@
 /* VARIABLES */
 :root,
 :host {
+
 	--color-white: #FFFFFF;
 	--color-white-dark: #f2f2f2;
 	--color-yellow: #D9D800;
@@ -14,6 +15,9 @@
 	--color-beige-1: burlywood;
 	--color-beige-2: blanchedalmond;
 	--color-pink: #C73C61;
+	--color-grey-1: #626262;
+	--color-grey-2: #808080;
+	--color-grey-3: #bdbdbd;
 
 	--color-primary: var(--color-yellow);
 	--color-secondary: var(--color-blue);
@@ -26,6 +30,11 @@
 
 	--color-ied-focus: var(--color-beige-1);
 	--color-ied-focus-hover: var(--color-beige-2);
+
+	--color-button-group-default: #5F6E75;
+	/* --color-button-group-hover: ; */
+	--color-button-group-selected: #004552;
+	/* --color-button-group-disabled: ; */
 
 	--color-message-goose: var(--color-green);
 	--color-message-mms: var(--color-blue-1);

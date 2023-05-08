@@ -23,7 +23,8 @@ export async function calculateLayout(ieds: IEDCommInfo[], config: Config, selec
 	if(selectionFilter.nameFilter !== ""){
 		ieds = ieds.filter(ied => ied.iedName.toLowerCase().includes(selectionFilter.nameFilter.toLowerCase()))
 	}
-	
+
+	let connectionCounter = 0
 	let edges: IEDConnection[] = ieds.map( (targetIED, ii) => { 
 		const iedConnections: IEDConnection[] = []
 		targetIED.received.forEach( message => {
@@ -38,13 +39,15 @@ export async function calculateLayout(ieds: IEDCommInfo[], config: Config, selec
 
 			const selectedMessageTypes: string[] = selectionFilter.selectedMessageTypes
 			const messageType = messageTypeMap[message.serviceType]
-			const isRelevantMessageType: boolean = selectedMessageTypes.includes(messageType)
+
+			// check messageType for undefined so unknown message types are also displayed
+			const isRelevantMessageType: boolean = (selectedMessageTypes.includes(messageType) || messageType === undefined)
 
 			let isRelevant = true
 			if (hasSelection) {
 
 				isRelevant = checkRelevance(selectionFilter, targetIED, sourceIED)
-
+	
 				if (isRelevant && !isRelevantMessageType) {
 					isRelevant = false
 				} 
@@ -56,9 +59,12 @@ export async function calculateLayout(ieds: IEDCommInfo[], config: Config, selec
 				}
 				
 			}
-			
+
+			const connectionID = `con_${Id(sourceIEDIndex)}_${Id(ii)}_${messageType}_${connectionCounter}`
+			connectionCounter++
+
 			const connection = { 
-				id:               `con_${Id(sourceIEDIndex)}_${Id(ii)}_${messageType}`, 
+				id:               connectionID, 
 				sources:          [Id(sourceIEDIndex)], 
 				targets:          [Id(ii)], 
 				isRelevant,
@@ -155,5 +161,3 @@ function checkRelevance(selectionFilter: SelectedFilter, targetIED: IEDCommInfo,
 function Id(something: unknown): string {
 	return `ied-${something}`
 }
-
-

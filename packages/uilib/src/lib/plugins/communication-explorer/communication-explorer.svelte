@@ -37,6 +37,9 @@
 		const scdQueries = new SCDQueries(root)
 		const ucci = new UCCommunicationInformation(scdQueries)
 		const iedInfos = ucci.IEDCommInfos()
+
+		console.log(ucci)
+
 		rootNode = await calculateLayout(iedInfos, config, selectedFilter)
 	}
 
@@ -75,7 +78,7 @@
 				{rootNode}
 				on:iedclick={handleIEDClick}
 				on:connectionclick={handleConnectionClick}
-				selectedIEDID={$selectedIEDNode.selectedIED?.id}
+				selectedIedID={$selectedIEDNode.selectedIED?.id}
 				selectedConnectionID={$selectedIEDNode?.selectedConnection?.id}
 			/>
 			<Sidebar {rootNode} />

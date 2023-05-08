@@ -14,7 +14,7 @@
 	// Inputs
 	//
 	export let rootNode: RootNode
-	export let selectedIEDID: string | undefined = undefined
+	export let selectedIedID: string | undefined = undefined
 	export let selectedConnectionID: string | undefined = undefined
 
 	//
@@ -50,7 +50,7 @@
 						on:click={() => dispatchIEDClick(node)}
 						on:keydown
 					>
-						<IED {node} isSelected={node.id === selectedIEDID} />
+						<IED {node} isSelected={node.id === selectedIedID} />
 					</foreignObject>
 				{/each}
 			{/if}

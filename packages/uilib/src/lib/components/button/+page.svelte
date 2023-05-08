@@ -1,6 +1,6 @@
 <script lang="ts">
     import { Example } from "$lib/components/internal"
-import Button from "./button.svelte"
+    import Button from "./button.svelte"
 
     function handleClick(){
     	console.log("clicked")

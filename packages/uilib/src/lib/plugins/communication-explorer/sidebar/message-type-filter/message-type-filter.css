@@ -13,3 +13,8 @@
 .message-type label input[disabled]+span {
     color: var(--color-text-disabled-1)
 }
+
+input[type="checkbox"] {
+    accent-color: #004552;
+    margin: 0;
+}
