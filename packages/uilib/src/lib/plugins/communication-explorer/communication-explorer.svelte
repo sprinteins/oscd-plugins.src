@@ -38,8 +38,6 @@
 		const ucci = new UCCommunicationInformation(scdQueries)
 		const iedInfos = ucci.IEDCommInfos()
 
-		console.log(ucci)
-
 		rootNode = await calculateLayout(iedInfos, config, selectedFilter)
 	}
 
@@ -48,21 +46,9 @@
 	//
 	function handleIEDClick(e: CustomEvent<IEDNode>) {
 		selectIEDNode(e.detail)
-		console.log(
-			"IED: ",
-			$selectedIEDNode.selectedIED,
-			" Connection: ",
-			$selectedIEDNode.selectedConnection
-		)
 	}
 	function handleConnectionClick(e: CustomEvent<IEDConnection>) {
 		selectConnection(e.detail)
-		console.log(
-			"IED: ",
-			$selectedIEDNode.selectedIED,
-			" Connection: ",
-			$selectedIEDNode.selectedConnection
-		)
 	}
 
 	$: initInfos(root, $selectedIEDNode)

@@ -1,10 +1,10 @@
 import { writable } from "svelte/store"
-import type { IEDConnection, IEDNode } from "../../components/diagram"
+import type { IEDConnectionWithCustomValues, IEDNode } from "../../components/diagram"
 import { allMessageTypes } from "@oscd-plugins/core"
 
 export type SelectedFilter = {
     selectedIED: IEDNode | undefined;
-	selectedConnection: IEDConnection | undefined;
+	selectedConnection: IEDConnectionWithCustomValues | undefined;
     incomingConnections: boolean;
     outgoingConnections: boolean;
     selectedMessageTypes: string[];

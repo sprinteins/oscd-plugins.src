@@ -1,6 +1,6 @@
 import ELK, { type ElkNode } from "elkjs/lib/elk.bundled"
 import type { IEDCommInfo } from "@oscd-plugins/core"
-import type { IEDConnection, IEDNode, RootNode } from "../../components/diagram/nodes"
+import type { IEDConnection, IEDConnectionWithCustomValues, IEDNode, RootNode } from "../../components/diagram/nodes"
 import type { SelectedFilter } from "./"
 import { MessageType } from "@oscd-plugins/core"
 
@@ -25,8 +25,8 @@ export async function calculateLayout(ieds: IEDCommInfo[], config: Config, selec
 	}
 
 	let connectionCounter = 0
-	let edges: IEDConnection[] = ieds.map( (targetIED, ii) => { 
-		const iedConnections: IEDConnection[] = []
+	let edges: IEDConnectionWithCustomValues[] = ieds.map( (targetIED, ii) => { 
+		const iedConnections: IEDConnectionWithCustomValues[] = []
 		targetIED.received.forEach( message => {
 
 			const sourceIEDName = message.iedName
@@ -36,6 +36,7 @@ export async function calculateLayout(ieds: IEDCommInfo[], config: Config, selec
 				return
 			}
 			const sourceIED = ieds[sourceIEDIndex]
+			const targetIED = ieds[ii]
 
 			const selectedMessageTypes: string[] = selectionFilter.selectedMessageTypes
 			const messageType = messageTypeMap[message.serviceType]
@@ -59,14 +60,17 @@ export async function calculateLayout(ieds: IEDCommInfo[], config: Config, selec
 				}
 				
 			}
-
+			
 			const connectionID = `con_${Id(sourceIEDIndex)}_${Id(ii)}_${messageType}_${connectionCounter}`
 			connectionCounter++
-
+			
+			console.log(connectionID, isRelevant)
 			const connection = { 
 				id:               connectionID, 
 				sources:          [Id(sourceIEDIndex)], 
 				targets:          [Id(ii)], 
+				sourceIED:        sourceIED,
+				targetIED:        targetIED,
 				isRelevant,
 				relevantIEDNames: [targetIED.iedName, sourceIED.iedName],
 				messageType:      messageType,
@@ -145,11 +149,11 @@ function checkRelevance(selectionFilter: SelectedFilter, targetIED: IEDCommInfo,
 	if (selectionFilter.outgoingConnections && !selectionFilter.incomingConnections) {
 		isRelevant = targetIED.iedName === selectionFilter.selectedIED?.label
 	}
-
+	
 	if (selectionFilter.incomingConnections && !selectionFilter.outgoingConnections) {
 		isRelevant = sourceIED.iedName === selectionFilter.selectedIED?.label
 	}
-
+	
 	if (selectionFilter.incomingConnections && selectionFilter.outgoingConnections) {
 		isRelevant = sourceIED.iedName === selectionFilter.selectedIED?.label ||
 			targetIED.iedName === selectionFilter.selectedIED?.label

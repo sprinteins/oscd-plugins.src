@@ -115,11 +115,11 @@
             </tr>
             <tr>
                 <td>Sources:</td>
-                <td>{ConnectionSelection?.sources ?? ""}</td>
+                <td>{ConnectionSelection?.sourceIED?.iedName ?? ""}</td>
             </tr>
             <tr>
                 <td>Targets:</td>
-                <td>{ConnectionSelection?.targets ?? ""}</td>
+                <td>{ConnectionSelection?.targetIED?.iedName ?? ""}</td>
             </tr>
             <tr>
                 <td>MessageType:</td>
