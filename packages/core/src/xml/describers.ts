@@ -6,11 +6,6 @@ function describeEnumType(element: Element) {
 	let _a, _b
 	const vals = {}
 
-	// const enumValChildren = Array.from(element.children).filter(child => child.tagName === "EnumVal")
-	// const enumValChildrenSorted = enumValChildren.sort((v1, v2) => {
-		
-	// })	
-
 	for (const val of Array.from(element.children)
 		.filter(child => child.tagName === "EnumVal")
 		.sort((v1, v2) => {

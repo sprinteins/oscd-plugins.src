@@ -25,7 +25,6 @@ import Theme from "../../style/theme.svelte"
 		if(!document){ return }
 		scdQueries  = new SCDQueries(document)
 		deduper = new UCTypeDedupe(scdQueries)
-		console.log({level: "dev", msg: "dedupe init", document})
 		loadDuplicates()
 	}
 
@@ -83,7 +82,6 @@ import Theme from "../../style/theme.svelte"
 		const selectedGroup = duplicateGroups[selectedGroupIndex]
 		const mergeSources = selectedIndexes.map( (index) => selectedGroup[index])
 		const mergeTarget = selectedGroup[selectedMergeTargetIndex]
-		console.log({level: "dev", msg: "merging", mergeSources, mergeTarget})
 
 		mergeSources.forEach((source) => {
 			source.usages.forEach((doEl) => {
@@ -97,10 +95,8 @@ import Theme from "../../style/theme.svelte"
 		const idBefore = doEl.element.getAttribute("type")
 		modifiedEl.setAttribute("type", dot.id)
 		const idAfter = doEl.element.getAttribute("type")
-		console.log({level: "dev", msg: "relinking", idBefore, idAfter})
 
 		const event = createEditEvent(doEl.element, modifiedEl)
-		console.log({level: "dev", msg: "dedupe: firing edit event", event})
 		root.dispatchEvent(event)
 
 	}
