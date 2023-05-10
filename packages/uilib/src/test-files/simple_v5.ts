@@ -540,6 +540,26 @@ export const xmlStr=`<?xml version="1.0" encoding="UTF-8"?>
 			<DA fc="MX" qchg="true" name="q" bType="Quality"/>
 			<DA fc="CF" name="sVC" bType="Struct" type="ScaledValueConfig"/>
 		</DOType>
+		<DOType cdc="SAV" id="DummySAV_1">
+			<DA fc="MX" name="instMag" bType="Struct" type="AnalogueValue_i"/>
+			<DA fc="MX" qchg="true" name="q" bType="Quality"/>
+			<DA fc="CF" name="sVC" bType="Struct" type="ScaledValueConfig"/>
+		</DOType>
+		<DOType cdc="SAV" id="DummySAV_2">
+			<DA fc="MX" name="instMag" bType="Struct" type="AnalogueValue_i"/>
+			<DA fc="MX" qchg="true" name="q" bType="Quality"/>
+			<DA fc="CF" name="sVC" bType="Struct" type="ScaledValueConfig"/>
+		</DOType>
+		<DOType cdc="SAV" id="DummySAV_3">
+			<DA fc="MX" name="instMag" bType="Struct" type="AnalogueValue_i"/>
+			<DA fc="MX" qchg="true" name="q" bType="Quality"/>
+			<DA fc="CF" name="sVC" bType="Struct" type="ScaledValueConfig"/>
+		</DOType>
+		<DOType cdc="SAV" id="DummySAV_4">
+			<DA fc="MX" name="instMag" bType="Struct" type="AnalogueValue_i"/>
+			<DA fc="MX" qchg="true" name="q" bType="Quality"/>
+			<DA fc="CF" name="sVC" bType="Struct" type="ScaledValueConfig"/>
+		</DOType>
 		<DOType cdc="ENC" id="Dummy.LLN0.Mod">
 			<DA fc="ST" name="stVal" bType="Enum" type="Dummy_Beh"/>
 			<DA fc="ST" name="q" bType="Quality"/>

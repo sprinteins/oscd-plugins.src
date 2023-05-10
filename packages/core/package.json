@@ -18,7 +18,7 @@
     "test": "npm run test:watch --run",
     "test:watch": "vitest",
     "lint": "eslint .",
-    "fix": "npm run lint -- --fix"
+    "fix": "npm run lint -- --fix --quiet"
   },
   "keywords": [],
   "author": "",

@@ -18,7 +18,6 @@
         display: block;
         margin-bottom: 3rem;
         position: relative;
-        height: 100%;
         width: 100%;
     }
     h3{

@@ -1,15 +1,146 @@
 <svelte:options tag="tscd-dedupe" />
+
 <script lang="ts">
-	export let root: Element
+	import css from "./dedupe.scss?inline"
+	import { UCTypeDedupe, SCDQueries, type HashedDOT, type DOElement, type DOTypeElement } from "@oscd-plugins/core"
+	import GroupCardList from "./group-card-list/group-card-list.svelte"
+	import Merger from "./merger/merger.svelte"
+	import type { MergableItem } from "./merger/mergable-items"
+import Theme from "../../style/theme.svelte"
+
+	// Input
+	export let doc: Element
 	
+	// Config
+	let scdQueries: SCDQueries
+	let deduper: UCTypeDedupe
+	let root: HTMLElement
+
+
+	// 
+	// Groups
+	// 
+	$: init(doc)
+	function init(document: Element){
+		if(!document){ return }
+		scdQueries  = new SCDQueries(document)
+		deduper = new UCTypeDedupe(scdQueries)
+		console.log({level: "dev", msg: "dedupe init", document})
+		loadDuplicates()
+	}
+
+	let duplicateGroups: HashedDOT[][]
+	async function loadDuplicates(){
+		duplicateGroups = await deduper.findDuplicateObjectTypes()
+	}
+	
+	let itemSets: MergableItem[][] = []
+	$: convertDuplicatesToItems(duplicateGroups)
+	function convertDuplicatesToItems(groups?: HashedDOT[][]){
+		if(!groups){ return }
+
+		itemSets = groups.map((group) => {
+			return group.map((item) => {
+				return {
+					label:  item.element.id,
+					usages: item.usages.map(getParentId),
+				}
+			})
+		})
+	}
+
+	function getParentId(doEl: DOElement): string {
+		const notFoundId = "_"
+		const parent = doEl.element.parentElement
+		if(!parent){ return notFoundId }
+
+		return parent.getAttribute("id")??notFoundId
+	}	
+	
+	let selectedGroupIndex = -1
+	function handleGroupSelect(e: CustomEvent<{index:number}>){
+		selectedGroupIndex = e.detail.index
+	}
+	
+
+	// 
+	// Merger
+	// 
+	let structure: string[] = []
+	$: loadStructureOfFirstElement(duplicateGroups, selectedGroupIndex)
+	function loadStructureOfFirstElement(groups: HashedDOT[][], index: number){
+		if(index < 0){ return }
+		const selectedGroup = groups[index]
+		const firstElement = selectedGroup[0]
+		const children = Array.from(firstElement.element.element.children)
+		const names = children.map((child) => child.getAttribute("name")??"")
+		structure = names.filter(Boolean)
+	}
+	
+
+	function handleMerge(e: CustomEvent<{selectedIndexes: number[], selectedMergeTargetIndex:number}>){
+		const {selectedIndexes, selectedMergeTargetIndex} = e.detail
+		const selectedGroup = duplicateGroups[selectedGroupIndex]
+		const mergeSources = selectedIndexes.map( (index) => selectedGroup[index])
+		const mergeTarget = selectedGroup[selectedMergeTargetIndex]
+		console.log({level: "dev", msg: "merging", mergeSources, mergeTarget})
+
+		mergeSources.forEach((source) => {
+			source.usages.forEach((doEl) => {
+				relinkType(doEl, mergeTarget.element)
+			})
+		})
+	}
+
+	function relinkType(doEl: DOElement, dot: DOTypeElement){
+		const modifiedEl = doEl.element.cloneNode(true) as Element
+		const idBefore = doEl.element.getAttribute("type")
+		modifiedEl.setAttribute("type", dot.id)
+		const idAfter = doEl.element.getAttribute("type")
+		console.log({level: "dev", msg: "relinking", idBefore, idAfter})
+
+		const event = createEditEvent(doEl.element, modifiedEl)
+		console.log({level: "dev", msg: "dedupe: firing edit event", event})
+		root.dispatchEvent(event)
+
+	}
+
+	function createEditEvent(oldEl: Element, newEl: Element){
+		const detail = {
+			old: oldEl,
+			new: newEl,
+		}
+		const event = new CustomEvent("editor-action", {detail})
+		return event
+	}
+
+
 </script>
 
-<network-explorer>
-	<h1>Hi I am the Dedupe Plugin</h1>
-	<p>got document?</p>
-	{#if root}
-		<span>yes</span>
-	{:else}
-		<span>no</span>
-	{/if}
-</network-explorer>
+<Theme />
+<dedupe bind:this={root}>
+	<layout>
+		
+		<sidebar>
+			<GroupCardList 
+				itemSets={itemSets.map((itemSet) => itemSet.map((item) => item.label) )} 
+				on:select={handleGroupSelect} 
+				selectedIndex={selectedGroupIndex}
+			/>
+		</sidebar>
+		
+		<main>
+			{#if selectedGroupIndex > -1}
+			{#key selectedGroupIndex}
+				<Merger 
+					items={itemSets[selectedGroupIndex]} 
+					structure={structure}
+					on:merge={handleMerge}
+				/>
+			{/key}
+			{/if}
+		</main>
+	</layout>
+</dedupe>
+
+<svelte:element this="style">{@html css}</svelte:element>

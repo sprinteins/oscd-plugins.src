@@ -13,6 +13,7 @@
 		
 	function beautifyHyphenCase(hyphenCaseLabel: string): string{
 		return hyphenCaseLabel
+			.replace(/\//g," ► ")
 			.split(/-|\//)
 			.map( str => capitalizeFirstLetter(str) )
 			.join(" ")
@@ -83,6 +84,10 @@
 	}
 	a {
 		text-decoration: none;
+	}
+
+	a:hover{
+		color: var(--color-blue-1);
 	}
 	content {
 		padding: 2rem 1rem;

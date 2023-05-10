@@ -14,6 +14,7 @@ export default defineConfig({
 			formats: ['es'],
 			fileName: "index",
 		},
+		sourcemap: "inline"
 	}
 })
 	

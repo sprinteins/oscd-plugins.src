@@ -2,7 +2,6 @@
 export class SCDQueries {
 	constructor(
 		private readonly root: Element,
-		
 	){}
 
 	
@@ -120,6 +119,18 @@ export class SCDQueries {
 		return this.searchElement<DOTypeElement>(SCDQueries.DOType, ["id"], options)
 	}
 
+	public static DO = "DO"
+	public searchDOsByType(type: string, options?:CommonOptions): DOElement[]{
+		const selector = `${SCDQueries.DO}[type='${type}']`
+		return this.searchElement<DOElement>(selector, ["name", "type"], options)
+	}
+
+	public static LNodeType = "LNodeType"
+	public searchLNodeTypes(options?:CommonOptions): LNodeTypeElement[]{
+		return this.searchElement<LNodeTypeElement>(SCDQueries.LNodeType, ["id", "lnClass"], options)
+	}
+
+	
 	// 
 	// Privates
 	// 
@@ -154,6 +165,16 @@ function createElement<T extends SCDElement>(el: Element, attributeList: Attribu
 export type DOTypeElement = SCDElement & {
 	id: string
 	cdc: string
+}
+
+export type DOElement = SCDElement & {
+	name: string
+	type: string
+}
+
+export type LNodeTypeElement = SCDElement & {
+	id: string
+	lnClass: string
 }
 
 export type CommonOptions = {

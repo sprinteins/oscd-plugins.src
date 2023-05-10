@@ -1,55 +1,27 @@
+<svelte:options tag="tscd-button" />
 <script lang="ts">
+
+	import css from "./button.scss?inline"
+
+	// Input
 	export let block = false
 	export let dangerous = false
+	export let label: string
+	export let testid = ""
+	export let disabled = false
+	export let type: "primary" | "secondary" | "tertiary" = "primary"
+
 </script>
 
 <button 
 	class:block
 	class:dangerous
+	class={type}
+	{disabled}
 	on:click
+	data-testid={testid}
 >
-button:
-	<slot></slot>
+	{label}
 </button>
-<svelte:options tag="tscd-button" />
 
-
-<style>
-	button{
-		display: 	 	 inline-flex;
-		place-items: 	 center;
-		height: 	 	 2rem;
-		min-width:   	 2rem;
-		font-family: 	 inherit;
-		gap: 		 	 0.5rem;
-		justify-content: center;
-
-	}
-	.block{
-		width: 100%;
-	}
-
-	button {
-		background-color: black;
-		color: 			  white;
-		
-		border-radius: 4px;
-		border:		   none;
-		cursor: 	   pointer;
-	}
-
-	button:hover{
-		background-color: gray;
-		color: 			  black;
-	}
-
-	button.dangerous{
-		color: red;
-	}
-
-	button.dangerous:hover {
-		background-color: red;
-		color: 			  white;
-	}
-
-</style>
+<svelte:element this="style">{@html css}</svelte:element>
