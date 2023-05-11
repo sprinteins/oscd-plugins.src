@@ -1,6 +1,6 @@
 <script lang="ts">
-    import { Example } from "$lib/components/internal"
-    import Button from "./button.svelte"
+    import { Example } from "../internal"
+    import {Button} from "."
 
     function handleClick(){
     	console.log("clicked")
@@ -11,17 +11,30 @@
 <h1>Add Button</h1>
 
 
-<Example name="Inline">
-    <Button on:click={handleClick}>New Stuff</Button>
+<Example name="Primary">
+    <Button on:click={handleClick} label="Create" />
+    <Button on:click={handleClick} label="Create" disabled />
+</Example>
+
+<Example name="Secondary">
+    <Button type="secondary" on:click={handleClick} label="Create" />
+    <Button type="secondary" on:click={handleClick} label="Create" disabled/>
+</Example>
+
+<Example name="Tertiary">
+    <Button type="tertiary" on:click={handleClick} label="Create" />
+    <Button type="tertiary" on:click={handleClick} label="Create" disabled/>
 </Example>
 
 <Example name="Block">
-    <Button block={true}>Create Item</Button>
+    <Button block={true} label="Create Item" />
+    <Button block={true} label="Create Item" disabled/>
 </Example>
 
 
 <Example name="Dangerous">
-    <Button dangerous>Delete Something</Button>
+    <Button dangerous label="Delete Somthing" />
+    <Button dangerous label="Delete Somthing" disabled/>
 </Example>
 
 

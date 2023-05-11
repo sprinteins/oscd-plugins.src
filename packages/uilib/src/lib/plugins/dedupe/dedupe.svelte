@@ -6,7 +6,7 @@
 	import GroupCardList from "./group-card-list/group-card-list.svelte"
 	import Merger from "./merger/merger.svelte"
 	import type { MergableItem } from "./merger/mergable-items"
-import Theme from "../../style/theme.svelte"
+	import Theme from "../../style/theme.svelte"
 
 	// Input
 	export let doc: Element
@@ -83,31 +83,47 @@ import Theme from "../../style/theme.svelte"
 		const mergeSources = selectedIndexes.map( (index) => selectedGroup[index])
 		const mergeTarget = selectedGroup[selectedMergeTargetIndex]
 
-		mergeSources.forEach((source) => {
-			source.usages.forEach((doEl) => {
-				relinkType(doEl, mergeTarget.element)
+		const actions = mergeSources.map((source) => {
+			return source.usages.map((doEl) => {
+				return createRelinkActions(doEl, mergeTarget.element)
 			})
-		})
-	}
+		}).flat()
 
-	function relinkType(doEl: DOElement, dot: DOTypeElement){
-		const modifiedEl = doEl.element.cloneNode(true) as Element
-		const idBefore = doEl.element.getAttribute("type")
-		modifiedEl.setAttribute("type", dot.id)
-		const idAfter = doEl.element.getAttribute("type")
-
-		const event = createEditEvent(doEl.element, modifiedEl)
-		root.dispatchEvent(event)
-
-	}
-
-	function createEditEvent(oldEl: Element, newEl: Element){
 		const detail = {
-			old: oldEl,
-			new: newEl,
+			action: {
+				actions,
+			},
 		}
-		const event = new CustomEvent("editor-action", {detail})
-		return event
+		const event = new CustomEvent("editor-action", {
+			detail,
+			composed: true,
+			bubbles:  true,
+		})
+		root.dispatchEvent(event)
+	}
+
+	function createRelinkActions(doEl: DOElement, dot: DOTypeElement){
+		const deep = true
+		const modifiedEl = doEl.element.cloneNode(true) as Element
+		modifiedEl.setAttribute("type", dot.id)
+
+		const actions = createEventDetail(doEl.element, modifiedEl)
+		return actions
+	}
+	interface Replace {
+		old: { element: Element };
+		new: { element: Element };
+		derived?: boolean;
+		checkValidity?: () => boolean;
+	}
+
+	function createEventDetail(oldEl: Element, newEl: Element){
+		const detail: Replace = {
+			old: { element: oldEl },
+			new: { element: newEl },
+		}
+		
+		return detail
 	}
 
 

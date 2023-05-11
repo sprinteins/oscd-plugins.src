@@ -13,10 +13,10 @@
 
 </script>
 
-<button 
+<button
 	class:block
 	class:dangerous
-	class={type}
+	class={`tscd-button ${type}`}
 	{disabled}
 	on:click
 	data-testid={testid}

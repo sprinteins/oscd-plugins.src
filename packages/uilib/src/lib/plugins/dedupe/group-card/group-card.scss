@@ -18,7 +18,8 @@ group-card {
 	}
 
 	.left{
-		padding:  1rem;
+		--padding: 1rem;
+		padding:  var(--padding) 0 var(--padding) var(--padding);
 		overflow: hidden;
 	}
 

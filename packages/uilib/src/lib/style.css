@@ -4,8 +4,8 @@ html {
 }
 
 body {
-	font-family: monospace;
-	font-size:   12px;
+	/* font-family: monospace; */
+	/* font-size:   18px; */
 	padding:     1rem;
 
 	background-color: var(--color-white-dark);
@@ -26,6 +26,7 @@ body {
     display: inline-block;
 } */
 
+/*
 ul {
 	list-style: none;
 	padding: 0;
@@ -57,3 +58,4 @@ a:active {
     --border-radius: 4px;
 
 }
+*/

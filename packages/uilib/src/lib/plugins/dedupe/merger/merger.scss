@@ -26,6 +26,8 @@ merger{
 		border-right:       var(--color-black) thin solid;
 		display:            grid;
 		grid-template-rows: auto 1fr;
+		height: 			100%;
+		overflow: 			hidden;
 	}
 
 	.structure ul{
@@ -72,7 +74,7 @@ merger{
 		height:             100%;
 		overflow:           hidden;
 		display:            grid;
-		grid-template-rows: 1fr auto;
+		grid-template-rows: auto 1fr;
 	}
 
 	.usage ul{

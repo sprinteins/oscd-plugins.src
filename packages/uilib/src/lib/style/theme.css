@@ -24,9 +24,10 @@
 	--color-text-disabled-1: rgba(0, 0, 0, 0.4);
 	
 	--border-radius:  4px;
+	
+	--font-family:    "Avenir Next", sans-serif;
 	--letter-spacing: 0.2px;
-
-	--font-family: "Avenir Next", sans-serif;
+	--font-size:      12px;
 
 	--color-ied-focus:       var(--color-beige-1);
 	--color-ied-focus-hover: var(--color-beige-2);
@@ -50,4 +51,5 @@
 :host {
 	font-family:    var(--font-family);
 	letter-spacing: var(--letter-spacing);
+	font-size:      var(--font-size);
 }
