@@ -1,5 +1,20 @@
+<svelte:options tag="tscd-network-explorer" />
 
+<script lang="ts">
+	import css from "./network-explorer.css?inline"
+	import { onMount } from "svelte"
+	import NetworkExplorerPrintView from "./networkexplorer-print-view/networkexplorer-print-view.svelte"
+	import NetworkExplorerWebView from "./networkexplorer-web-view/networkexplorer-web-view.svelte"
+	import { disableOpenSCDComponentsForPrintView } from "."
+
+	onMount(() => {
+		disableOpenSCDComponentsForPrintView()
+	})
+</script>
 
 <network-explorer>
-	<h1>Hi I am the network explorer!!!</h1>
+	<NetworkExplorerPrintView />
+	<NetworkExplorerWebView />
 </network-explorer>
+
+<svelte:element this="style">{@html css}</svelte:element>
