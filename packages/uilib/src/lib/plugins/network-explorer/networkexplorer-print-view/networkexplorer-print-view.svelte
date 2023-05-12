@@ -1,8 +1,5 @@
-<svelte:options tag="tscd-network-explorer-print-view" />
-
 <script lang="ts">
     import Diagram from "./diagram/diagram-for-print.svelte"
-    import css from "./style.css?inline"
 
     export let scdData: Element
 </script>
@@ -12,4 +9,10 @@
     <Diagram bind:root={scdData} />
 </section>
 
-<svelte:element this="style">{@html css}</svelte:element>
+<style>
+    @media not print {
+        .network-explorer-print-content {
+            display: none;
+        }
+    }
+</style>

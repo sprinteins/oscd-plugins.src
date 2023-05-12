@@ -1,8 +1,6 @@
-<svelte:options tag="tscd-counter" />
+
 
 <script lang="ts">
-	import css from "./counter.scss?inline"
-
 	export let count: number
 	export let max = 100
 
@@ -16,4 +14,15 @@
 	{/if}
 </counter>
 
-<svelte:element this="style">{@html css}</svelte:element>
+<style>
+
+	counter{
+		display: 	   inline;
+		background:    var(--color-blue-dark);
+		color: 	       var(--color-white-dark);
+		padding: 	   0 0.25rem;
+		border-radius: 2rem;
+		line-height:   18px;
+		min-width:     20px;
+	}
+</style>

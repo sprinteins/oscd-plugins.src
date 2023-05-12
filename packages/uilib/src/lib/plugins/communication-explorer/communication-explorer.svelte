@@ -1,4 +1,4 @@
-<svelte:options tag="tscd-communication-explorer" />
+
 
 <script lang="ts">
 	import { UCCommunicationInformation, SCDQueries } from "@oscd-plugins/core"
@@ -12,7 +12,6 @@
 		handleConnectionClick,
 		config,
 	} from "./"
-	import css from "./communication-explorer.css?inline"
 	import { Sidebar } from "./sidebar"
 
 	export let root: Element
@@ -34,8 +33,6 @@
 	}
 </script>
 
-<svelte:element this="style">{@html css}</svelte:element>
-
 <Theme />
 <communication-explorer>
 	<div class="root">
@@ -51,3 +48,22 @@
 		{/if}
 	</div>
 </communication-explorer>
+
+
+<style>
+	communication-explorer {
+		display: block;
+		position: relative;
+		font-size: 12px;
+		min-height: 80vh
+	}
+
+	.root {
+		display: grid;
+		grid-template-columns: auto var(--sidebar-width);
+		background-color: #ffffff;
+		height: calc(100vh - 128px);
+		width: 100%;
+		overflow-x: hidden;
+	}
+</style>

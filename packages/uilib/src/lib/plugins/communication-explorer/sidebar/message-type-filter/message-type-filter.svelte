@@ -1,7 +1,6 @@
-<svelte:options tag="tscd-message-type-filter" />
+
 
 <script lang="ts">
-    import css from "./message-type-filter.css?inline"
     import { setSelectedMessageTypes } from "../../"
     import { MessageType } from "@oscd-plugins/core"
 
@@ -61,4 +60,26 @@
     </label>
 </div>
 
-<svelte:element this="style">{@html css}</svelte:element>
+<style>
+    .message-type {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(20ch, 1fr));
+        gap: .3rem
+    }
+
+    .message-type label {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .message-type label input[disabled]+span {
+        color: var(--color-text-disabled-1)
+    }
+
+    input[type="checkbox"] {
+        accent-color: #004552;
+        margin: 0;
+    }
+</style>
+

@@ -1,8 +1,7 @@
-<svelte:options tag="tscd-group-card-list" />
+
 
 <script lang="ts">
 	import { GroupCard } from "../group-card/"
-	import css from "./group-card-list.scss?inline"
 	import {createEventDispatcher} from "svelte"
 
 	// Input
@@ -29,4 +28,10 @@
 	{/each}
 </group-card-list>
 
-<svelte:element this="style">{@html css}</svelte:element>
+<style>
+	group-card-list{
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
+</style>

@@ -3,8 +3,6 @@
   import * as pckg from "../package.json"
 </script>
 
-<svelte:options tag={null} />
-
 <main>
   <DiffingTool />
 
