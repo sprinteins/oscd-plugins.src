@@ -5,13 +5,15 @@
 	import NetworkExplorerWebView from "./networkexplorer-web-view/networkexplorer-web-view.svelte"
 	import { disableOpenSCDComponentsForPrintView } from "."
 
+	export let root: Element
+
 	onMount(() => {
 		disableOpenSCDComponentsForPrintView()
 	})
 </script>
 
 <network-explorer>
-	<NetworkExplorerPrintView />
+	<NetworkExplorerPrintView bind:scdData={root} />
 	<NetworkExplorerWebView />
 </network-explorer>
 
