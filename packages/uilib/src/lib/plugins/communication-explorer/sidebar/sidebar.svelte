@@ -1,4 +1,4 @@
-<svelte:options tag="tscd-sidebar" />
+
 
 <script lang="ts">
     import {
@@ -12,7 +12,6 @@
     	setNameFilter,
     } from "../selected-filter-store-functions"
     import ConnectionSelector from "./assets/connection-selector.svg"
-    import css from "./sidebar.css?inline"
     import type { IEDNode, RootNode } from "../../../components/diagram"
     import { ConnectionTypeFilter } from "./connection-type-filter"
     import { MessageTypeFilter } from "./message-type-filter"
@@ -24,8 +23,7 @@
     $: selectedMessageTypes = $selectedIEDNode.selectedMessageTypes
     $: showIncomingConnections = $selectedIEDNode?.incomingConnections
     $: showOutgoingConnections = $selectedIEDNode?.outgoingConnections
-    $: isIedFiltersDisabled =
-        $selectedIEDNode?.selectedConnection !== undefined
+    $: isIedFiltersDisabled = $selectedIEDNode?.selectedConnection !== undefined
     $: isConnectionDirectionDisabled = handleConnectionDirectionDisabled(
     	$selectedIEDNode,
     	isIedFiltersDisabled
@@ -151,6 +149,74 @@
             />
         </label>
 
-        <svelte:element this="style">{@html css}</svelte:element>
     </div>
 </div>
+
+<style>
+    hr {
+        margin: 2rem 0;
+    }
+
+    .sidebar {
+        height: 100%;
+        width: var(--sidebar-width);
+    }
+
+    .sidebar .sidebar-content {
+        padding: 1rem;
+        background-color: #ede8d7;
+        height: 100%;
+        overflow-y: scroll;
+        min-width: 330px;
+    }
+
+    .ied-nodes {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .ied-nodes img {
+        margin-top: .9rem;
+        height: 1.3rem;
+        width: 1.3rem;
+    }
+
+    .ied-nodes label {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        flex-grow: 1;
+        max-width: 80%;
+    }
+
+    .ied-nodes select {
+        width: 100%;
+        padding: .5rem 1rem;
+    }
+
+    .goos-messages {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: .5rem
+    }
+
+    .actions {
+        display: flex;
+        flex-direction: row-reverse;
+        margin-bottom: 1rem;
+    }
+
+    .actions .clear-all {
+        cursor: pointer;
+        border: 1px solid rgba(0, 0, 0, 0);
+        border-radius: 5px;
+        padding: 6px 8px;
+        transition: border-color 200ms ease-in-out;
+    }
+
+    .actions .clear-all:hover {
+        border-color: var(--color-text-disabled-1);
+    }
+</style>

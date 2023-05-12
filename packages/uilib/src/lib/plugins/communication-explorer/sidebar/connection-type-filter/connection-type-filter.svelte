@@ -1,4 +1,4 @@
-<svelte:options tag="tscd-connection-type-filter" />
+
 
 <script lang="ts">
     import {
@@ -6,7 +6,6 @@
     	type ButtonGroupOption,
     } from "../../../../components/button-group/"
     import { changeMessageConnectionFilterDirection } from "../../selected-filter-store-functions"
-    import css from "./connection-type-filter.css?inline"
 
     export let showIncomingConnections: boolean
     export let showOutgoingConnections: boolean
@@ -50,4 +49,22 @@
     disabled={connectionDirectionDisabled}
 />
 
-<svelte:element this="style">{@html css}</svelte:element>
+
+<style>
+	.connection-type {
+		display: flex;
+		flex-direction: column;
+		gap: 0.3rem;
+		user-select: none;
+	}
+
+	.connection-type label {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	label input[disabled]+span {
+		color: var(--color-text-disabled-1)
+	}
+</style>

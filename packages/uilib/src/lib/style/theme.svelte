@@ -1,9 +1,62 @@
-<svelte:options tag="tscd-theme" />
+
 
 <script lang="ts">
-	import css from "./theme.css?inline"
 	
 </script>
 
+<style>
+	:root,
+	:host {
+		--color-white:      #FFFFFF;
+		--color-white-dark: #f2f2f2;
+		--color-yellow:     #D9D800;
+		--color-blue:       #004552;
+		--color-blue-dark:  #14343e;
+		--color-blue-1:     #3253A8;
+		--color-blue-light: #e5ecee;
+		--color-torques:    #007D80;
+		--color-green:      #288409;
+		--color-black:      #000000;
+		--color-beige-1:    burlywood;
+		--color-beige-2:    blanchedalmond;
+		--color-pink:       #C73C61;
+		--color-grey-1:     #626262;
+		--color-grey-2:     #808080;
+		--color-grey-3:     #bdbdbd;
 
-<svelte:element this="style">{@html css}</svelte:element>
+		--color-primary:         var(--color-yellow);
+		--color-secondary:       var(--color-blue);
+		--color-text:            var(--color-white);
+		--color-text-disabled-1: rgba(0, 0, 0, 0.4);
+		
+		--border-radius:  4px;
+		
+		--font-family:    "Avenir Next", sans-serif;
+		--letter-spacing: 0.2px;
+		--font-size:      12px;
+
+		--color-ied-focus:       var(--color-beige-1);
+		--color-ied-focus-hover: var(--color-beige-2);
+
+		--color-button-group-default: #5F6E75;
+		--color-button-group-selected: #004552;
+
+		--color-message-goose:         var(--color-green);
+		--color-message-mms: 		   var(--color-blue-1);
+		--color-message-sampledvalues: var(--color-pink);
+
+		/* cb = colorblind */
+		/* --color-message-goose-cb: #3BC40E; */
+		/* --color-message-mms-cb: #00BCBF; */
+		/* --color-message-sampledvalues-cb: #407CF5; */
+
+		--sidebar-width: 400px;
+	}
+
+	:root,
+	:host {
+		font-family:    var(--font-family);
+		letter-spacing: var(--letter-spacing);
+		font-size:      var(--font-size);
+	}
+</style>

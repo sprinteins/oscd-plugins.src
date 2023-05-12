@@ -1,7 +1,6 @@
-<svelte:options tag="tscd-button-group" />
+
 
 <script lang="ts">
-    import css from "./style.css?inline"
     import type { ButtonGroupOption } from "./types"
 
     export let selectedID = ""
@@ -26,4 +25,46 @@
     {/each}
 </div>
 
-<svelte:element this="style">{@html css}</svelte:element>
+<style>
+    /* TODO use color theme variables */
+    .btn-group {
+        display: flex;
+        justify-content: center;
+    }
+
+    .btn-group div.btn {
+        border: none;
+        background-color: var(--color-button-group-default);
+        color: #fff;
+        padding: 8px 12px;
+        cursor: pointer;
+        transition: background-color 200ms ease-in-out;
+    }
+
+    .btn-group div.btn:hover {
+        background-color: var(--color-grey-2);
+    }
+
+    .btn-group label:last-of-type div.btn {
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+    }
+
+    .btn-group label:first-of-type div.btn {
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+    }
+
+    .btn-group input:checked~div.btn {
+        background-color: var(--color-button-group-selected);
+    }
+
+    .btn-group input {
+        display: none;
+    }
+
+    .btn-group.disabled div.btn {
+        background-color: var(--color-grey-3) !important;
+        cursor: not-allowed;
+    }
+</style>

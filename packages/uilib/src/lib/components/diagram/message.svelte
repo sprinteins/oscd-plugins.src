@@ -1,4 +1,4 @@
-<svelte:options tag="tscd-message" />
+
 
 <script lang="ts">
 	import { path as d3Path } from "d3-path"
@@ -81,3 +81,48 @@
 		/>
 	{/if}
 </g>
+
+<style>
+	.path,
+	.path-strong,
+	.path-hover-box,
+	.path-selected {
+		fill: none;
+		cursor: pointer;
+	}
+
+	.path {
+		stroke-width: 0.08rem;
+		stroke: var(--color-black, #000);
+	}
+
+	.path-hover-box {
+		stroke-width: .8rem;
+		stroke: transparent;
+		opacity: .1;
+	}
+
+	.path-strong {
+		stroke-width: 0.275rem;
+		stroke: var(--color-yellow);
+		opacity: 0;
+	}
+
+	.path-selected {
+		stroke-width: 0.275rem;
+		display: none;
+	}
+
+	.selected .path-selected {
+		display: block;
+	}
+
+	.path-hover-box:hover~.path-strong,
+	.path-strong:hover {
+		opacity: 1;
+	}
+
+	.irrelevant {
+		opacity: .2;
+	}
+</style>
