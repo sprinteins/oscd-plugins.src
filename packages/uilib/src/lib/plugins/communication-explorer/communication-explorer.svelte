@@ -4,30 +4,22 @@
 	import { UCCommunicationInformation, SCDQueries } from "@oscd-plugins/core"
 	import { calculateLayout } from "./node-layout"
 	import Theme from "../../style/theme.svelte"
-	import {
-		Diagram,
-		type IEDConnection,
-		type IEDNode,
-		type RootNode,
-	} from "../../components/diagram"
+	import { Diagram, type RootNode } from "../../components/diagram"
 	import {
 		selectedIEDNode,
-		selectIEDNode,
 		type SelectedFilter,
-		selectConnection,
+		handleIEDClick,
+		handleConnectionClick,
+		config,
 	} from "./"
 	import css from "./communication-explorer.css?inline"
 	import { Sidebar } from "./sidebar"
 
 	export let root: Element
 
-	const config = {
-		width:  200,
-		height: 30,
-		// heightPerConnection: 20,
-	}
-
 	let rootNode: RootNode | undefined = undefined
+	$: initInfos(root, $selectedIEDNode)
+
 	// Note: maybe have a mutex if there are too many changes
 	async function initInfos(root: Element, selectedFilter: SelectedFilter) {
 		if (!root) {
@@ -40,18 +32,6 @@
 
 		rootNode = await calculateLayout(iedInfos, config, selectedFilter)
 	}
-
-	//
-	// Actions
-	//
-	function handleIEDClick(e: CustomEvent<IEDNode>) {
-		selectIEDNode(e.detail)
-	}
-	function handleConnectionClick(e: CustomEvent<IEDConnection>) {
-		selectConnection(e.detail)
-	}
-
-	$: initInfos(root, $selectedIEDNode)
 </script>
 
 <svelte:element this="style">{@html css}</svelte:element>
