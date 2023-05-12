@@ -23,103 +23,103 @@
 
 <style lang="scss" global>
 	button.tscd-button{
-	--padding: 0.5rem;
-	display: 	 	 inline-flex;
-	place-items: 	 center;
-	padding: var(--padding) calc(var(--padding) * 2);
-	font-family: 	 inherit;
-	gap: 		 	 0.5rem;
-	justify-content: center;
-	letter-spacing:  2%;
-	line-height: 	 100%;
+		--padding: 0.5rem;
+		display: 	 	 inline-flex;
+		place-items: 	 center;
+		padding: var(--padding) calc(var(--padding) * 2);
+		font-family: 	 inherit;
+		gap: 		 	 0.5rem;
+		justify-content: center;
+		letter-spacing:  2%;
+		line-height: 	 100%;
 
-	background-color: black;
-	color: 			  white;
-	
-	border-radius: 4px;
-	border:		   none;
-	cursor: 	   pointer;
-	transition: all 100ms ease-in-out;
+		background-color: black;
+		color: 			  white;
+		
+		border-radius: 4px;
+		border:		   none;
+		cursor: 	   pointer;
+		transition: all 100ms ease-in-out;
 
 
-	&:hover{
-		background-color: var(--color-gray-1);
-		color: 			  black;
-	}
+		&:hover{
+			background-color: var(--color-gray-1);
+			color: 			  black;
+		}
 
-	&.block{
-		width: 100%;
-	}
-	
-	&.primary,
-	&.secondary,
-	&.tertiary {
-		&.dangerous{
-			color: var(--color-pink);
-	
-			&:hover{
-				background-color: var(--color-pink);
-				color: 			  var(--color-white);
+		&.block{
+			width: 100%;
+		}
+		
+		&.primary,
+		&.secondary,
+		&.tertiary {
+			&.dangerous{
+				color: var(--color-pink);
+		
+				&:hover{
+					background-color: var(--color-pink);
+					color: 			  var(--color-white);
+				}
+			}
+
+			&:disabled,
+			&:disabled:hover {
+				background-color: var(--color-grey-3);
+				color: 			  var(--color-grey-1)
 			}
 		}
 
-		&:disabled,
-		&:disabled:hover {
-			background-color: var(--color-grey-3);
-			color: 			  var(--color-grey-1)
+		&.primary{
+			background-color: var(--color-blue-dark);
+			color: 			  var(--color-white);
+			border: 		  var(--color-blue-dark) thin solid;
+		}
+
+		&.primary:hover{
+			background-color: var(--color-blue);
+			color: 			  var(--color-yellow);
+		}
+
+		&.primary:active {
+			background-color: var(--color-blue-light);
+			color: 			  var(--color-black)
+		}
+
+		&.secondary{
+			background-color: var(--color-white);
+			color: 			  var(--color-blue);
+			border: 		  black thin solid;
+		}
+
+		&.secondary:hover{
+			background-color: var(--color-blue-light);
+		}
+
+		&.secondary:active {
+			background-color: var(--color-blue-dark);
+			color: 			  var(--color-yellow)
+		}
+
+		&.tertiary{
+			background: none;
+			border: 	none;
+			color: 		var(--color-blue);
+		}
+
+		&.tertiary:hover{
+			background: var(--color-blue-light);
+		}
+		
+		&.tertiary:active{
+			background: var(--color-blue);
+			color: 		var(--color-white)
+		}
+		
+		&.tertiary:disabled,
+		&.tertiary:disabled:hover {
+			background: none;
 		}
 	}
-
-	&.primary{
-		background-color: var(--color-blue-dark);
-		color: 			  var(--color-white);
-		border: 		  var(--color-blue-dark) thin solid;
-	}
-
-	&.primary:hover{
-		background-color: var(--color-blue);
-		color: 			  var(--color-yellow);
-	}
-
-	&.primary:active {
-		background-color: var(--color-blue-light);
-		color: 			  var(--color-black)
-	}
-
-	&.secondary{
-		background-color: var(--color-white);
-		color: 			  var(--color-blue);
-		border: 		  black thin solid;
-	}
-
-	&.secondary:hover{
-		background-color: var(--color-blue-light);
-	}
-
-	&.secondary:active {
-		background-color: var(--color-blue-dark);
-		color: 			  var(--color-yellow)
-	}
-
-	&.tertiary{
-		background: none;
-		border: 	none;
-		color: 		var(--color-blue);
-	}
-
-	&.tertiary:hover{
-		background: var(--color-blue-light);
-	}
-	
-	&.tertiary:active{
-		background: var(--color-blue);
-		color: 		var(--color-white)
-	}
-	
-	&.tertiary:disabled,
-	&.tertiary:disabled:hover {
-		background: none;
-	}
-}
 
 </style>
