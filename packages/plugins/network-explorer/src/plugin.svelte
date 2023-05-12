@@ -1,8 +1,11 @@
 <script lang="ts">
   import { NetworkExplorer } from  "@oscd-plugins/uilib/src/lib/plugins/network-explorer"
   import * as pckg from "../package.json"
+
+  export let doc: XMLDocument;
 </script>
-<svelte:options tag={null} />
+
+
 
 <main>
   <NetworkExplorer />

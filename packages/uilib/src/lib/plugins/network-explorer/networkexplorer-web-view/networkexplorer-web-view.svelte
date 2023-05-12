@@ -2,7 +2,6 @@
 
 <script lang="ts">
     import Button from "../../../components/button/button.svelte"
-    import css from "./style.css?inline"
 
     function printDocumentation() {
     	print()
@@ -14,4 +13,10 @@
     <Button label={"Mach Download!"} on:click={printDocumentation} />
 </section>
 
-<svelte:element this="style">{@html css}</svelte:element>
+<style>
+    @media print {
+        .network-explorer-web-content {
+            display: none;
+        }
+    }
+</style>
