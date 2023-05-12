@@ -4,7 +4,6 @@
 	import { Button } from "../../../components/button"
 	import Checkbox from "../../../components/checkbox/checkbox.svelte"
 	import type { MergableItem } from "./mergable-items"
-	import css from "./merger.scss?inline"
 	import { createEventDispatcher } from "svelte"
 
 	// Input
@@ -135,5 +134,90 @@
 	</div>
 
 </merger>
+ <style lang="scss">
+	merger{
+		display:               grid;
+		height:                100%;
+		grid-template-rows:    2fr auto;
+		grid-template-columns: repeat(2, auto) 1fr;
+		text-align:            left;
+		gap:                   0.5rem;
 
-<svelte:element this="style">{@html css}</svelte:element>
+		ul {
+			margin: 0;
+			padding: 0;
+			list-style-type: none;
+			display: flex;
+			flex-direction: column;
+			gap: 0.5rem;
+		}
+
+
+		.action{
+			grid-column:  3 / 4;
+			justify-self: left;
+			padding:      2rem;
+		}
+
+		.structure{
+			border-right:       var(--color-black) thin solid;
+			display:            grid;
+			grid-template-rows: auto 1fr;
+			height: 			100%;
+			overflow: 			hidden;
+		}
+
+		.structure ul{
+			height:   100%;
+			overflow: auto;
+		}
+
+		.list-container{
+			border-right:       var(--color-black) thin solid;
+			display:            grid;
+			height:             100%;
+			grid-template-rows: auto auto 1fr;
+		}
+
+		.list-container ul {
+			height:   100%;
+			overflow: auto;
+		}
+
+		.list{
+			display:        flex;
+			flex-direction: column;
+			gap:            0.5rem;
+		}
+
+		& > div{
+			padding: 0.5rem;
+		}
+
+		.select-all-container{
+			margin-bottom:   1rem;
+			display:         flex;
+			justify-content: end;
+		}
+
+		.action{
+			display:        flex;
+			flex-direction: row;
+			gap:            0.5rem;
+			height:         40px;
+		}
+
+		.usage{
+			height:             100%;
+			overflow:           hidden;
+			display:            grid;
+			grid-template-rows: auto 1fr;
+		}
+
+		.usage ul{
+			height:   100%;
+			overflow: auto;
+		}
+	}
+
+</style>

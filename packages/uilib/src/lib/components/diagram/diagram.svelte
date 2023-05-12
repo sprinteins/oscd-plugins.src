@@ -1,9 +1,6 @@
 
 
 <script lang="ts">
-	import cssDiagram from "./diagram.scss?inline"
-	import cssIED from "./ied.css?inline"
-	import cssMessage from "./message.css?inline"
 	import type { IEDNode, RootNode } from "./nodes"
 	import IED from "./ied.svelte"
 	import Message from "./message.svelte"
@@ -28,10 +25,6 @@
 		dispatch("connectionclick", connection)
 	}
 </script>
-
-<svelte:element this="style">{@html cssDiagram}</svelte:element>
-<svelte:element this="style">{@html cssIED}</svelte:element>
-<svelte:element this="style">{@html cssMessage}</svelte:element>
 
 {#if rootNode}
 	<diagram>
@@ -67,3 +60,17 @@
 		</svg>
 	</diagram>
 {/if}
+
+<style>
+	diagram {
+		display:  block;
+		width: 	  100%;
+		height:   100%;
+		overflow: auto;
+	}
+
+	svg {
+		width:  var(--width);
+		height: var(--height);
+	}
+</style>

@@ -1,7 +1,6 @@
 
 
 <script lang="ts">
-	import css from "./dedupe.scss?inline"
 	import { UCTypeDedupe, SCDQueries, type HashedDOT, type DOElement, type DOTypeElement } from "@oscd-plugins/core"
 	import GroupCardList from "./group-card-list/group-card-list.svelte"
 	import Merger from "./merger/merger.svelte"
@@ -155,7 +154,6 @@
 	</layout>
 </dedupe>
 
-<!-- <svelte:element this="style">{@html css}</svelte:element> -->
 <style>
 	dedupe{
 		--header-hight: 146px;

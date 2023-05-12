@@ -2,7 +2,6 @@
 
 <script lang="ts">
 	import { Counter } from "../../../components/counter"
-	import css from "./group-card.scss?inline"
 
 	// Input
 	export let items: string[] = []
@@ -36,4 +35,46 @@
 	</div>
 </group-card>
 
-<svelte:element this="style">{@html css}</svelte:element>
+<style lang="scss">
+	group-card {
+
+		display: inline-grid;
+		border:  var(--color-black) 1px solid;
+		cursor:  pointer;
+		height:  80px;
+		padding: 0rem;
+
+		grid-template-columns: 1fr min(25px);
+
+		&.selected{
+			background: var(--color-blue-dark);
+			color:		var(--color-yellow);
+		}
+
+		&:hover:not(.selected){
+			background: var(--color-blue-light);
+		}
+
+		.left{
+			--padding: 1rem;
+			padding:  var(--padding) 0 var(--padding) var(--padding);
+			overflow: hidden;
+		}
+
+		.right{
+			padding: 0.3rem;
+		}
+
+		ul {
+			padding: 0;
+			margin:  0;
+		}
+
+		li{
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+		}
+
+	}
+</style>

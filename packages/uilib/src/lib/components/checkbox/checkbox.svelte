@@ -1,8 +1,6 @@
 
 
 <script lang="ts">
-	import css from "./checkbox.scss?inline"
-
 	export let checked = false
 	export let label: string
 	export let testid = ""
@@ -16,4 +14,10 @@
 	</label>
 </checkbox>
 
-<svelte:element this="style">{@html css}</svelte:element>
+<style>
+	label{
+		display: 	 flex;
+		align-items: center;
+		gap: 		 0.5rem;
+	}
+</style>
