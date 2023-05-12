@@ -1,5 +1,3 @@
-<svelte:options tag="tscd-network-explorer-print-view" />
-
 <script lang="ts">
 </script>
 

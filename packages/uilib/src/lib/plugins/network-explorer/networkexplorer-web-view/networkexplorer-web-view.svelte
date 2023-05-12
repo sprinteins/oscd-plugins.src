@@ -1,5 +1,3 @@
-<svelte:options tag="tscd-network-explorer-web-view" />
-
 <script lang="ts">
     import Button from "../../../components/button/button.svelte"
 

@@ -1,5 +1,3 @@
-<svelte:options tag="tscd-network-explorer" />
-
 <script lang="ts">
 	
 	import { onMount } from "svelte"
@@ -19,5 +17,5 @@
 
 
 <style>
-	
+
 </style>
