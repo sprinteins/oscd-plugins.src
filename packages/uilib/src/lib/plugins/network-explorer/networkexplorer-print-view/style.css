@@ -1,0 +1,5 @@
+@media not print {
+    .network-explorer-print-content {
+        display: none;
+    }
+}
