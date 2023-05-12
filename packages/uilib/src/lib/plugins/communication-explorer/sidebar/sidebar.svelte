@@ -1,5 +1,3 @@
-
-
 <script lang="ts">
     import {
     	selectedIEDNode,
@@ -23,7 +21,8 @@
     $: selectedMessageTypes = $selectedIEDNode.selectedMessageTypes
     $: showIncomingConnections = $selectedIEDNode?.incomingConnections
     $: showOutgoingConnections = $selectedIEDNode?.outgoingConnections
-    $: isIedFiltersDisabled = $selectedIEDNode?.selectedConnection !== undefined
+    $: isIedFiltersDisabled =
+        $selectedIEDNode?.selectedConnection !== undefined
     $: isConnectionDirectionDisabled = handleConnectionDirectionDisabled(
     	$selectedIEDNode,
     	isIedFiltersDisabled
@@ -148,7 +147,6 @@
                 on:input={handleNameFilterChange}
             />
         </label>
-
     </div>
 </div>
 
@@ -178,7 +176,7 @@
     }
 
     .ied-nodes img {
-        margin-top: .9rem;
+        margin-top: 0.9rem;
         height: 1.3rem;
         width: 1.3rem;
     }
@@ -193,14 +191,14 @@
 
     .ied-nodes select {
         width: 100%;
-        padding: .5rem 1rem;
+        padding: 0.5rem 1rem;
     }
 
-    .goos-messages {
+    /* .goos-messages {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: .5rem
-    }
+    } */
 
     .actions {
         display: flex;

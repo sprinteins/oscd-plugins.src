@@ -1,12 +1,12 @@
 <script lang="ts">
-    import Diagram from "./diagram/diagram-for-print.svelte"
+    import TelemetryView from "../../communication-explorer/telemetry-view.svelte"
 
     export let scdData: Element
 </script>
 
 <section class="network-explorer-print-content">
     <h1>Network Explorer</h1>
-    <Diagram bind:root={scdData} />
+    <TelemetryView bind:root={scdData} showSidebar={false} />
 </section>
 
 <style>
