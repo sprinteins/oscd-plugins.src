@@ -1,4 +1,4 @@
-<svelte:options tag="tscd-theme" />
+
 
 <script lang="ts">
 	import css from "./theme.css?inline"

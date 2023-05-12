@@ -1,4 +1,4 @@
-<svelte:options tag="tscd-group-card" />
+
 
 <script lang="ts">
 	import { Counter } from "../../../components/counter"

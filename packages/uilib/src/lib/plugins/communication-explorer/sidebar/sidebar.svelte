@@ -1,4 +1,4 @@
-<svelte:options tag="tscd-sidebar" />
+
 
 <script lang="ts">
     import {

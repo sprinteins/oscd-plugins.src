@@ -1,4 +1,4 @@
-<svelte:options tag="tscd-diagram" />
+
 
 <script lang="ts">
 	import cssDiagram from "./diagram.scss?inline"

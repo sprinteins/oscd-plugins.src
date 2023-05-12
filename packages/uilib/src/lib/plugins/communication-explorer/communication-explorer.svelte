@@ -1,4 +1,4 @@
-<svelte:options tag="tscd-communication-explorer" />
+
 
 <script lang="ts">
 	import { UCCommunicationInformation, SCDQueries } from "@oscd-plugins/core"

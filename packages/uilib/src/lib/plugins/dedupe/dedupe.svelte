@@ -1,4 +1,4 @@
-<svelte:options tag="tscd-dedupe" />
+
 
 <script lang="ts">
 	import css from "./dedupe.scss?inline"
@@ -155,4 +155,32 @@
 	</layout>
 </dedupe>
 
-<svelte:element this="style">{@html css}</svelte:element>
+<!-- <svelte:element this="style">{@html css}</svelte:element> -->
+<style>
+	dedupe{
+		--header-hight: 146px;
+		height:  calc( 100vh - var(--header-hight));
+		display: block;
+		padding: 1rem;
+		overflow: hidden;
+	}
+
+
+	main {
+			height: 100%;
+			overflow: hidden;
+	}
+	layout{
+		display: grid;
+		grid-template-columns: minmax(100px, 150px) 1fr;
+		height: 100%;
+	}
+
+	sidebar{
+		border-right : black thin solid;
+		padding-right: 1rem;
+		height: 	   100%;
+		overflow: 	   auto;
+	}
+
+</style>

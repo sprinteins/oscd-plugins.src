@@ -1,4 +1,4 @@
-<svelte:options tag="tscd-button-group" />
+
 
 <script lang="ts">
     import css from "./style.css?inline"

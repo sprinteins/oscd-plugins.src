@@ -1,4 +1,4 @@
-<svelte:options tag="tscd-checkbox" />
+
 
 <script lang="ts">
 	import css from "./checkbox.scss?inline"

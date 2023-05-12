@@ -1,4 +1,4 @@
-<svelte:options tag="tscd-merger" />
+
 <script lang="ts">
 
 	import { Button } from "../../../components/button"

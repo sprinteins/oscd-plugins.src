@@ -1,4 +1,4 @@
-<svelte:options tag="tscd-counter" />
+
 
 <script lang="ts">
 	import css from "./counter.scss?inline"

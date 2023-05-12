@@ -1,4 +1,4 @@
-<svelte:options tag="tscd-message" />
+
 
 <script lang="ts">
 	import { path as d3Path } from "d3-path"

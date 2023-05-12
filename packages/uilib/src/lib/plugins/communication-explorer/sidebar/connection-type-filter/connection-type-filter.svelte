@@ -1,4 +1,4 @@
-<svelte:options tag="tscd-connection-type-filter" />
+
 
 <script lang="ts">
     import {

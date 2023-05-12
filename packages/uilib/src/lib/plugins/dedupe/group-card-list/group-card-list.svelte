@@ -1,4 +1,4 @@
-<svelte:options tag="tscd-group-card-list" />
+
 
 <script lang="ts">
 	import { GroupCard } from "../group-card/"

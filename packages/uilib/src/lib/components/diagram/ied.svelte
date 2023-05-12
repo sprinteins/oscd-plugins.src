@@ -1,4 +1,4 @@
-<svelte:options tag="tscd-ied" />
+
 
 <script lang="ts">
   import type { IEDNode } from "./nodes"
