@@ -82,12 +82,14 @@
 	<div class="list-container">
 		<h3>Duplicate DOTypes</h3>
 		<div class="select-all-container">
-			<Button 
+			<Button
 				label="Select All" 
 				testid="merger_select-all"
 				type="secondary"
 				on:click={handleSelectAll} 
-			/>
+			>
+			Select All
+		</Button>
 		</div>
 
 		<ul class="list">

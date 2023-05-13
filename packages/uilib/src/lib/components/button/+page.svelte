@@ -10,7 +10,7 @@
 <h1>Add Button</h1>
 
 <Example name="Primary">
-    <Button on:click={handleClick} label="Create" />
+    <Button on:click={handleClick}>Create</Button>
     <Button on:click={handleClick} label="Create" disabled />
 </Example>
 

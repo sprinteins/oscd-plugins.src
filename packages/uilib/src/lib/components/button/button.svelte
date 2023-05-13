@@ -1,5 +1,8 @@
 
 <script lang="ts">
+
+	import '@material/mwc-button';
+
 	// Input
 	export let block = false
 	export let dangerous = false
@@ -9,6 +12,15 @@
 	export let type: "primary" | "secondary" | "tertiary" = "primary"
 
 </script>
+
+<mwc-button
+	label={label}
+	disabled={disabled}
+	on:click={console.log}
+	on:keypress
+	primary
+	outlined
+></mwc-button>
 
 <button
 	class:block
@@ -22,6 +34,12 @@
 </button>
 
 <style lang="scss" global>
+
+	:root{
+		--mdc-typography-button-font-size: 12px;
+  		--mdc-typography-button-text-transform: none;
+	}
+
 	button.tscd-button{
 		--padding: 0.5rem;
 		display: 	 	 inline-flex;
