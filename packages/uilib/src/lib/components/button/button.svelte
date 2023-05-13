@@ -1,7 +1,7 @@
 
 <script lang="ts">
 
-	import '@material/mwc-button';
+	import "@material/mwc-button"
 
 	// Input
 	export let block = false
