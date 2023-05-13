@@ -9,7 +9,9 @@
 </script>
 
 {#if doc}
+{#key doc}
   <Dedupe doc={doc?.documentElement} />
+{/key}
 {/if}
 
 <input type="hidden" name="package-name" value={pckg.name} />

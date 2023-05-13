@@ -130,6 +130,11 @@ export class SCDQueries {
 		return this.searchElement<LNodeTypeElement>(SCDQueries.LNodeType, ["id", "lnClass"], options)
 	}
 
+	public searchElementsByTypeAttr(type: string, options?: CommonOptions): SCDElement[]{
+		const selector = `[type='${type}']`
+		return this.searchElement<SCDElement>(selector, [], options)
+	}
+
 	
 	// 
 	// Privates

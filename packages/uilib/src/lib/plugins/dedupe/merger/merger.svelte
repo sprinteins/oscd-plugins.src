@@ -12,10 +12,15 @@
 	// Setup
 	const dispatch = createEventDispatcher()
 
+	type AffectedElement = {
+		name: string,
+		type: string,
+		dot: string,
+	}
+
 	// Actions
 	let checkedIndexes: Set<number> = new Set()
-	let affectedLNTypes: {ln: string, dot: string}[] = []
-	// let checkedIndexes = new Map<number, boolean>()
+	let affectedElements: AffectedElement[] = []
 	function handleChange(index: number, e: Event) {
 		const input = e.target as HTMLInputElement
 		if(input.checked){
@@ -27,18 +32,21 @@
 		checkedIndexes = checkedIndexes
 	}
 
-	function generateAffectedLNTypes(indexes: number[]){
-		const newAffectedLNTypes = []
+	function generateAffectedLNTypes(indexes: number[]): AffectedElement[]{
+		const newAffectedElements: AffectedElement[] = []
 		for(const index of indexes){
 			const item = items[index]
 			const usages = item.usages
-			for( const ln of usages){
-				newAffectedLNTypes.push({ln, dot: item.label})
+			for( const userElement of usages){
+				newAffectedElements.push({
+					name: userElement.name,
+					type: userElement.type,
+					dot:  item.label,})
 			}
 		}
-		return newAffectedLNTypes
+		return newAffectedElements
 	}
-	$: affectedLNTypes = generateAffectedLNTypes([...checkedIndexes.values()])
+	$: affectedElements = generateAffectedLNTypes([...checkedIndexes.values()])
 
 
 	$: isMergePossible = isSomeDuplicateSelected && isTargetSelected
@@ -105,10 +113,10 @@
 	</div>
 
 	<div class="usage">
-		<h3>Affected LN Types</h3>
+		<h3>Affected Nodes</h3>
 		<ul>
-			{#each affectedLNTypes as lnType}
-				<li>{lnType.ln} ({lnType.dot})</li>
+			{#each affectedElements as element}
+				<li>[{element.type}] {element.name} ({element.dot})</li>
 			{/each}
 		</ul>
 	</div>

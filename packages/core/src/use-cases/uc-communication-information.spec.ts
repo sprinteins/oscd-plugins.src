@@ -146,7 +146,6 @@ suite("UCCommunicationInformation", () => {
 		function testFeature(tc: TestCase){
 			test(tc.desc, () => {
 				const messages = groupInputExtRefElementsByIedNameServiceTypeAndSrcCBName(tc.elements)
-				console.log({level: "test", msg: "message grouping", messages})
 				expect(messages).toEqual(tc.expectedGroups)
 			})
 		}

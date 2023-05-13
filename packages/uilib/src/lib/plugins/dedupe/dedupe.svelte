@@ -1,10 +1,10 @@
 
 
 <script lang="ts">
-	import { UCTypeDedupe, SCDQueries, type HashedDOT, type DOElement, type DOTypeElement } from "@oscd-plugins/core"
+	import { UCTypeDedupe, SCDQueries, type HashedDOT, type DOElement, type DOTypeElement, type SCDElement } from "@oscd-plugins/core"
 	import GroupCardList from "./group-card-list/group-card-list.svelte"
 	import Merger from "./merger/merger.svelte"
-	import type { MergableItem } from "./merger/mergable-items"
+	import { NullParentElement, type MergableItem, type ParentElement } from "./merger/mergable-items"
 	import Theme from "../../style/theme.svelte"
 
 	// Input
@@ -41,18 +41,23 @@
 			return group.map((item) => {
 				return {
 					label:  item.element.id,
-					usages: item.usages.map(getParentId),
+					usages: item.usages.map(getParent),
 				}
 			})
 		})
 	}
 
-	function getParentId(doEl: DOElement): string {
-		const notFoundId = "_"
+	function getParent(doEl: SCDElement): ParentElement {
+	
+		const notFoundName = "~name not found~"
 		const parent = doEl.element.parentElement
-		if(!parent){ return notFoundId }
+		if(!parent){ return NullParentElement }
+		const parentElement: ParentElement = {
+			name: parent.getAttribute("id")??parent.getAttribute("name")??notFoundName,
+			type: parent.tagName,
+		}
 
-		return parent.getAttribute("id")??notFoundId
+		return parentElement
 	}	
 	
 	let selectedGroupIndex = -1
@@ -101,12 +106,12 @@
 		root.dispatchEvent(event)
 	}
 
-	function createRelinkActions(doEl: DOElement, dot: DOTypeElement){
+	function createRelinkActions(els: SCDElement, dot: DOTypeElement){
 		const deep = true
-		const modifiedEl = doEl.element.cloneNode(true) as Element
+		const modifiedEl = els.element.cloneNode(deep) as Element
 		modifiedEl.setAttribute("type", dot.id)
 
-		const actions = createEventDetail(doEl.element, modifiedEl)
+		const actions = createEventDetail(els.element, modifiedEl)
 		return actions
 	}
 	interface Replace {

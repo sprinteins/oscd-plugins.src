@@ -16,18 +16,17 @@ describe("UC: Type Dedupe", () => {
 		// 
 		// Act
 		// 
-		const duplicate_types = await uc.findDuplicateObjectTypes()
-		console.log({level: "test", msg: "duplicate types", duplicate_types})
-
+		const duplicateTypes = await uc.findDuplicateObjectTypes()
+		console.log({leve: "test", duplicateTypes})
 
 		// 
 		// Assert
 		// 
-		expect(duplicate_types.length).toEqual(2)
+		expect(duplicateTypes.length).toEqual(2)
 		// Note: <Val> elements are currently ignore that is why there are 3 instead of 2
 		// expect(duplicate_types[0].length).toEqual(2)
-		expect(duplicate_types[0].length).toEqual(3)
-		expect(duplicate_types[1].length).toEqual(3)
+		expect(duplicateTypes[0].length).toEqual(3)
+		expect(duplicateTypes[1].length).toEqual(3)
 
 	})
 })

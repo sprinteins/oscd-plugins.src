@@ -1,4 +1,4 @@
-import { DOElement, DOTypeElement, LNodeTypeElement, SCDQueries } from "../scd/scd-query"
+import { DOElement, DOTypeElement, LNodeTypeElement, SCDElement, SCDQueries } from "../scd/scd-query"
 import { hashElement } from "../xml/hash"
 
 /** 
@@ -23,14 +23,19 @@ export class UCTypeDedupe {
 		return duplicates
 	}
 
-	public findUsageOfDOT(dotId: string): DOElement[] {
+	private findUsageOfDOT(dotId: string): DOElement[] {
 		const dos = this.scdQueries.searchDOsByType(dotId)
 		return dos
 	}
 
+	private findUserElements(dotId: string): SCDElement[] {
+		const elements = this.scdQueries.searchElementsByTypeAttr(dotId)
+		return elements
+	}
+
 	private async createHashedDot(dot: DOTypeElement): Promise<HashedDOT>{
 		const hash = await hashElement(dot.element)
-		const usages = this.findUsageOfDOT(dot.id)
+		const usages = this.findUserElements(dot.id)
 		return {
 			element: dot,
 			hash,
@@ -55,7 +60,7 @@ export class UCTypeDedupe {
 export type HashedDOT = {
 	element: DOTypeElement,
 	hash: string
-	usages: DOElement[]
+	usages: SCDElement[]
 }
 
 type GroupedHashedDOT = {
