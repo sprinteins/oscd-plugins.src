@@ -72,8 +72,24 @@
 		const notFoundName = "~name not found~"
 		const parent = doEl.element.parentElement
 		if(!parent){ return NullParentElement }
+
+		const prioritizedNameAttributes = [
+			"id",
+			"name",
+			"desc",
+		]
+
+		let name = notFoundName
+		for( const attr of prioritizedNameAttributes ){
+			const value = parent.getAttribute(attr)
+			if(value){
+				name = value
+				break
+			}
+		}
+
 		const parentElement: ParentElement = {
-			name: parent.getAttribute("id")??parent.getAttribute("name")??notFoundName,
+			name,
 			type: parent.tagName,
 		}
 

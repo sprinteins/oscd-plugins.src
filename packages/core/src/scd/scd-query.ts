@@ -144,9 +144,9 @@ export class SCDQueries {
 		const selector = `[type='${type}']`
 		return this.searchElement<SCDElement>(selector, [], options)
 	}
-
-	public searchElementsByTypeAttr(type: string, options?: CommonOptions): SCDElement[]{
-		const selector = `[type='${type}']`
+	
+	public searchElementsByLnTypeAttr(type: string, options?: CommonOptions): SCDElement[]{
+		const selector = `[lnType='${type}']`
 		return this.searchElement<SCDElement>(selector, [], options)
 	}
 

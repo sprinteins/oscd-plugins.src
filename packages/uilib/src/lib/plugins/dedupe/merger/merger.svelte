@@ -88,7 +88,7 @@
 	</div>
 
 	<div class="list-container">
-		<h3>Duplicate DOTypes</h3>
+		<h3>Duplicate Types</h3>
 		<div class="select-all-container">
 			<Button 
 				label="Select All" 

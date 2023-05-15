@@ -44,8 +44,11 @@ export class UCTypeDedupe {
 	}
 
 
-	private findUserElements(dotId: string): SCDElement[] {
-		const elements = this.scdQueries.searchElementsByTypeAttr(dotId)
+	private findUserElements(elId: string): SCDElement[] {
+		const elements = [
+			...this.scdQueries.searchElementsByTypeAttr(elId),
+			...this.scdQueries.searchElementsByLnTypeAttr(elId),
+		]
 		return elements
 	}
 
