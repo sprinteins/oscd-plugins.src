@@ -21,7 +21,7 @@
 	// Actions
 	let checkedIndexes: Set<number> = new Set()
 	let affectedElements: AffectedElement[] = []
-	function handleChange(index: number, e: Event) {
+	function handleSourceChange(index: number, e: Event) {
 		const input = e.target as HTMLInputElement
 		if(input.checked){
 			checkedIndexes.add(index)
@@ -104,7 +104,7 @@
 					<Checkbox 
 						checked={checkedIndexes.has(ii)} 
 						label={item.label} 
-						on:change={e => handleChange(ii, e)}
+						on:change={e => handleSourceChange(ii, e)}
 						testid={`merger_checkbox-${ii}`}
 					/>
 				</li>
@@ -152,12 +152,14 @@
 		gap:                   0.5rem;
 
 		ul {
-			margin: 0;
-			padding: 0;
-			list-style-type: none;
-			display: flex;
+			margin:  0;
+			padding: 0 1rem;
+			
+			display: 	    flex;
 			flex-direction: column;
-			gap: 0.5rem;
+			gap: 		    0.5rem;
+			
+			list-style-type: none;
 		}
 
 
@@ -173,6 +175,7 @@
 			grid-template-rows: auto 1fr;
 			height: 			100%;
 			overflow: 			hidden;
+			gap: 				4.5rem;
 		}
 
 		.structure ul{
@@ -185,6 +188,7 @@
 			display:            grid;
 			height:             100%;
 			grid-template-rows: auto auto 1fr;
+			gap: 			    1rem;
 		}
 
 		.list-container ul {
@@ -220,6 +224,7 @@
 			overflow:           hidden;
 			display:            grid;
 			grid-template-rows: auto 1fr;
+			gap: 			    4.5rem
 		}
 
 		.usage ul{

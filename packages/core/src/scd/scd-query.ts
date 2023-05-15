@@ -114,20 +114,35 @@ export class SCDQueries {
 		return subNetowk
 	}
 
-	public static DOType = "DOType"
+	public static SelectorDOType = "DOType"
 	public searchDOTypes(options?:CommonOptions): DOTypeElement[]{
-		return this.searchElement<DOTypeElement>(SCDQueries.DOType, ["id"], options)
+		return this.searchElement<DOTypeElement>(SCDQueries.SelectorDOType, ["id"], options)
 	}
 
-	public static DO = "DO"
+	public static SelectorDAType = "DAType"
+	public searchDATypes(options?:CommonOptions): DATypeElement[]{
+		return this.searchElement<DATypeElement>(SCDQueries.SelectorDAType, ["id"], options)
+	}	
+	
+	public static SelectorEnumType = "EnumType"
+	public searchEnumTypes(options?:CommonOptions): EnumTypeElement[]{
+		return this.searchElement<EnumTypeElement>(SCDQueries.SelectorEnumType, ["id"], options)
+	}	
+
+	public static SelectorDO = "DO"
 	public searchDOsByType(type: string, options?:CommonOptions): DOElement[]{
-		const selector = `${SCDQueries.DO}[type='${type}']`
+		const selector = `${SCDQueries.SelectorDO}[type='${type}']`
 		return this.searchElement<DOElement>(selector, ["name", "type"], options)
 	}
 
-	public static LNodeType = "LNodeType"
+	public static SelectorLNodeType = "LNodeType"
 	public searchLNodeTypes(options?:CommonOptions): LNodeTypeElement[]{
-		return this.searchElement<LNodeTypeElement>(SCDQueries.LNodeType, ["id", "lnClass"], options)
+		return this.searchElement<LNodeTypeElement>(SCDQueries.SelectorLNodeType, ["id", "lnClass"], options)
+	}
+
+	public searchElementsByTypeAttr(type: string, options?: CommonOptions): SCDElement[]{
+		const selector = `[type='${type}']`
+		return this.searchElement<SCDElement>(selector, [], options)
 	}
 
 	public searchElementsByTypeAttr(type: string, options?: CommonOptions): SCDElement[]{
@@ -172,6 +187,13 @@ export type DOTypeElement = SCDElement & {
 	cdc: string
 }
 
+export type DATypeElement = SCDElement & {
+	id: string
+}
+export type EnumTypeElement = SCDElement & {
+	id: string
+}
+
 export type DOElement = SCDElement & {
 	name: string
 	type: string
@@ -188,6 +210,10 @@ export type CommonOptions = {
 
 export type SCDElement = {
 	element: Element
+}
+
+export type TypeElement = SCDElement & {
+	id: string
 }
 
 export type GSEElement = SCDElement & {

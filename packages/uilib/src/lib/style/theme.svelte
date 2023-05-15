@@ -29,7 +29,7 @@
 		--color-text:            var(--color-white);
 		--color-text-disabled-1: rgba(0, 0, 0, 0.4);
 		
-		--border-radius:  4px;
+		--border-radius: 5px;
 		
 		--font-family:    "Avenir Next", sans-serif;
 		--letter-spacing: 0.2px;
@@ -38,8 +38,6 @@
 		--color-ied-focus:       var(--color-beige-1);
 		--color-ied-focus-hover: var(--color-beige-2);
 
-		--color-button-group-default: #5F6E75;
-		--color-button-group-selected: #004552;
 
 		--color-message-goose:         var(--color-green);
 		--color-message-mms: 		   var(--color-blue-1);

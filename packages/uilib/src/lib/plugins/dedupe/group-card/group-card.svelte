@@ -40,6 +40,7 @@
 
 		display: inline-grid;
 		border:  var(--color-black) 1px solid;
+		border-radius: var(--border-radius);
 		cursor:  pointer;
 		height:  80px;
 		padding: 0rem;

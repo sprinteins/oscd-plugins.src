@@ -26,7 +26,7 @@
 		--padding: 0.5rem;
 		display: 	 	 inline-flex;
 		place-items: 	 center;
-		padding: var(--padding) calc(var(--padding) * 2);
+		padding: 		 var(--padding) calc(var(--padding) * 2);
 		font-family: 	 inherit;
 		gap: 		 	 0.5rem;
 		justify-content: center;
@@ -36,10 +36,10 @@
 		background-color: black;
 		color: 			  white;
 		
-		border-radius: 4px;
+		border-radius: var(--border-radius);
 		border:		   none;
 		cursor: 	   pointer;
-		transition: all 100ms ease-in-out;
+		transition:    all 100ms ease-in-out;
 
 
 		&:hover{

@@ -1,4 +1,5 @@
-import { DOElement, DOTypeElement, LNodeTypeElement, SCDElement, SCDQueries } from "../scd/scd-query"
+import { DATypeElement, DOTypeElement, EnumTypeElement, LNodeTypeElement, SCDElement, TypeElement } from "../scd/scd-query"
+import { SCDQueries } from "../scd/scd-query"
 import { hashElement } from "../xml/hash"
 
 /** 
@@ -11,40 +12,55 @@ export class UCTypeDedupe {
 		private readonly scdQueries: SCDQueries,
 	){}
 
-	public async findDuplicateObjectTypes(): Promise<HashedDOT[][]> {
-		const dots = this.scdQueries.searchDOTypes()
-		
-		const hashedDots: HashedDOT[] = await Promise.all(
-			dots.map(this.createHashedDot.bind(this)),
-		)
-		const grouped = this.groupByHash(hashedDots)
-		const duplicates = Object.values(grouped).filter(group => group.length > 1)
-		
+	public async findDuplicateObjectTypes(): Promise<HashedTypeElement<DOTypeElement>[][]> {
+		const duplicates = await this.findDuplicateTypes(this.scdQueries.searchDOTypes.bind(this.scdQueries))
 		return duplicates
 	}
 
-	private findUsageOfDOT(dotId: string): DOElement[] {
-		const dos = this.scdQueries.searchDOsByType(dotId)
-		return dos
+	public async findDuplicateDataAttributeTypes(): Promise<HashedTypeElement<DATypeElement>[][]>{
+		const duplicates = await this.findDuplicateTypes(this.scdQueries.searchDATypes.bind(this.scdQueries))
+		return duplicates
 	}
+
+	public async findDuplicateLogicalNodeTypes(): Promise<HashedTypeElement<LNodeTypeElement>[][]>{
+		const duplicates = await this.findDuplicateTypes(this.scdQueries.searchLNodeTypes.bind(this.scdQueries))
+		return duplicates
+	}
+
+	public async findDuplicateEnumTypes(): Promise<HashedTypeElement<EnumTypeElement>[][]>{
+		const duplicates = await this.findDuplicateTypes(this.scdQueries.searchEnumTypes.bind(this.scdQueries))
+		return duplicates
+	}
+	
+	public async findDuplicateTypes<T extends TypeElement>(searchFunction: () => T[]): Promise<HashedTypeElement<T>[][]>{
+		const types = await searchFunction()
+		const hashedTypes: HashedTypeElement<T>[] = await Promise.all(
+			types.map(this.createHashedElement.bind(this)),
+		)
+		const grouped = this.groupByHash(hashedTypes)
+		const duplicates = Object.values(grouped).filter(group => group.length > 1)
+
+		return duplicates
+	}
+
 
 	private findUserElements(dotId: string): SCDElement[] {
 		const elements = this.scdQueries.searchElementsByTypeAttr(dotId)
 		return elements
 	}
 
-	private async createHashedDot(dot: DOTypeElement): Promise<HashedDOT>{
-		const hash = await hashElement(dot.element)
-		const usages = this.findUserElements(dot.id)
+	private async createHashedElement<T extends TypeElement>(el: T): Promise<HashedTypeElement<T>>{
+		const hash = await hashElement(el.element)
+		const usages = this.findUserElements(el.id)
 		return {
-			element: dot,
+			element: el,
 			hash,
 			usages,
 		}
 	}
 
-	private groupByHash(dots: HashedDOT[]): GroupedHashedDOT {
-		const grouped: GroupedHashedDOT = {}
+	private groupByHash<T extends TypeElement>(dots: HashedTypeElement<T>[]): GroupedElements<T> {
+		const grouped: GroupedElements<T> = {}
 		for (const dot of dots) {
 			if (!grouped[dot.hash]) {
 				grouped[dot.hash] = []
@@ -57,12 +73,15 @@ export class UCTypeDedupe {
 	
 }
 
-export type HashedDOT = {
-	element: DOTypeElement,
-	hash: string
-	usages: SCDElement[]
+export type HashedTypeElement<T extends TypeElement> = {
+	element: T,
+	hash: string,
+	usages: SCDElement[],
 }
 
-type GroupedHashedDOT = {
-	[hash: string]: HashedDOT[]
+export type HashedDOT = HashedTypeElement<DOTypeElement>
+export type HashedDAT = HashedTypeElement<DATypeElement>
+
+type GroupedElements<T extends TypeElement> = {
+	[hash: string]: HashedTypeElement<T>[]
 }

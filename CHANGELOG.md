@@ -6,7 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
-## Communication Explorer [Unreleased] 
+## Communication Explorer [Unreleased]
+## Dedupe  [Unreleased]
+
+## Dedupe  [0.0.7] - 2023-05-15
+
+## Added
+- Dedupe following types
+  - Logical Node Type
+  - Data Object Type
+  - Data Attribute Type
+  - Enum Type
 
 ## Communication Explorer [0.0.12] - 2023-04-27
 

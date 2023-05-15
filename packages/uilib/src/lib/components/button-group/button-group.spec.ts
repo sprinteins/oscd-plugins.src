@@ -41,7 +41,7 @@ describe("Button Group", () => {
 		render(ButtonGroup, { options, disabled: false, selectedID: "option2" })
 		const list = screen.getByTestId("button-group")
 
-		const selectedElement = list.querySelector("input[name=\"option\"]:checked") as HTMLInputElement
+		const selectedElement = list.querySelector("input[name='option']:checked") as HTMLInputElement
 		expect(selectedElement.value).toBe("option2")
 	})
 })

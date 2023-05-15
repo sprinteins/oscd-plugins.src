@@ -8,7 +8,11 @@
     export let disabled = false
 </script>
 
-<div class="btn-group" class:disabled data-testid="button-group">
+<div 
+    class="btn-group" 
+    class:disabled 
+    data-testid="button-group"
+>
     {#each options as option}
         <label for={option.id}>
             <input
@@ -27,15 +31,19 @@
 
 <style>
     /* TODO use color theme variables */
+
     .btn-group {
-        display: flex;
+		--color-button-group-default:  #5F6E75;
+		--color-button-group-selected: #004552;
+        
+        display:         flex;
         justify-content: center;
     }
 
     .btn-group div.btn {
         border: none;
         background-color: var(--color-button-group-default);
-        color: #fff;
+        color: var(--color-white);
         padding: 8px 12px;
         cursor: pointer;
         transition: background-color 200ms ease-in-out;
@@ -46,13 +54,13 @@
     }
 
     .btn-group label:last-of-type div.btn {
-        border-top-right-radius: 5px;
-        border-bottom-right-radius: 5px;
+        border-top-right-radius:    var(--border-radius);
+        border-bottom-right-radius: var(--border-radius);
     }
 
     .btn-group label:first-of-type div.btn {
-        border-top-left-radius: 5px;
-        border-bottom-left-radius: 5px;
+        border-top-left-radius:    var(--border-radius);
+        border-bottom-left-radius: var(--border-radius);
     }
 
     .btn-group input:checked~div.btn {

@@ -22,11 +22,8 @@ describe("UC: Type Dedupe", () => {
 		// 
 		// Assert
 		// 
-		expect(duplicateTypes.length).toEqual(2)
-		// Note: <Val> elements are currently ignore that is why there are 3 instead of 2
-		// expect(duplicate_types[0].length).toEqual(2)
+		expect(duplicateTypes.length).toEqual(1)
 		expect(duplicateTypes[0].length).toEqual(3)
-		expect(duplicateTypes[1].length).toEqual(3)
 
 	})
 })
