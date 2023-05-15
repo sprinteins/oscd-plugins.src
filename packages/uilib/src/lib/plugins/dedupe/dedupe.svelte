@@ -145,7 +145,7 @@
 
 		const firstElement = selectedGroup[0]
 		const children = Array.from(firstElement.element.element.children)
-		const names = children.map((child) => child.getAttribute("name")??"")
+		const names = children.map((child) => child.getAttribute("name")??child.textContent??"~" )
 		structure = names.filter(Boolean)
 	}
 	function resetStructure(){
