@@ -120,10 +120,12 @@
 		/>
 		{#if showConnectionArrows}
 			<path
+				class:irrelevant={!edge.isRelevant}
 				d="M{arrowRightWidth} {arrowRightHeight} L{arrowBottomWidth} {arrowBottomHeight} L{arrowTopWidth} {arrowTopHeight} Z"
 				style="fill: {pathColor};"
 			/>
 			<circle
+				class:irrelevant={!edge.isRelevant}
 				cx={edge?.sections?.at(0)?.startPoint?.x}
 				cy={edge?.sections?.at(0)?.startPoint?.y}
 				r="2"
