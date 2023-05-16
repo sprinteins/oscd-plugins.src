@@ -5,8 +5,12 @@
 	import GroupCardList from "./group-card-list/group-card-list.svelte"
 	import Merger from "./merger/merger.svelte"
 	import { NullParentElement, type MergableItem, type ParentElement } from "./merger/mergable-items"
-	import Theme from "../../style/theme.svelte"
+	import Theme from "../../theme/theme.svelte"
 	import { ButtonGroup, type ButtonGroupOption } from "../../components/button-group"
+
+	import Snackbar, { Actions, Label } from "@smui/snackbar"
+	import IconButton from "@smui/icon-button"
+	import IconClose from "../../icons/icon-close.svelte"
 
 	// Input
 	export let doc: Element
@@ -15,6 +19,7 @@
 	let scdQueries: SCDQueries
 	let deduper: UCTypeDedupe
 	let root: HTMLElement
+	let snackbar: Snackbar
 
 
 	// 
@@ -176,6 +181,7 @@
 			bubbles:  true,
 		})
 		root.dispatchEvent(event)
+		snackbar.open()
 	}
 
 	function createRelinkActions(els: SCDElement, typeEl: TypeElement){
@@ -205,40 +211,51 @@
 
 </script>
 
-<Theme />
-<dedupe bind:this={root}>
-	<layout>
-		
-		<sidebar>
-			<h3>Duplicates</h3>
-			<div>
-				<ButtonGroup 
-					options={typeOptions} 
-					selectedID={typeOptions[0].id} 
-					on:change={handleTypeChange} 
+<Theme>
+	<dedupe bind:this={root}>
+		<layout>
+			
+			<sidebar>
+				<h3>Duplicates</h3>
+				<div>
+					<ButtonGroup 
+						options={typeOptions} 
+						selectedID={typeOptions[0].id} 
+						on:change={handleTypeChange} 
+					/>
+				</div>
+				<GroupCardList 
+					itemSets={itemSets.map((itemSet) => itemSet.map((item) => item.label) )} 
+					on:select={handleGroupSelect} 
+					selectedIndex={selectedGroupIndex}
 				/>
-			</div>
-			<GroupCardList 
-				itemSets={itemSets.map((itemSet) => itemSet.map((item) => item.label) )} 
-				on:select={handleGroupSelect} 
-				selectedIndex={selectedGroupIndex}
-			/>
-		</sidebar>
-		
-		<main>
-			{#if selectedGroupIndex > -1}
-			{#key `${selectedGroupIndex}_${selectedType}`}
-				<Merger 
-					items={itemSets[selectedGroupIndex]??[]} 
-					structure={structure}
-					on:merge={handleMerge}
-				/>
-			{/key}
-			{/if}
-		</main>
-	</layout>
-</dedupe>
+			</sidebar>
+			
+			<main>
+				{#if selectedGroupIndex > -1}
+				{#key `${selectedGroupIndex}_${selectedType}`}
+					<Merger 
+						items={itemSets[selectedGroupIndex]??[]} 
+						structure={structure}
+						on:merge={handleMerge}
+					/>
+				{/key}
+				{/if}
+			</main>
+		</layout>
 
+		<span class="success">
+		<Snackbar bind:this={snackbar}>
+			<Label>Relink was successful</Label>
+			<Actions>
+			<IconButton class="material-icons" title="Dismiss">
+				<IconClose />
+			</IconButton>
+			</Actions>
+		</Snackbar>
+		</span>
+	</dedupe>
+</Theme>
 <style>
 	dedupe{
 		--header-hight: 146px;
@@ -267,6 +284,10 @@
 		display:        flex;
 		flex-direction: column;
 		gap: 			1rem;
+	}
+
+	.success :global(.mdc-snackbar__surface){
+		background: var(--color-green);
 	}
 
 </style>
