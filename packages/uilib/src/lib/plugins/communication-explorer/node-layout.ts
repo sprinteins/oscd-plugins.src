@@ -64,7 +64,6 @@ export async function calculateLayout(ieds: IEDCommInfo[], config: Config, selec
 			const connectionID = `con_${Id(sourceIEDIndex)}_${Id(ii)}_${messageType}_${connectionCounter}`
 			connectionCounter++
 			
-			console.log(connectionID, isRelevant)
 			const connection = { 
 				id:               connectionID, 
 				sources:          [Id(sourceIEDIndex)], 

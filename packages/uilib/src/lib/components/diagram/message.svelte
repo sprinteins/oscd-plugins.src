@@ -12,7 +12,7 @@
 	export let isSelected = false
 
 	let path: string
-	$: path = draw(edge)
+	$: path = drawLine(edge, showConnectionArrows)
 	$: showConnectionArrows = $selectedIEDNode.showConnectionArrows
 
 	let arrowRightHeight = 0
@@ -31,7 +31,7 @@
 
 	$: pathColor = calcPathColor(edge)
 
-	function draw(edge?: IEDConnection): string {
+	function drawLine(edge?: IEDConnection, showArrows: boolean): string {
 		const arrowSize = 10
 
 		const sections = edge?.sections ?? []
@@ -57,8 +57,8 @@
 		}
 
 		let endpointX = section.endPoint.x
-		if (showConnectionArrows) {
-			let endpointX = section.endPoint.x - arrowSize
+		if (showArrows) {
+			endpointX = section.endPoint.x - arrowSize
 			if (reverseDirection) {
 				endpointX = section.endPoint.x + arrowSize
 			}
