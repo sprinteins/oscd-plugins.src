@@ -3,7 +3,6 @@
 	import Button, { Label } from "@smui/button"
 
 	// Input
-	export let label: string
 	export let testid = ""
 	export let disabled = false
 	export let type: "primary" | "secondary" | "tertiary" = "primary"
@@ -28,7 +27,9 @@
 	variant={varianTypeMap[type]} 
 	{...dataProps}
 >
-	<Label>{label}</Label>
+	<Label>
+		<slot />
+	</Label>
 </Button>
 
 <style lang="scss">

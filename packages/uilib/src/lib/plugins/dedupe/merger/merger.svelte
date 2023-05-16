@@ -91,11 +91,12 @@
 		<h3>Duplicate Types</h3>
 		<div class="select-all-container">
 			<Button 
-				label="Select All" 
 				testid="merger_select-all"
 				type="secondary"
 				on:click={handleSelectAll} 
-			/>
+			>
+				Select All
+			</Button>
 		</div>
 
 		<ul class="list">
@@ -133,11 +134,12 @@
 			{/each}
 		</select>
 		<Button 
-			label="Relink" 
 			testid="merger_button-merge" 
 			disabled={!isMergePossible}
 			on:click={handleMergeClick} 
-		/>
+		>
+			Relink
+		</Button>
 	</div>
 
 </merger>

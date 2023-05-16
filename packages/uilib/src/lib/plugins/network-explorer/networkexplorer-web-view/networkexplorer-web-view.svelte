@@ -8,7 +8,7 @@
 
 <section class="network-explorer-web-content">
     <h1>Web View</h1>
-    <Button label={"Mach Download!"} on:click={printDocumentation} />
+    <Button on:click={printDocumentation}>Mach Download!</Button>
 </section>
 
 <style>
