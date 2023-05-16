@@ -16,9 +16,17 @@
 </script>
 
 <Example name="Group Card List">
+	<div class="container">
 	<GroupCardList 
 		{itemSets} 
 		{selectedIndex}
 		on:select={(e) => handleSelect(e.detail.index)}
 	/>
+	</div>
 </Example>
+
+<style>
+	.container{
+		width: 200px;
+	}
+</style>

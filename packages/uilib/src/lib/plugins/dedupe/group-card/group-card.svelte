@@ -39,21 +39,27 @@
 	group-card {
 
 		display: inline-grid;
-		border:  var(--color-black) 1px solid;
-		border-radius: var(--border-radius);
+		
 		cursor:  pointer;
 		height:  80px;
 		padding: 0rem;
+		
+		background: var(--mdc-theme-surface);
 
-		grid-template-columns: 1fr min(25px);
+		grid-template-columns: 1fr min(35px);
+
+		transition: all 100ms;
+		box-sizing: border-box;
+
+		border: transparent 1px solid;
 
 		&.selected{
-			background: var(--color-blue-dark);
-			color:		var(--color-yellow);
+			border-color:var(--mdc-theme-primary);
+
 		}
 
 		&:hover:not(.selected){
-			background: var(--color-blue-light);
+			background: var(--color-beige-3);
 		}
 
 		.left{

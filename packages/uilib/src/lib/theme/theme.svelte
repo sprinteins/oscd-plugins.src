@@ -13,6 +13,7 @@
 	:root,
 	:host {
 		--color-white:      #FFFFFF;
+		
 		--color-white-dark: #f2f2f2;
 		--color-yellow:     #D9D800;
 		--color-blue:       #004552;
@@ -24,10 +25,13 @@
 		--color-black:      #000000;
 		--color-beige-1:    burlywood;
 		--color-beige-2:    blanchedalmond;
+		--color-beige-3:    #F3ECDA;
+		--color-beige-4:    #FCF6E5;
 		--color-pink:       #C73C61;
 		--color-grey-1:     #626262;
 		--color-grey-2:     #808080;
 		--color-grey-3:     #bdbdbd;
+		--color-cyan: 		#2aa198;
 
 		--color-primary:         var(--color-yellow);
 		--color-secondary:       var(--color-blue);
@@ -57,9 +61,10 @@
 
 		/* SMUI Variables */
 		
-		--mdc-theme-primary: #ff3e00;
+		--mdc-theme-primary: var(--color-cyan);
 		--mdc-typography-button-text-transform: none;
 		--mdc-typography-button-font-weight: bold;
+		--mdc-theme-surface: var(--color-beige-3);
 
 		
 	}
