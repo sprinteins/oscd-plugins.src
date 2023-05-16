@@ -1,8 +1,13 @@
 
 
 <script lang="ts">
+	import "svelte-material-ui/bare.css"
 	
 </script>
+
+<tscd-theme>
+	<slot />
+</tscd-theme>
 
 <style>
 	:root,
@@ -49,6 +54,14 @@
 		/* --color-message-sampledvalues-cb: #407CF5; */
 
 		--sidebar-width: 400px;
+
+		/* SMUI Variables */
+		
+		--mdc-theme-primary: #ff3e00;
+		--mdc-typography-button-text-transform: none;
+		--mdc-typography-button-font-weight: bold;
+
+		
 	}
 
 	:root,

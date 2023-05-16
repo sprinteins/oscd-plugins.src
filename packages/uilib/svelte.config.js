@@ -12,7 +12,9 @@ const config = {
 		files:   {
 			routes: "src/lib",
 		},
-
+	},
+	vitePlugin: {
+		inspector: true,
 	},
 }
 

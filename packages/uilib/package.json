@@ -20,14 +20,18 @@
 	},
 	"dependencies": {
 		"@oscd-plugins/core": "../core",
+		"@smui/button": "7.0.0-beta.8",
+		"@smui/icon-button": "7.0.0-beta.8",
+		"@smui/snackbar": "7.0.0-beta.8",
 		"d3-path": "^3.1.0",
 		"elkjs": "^0.8.2",
-		"sass": "^1.61.0"
+		"sass": "^1.61.0",
+		"svelte-material-ui": "7.0.0-beta.8"
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.28.1",
 		"@sveltejs/adapter-auto": "^1.0.0",
-		"@sveltejs/kit": "^1.0.0",
+		"@sveltejs/kit": "^1.5.0",
 		"@sveltejs/package": "^1.0.0",
 		"@testing-library/svelte": "^3.2.2",
 		"@testing-library/user-event": "^14.4.3",

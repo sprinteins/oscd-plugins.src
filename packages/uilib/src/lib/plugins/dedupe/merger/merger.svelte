@@ -50,7 +50,7 @@
 
 
 	$: isMergePossible = isSomeDuplicateSelected && isTargetSelected
-	function handleMergeClick(e: MouseEvent){
+	function handleMergeClick(){
 		const selectedIndexes = [...Array.from( checkedIndexes.values() )]
 		if(!isMergePossible){ return }
 		dispatch("merge", {selectedIndexes, selectedMergeTargetIndex})
@@ -127,14 +127,13 @@
 			value={selectedMergeTargetIndex} 
 			data-testid="merger_merge-target"
 		>
-			<option value={-1} disabled selected>Select a merge target</option>
+			<option value={-1} disabled selected>Select a relink target</option>
 			{#each items as item, ii}
 				<option value={ii}>{item.label}</option>
 			{/each}
 		</select>
 		<Button 
-			label="Merge" 
-			block={true}
+			label="Relink" 
 			testid="merger_button-merge" 
 			disabled={!isMergePossible}
 			on:click={handleMergeClick} 
@@ -164,9 +163,12 @@
 
 
 		.action{
-			grid-column:  3 / 4;
-			justify-self: left;
-			padding:      2rem;
+			grid-column:    3 / 4;
+			justify-self:   left;
+			padding-top:    2rem;
+			display:        flex;
+			flex-direction: row;
+			gap:            0.5rem;
 		}
 
 		.structure{
@@ -213,10 +215,6 @@
 		}
 
 		.action{
-			display:        flex;
-			flex-direction: row;
-			gap:            0.5rem;
-			height:         40px;
 		}
 
 		.usage{

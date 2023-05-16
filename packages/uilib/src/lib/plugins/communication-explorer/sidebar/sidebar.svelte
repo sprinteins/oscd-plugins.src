@@ -139,7 +139,7 @@
         </div>
 
         <label>
-            <span>IED prefix search:</span>
+            <span>IED search:</span>
             <input
                 type="text"
                 placeholder="e.g.: XAT"

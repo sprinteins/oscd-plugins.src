@@ -1,10 +1,10 @@
 <script>
-    import Theme from "../../../style/theme.svelte"
+    import Theme from "../../../theme/theme.svelte"
     export let name=""
     
 </script>
 
-<Theme />
+<Theme>
 <example>
     <div>
         <h3>{name}</h3>
@@ -12,6 +12,7 @@
 
     <slot></slot>
 </example>
+</Theme>
 
 <style>
     example{

@@ -1,14 +1,15 @@
 <script lang="ts">
-	import Theme from "../../style/theme.svelte"
+	import Theme from "../../theme/theme.svelte"
 	import TelemetryView from "./telemetry-view.svelte"
 
 	export let root: Element
 </script>
 
-<Theme />
-<communication-explorer>
-	<TelemetryView bind:root />
-</communication-explorer>
+<Theme>
+	<communication-explorer>
+		<TelemetryView bind:root />
+	</communication-explorer>
+</Theme>
 
 <style>
 	communication-explorer {
