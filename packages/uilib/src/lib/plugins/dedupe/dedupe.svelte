@@ -108,17 +108,16 @@
 
 	
 	const typeOptions: ButtonGroupOption[] = [
-		{ id: SCDQueries.SelectorLNodeType, label: "LNType" },
-		{ id: SCDQueries.SelectorDOType,    label: "DOType" },
-		{ id: SCDQueries.SelectorDAType,    label: "DAType" },
-		{ id: SCDQueries.SelectorEnumType,  label: "EnumType" },
+		{ value: SCDQueries.SelectorLNodeType, label: "LNType" },
+		{ value: SCDQueries.SelectorDOType,    label: "DOType" },
+		{ value: SCDQueries.SelectorDAType,    label: "DAType" },
+		{ value: SCDQueries.SelectorEnumType,  label: "EnumType" },
 	]
 
-	let selectedType: string = typeOptions[0].id
-	function handleTypeChange(e: Event){
-		const target = e.target as HTMLInputElement
-		const type = target.value
-		selectedType = type
+	let selectedIndex = 0
+	$: selectedType = typeOptions[selectedIndex].value
+	function handleTypeChange(e: CustomEvent<{index: number}>){
+		selectedIndex = e.detail.index
 	}
 
 
@@ -220,7 +219,7 @@
 				<div>
 					<ButtonGroup 
 						options={typeOptions} 
-						selectedID={typeOptions[0].id} 
+						selectedIndex={selectedIndex} 
 						on:change={handleTypeChange} 
 					/>
 				</div>

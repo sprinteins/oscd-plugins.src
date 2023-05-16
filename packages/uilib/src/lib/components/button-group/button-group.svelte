@@ -2,77 +2,61 @@
 
 <script lang="ts">
     import type { ButtonGroupOption } from "./types"
+    import SegmentedButton, { Segment } from "@smui/segmented-button"
+    import { Label } from "@smui/common"
+    import { createEventDispatcher } from "svelte"
 
-    export let selectedID = ""
+    // Inputs
+    export let selectedIndex = -1
     export let options: ButtonGroupOption[] = []
     export let disabled = false
+    export let testid = ""
+    
+    $: selected = options[selectedIndex]
+    const dispatch = createEventDispatcher()
+
+    function handleChange(event: CustomEvent<{index: number, segmentedId: string, selected: boolean}>){
+    	dispatch("change", {index: event.detail.index})
+    }
+
+    const dataProps = {
+    	"data-testid": testid
+    }
+
 </script>
 
-<div 
-    class="btn-group" 
-    class:disabled 
-    data-testid="button-group"
->
-    {#each options as option}
-        <label for={option.id}>
-            <input
-                type="radio"
-                name="option"
-                id={option.id}
-                checked={option.id === selectedID}
-                value={option.id}
-                on:change
-                {disabled}
-            />
-            <div class="btn">{option.label}</div>
-        </label>
-    {/each}
-</div>
+<button-group {disabled} class="button-group" class:disabled>
+    <SegmentedButton 
+        segments={options} 
+        {selected} 
+        singleSelect 
+        on:change={handleChange}
+        let:segment 
+        {disabled}
+        {...dataProps}
+    >
+        <Segment {segment} {disabled} {...{"data-testid": `${dataProps["data-testid"]}_${segment.value}`}}>
+        <Label disabled="asdf">{segment.label}</Label>
+        </Segment>
+    </SegmentedButton>
+</button-group>
 
 <style>
-    /* TODO use color theme variables */
 
-    .btn-group {
-		--color-button-group-default:  #5F6E75;
-		--color-button-group-selected: #004552;
-        
-        display:         flex;
-        justify-content: center;
+    button-group :global(button:disabled.mdc-segmented-button__segment) {
+        background: rgba(0, 0, 0, 0.12);
     }
 
-    .btn-group div.btn {
-        border: none;
-        background-color: var(--color-button-group-default);
-        color: var(--color-white);
-        padding: 8px 12px;
-        cursor: pointer;
-        transition: background-color 200ms ease-in-out;
+    button-group:not(.disabled) :global(.mdc-segmented-button__segment--selected){
+        background-color: var(--mdc-theme-primary);
+        color: var(--mdc-theme-on-primary, var(--color-white));
+    }
+    
+    button-group.disabled :global(.mdc-segmented-button__segment--selected){
+        color: inherit;
     }
 
-    .btn-group div.btn:hover {
-        background-color: var(--color-grey-2);
-    }
-
-    .btn-group label:last-of-type div.btn {
-        border-top-right-radius:    var(--border-radius);
-        border-bottom-right-radius: var(--border-radius);
-    }
-
-    .btn-group label:first-of-type div.btn {
-        border-top-left-radius:    var(--border-radius);
-        border-bottom-left-radius: var(--border-radius);
-    }
-
-    .btn-group input:checked~div.btn {
-        background-color: var(--color-button-group-selected);
-    }
-
-    .btn-group input {
-        display: none;
-    }
-
-    .btn-group.disabled div.btn {
-        background-color: var(--color-grey-3) !important;
-        cursor: not-allowed;
+    .button-group.disabled{
+        pointer-events: none;
     }
 </style>

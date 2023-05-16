@@ -5,46 +5,35 @@
 	} from "../../../../components/button-group/"
 	import { changeMessageConnectionFilterDirection } from "../../selected-filter-store-functions"
 
-	export let showIncomingConnections: boolean
-	export let showOutgoingConnections: boolean
-	export let connectionDirectionDisabled: boolean
+	// Input
+	export let disabled: boolean
 
-	$: buttonGroupSelection = updateButtonGroup(
-		showIncomingConnections,
-		showOutgoingConnections
-	)
-
-	const options: ButtonGroupOption[] = [
-		{ id: "incoming", label: "Incoming" },
-		{ id: "outgoing", label: "Outgoing" },
-		{ id: "both", label: "Both" },
-	]
-
-	function updateButtonGroup(incoming: boolean, outgoing: boolean) {
-		if (incoming && outgoing) return "both"
-		else if (incoming) return "incoming"
-		else if (outgoing) return "outgoing"
+	type Options = ButtonGroupOption & {
+		incoming: boolean,
+		outgoing: boolean
 	}
 
-	function onUpdate(e: Event) {
-		const element = e.target as HTMLInputElement
-		const value = element.value
+	const options: Options[] = [
+		{ value: "incoming", label: "Incoming", incoming: true,  outgoing: false },
+		{ value: "outgoing", label: "Outgoing", incoming: false, outgoing: true },
+		{ value: "both",     label: "Both",     incoming: true,  outgoing: true},
+	]
 
-		if (value === "incoming") {
-			changeMessageConnectionFilterDirection(true, false)
-		} else if (value === "outgoing") {
-			changeMessageConnectionFilterDirection(false, true)
-		} else {
-			changeMessageConnectionFilterDirection(true, true)
-		}
+
+	let selectedIndex = 2
+	function handleChange(e: CustomEvent<{ index: number }>) {
+		selectedIndex = e.detail.index
+		const selectedOption = options[selectedIndex]
+
+		changeMessageConnectionFilterDirection(selectedOption.incoming, selectedOption.outgoing)
 	}
 </script>
 
 <ButtonGroup
 	{options}
-	selectedID={buttonGroupSelection}
-	on:change={onUpdate}
-	disabled={connectionDirectionDisabled}
+	{selectedIndex}
+	on:change={handleChange}
+	disabled={disabled}
 />
 
 <style>

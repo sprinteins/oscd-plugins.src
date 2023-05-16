@@ -1,4 +1,4 @@
 export type ButtonGroupOption = {
-    id: string;
+    value: string;
     label: string;
 };

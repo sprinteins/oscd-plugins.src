@@ -96,11 +96,11 @@
             </label>
         </div>
 
+        <div class="centered">
         <ConnectionTypeFilter
-            bind:showIncomingConnections
-            bind:showOutgoingConnections
-            connectionDirectionDisabled={isConnectionDirectionDisabled}
+            disabled={isConnectionDirectionDisabled}
         />
+        </div>
 
         <hr />
 
@@ -227,5 +227,10 @@
 
     .actions .clear-all:hover {
         border-color: var(--color-text-disabled-1);
+    }
+
+    .centered {
+        display: flex;
+        justify-content: center;
     }
 </style>
