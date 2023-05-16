@@ -8,6 +8,7 @@
     	clearSelection,
     	setHideIrrelevantStuff,
     	setNameFilter,
+    	setHideConnectionArrows,
     } from "../selected-filter-store-functions"
     import ConnectionSelector from "./assets/connection-selector.svg"
     import type { IEDNode, RootNode } from "../../../components/diagram"
@@ -55,6 +56,11 @@
     function handleHideIrrelevantStuffChange(e: Event) {
     	const target = e.target as HTMLInputElement
     	setHideIrrelevantStuff(target.checked)
+    }
+
+    function handleHideConnectionArrowsChange(e: Event) {
+    	const target = e.target as HTMLInputElement
+    	setHideConnectionArrows(target.checked)
     }
 
     function handleNameFilterChange(e: Event) {
@@ -126,6 +132,17 @@
 
         <hr />
         <h2>Experiments</h2>
+
+        <div class="arrows-visible">
+            <label>
+                <input
+                    type="checkbox"
+                    checked={$selectedIEDNode.showConnectionArrows}
+                    on:change={handleHideConnectionArrowsChange}
+                />
+                <span>Show arrows on connections</span>
+            </label>
+        </div>
 
         <div class="checkbox-group">
             <label>

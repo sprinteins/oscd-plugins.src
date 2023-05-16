@@ -1,5 +1,3 @@
-
-
 <script lang="ts">
     import { setSelectedMessageTypes } from "../../"
     import { MessageType } from "@oscd-plugins/core"
@@ -39,11 +37,11 @@
         <input
             type="checkbox"
             on:change={setTargetMessageType}
-            checked={isSelected(MessageType.GOOSe, selectedMessageTypes)}
+            checked={isSelected(MessageType.GOOSE, selectedMessageTypes)}
             disabled={filterDisabled}
-            name={MessageType.GOOSe}
+            name={MessageType.GOOSE}
         />
-        <span>GOOSe</span>
+        <span>GOOSE</span>
     </label>
     <label>
         <input
@@ -64,7 +62,7 @@
     .message-type {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(20ch, 1fr));
-        gap: .3rem
+        gap: 0.3rem;
     }
 
     .message-type label {
@@ -73,8 +71,8 @@
         gap: 0.5rem;
     }
 
-    .message-type label input[disabled]+span {
-        color: var(--color-text-disabled-1)
+    .message-type label input[disabled] + span {
+        color: var(--color-text-disabled-1);
     }
 
     input[type="checkbox"] {
@@ -82,4 +80,3 @@
         margin: 0;
     }
 </style>
-

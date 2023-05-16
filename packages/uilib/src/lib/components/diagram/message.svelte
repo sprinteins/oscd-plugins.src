@@ -3,6 +3,7 @@
 	import type { IEDConnection } from "./nodes"
 	import { MessageType } from "@oscd-plugins/core"
 	import type { ElkEdgeSection } from "elkjs"
+	import { selectedIEDNode } from "../../plugins/communication-explorer"
 
 	//
 	// Input
@@ -12,6 +13,7 @@
 
 	let path: string
 	$: path = draw(edge)
+	$: showConnectionArrows = $selectedIEDNode.showConnectionArrows
 
 	let arrowRightHeight = 0
 	let arrowRightWidth = 0
@@ -22,7 +24,7 @@
 
 	const defaultColor = "var(--color-black)"
 	const messageTypeToColorMap: { [key in MessageType]: string } = {
-		[MessageType.GOOSe]:         "var(--color-message-goose)",
+		[MessageType.GOOSE]:         "var(--color-message-goose)",
 		[MessageType.MMS]:           "var(--color-message-mms)",
 		[MessageType.SampledValues]: "var(--color-message-sampledvalues)",
 	}
@@ -54,10 +56,14 @@
 			})
 		}
 
-		let endpointX = section.endPoint.x - arrowSize
-		if (reverseDirection) {
-			endpointX = section.endPoint.x + arrowSize
+		let endpointX = section.endPoint.x
+		if (showConnectionArrows) {
+			let endpointX = section.endPoint.x - arrowSize
+			if (reverseDirection) {
+				endpointX = section.endPoint.x + arrowSize
+			}
 		}
+
 		path.lineTo(endpointX, section.endPoint.y)
 
 		calcArrow(section, reverseDirection, arrowSize)
@@ -112,16 +118,18 @@
 			class="path"
 			style="stroke: {pathColor};"
 		/>
-		<path
-			d="M{arrowRightWidth} {arrowRightHeight} L{arrowBottomWidth} {arrowBottomHeight} L{arrowTopWidth} {arrowTopHeight} Z"
-			style="fill: {pathColor};"
-		/>
-		<circle
-			cx={edge?.sections?.at(0)?.startPoint?.x}
-			cy={edge?.sections?.at(0)?.startPoint?.y}
-			r="2"
-			style="fill: {pathColor}; z-index: 1000;"
-		/>
+		{#if showConnectionArrows}
+			<path
+				d="M{arrowRightWidth} {arrowRightHeight} L{arrowBottomWidth} {arrowBottomHeight} L{arrowTopWidth} {arrowTopHeight} Z"
+				style="fill: {pathColor};"
+			/>
+			<circle
+				cx={edge?.sections?.at(0)?.startPoint?.x}
+				cy={edge?.sections?.at(0)?.startPoint?.y}
+				r="2"
+				style="fill: {pathColor}; z-index: 1000;"
+			/>
+		{/if}
 	{/if}
 </g>
 
