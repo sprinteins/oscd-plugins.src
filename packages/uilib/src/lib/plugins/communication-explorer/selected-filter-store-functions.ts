@@ -77,6 +77,15 @@ export function setHideIrrelevantStuff(hide: boolean) {
 	})
 }
 
+export function setHideConnectionArrows(hide: boolean) {
+	selectedIEDNode.update((value) => {
+		return {
+			...value,
+			showConnectionArrows: hide,
+		}
+	})
+}
+
 export function setNameFilter(filter: string) {
 	selectedIEDNode.update((value) => {
 		return {

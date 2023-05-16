@@ -12,7 +12,7 @@ type Config = {
 }
 
 const messageTypeMap:{[key: string]: MessageType} = {
-	"GOOSE": MessageType.GOOSe,
+	"GOOSE": MessageType.GOOSE,
 	"SMV":   MessageType.SampledValues,
 }
 

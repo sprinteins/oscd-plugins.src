@@ -9,6 +9,7 @@ export type SelectedFilter = {
     outgoingConnections: boolean;
     selectedMessageTypes: string[];
 	hideIrrelevantStuff: boolean;
+	showConnectionArrows: boolean;
 	nameFilter: string;
 }
 
@@ -20,6 +21,7 @@ export const defaultSelection: SelectedFilter = {
 	outgoingConnections: true,
 
 	hideIrrelevantStuff: 	false,
+	showConnectionArrows: true,
 	nameFilter:          	"",
 	selectedMessageTypes: [ ...allMessageTypes ],
 }
