@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "_build:watch": "vite build --watch",
+    "_build:watch": "NODE_ENV=development vite build --watch",
     "build:watch": "concurrently 'npm:_build:watch' 'npm:preview'",
     "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json",

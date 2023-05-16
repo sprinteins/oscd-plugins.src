@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { UCCommunicationInformation, SCDQueries } from "@oscd-plugins/core"
     import { calculateLayout } from "./node-layout"
     import { Diagram, type RootNode } from "../../components/diagram"
     import {
@@ -10,6 +9,7 @@
     	config,
     } from "./"
     import { Sidebar } from "./sidebar"
+    import { getIEDs } from "./get-ieds"
 
     export let root: Element
     export let showSidebar = true
@@ -21,12 +21,10 @@
     async function initInfos(root: Element, selectedFilter: SelectedFilter) {
     	if (!root) {
     		console.info({ level: "info", msg: "initInfos: no root" })
-    		return
+    		return []
     	}
-    	const scdQueries = new SCDQueries(root)
-    	const ucci = new UCCommunicationInformation(scdQueries)
-    	const iedInfos = ucci.IEDCommInfos()
 
+    	const iedInfos = getIEDs(root)
     	rootNode = await calculateLayout(iedInfos, config, selectedFilter)
     }
 </script>
