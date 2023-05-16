@@ -31,7 +31,10 @@
             name={MessageType.MMS}
             data-testid="exampleFilterToBeChecked"
         />
-        <span>MMS</span>
+        <span class="message-label">
+            <span class="message-color message-color-mms" />
+            MMS
+        </span>
     </label>
     <label>
         <input
@@ -41,7 +44,10 @@
             disabled={filterDisabled}
             name={MessageType.GOOSE}
         />
-        <span>GOOSE</span>
+        <span class="message-label">
+            <span class="message-color message-color-goose" />
+            GOOSE
+        </span>
     </label>
     <label>
         <input
@@ -54,11 +60,14 @@
             disabled={filterDisabled}
             name={MessageType.SampledValues}
         />
-        <span>Sampled Values</span>
+        <span class="message-label">
+            <span class="message-color message-color-sampledvalues" />
+            Sampled Values
+        </span>
     </label>
 </div>
 
-<style>
+<style lang="scss">
     .message-type {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(20ch, 1fr));
@@ -78,5 +87,29 @@
     input[type="checkbox"] {
         accent-color: #004552;
         margin: 0;
+    }
+
+    .message-label {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .message-color {
+        background-color: black;
+        height: 0.8rem;
+        width: 0.8rem;
+        display: block;
+
+        &.message-color-mms {
+            background-color: var(--color-message-mms);
+        }
+        &.message-color-goose {
+            background-color: var(--color-message-goose);
+        }
+        &.message-color-sampledvalues {
+            background-color: var(--color-message-sampledvalues);
+        }
     }
 </style>

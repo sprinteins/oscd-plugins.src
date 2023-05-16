@@ -20,5 +20,8 @@
     "turbo": "^1.8.3",
     "typescript": "^4.9.3",
     "vite": "^4.1.0"
+  },
+  "dependencies": {
+    "@smui-extra/badge": "7.0.0-beta.8"
   }
 }

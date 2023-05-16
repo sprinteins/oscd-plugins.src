@@ -3,6 +3,10 @@ lockfileVersion: '6.0'
 importers:
 
   .:
+    dependencies:
+      '@smui-extra/badge':
+        specifier: 7.0.0-beta.8
+        version: 7.0.0-beta.8(svelte@3.55.1)(typescript@4.9.4)
     devDependencies:
       '@sveltejs/vite-plugin-svelte':
         specifier: ^2.0.2
@@ -1640,6 +1644,21 @@ packages:
       - typescript
     dev: false
 
+  /@smui-extra/badge@7.0.0-beta.8(svelte@3.55.1)(typescript@4.9.4):
+    resolution: {integrity: sha512-/h1qTj3sLuMT0npqfS4PNKXIdeaISke03+bF3gLYcwgTP7ZISObRem4FYp+HyIPSfexhhnO7Icb+YTE/OhdF8A==}
+    dependencies:
+      '@material/feature-targeting': 14.0.0
+      '@material/rtl': 14.0.0
+      '@material/shape': 14.0.0
+      '@material/theme': 14.0.0
+      '@material/typography': 14.0.0
+      '@smui/common': 7.0.0-beta.8(svelte@3.55.1)(typescript@4.9.4)
+      svelte2tsx: 0.6.14(svelte@3.55.1)(typescript@4.9.4)
+    transitivePeerDependencies:
+      - svelte
+      - typescript
+    dev: false
+
   /@smui-extra/bottom-app-bar@7.0.0-beta.8(svelte@3.55.0)(typescript@4.9.4):
     resolution: {integrity: sha512-lh/f0ef4rzs7OIb473uh8Mj45YJeNGfJIKFRyg9+EvWleu3R13Ze0OHWFFbVVWnX09X6ktb3kPUHrZDJAt+6PA==}
     dependencies:
@@ -1737,6 +1756,16 @@ packages:
     dependencies:
       '@material/dom': 14.0.0
       svelte2tsx: 0.6.14(svelte@3.55.0)(typescript@4.9.4)
+    transitivePeerDependencies:
+      - svelte
+      - typescript
+    dev: false
+
+  /@smui/common@7.0.0-beta.8(svelte@3.55.1)(typescript@4.9.4):
+    resolution: {integrity: sha512-IeU7KqE+EcvEm3fkEKuvHY2MkNJm1hpl1sHlnVWFSrS8D1+NypwpuQWnOPDgLYRq/5zhm8ZCDkvX1G1ZiXUC7A==}
+    dependencies:
+      '@material/dom': 14.0.0
+      svelte2tsx: 0.6.14(svelte@3.55.1)(typescript@4.9.4)
     transitivePeerDependencies:
       - svelte
       - typescript
@@ -6524,6 +6553,18 @@ packages:
       typescript: 4.9.4
     dev: false
 
+  /svelte2tsx@0.6.14(svelte@3.55.1)(typescript@4.9.4):
+    resolution: {integrity: sha512-Sxo9gtpc3dYWuFQ8fruZG+M+I6OZMIvOxxKjt48Lr8jD6Kr9cNf1Hf/yHUDEgDwQdRbAzn5y0FL9xk8Dx5v9lg==}
+    peerDependencies:
+      svelte: ^3.55
+      typescript: ^4.9.4 || ^5.0.0
+    dependencies:
+      dedent-js: 1.0.1
+      pascal-case: 3.1.2
+      svelte: 3.55.1
+      typescript: 4.9.4
+    dev: false
+
   /svelte@3.55.0:
     resolution: {integrity: sha512-uGu2FVMlOuey4JoKHKrpZFkoYyj0VLjJdz47zX5+gVK5odxHM40RVhar9/iK2YFRVxvfg9FkhfVlR0sjeIrOiA==}
     engines: {node: '>= 8'}
@@ -6531,7 +6572,6 @@ packages:
   /svelte@3.55.1:
     resolution: {integrity: sha512-S+87/P0Ve67HxKkEV23iCdAh/SX1xiSfjF1HOglno/YTbSTW7RniICMCofWGdJJbdjw3S+0PfFb1JtGfTXE0oQ==}
     engines: {node: '>= 8'}
-    dev: true
 
   /symbol-tree@3.2.4:
     resolution: {integrity: sha512-9QNk5KwDF+Bvz+PyObkmSYjI5ksVUYtjW7AU22r2NKcfLJcXp96hkDWU3+XndOsUb+AQ9QhfzfCT2O+CNWT5Tw==}
