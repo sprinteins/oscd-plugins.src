@@ -7,21 +7,28 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [Unreleased]
 
 ## Communication Explorer [Unreleased]
-## Dedupe  [Unreleased]
+## Dedupe [Unreleased]
 
-## Dedupe  [0.0.9] - 2023-05-15
+## Dedupe [0.0.10] - 2023-05-19
+
+## Changed
+
+- internal restructure of the plugin to allow easier layout changes
+- new design and layout
+
+## Dedupe [0.0.9] - 2023-05-15
 
 ## Fixed
 - Enum Types' structure was not shown
 
-## Dedupe  [0.0.8] - 2023-05-15
+## Dedupe [0.0.8] - 2023-05-15
 
 ## Fixed
 
 - Logical Node Types' usages were not found
 - Logical Node Types' parents name were not displayed
 
-## Dedupe  [0.0.7] - 2023-05-15
+## Dedupe [0.0.7] - 2023-05-15
 
 ## Added
 - Dedupe following types
