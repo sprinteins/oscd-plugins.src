@@ -6,12 +6,13 @@
 
 	// Input
 	export let itemSets: string[][] = []
-	export let selectedIndex = -1
-
-	// Config
+	
+	// Internal
+	let selectedIndex = -1
 	const dispatch = createEventDispatcher()
 
 	function handleClick(index: number){
+		selectedIndex = index
 		dispatch("select", {index})
 	}
 
@@ -33,5 +34,7 @@
 		display: flex;
 		flex-direction: column;
 		gap: 1rem;
+		overflow-y: auto;
+		padding: 1rem;
 	}
 </style>

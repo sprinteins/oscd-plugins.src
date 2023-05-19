@@ -16,7 +16,7 @@ describe("UC: Type Dedupe", () => {
 		// 
 		// Act
 		// 
-		const duplicateTypes = await uc.findDuplicateObjectTypes()
+		const duplicateTypes = await uc.findDuplicateDataObjectTypes()
 		console.log({leve: "test", duplicateTypes})
 
 		// 

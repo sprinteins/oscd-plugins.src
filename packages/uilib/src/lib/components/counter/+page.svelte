@@ -6,7 +6,7 @@
   </script>
   
   <Example name="Counter">
-	  <Counter count={4} />
+	  <Counter count={8} />
 	  <Counter count={42} />
 	  <Counter count={200} />
   </Example>

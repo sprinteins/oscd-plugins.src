@@ -2,6 +2,9 @@
 
 <script lang="ts">
 	import "svelte-material-ui/bare.css"
+	import "./fonts/google/roboto-mono-v13.css"
+	import "./fonts/google/roboto-v27.css"
+	import "@material/typography/mdc-typography.scss"
 	
 </script>
 
@@ -40,7 +43,7 @@
 		
 		--border-radius: 5px;
 		
-		--font-family:    "Avenir Next", sans-serif;
+		--font-family:    "Roboto", sans-serif;
 		--letter-spacing: 0.2px;
 		--font-size:      12px;
 

@@ -169,12 +169,15 @@ importers:
 
   packages/uilib:
     specifiers:
+      '@material/typography': ^14.0.0
       '@oscd-plugins/core': ../core
       '@playwright/test': ^1.28.1
       '@smui/button': 7.0.0-beta.8
+      '@smui/checkbox': 7.0.0-beta.8
       '@smui/chips': 7.0.0-beta.8
       '@smui/common': 7.0.0-beta.8
       '@smui/icon-button': 7.0.0-beta.8
+      '@smui/list': 7.0.0-beta.8
       '@smui/segmented-button': 7.0.0-beta.8
       '@smui/snackbar': 7.0.0-beta.8
       '@sveltejs/adapter-auto': ^1.0.0
@@ -203,11 +206,14 @@ importers:
       vite-plugin-require-transform: ^1.0.9
       vitest: ^0.30.1
     dependencies:
+      '@material/typography': 14.0.0
       '@oscd-plugins/core': link:../core
       '@smui/button': 7.0.0-beta.8_niwyv7xychq2ag6arq5eqxbomm
+      '@smui/checkbox': 7.0.0-beta.8_niwyv7xychq2ag6arq5eqxbomm
       '@smui/chips': 7.0.0-beta.8_niwyv7xychq2ag6arq5eqxbomm
       '@smui/common': 7.0.0-beta.8_niwyv7xychq2ag6arq5eqxbomm
       '@smui/icon-button': 7.0.0-beta.8_niwyv7xychq2ag6arq5eqxbomm
+      '@smui/list': 7.0.0-beta.8_niwyv7xychq2ag6arq5eqxbomm
       '@smui/segmented-button': 7.0.0-beta.8_niwyv7xychq2ag6arq5eqxbomm
       '@smui/snackbar': 7.0.0-beta.8_niwyv7xychq2ag6arq5eqxbomm
       d3-path: 3.1.0

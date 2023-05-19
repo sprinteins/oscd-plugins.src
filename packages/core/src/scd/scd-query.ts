@@ -212,7 +212,7 @@ export type SCDElement = {
 	element: Element
 }
 
-export type TypeElement = SCDElement & {
+export type IdentifiableElement = SCDElement & {
 	id: string
 }
 

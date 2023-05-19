@@ -8,10 +8,11 @@
 	export let dataTestid = ""
 	export let selected = false
 
-	// Config
+	// Internal
 	const MAX_NR_OF_ITEMS = 3
 	$: displayedItems = items.slice(0, MAX_NR_OF_ITEMS)
 	$: titleText = items.join("\n")
+
 
 
 </script>
@@ -46,7 +47,7 @@
 		
 		background: var(--mdc-theme-surface);
 
-		grid-template-columns: 1fr min(35px);
+		grid-template-columns: 1fr min(3rem);
 
 		transition: all 100ms;
 		box-sizing: border-box;
@@ -54,22 +55,26 @@
 		border: transparent 1px solid;
 
 		&.selected{
-			border-color:var(--mdc-theme-primary);
+			border-color: var(--mdc-theme-primary);
+			
 
 		}
 
 		&:hover:not(.selected){
-			background: var(--color-beige-3);
+			/* background: var(--color-beige-3); */
+			border-style: dashed;
+			border-color: var(--mdc-theme-primary);
+
 		}
 
 		.left{
 			--padding: 1rem;
-			padding:  var(--padding) 0 var(--padding) var(--padding);
+			padding:  2rem 0 var(--padding) var(--padding);
 			overflow: hidden;
 		}
 
 		.right{
-			padding: 0.3rem;
+			padding: 0.5rem;
 		}
 
 		ul {

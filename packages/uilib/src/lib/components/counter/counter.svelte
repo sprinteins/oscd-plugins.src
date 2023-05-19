@@ -1,33 +1,30 @@
 
 
 <script lang="ts">
-	import Chip from "@smui/chips"
-
 	export let count: number
-	export let max = 100
+	export let max = 10
 
 	$: label = count <= max ? count : `${max-1}+`
 
 </script>
 
 <counter>
-	<Chip chip={{}} disabled class="tscd-chip">
+	<div>
 		{label}
-	</Chip>
+	</div>
 </counter>
 
 <style>
 
-	counter :global(.tscd-chip){
+	counter{
 		pointer-events: none;
 		background-color: var(--mdc-theme-primary);
 		color: var(--color-white);
-		height: 2rem;
-		width: 2rem;
-		/* padding: 1rem; */
-		text-align: center;
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
+		border-radius: 2rem;
+		height: 1.75rem;
+		width:  1.75rem;
+		font-size: 1rem;
+		display: inline-grid;
+		place-items: center;
 	}
 </style>

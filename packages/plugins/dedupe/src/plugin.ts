@@ -21,6 +21,9 @@ export default class NewPlugin extends HTMLElement {
 
 	private _doc: XMLDocument
 	public set doc(newDoc: XMLDocument){
+		const isSame = this._doc === newDoc
+		if(isSame) { return }
+
 		this._doc = newDoc
 		if(!this.plugin) { return }
 

@@ -12,16 +12,20 @@
 	function handleSelect(index:number){
 		selectedIndex = index
 	}
+	$: selection = selectedIndex >= 0 ? itemSets[selectedIndex] : []
 
 </script>
 
 <Example name="Group Card List">
 	<div class="container">
-	<GroupCardList 
-		{itemSets} 
-		{selectedIndex}
-		on:select={(e) => handleSelect(e.detail.index)}
-	/>
+		<GroupCardList 
+			{itemSets} 
+			on:select={(e) => handleSelect(e.detail.index)}
+		/>
+	</div>
+	<hr />
+	<div>
+		Selection: <pre>{selection}</pre>
 	</div>
 </Example>
 

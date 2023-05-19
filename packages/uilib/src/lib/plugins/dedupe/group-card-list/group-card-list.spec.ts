@@ -12,7 +12,7 @@ describe("Group Card List", () => {
 		["phaseA", "phaseB", "phaseC","phaseD","phaseF"],
 	]
 
-	it("Select a group", () => {
+	it("Select a group", async () => {
 
 		const handleSelect = vi.fn()
 	
@@ -21,14 +21,9 @@ describe("Group Card List", () => {
 
 		const card = screen.getByTestId("card_0")
 		expect(card).toBeTruthy()
-		fireEvent.click(card)
+		await fireEvent.click(card)
 
 		expect(handleSelect).toHaveBeenCalledWith({index: 0})
-	})
-
-	it("visually shows a selection", () => {
-		render(GroupCardList, { itemSets, selectedIndex: 0 })
-		const card = screen.getByTestId("card_0")
 		expect(Array.from(card.classList)).toContain("selected")
 	})
 
