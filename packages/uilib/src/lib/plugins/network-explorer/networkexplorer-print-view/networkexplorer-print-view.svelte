@@ -4,8 +4,9 @@
     	InputExtRefElement,
     	ReceivedMessage,
     } from "@oscd-plugins/core"
-    import { getIEDs } from "../../communication-explorer/get-ieds"
+    import { getIEDs } from "../../communication-explorer/"
     import TelemetryView from "../../communication-explorer/telemetry-view.svelte"
+    import { PrintMessageServiceChip } from "../../../components/print-message-service-chip"
 
     export let scdData: Element
     let iedInfos: IEDCommInfo[] = calcIEDs(scdData)
@@ -19,24 +20,19 @@
     	return getIEDs(root)
     }
 
-    function calcPublished(iedName: string): ReceivedMessage[] {
-    	let published: Array<{
-            iedName: string;
-            serviceType: string;
-            srcCBName: string;
-            data: InputExtRefElement[];
-        }> = []
+    function calcPublished(iedName: string): string[] {
+    	let publishedServiceTypes: string[] = []
 
-    	iedInfos.forEach((checkIed) => {
-    		checkIed.received.forEach((received) => {
+    	for (const checkIed of iedInfos) {
+    		for (const received of checkIed.received) {
     			if (received.iedName === iedName) {
-    				published.push(received)
+    				publishedServiceTypes.push(received.serviceType)
     			}
-    			received.iedName
-    		})
-    	})
+    		}
+    	}
 
-    	return published
+    	// make entries unique before returning them
+    	return [...new Set(publishedServiceTypes)]
     }
 </script>
 
@@ -55,16 +51,20 @@
                 <h3>Only Bay</h3>
                 <ul>
                     {#each iedInfos as ied}
-                        {@const newPublished = calcPublished(ied.iedName)}
+                        {@const publishedServiceTypes = calcPublished(
+                            ied.iedName
+                        )}
                         <li>
                             <h4>{ied.iedName}</h4>
-                            {#if newPublished.length > 0}
+                            {#if publishedServiceTypes.length > 0}
                                 <div>
                                     <h5>Publisher</h5>
-                                    <ul>
-                                        {#each newPublished as publisher}
+                                    <ul class="show-publiished-service-types">
+                                        {#each publishedServiceTypes as serviceType}
                                             <li>
-                                                {publisher.serviceType} - {publisher.iedName}
+                                                <PrintMessageServiceChip
+                                                    type={serviceType.toLocaleLowerCase()}
+                                                />
                                             </li>
                                         {/each}
                                     </ul>
@@ -73,10 +73,17 @@
                             {#if ied.received.length > 0}
                                 <div>
                                     <h5>Subscriber</h5>
-                                    <ul>
+                                    <ul class="subscriber-list">
                                         {#each ied.received as subscriber}
                                             <li>
-                                                {subscriber.serviceType} - {subscriber.iedName}
+                                                <div class="chip">
+                                                    <PrintMessageServiceChip
+                                                        type={subscriber.serviceType.toLocaleLowerCase()}
+                                                    />
+                                                </div>
+                                                <span>
+                                                    {subscriber.iedName}
+                                                </span>
                                             </li>
                                         {/each}
                                     </ul>
@@ -100,5 +107,28 @@
         clear: both;
         page-break-before: always;
         height: 1px;
+    }
+
+    .show-publiished-service-types {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        list-style-type: none;
+    }
+
+    li {
+        font-size: 1rem;
+    }
+
+    ul.subscriber-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.2rem;
+        li {
+            display: flex;
+            flex-direction: row;
+            gap: 0.3rem;
+        }
     }
 </style>

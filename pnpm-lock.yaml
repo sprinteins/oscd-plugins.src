@@ -3,6 +3,10 @@ lockfileVersion: '6.0'
 importers:
 
   .:
+    dependencies:
+      '@smui/chips':
+        specifier: 7.0.0-beta.8
+        version: 7.0.0-beta.8(svelte@3.55.1)(typescript@4.9.4)
     devDependencies:
       '@sveltejs/vite-plugin-svelte':
         specifier: ^2.0.2
@@ -30,7 +34,7 @@ importers:
         version: 4.9.4
       vite:
         specifier: ^4.1.0
-        version: 4.1.4(sass@1.62.0)
+        version: 4.1.4(@types/node@18.11.18)
 
   packages/core:
     dependencies:
@@ -193,7 +197,7 @@ importers:
         version: 4.9.4
       vite:
         specifier: ^4.1.0
-        version: 4.1.4(sass@1.62.0)
+        version: 4.1.4(@types/node@18.11.18)
 
   packages/plugins/network-explorer:
     dependencies:
@@ -224,7 +228,7 @@ importers:
         version: 4.9.4
       vite:
         specifier: ^4.1.0
-        version: 4.1.4(sass@1.62.0)
+        version: 4.1.4(@types/node@18.11.18)
       vite-plugin-css-injected-by-js:
         specifier: ^3.1.1
         version: 3.1.1(vite@4.1.4)
@@ -1739,6 +1743,20 @@ packages:
       - typescript
     dev: false
 
+  /@smui/chips@7.0.0-beta.8(svelte@3.55.1)(typescript@4.9.4):
+    resolution: {integrity: sha512-RpXT7Y9b2ELQoXt3ha5MjImMBUG1JPaekUgyV++AyotkfQ5LEqDTJQJONhsVdbROGi1F1HX3of0DtwNdnLZIhg==}
+    dependencies:
+      '@material/chips': 14.0.0
+      '@material/dom': 14.0.0
+      '@material/rtl': 14.0.0
+      '@smui/common': 7.0.0-beta.8(svelte@3.55.1)(typescript@4.9.4)
+      '@smui/ripple': 7.0.0-beta.8(svelte@3.55.1)(typescript@4.9.4)
+      svelte2tsx: 0.6.14(svelte@3.55.1)(typescript@4.9.4)
+    transitivePeerDependencies:
+      - svelte
+      - typescript
+    dev: false
+
   /@smui/circular-progress@7.0.0-beta.8(svelte@3.55.0)(typescript@4.9.4):
     resolution: {integrity: sha512-oKBilgNqkJalG+nv6L12/3YHGJKz9LsFHhxhNzbv2M0Yen+MQZCf5hVTsRhdRTfhpHJBvqXDqiZ8Ec2Gs5oXRA==}
     dependencies:
@@ -1755,6 +1773,16 @@ packages:
     dependencies:
       '@material/dom': 14.0.0
       svelte2tsx: 0.6.14(svelte@3.55.0)(typescript@4.9.4)
+    transitivePeerDependencies:
+      - svelte
+      - typescript
+    dev: false
+
+  /@smui/common@7.0.0-beta.8(svelte@3.55.1)(typescript@4.9.4):
+    resolution: {integrity: sha512-IeU7KqE+EcvEm3fkEKuvHY2MkNJm1hpl1sHlnVWFSrS8D1+NypwpuQWnOPDgLYRq/5zhm8ZCDkvX1G1ZiXUC7A==}
+    dependencies:
+      '@material/dom': 14.0.0
+      svelte2tsx: 0.6.14(svelte@3.55.1)(typescript@4.9.4)
     transitivePeerDependencies:
       - svelte
       - typescript
@@ -1981,6 +2009,18 @@ packages:
       '@material/ripple': 14.0.0
       '@smui/common': 7.0.0-beta.8(svelte@3.55.0)(typescript@4.9.4)
       svelte2tsx: 0.6.14(svelte@3.55.0)(typescript@4.9.4)
+    transitivePeerDependencies:
+      - svelte
+      - typescript
+    dev: false
+
+  /@smui/ripple@7.0.0-beta.8(svelte@3.55.1)(typescript@4.9.4):
+    resolution: {integrity: sha512-f762Wi8ESc6rRDhsmm2WUtEjAmaUB3BlYwMJ9kgOODxIxdk4kaoflUzgJemeLwohsnGfvP+o0cGxR8DM9BE3nA==}
+    dependencies:
+      '@material/dom': 14.0.0
+      '@material/ripple': 14.0.0
+      '@smui/common': 7.0.0-beta.8(svelte@3.55.1)(typescript@4.9.4)
+      svelte2tsx: 0.6.14(svelte@3.55.1)(typescript@4.9.4)
     transitivePeerDependencies:
       - svelte
       - typescript
@@ -6547,6 +6587,18 @@ packages:
       typescript: 4.9.4
     dev: false
 
+  /svelte2tsx@0.6.14(svelte@3.55.1)(typescript@4.9.4):
+    resolution: {integrity: sha512-Sxo9gtpc3dYWuFQ8fruZG+M+I6OZMIvOxxKjt48Lr8jD6Kr9cNf1Hf/yHUDEgDwQdRbAzn5y0FL9xk8Dx5v9lg==}
+    peerDependencies:
+      svelte: ^3.55
+      typescript: ^4.9.4 || ^5.0.0
+    dependencies:
+      dedent-js: 1.0.1
+      pascal-case: 3.1.2
+      svelte: 3.55.1
+      typescript: 4.9.4
+    dev: false
+
   /svelte@3.55.0:
     resolution: {integrity: sha512-uGu2FVMlOuey4JoKHKrpZFkoYyj0VLjJdz47zX5+gVK5odxHM40RVhar9/iK2YFRVxvfg9FkhfVlR0sjeIrOiA==}
     engines: {node: '>= 8'}
@@ -6554,7 +6606,6 @@ packages:
   /svelte@3.55.1:
     resolution: {integrity: sha512-S+87/P0Ve67HxKkEV23iCdAh/SX1xiSfjF1HOglno/YTbSTW7RniICMCofWGdJJbdjw3S+0PfFb1JtGfTXE0oQ==}
     engines: {node: '>= 8'}
-    dev: true
 
   /symbol-tree@3.2.4:
     resolution: {integrity: sha512-9QNk5KwDF+Bvz+PyObkmSYjI5ksVUYtjW7AU22r2NKcfLJcXp96hkDWU3+XndOsUb+AQ9QhfzfCT2O+CNWT5Tw==}

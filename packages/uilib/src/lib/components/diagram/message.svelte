@@ -32,7 +32,7 @@
 	$: pathColor = calcPathColor(edge)
 
 	function drawLine(edge?: IEDConnection, showArrows: boolean): string {
-		const arrowSize = 10
+		const arrowSize = 7
 
 		const sections = edge?.sections ?? []
 		if (sections.length === 0) {
