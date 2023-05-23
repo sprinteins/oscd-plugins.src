@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [Unreleased]
 
 ## Communication Explorer [Unreleased]
+
 ## Dedupe [Unreleased]
 
 ## Dedupe [0.0.10] - 2023-05-19
@@ -19,6 +20,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## Dedupe [0.0.9] - 2023-05-15
 
 ## Fixed
+
 - Enum Types' structure was not shown
 
 ## Dedupe [0.0.8] - 2023-05-15
@@ -31,6 +33,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## Dedupe [0.0.7] - 2023-05-15
 
 ## Added
+
 - Dedupe following types
   - Logical Node Type
   - Data Object Type
@@ -43,14 +46,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Rename Labels in Sidebar Panel
 
-## Communication Explorer [0.0.11] - 2023-04-26 
+## Communication Explorer [0.0.11] - 2023-04-26
 
 ### Added
 
 - Experiment: hide irrelevant stuff
 - Experiment: search by IED name
 
-## Communication Explorer [0.0.10] - 2023-04-26 
+## Communication Explorer [0.0.10] - 2023-04-26
 
 ### Added
 
@@ -76,7 +79,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Selecting an IED will show only relevant IEDs and connections
 - Filter for incoming and outgoing connections
 
-
 ### Fixed
 
 - The SVG no grows with the diagram
+
+### Network Explorer [0.0.9] - 2023-05-23
+
+- pdf can be generated
+- button for pdf download
