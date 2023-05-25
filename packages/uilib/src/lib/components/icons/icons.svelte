@@ -2,19 +2,12 @@
     import { openSCDIcons } from "../../icons/openscd-icons"
 
     export let name: keyof typeof openSCDIcons
-    export let size: string
+    export let size: "small" | "normal"
     $: icon = openSCDIcons[name]
-
-    const variantSize: { [key in typeof size]: string } = {
-    	small:  "small",
-    	normal: "normal",
-    }
 </script>
 
-<div class="icon-size icon-size-{variantSize[size]}">
-    <svg viewBox="0 0 24 24">
-        {@html icon}
-    </svg>
+<div class="icon-size icon-size-{size}">
+    {@html icon ?? ""}
 </div>
 
 <style lang="scss">
@@ -32,7 +25,7 @@
         $size: 24px;
         height: $size;
         width: $size;
-        svg {
+        :global(svg) {
             height: $size;
             width: $size;
         }
