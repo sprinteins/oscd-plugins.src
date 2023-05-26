@@ -1,13 +1,17 @@
 <script lang="ts">
     import { openSCDIcons } from "../../icons/openscd-icons"
 
-    export let name: keyof typeof openSCDIcons
-    export let size: "small" | "normal"
-    $: icon = openSCDIcons[name]
+    type openSCDIconNames = keyof typeof openSCDIcons;
+    type iconSizes = "small" | "normal";
+
+    export let name: openSCDIconNames
+    export let size: iconSizes
+
+    $: icon = openSCDIcons[name] ?? ""
 </script>
 
 <div class="icon-size icon-size-{size}">
-    {@html icon ?? ""}
+    {@html icon}
 </div>
 
 <style lang="scss">
