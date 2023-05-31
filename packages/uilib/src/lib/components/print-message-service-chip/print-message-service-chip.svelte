@@ -1,7 +1,6 @@
 <script lang="ts">
-	import type { openSCDIcons } from "../../icons"
 	import { Button } from "../button"
-	import { Icons } from "../icons"
+	import { Icons, openSCDIcons } from "../icons"
 
 	export let type = "unknown"
 

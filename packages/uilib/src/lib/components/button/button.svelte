@@ -32,14 +32,6 @@
 </Button>
 
 <style lang="scss">
-	/* 
-		There are css variables for button theming in theme.svelte 
-	*/
-
-	/* 
-		We need the extra `button` selector
-		to have a higher score then the original styles
-	 */
 	:global(button.tscd-button) {
 		--padding: 0.5rem;
 		width: auto;

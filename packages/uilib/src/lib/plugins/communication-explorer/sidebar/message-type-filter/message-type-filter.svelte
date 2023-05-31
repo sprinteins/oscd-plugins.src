@@ -1,24 +1,9 @@
 <script lang="ts">
-    import { setSelectedMessageTypes } from "../../"
     import { MessageType } from "@oscd-plugins/core"
+    import { isSelected, setTargetMessageType } from "."
 
     export let filterDisabled: boolean
     export let selectedMessageTypes: string[]
-
-    function isSelected(
-    	messageType: MessageType,
-    	selectedMessages: string[] = []
-    ) {
-    	return selectedMessages.includes(messageType)
-    }
-
-    function setTargetMessageType(e: Event) {
-    	const element = e?.target as HTMLInputElement
-    	const name = element?.name as MessageType
-    	const value = element?.checked
-
-    	setSelectedMessageTypes(name, value)
-    }
 </script>
 
 <div class="message-type">
@@ -85,7 +70,7 @@
     }
 
     input[type="checkbox"] {
-        accent-color: #004552;
+        accent-color: var(--color-accent);
         margin: 0;
     }
 

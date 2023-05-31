@@ -1,6 +1,6 @@
-import type { IEDConnection, IEDNode } from "../../components/diagram"
+import { selectedIEDNode } from "."
+import type { IEDConnectionWithCustomValues, IEDNode } from "../../../components/diagram"
 import { MessageType, allMessageTypes } from "@oscd-plugins/core"
-import { selectedIEDNode } from "./"
 
 export function selectIEDNode(node: IEDNode) {
 	selectedIEDNode.update(selectedFilter => {
@@ -12,7 +12,7 @@ export function selectIEDNode(node: IEDNode) {
 	})
 }
 
-export function selectConnection(connection: IEDConnection) {
+export function selectConnection(connection: IEDConnectionWithCustomValues) {
 	selectedIEDNode.update(selectedFilter => {
 		return {
 			...selectedFilter,

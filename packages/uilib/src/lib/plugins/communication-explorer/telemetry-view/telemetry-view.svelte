@@ -1,15 +1,13 @@
 <script lang="ts">
-    import { calculateLayout } from "./node-layout"
-    import { Diagram, type RootNode } from "../../components/diagram"
+    import { calculateLayout } from "../_func-layout-calculation/node-layout"
+    import { Diagram, type RootNode } from "../../../components/diagram"
+    import { handleIEDClick, handleConnectionClick, config } from ".."
+    import { Sidebar } from "../sidebar"
+    import { getIEDs } from "../_func-layout-calculation/get-ieds"
     import {
     	selectedIEDNode,
     	type SelectedFilter,
-    	handleIEDClick,
-    	handleConnectionClick,
-    	config,
-    } from "./"
-    import { Sidebar } from "./sidebar"
-    import { getIEDs } from "./get-ieds"
+    } from "../_store-view-filter"
 
     export let root: Element
     export let showSidebar = true
@@ -18,7 +16,10 @@
     $: initInfos(root, $selectedIEDNode)
 
     // Note: maybe have a mutex if there are too many changes
-    async function initInfos(root: Element, selectedFilter: SelectedFilter) {
+    export async function initInfos(
+    	root: Element,
+    	selectedFilter: SelectedFilter
+    ) {
     	if (!root) {
     		console.info({ level: "info", msg: "initInfos: no root" })
     		return []

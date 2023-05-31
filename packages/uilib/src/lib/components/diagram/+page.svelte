@@ -1,11 +1,9 @@
 <script lang="ts">
-	import { Example } from "$lib/components/internal"
-	import { Diagram} from "."
+	import { Diagram } from "."
 	import { generateMockRootNode } from "../../mocks/root-node"
-	
+	import { Example } from "../internal"
+
 	const nodes = generateMockRootNode()
-	
-	
 </script>
 
 <Example name="Diagram">

@@ -5,12 +5,11 @@
 	 * I am not big fan of this approach. I would prefer
 	 * to have a `selected` event that we can listen to
 	 * and then update the `selected` property.
-	*/
+	 */
 	import Chip, { Set, Text } from "@smui/chips"
 	import { createEventDispatcher } from "svelte"
 	import type { ElementCategory } from "./categories"
 	import type { EventDetailCategorySelect } from "./event-detail"
-
 
 	// Input
 	export let testid = ""
@@ -18,34 +17,28 @@
 
 	// Internal
 	const dispatch = createEventDispatcher()
-	let selected: (ElementCategory|null)[] = []
+	let selected: (ElementCategory | null)[] = []
 	$: {
 		// We filter out `null` but typescript does not know that so we cast
 		const newSelection = selected.filter(Boolean) as ElementCategory[]
-		const indexes = newSelection.map( el => labels.indexOf(el))
-		const details: EventDetailCategorySelect = {selection: indexes}
+		const indexes = newSelection.map((el) => labels.indexOf(el))
+		const details: EventDetailCategorySelect = { selection: indexes }
 		dispatch("select", details)
 	}
 
-	
-	function dataTestid(id: string){
-		return {"data-testid": id}
+	function dataTestid(id: string) {
+		return { "data-testid": id }
 	}
-	
-	function chipTestid(rootTestId: string, label: string){
+
+	function chipTestid(rootTestId: string, label: string) {
 		return `${rootTestId}_${label}`
 	}
-
 </script>
-
 
 <category-selector>
 	{#each labels as label, ci}
-	<Set chips={[label]} let:chip choice bind:selected={selected[ci]}>
-			<Chip 
-				chip={chip}
-				{...dataTestid(chipTestid(testid, chip))}
-			>
+		<Set chips={[label]} let:chip choice bind:selected={selected[ci]}>
+			<Chip {chip} {...dataTestid(chipTestid(testid, chip))}>
 				<Text>{chip}</Text>
 			</Chip>
 		</Set>
@@ -53,7 +46,6 @@
 </category-selector>
 
 <style lang="scss">
-	
 	category-selector {
 		:global(.mdc-chip) {
 			height: 0;
@@ -61,9 +53,9 @@
 			background-color: var(--mdc-theme-surface);
 		}
 
-		:global(.mdc-chip--selected){
+		:global(.mdc-chip--selected) {
 			outline: 1px var(--mdc-theme-primary) solid;
-			color: var(--mdc-theme-primary)
+			color: var(--mdc-theme-primary);
 		}
 
 		:global(.mdc-chip-set) {
@@ -72,5 +64,4 @@
 			margin: 0;
 		}
 	}
-
 </style>
