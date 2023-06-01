@@ -1,6 +1,5 @@
 <script lang="ts">
-	import { Icons } from "../../../components/icons"
-	import type { openSCDIcons } from "../../../icons"
+	import { Icons, openSCDIcons } from "../../../components/icons"
 	import type { Item as AffectedNodeItem } from "./item"
 	import List, {
 		Item,

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { openSCDIcons } from "../../icons/openscd-icons"
+    import { openSCDIcons } from "./"
 
     type openSCDIconNames = keyof typeof openSCDIcons;
     type iconSizes = "small" | "normal";

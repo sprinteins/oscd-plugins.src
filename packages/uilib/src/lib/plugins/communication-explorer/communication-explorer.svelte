@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Theme from "../../theme/theme.svelte"
-	import TelemetryView from "./telemetry-view.svelte"
+	import TelemetryView from "./telemetry-view/telemetry-view.svelte"
 
 	export let root: Element
 </script>

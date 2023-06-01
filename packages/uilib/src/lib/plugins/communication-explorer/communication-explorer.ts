@@ -1,8 +1,5 @@
-import { SCDQueries, UCCommunicationInformation } from "@oscd-plugins/core"
-import type { IEDConnection, IEDNode, RootNode } from "../../components/diagram"
-import { calculateLayout } from "./node-layout"
-import type { SelectedFilter } from "./selected-filter-store"
-import { selectIEDNode, selectConnection } from "./selected-filter-store-functions"
+import type { IEDConnection, IEDConnectionWithCustomValues, IEDNode } from "../../components/diagram"
+import { selectIEDNode, selectConnection } from "./_store-view-filter/selected-filter-store-functions"
 
 export const config = {
 	width:  200,
@@ -14,5 +11,7 @@ export function handleIEDClick(e: CustomEvent<IEDNode>) {
 	selectIEDNode(e.detail)
 }
 export function handleConnectionClick(e: CustomEvent<IEDConnection>) {
-	selectConnection(e.detail)
+	// temp till fully migrated: map element to enhanced data model
+	const selectedConnection = e.detail as IEDConnectionWithCustomValues
+	selectConnection(selectedConnection)
 }

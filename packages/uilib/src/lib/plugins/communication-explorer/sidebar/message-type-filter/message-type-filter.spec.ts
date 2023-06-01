@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, act } from "@testing-library/svelte"
+import { render, screen} from "@testing-library/svelte"
 import {describe, it, expect } from "vitest"
 
 import MessageTypeFilter  from "./message-type-filter.svelte"

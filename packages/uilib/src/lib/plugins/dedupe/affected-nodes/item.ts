@@ -1,4 +1,4 @@
-import type { openSCDIcons } from "../../../icons"
+import type { openSCDIcons } from "../../../components/icons"
 
 export type Item = {
 	elementId: string

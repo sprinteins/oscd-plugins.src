@@ -2,14 +2,14 @@
     import {
     	selectedIEDNode,
     	type SelectedFilter,
-    } from "../selected-filter-store"
+    } from "../_store-view-filter/selected-filter-store"
     import {
     	selectIEDNode,
     	clearSelection,
     	setHideIrrelevantStuff,
     	setNameFilter,
     	setHideConnectionArrows,
-    } from "../selected-filter-store-functions"
+    } from "../_store-view-filter/selected-filter-store-functions"
     import ConnectionSelector from "./assets/connection-selector.svg"
     import type { IEDNode, RootNode } from "../../../components/diagram"
     import { ConnectionTypeFilter } from "./connection-type-filter"
@@ -97,9 +97,7 @@
         </div>
 
         <div class="centered">
-        <ConnectionTypeFilter
-            disabled={isConnectionDirectionDisabled}
-        />
+            <ConnectionTypeFilter disabled={isConnectionDirectionDisabled} />
         </div>
 
         <hr />

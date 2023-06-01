@@ -3,7 +3,7 @@
 	import type { IEDConnection } from "./nodes"
 	import { MessageType } from "@oscd-plugins/core"
 	import type { ElkEdgeSection } from "elkjs"
-	import { selectedIEDNode } from "../../plugins/communication-explorer"
+	import { selectedIEDNode } from "../../plugins/communication-explorer/_store-view-filter"
 
 	//
 	// Input
@@ -31,7 +31,10 @@
 
 	$: pathColor = calcPathColor(edge)
 
-	function drawLine(edge?: IEDConnection, showArrows: boolean): string {
+	function drawLine(
+		edge: IEDConnection | undefined,
+		showArrows: boolean
+	): string {
 		const arrowSize = 7
 
 		const sections = edge?.sections ?? []
