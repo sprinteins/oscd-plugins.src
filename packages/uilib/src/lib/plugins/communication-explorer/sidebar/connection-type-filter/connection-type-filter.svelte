@@ -1,10 +1,7 @@
 <script lang="ts">
   import Text from "@smui/chips/src/Text.svelte"
-  import {
-  	ButtonGroup,
-  	type ButtonGroupOption,
-  } from "../../../../components/button-group/"
-  import { changeMessageConnectionFilterDirection } from "../../selected-filter-store-functions"
+  import { ButtonGroup, type ButtonGroupOption } from "../button-group"
+  import { changeMessageConnectionFilterDirection } from "../../plugins/communication-explorer/_store-view-filter"
   import Chip, { Set } from "@smui/chips"
 
   // Input
@@ -64,7 +61,6 @@
 <style>
   :global(.ChipsOptions) {
     display: flex;
-    margin-left: -18rem;
   }
 
   :global(.mdc-chip--selected) {
