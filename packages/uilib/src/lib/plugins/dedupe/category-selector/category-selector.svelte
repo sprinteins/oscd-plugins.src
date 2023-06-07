@@ -21,8 +21,29 @@
 	$: {
 		// We filter out `null` but typescript does not know that so we cast
 		const newSelection = selected.filter(Boolean) as ElementCategory[]
-		const indexes = newSelection.map((el) => labels.indexOf(el))
-		const details: EventDetailCategorySelect = { selection: indexes }
+
+		// Currently the labels contain also contain the number of nodes
+		// inside the category.
+		// This leads to that, that when the file has not been processed yes
+		// we get labels like "DA Type(0)". 
+		// When the file loads we get the correct labels like "DA Type (5)",
+		// but the selection is still there and looks for "DA Type(0)".
+		// The `indexOf` returns -1 and dispatches the event with that.
+		// This causes upstream a problem because there is no element at
+		// -1 and we get an error.
+		// So currently we filter out the -1 values.
+		// This is only treats the symptom but does not solves the root cause.
+		let selectedIndices = newSelection
+			.map((el) => labels.indexOf(el))
+			.filter((el) => el >= 0)
+
+		const nothingSelected = selectedIndices.length === 0
+		if( nothingSelected ){
+			const allIndices = new Array(labels.length).fill(null).map( (_,i) => i)
+			selectedIndices = allIndices
+		}
+
+		const details: EventDetailCategorySelect = { selection: selectedIndices }
 		dispatch("select", details)
 	}
 

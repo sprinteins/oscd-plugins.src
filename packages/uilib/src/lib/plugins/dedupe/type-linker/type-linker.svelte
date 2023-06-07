@@ -66,7 +66,6 @@
 	}
 
 	let selected: number[] = []
-	$: console.log({ selected })
 
 	function handleSelectionChange(
 		e: CustomEvent<{ changedIndices: number[] }>

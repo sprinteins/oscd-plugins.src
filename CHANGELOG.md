@@ -10,9 +10,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## Dedupe [Unreleased]
 
+## Dedupe [0.0.11] - 2023-06-07
+
+### Changed
+- if no category filter is selected it behaves as if everything would be selected
+
+### Fixed
+- the category filter now works even if the user filters before file is processed
+
 ## Dedupe [0.0.10] - 2023-05-19
 
-## Changed
+### Changed
 
 - internal restructure of the plugin to allow easier layout changes
 - new design and layout

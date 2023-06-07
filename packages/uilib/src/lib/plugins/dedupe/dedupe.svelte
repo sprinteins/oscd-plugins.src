@@ -111,11 +111,13 @@
 	// let selectedCategories: ElementCategory[] = []
 	let selectedFlattenCollectives: HashedElementCollective = []
 	function handleCategorySelect(e: CustomEvent<EventDetailCategorySelect>) {
-		const indexes = e.detail.selection
-		const selectedCategories = indexes.map((idx) => categoryKeys[idx])
+		const selectedCategoryIndices = e.detail.selection
+
+		const selectedCategories = selectedCategoryIndices.map((idx) => categoryKeys[idx])
 		selectedFlattenCollectives = selectedCategories
 			.map((catKey) => categories[catKey])
 			.flat()
+		
 		// TODO: group selection should stay if we only add new groups
 		selectedGroup = []
 		structure = []
