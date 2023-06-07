@@ -51,6 +51,7 @@
 		--color-message-goose: var(--color-green);
 		--color-message-mms: var(--color-blue-1);
 		--color-message-sampledvalues: var(--color-pink);
+		--color-message-unknown: var(--color-black);
 
 		/* cb = colorblind */
 		/* --color-message-goose-cb: #3BC40E; */

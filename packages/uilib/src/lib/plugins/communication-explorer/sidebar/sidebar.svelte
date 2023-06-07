@@ -14,14 +14,15 @@
     import type { IEDNode, RootNode } from "../../../components/diagram"
     import { ConnectionTypeFilter } from "./connection-type-filter"
     import { MessageTypeFilter } from "./message-type-filter"
+    import ConnectionInformation from "./connection-information/connection-information.svelte"
+    import IEDAccordion from "./ied-accordion/ied-accordion.svelte"
 
     export let rootNode: RootNode
 
-    $: IEDSelection = $selectedIEDNode?.selectedIED?.id ?? ""
+    $: IEDSelectionID = $selectedIEDNode?.selectedIED?.id ?? ""
+    $: IEDSelection = $selectedIEDNode?.selectedIED ?? undefined
     $: ConnectionSelection = $selectedIEDNode.selectedConnection
     $: selectedMessageTypes = $selectedIEDNode.selectedMessageTypes
-    $: showIncomingConnections = $selectedIEDNode?.incomingConnections
-    $: showOutgoingConnections = $selectedIEDNode?.outgoingConnections
     $: isIedFiltersDisabled =
         $selectedIEDNode?.selectedConnection !== undefined
     $: isConnectionDirectionDisabled = handleConnectionDirectionDisabled(
@@ -72,21 +73,22 @@
 <div class="sidebar sidebar-right">
     <div class="sidebar-content">
         <!-- svelte-ignore a11y-missing-attribute -->
-        <!-- svelte-ignore a11y-click-events-have-key-events -->
         <div class="actions">
-            <a class="clear-all" on:click={clearSelection}> Clear all </a>
+            <a class="clear-all" on:keypress on:click={clearSelection}>
+                Clear all
+            </a>
         </div>
 
         <div class="ied-nodes">
             <img src={ConnectionSelector} alt="connection selector" />
             <label>
                 <span>Select an IED</span>
-                <select value={IEDSelection} on:change={setSelectedNode}>
+                <select value={IEDSelectionID} on:change={setSelectedNode}>
                     <option value="" disabled>Select a IED</option>
                     {#if rootNode && rootNode.children && rootNode.children.length >= 0}
                         {#each rootNode.children as node}
                             <option
-                                selected={IEDSelection === node.id}
+                                selected={IEDSelectionID === node.id}
                                 value={node.id}
                                 >{node.label}
                             </option>
@@ -101,32 +103,20 @@
         </div>
 
         <hr />
-
         <MessageTypeFilter
             {selectedMessageTypes}
             filterDisabled={isIedFiltersDisabled}
         />
 
-        <hr />
+        {#if IEDSelection !== undefined}
+            <hr />
+            <IEDAccordion {IEDSelection} {rootNode} />
+        {/if}
 
-        <table>
-            <tr>
-                <td>ID:</td>
-                <td>{ConnectionSelection?.id ?? ""}</td>
-            </tr>
-            <tr>
-                <td>Sources:</td>
-                <td>{ConnectionSelection?.sourceIED?.iedName ?? ""}</td>
-            </tr>
-            <tr>
-                <td>Targets:</td>
-                <td>{ConnectionSelection?.targetIED?.iedName ?? ""}</td>
-            </tr>
-            <tr>
-                <td>MessageType:</td>
-                <td>{ConnectionSelection?.messageType ?? ""}</td>
-            </tr>
-        </table>
+        {#if ConnectionSelection !== undefined}
+            <hr />
+            <ConnectionInformation {ConnectionSelection} />
+        {/if}
 
         <hr />
         <h2>Experiments</h2>
@@ -177,7 +167,7 @@
 
     .sidebar .sidebar-content {
         padding: 1rem;
-        background-color: #ede8d7;
+        background-color: #fcf6e5;
         height: 100%;
         overflow-y: scroll;
         min-width: 330px;

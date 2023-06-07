@@ -4,9 +4,10 @@ import { MessageType } from "@oscd-plugins/core"
 import type { SelectedFilter } from "../_store-view-filter"
 import { generateConnectionLayout } from "."
 import type { IEDNode, RootNode } from "../../../components/diagram"
+import { generateIEDLayout } from "./node-layout-ieds"
 
 
-type Config = {
+export type Config = {
 	width: number,
 	height: number,
 	// heightPerConnection: number,
@@ -24,31 +25,10 @@ export async function calculateLayout(ieds: IEDCommInfo[], config: Config, selec
 		ieds = ieds.filter(ied => ied.iedName.toLowerCase().includes(selectionFilter.nameFilter.toLowerCase()))
 	}
 
+	let edges
 	const connectionsResult = generateConnectionLayout(ieds, selectionFilter)
-	// todo improve reintroduce variables here
-	let edges = connectionsResult.edges
-	
-	
-	const relevantEdges = edges.filter(edge => edge.isRelevant)
-	const relevantNodes = new Set<string>()
-	relevantEdges.forEach(edge => {
-		edge.relevantIEDNames?.forEach(iedName => { relevantNodes.add(iedName) })
-	})
-
-	let children: IEDNode[] = ieds.map((ied, ii) => {
-		let isRelevant = true
-		if (hasSelection) {
-			isRelevant = relevantNodes.has(ied.iedName) || selectionFilter.selectedIED?.label === ied.iedName	
-		}
-
-		return {
-			id:         Id(ii),
-			width:      config.width,
-			height:     config.height,
-			label:      ied.iedName,
-			isRelevant: isRelevant,
-		}
-	})
+	edges = connectionsResult.edges
+	let children: IEDNode[] = generateIEDLayout(ieds, edges, config, selectionFilter)
 
 	const elk = new ELK()
 
@@ -71,6 +51,7 @@ export async function calculateLayout(ieds: IEDCommInfo[], config: Config, selec
 		edges,
 	}
 
+	// message type information gets lost here
 	const nodes = (await elk.layout(graph)) as RootNode
 
 	return nodes

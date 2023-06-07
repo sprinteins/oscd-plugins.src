@@ -2,42 +2,45 @@
 	import { Button } from "../../../components/button"
 	// import { Checkbox } from "../../../components/checkbox"
 	import { createEventDispatcher } from "svelte"
-	import type { EventDetailRelink, EventDetailTypeLinkerSelect } from "./events"
+	import type {
+		EventDetailRelink,
+		EventDetailTypeLinkerSelect,
+	} from "./events"
 	import List, { Item, Meta, Label, Graphic } from "@smui/list"
 	import Checkbox from "@smui/checkbox"
- 
- 
 
 	// Import
-	export let items: {label: string}[] = []
-	export let testid="type-linker"
+	export let items: { label: string }[] = []
+	export let testid = "type-linker"
 
 	// Internal
 	const dispatch = createEventDispatcher()
 	let selectedLinkTargetIndex = -1
-	
+
 	$: isTargetSelected = selectedLinkTargetIndex > -1
 	$: isSomeDuplicateSelected = selected.length > 0
 	$: isMergePossible = isSomeDuplicateSelected && isTargetSelected
 	let checkedIndexes: Set<number> = new Set()
 	$: {
 		const detail: EventDetailTypeLinkerSelect = {
-			indexes: selected
+			indexes: selected,
 		}
 		dispatch("select", detail)
 	}
-	
-	function handleSelectAll(e: Event){
+
+	function handleSelectAll(e: Event) {
 		items.forEach((_, index) => checkedIndexes.add(index))
 		checkedIndexes = checkedIndexes
-		selected = Array(items.length).fill(true).map((_, i) => i)
+		selected = Array(items.length)
+			.fill(true)
+			.map((_, i) => i)
 	}
 
-	function handleSourceChange(index: number,e : Event){
+	function handleSourceChange(index: number, e: Event) {
 		const input = e.target as HTMLInputElement
-		if(input.checked){
+		if (input.checked) {
 			checkedIndexes.add(index)
-		}else {
+		} else {
 			checkedIndexes.delete(index)
 		}
 		checkedIndexes = checkedIndexes
@@ -52,7 +55,9 @@
 	}
 
 	function handleRelink(e: Event): void {
-		if(!isMergePossible){ return }
+		if (!isMergePossible) {
+			return
+		}
 		const detail: EventDetailRelink = {
 			sourceIndexes: selected,
 			targetIndex:   selectedLinkTargetIndex,
@@ -61,19 +66,21 @@
 	}
 
 	let selected: number[] = []
-	$: console.log({selected})
+	$: console.log({ selected })
 
-	function handleSelectionChange(e: CustomEvent<{changedIndices: number[]}>){
-		const {changedIndices} = e.detail
+	function handleSelectionChange(
+		e: CustomEvent<{ changedIndices: number[] }>
+	) {
+		const { changedIndices } = e.detail
 	}
 </script>
 
 <type-linker data-testid={testid}>
 	<label>
 		<span>Relink to:</span>
-		<select 
-			on:change={handleTargetInputChange} 
-			value={selectedLinkTargetIndex} 
+		<select
+			on:change={handleTargetInputChange}
+			value={selectedLinkTargetIndex}
 			data-testid="merger_merge-target"
 		>
 			<option value={-1} disabled selected>Select a relink target</option>
@@ -83,13 +90,11 @@
 		</select>
 	</label>
 
-	
-
 	<div class="select-all-container">
-		<Button 
+		<Button
 			testid="merger_select-all"
 			type="tertiary"
-			on:click={handleSelectAll} 
+			on:click={handleSelectAll}
 		>
 			Select All
 		</Button>
@@ -110,66 +115,60 @@
 
 	<List
 		class="type-linker__list"
-		checkList 
+		checkList
 		on:SMUIList:selectionChange={handleSelectionChange}
-	>	
+	>
 		{#each items as item, ii}
-		<Item>
-			<Graphic>
-				<Checkbox 
-					bind:group={selected}
-					value={ii}
-					checked={checkedIndexes.has(ii)} 
-					label={item.label}
-				/>
-			</Graphic>
-			<Label>
-				{item.label}
-			</Label>
-		</Item>
+			<Item>
+				<Graphic>
+					<Checkbox
+						bind:group={selected}
+						value={ii}
+						checked={checkedIndexes.has(ii)}
+						label={item.label}
+					/>
+				</Graphic>
+				<Label>
+					{item.label}
+				</Label>
+			</Item>
 		{/each}
 	</List>
 
-
-
 	<div class="action">
-		
-		<Button 
-			testid="merger_button-merge" 
+		<Button
+			testid="merger_button-merge"
 			disabled={!isMergePossible}
-			on:click={handleRelink} 
+			on:click={handleRelink}
 		>
 			Relink
 		</Button>
 	</div>
-
 </type-linker>
 
 <style>
-
-	type-linker{
+	type-linker {
 		height: calc(100% - 1rem);
 		display: grid;
 		grid-template-rows: auto auto 1fr auto;
 		gap: 1rem;
 		overflow: hidden;
-
 	}
-	select{
+	select {
 		height: 3rem;
 	}
-	label{
+	label {
 		display: flex;
 		flex-direction: column;
 		overflow: hidden;
 	}
-	type-linker :global(.type-linker__list){
+	type-linker :global(.type-linker__list) {
 		overflow: auto;
-		overflow-x: hidden
+		overflow-x: hidden;
 	}
 
-	.action{
+	.action {
 		display: flex;
 		justify-content: flex-end;
 	}
-</style>	
+</style>
