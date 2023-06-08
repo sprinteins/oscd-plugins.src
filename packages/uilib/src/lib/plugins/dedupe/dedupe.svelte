@@ -8,10 +8,6 @@
 		type HashedElementGroup,
 	} from "@oscd-plugins/core"
 	import GroupCardList from "./group-card-list/group-card-list.svelte"
-	import {
-		NullParentElement,
-		type ParentElement,
-	} from "./merger/mergable-items"
 	import Theme from "../../theme/theme.svelte"
 	import Snackbar, { Actions, Label } from "@smui/snackbar"
 	import IconButton from "@smui/icon-button"
@@ -80,6 +76,17 @@
 			finish,
 			duration: finish - start,
 		})
+	}
+
+
+	type ParentElement = {
+		name: string,
+		type: string,
+	}
+
+	const NullParentElement: ParentElement = {
+		name: "",
+		type: "",
 	}
 
 	function getParent(doEl: SCDElement): ParentElement {

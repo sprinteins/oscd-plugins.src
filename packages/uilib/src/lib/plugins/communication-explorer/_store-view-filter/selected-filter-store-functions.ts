@@ -6,7 +6,7 @@ export function selectIEDNode(node: IEDNode) {
 	selectedIEDNode.update(selectedFilter => {
 		return {
 			...selectedFilter,
-			selectedIED:        node,
+			selectedIEDs:       [node],
 			selectedConnection: undefined,
 		}
 	})
@@ -16,7 +16,7 @@ export function clearIEDSelection() {
 	selectedIEDNode.update(selectedFilter => {
 		return {
 			...selectedFilter,
-			selectedIED:        undefined,
+			selectedIEDs:       [],
 			selectedConnection: undefined,
 		}
 	})
@@ -27,7 +27,7 @@ export function selectConnection(connection: IEDConnectionWithCustomValues) {
 		return {
 			...selectedFilter,
 			selectedConnection: connection,
-			selectedIED:        undefined,
+			selectedIEDs:       [],
 		}
 	})
 }
@@ -39,7 +39,7 @@ export function clearSelection() {
 			incomingConnections:  true,
 			outgoingConnections:  true,
 			selectedMessageTypes: [...allMessageTypes],
-			selectedIED:          undefined,
+			selectedIEDs:         [],
 			selectedConnection:   undefined,
 		}
 	})

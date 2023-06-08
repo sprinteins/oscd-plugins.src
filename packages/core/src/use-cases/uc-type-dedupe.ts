@@ -1,5 +1,5 @@
-import { SCDElement, IdentifiableElement } from "../scd/scd-query"
-import { SCDQueries } from "../scd/scd-query"
+import type { SCDElement, IdentifiableElement } from "../scd/scd-query"
+import type { SCDQueries } from "../scd/scd-query"
 import { hashElement } from "../xml/hash"
 
 /** 

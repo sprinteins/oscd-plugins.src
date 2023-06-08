@@ -3,7 +3,7 @@ import type { IEDConnectionWithCustomValues, IEDNode } from "../../../components
 import { allMessageTypes } from "@oscd-plugins/core"
 
 export type SelectedFilter = {
-    selectedIED: IEDNode | undefined;
+    selectedIEDs: IEDNode[];
 	selectedConnection: IEDConnectionWithCustomValues | undefined;
     incomingConnections: boolean;
     outgoingConnections: boolean;
@@ -14,7 +14,7 @@ export type SelectedFilter = {
 }
 
 export const defaultSelection: SelectedFilter = {
-	selectedIED:        undefined,
+	selectedIEDs:       [],
 	selectedConnection: undefined,
 	
 	incomingConnections: true,

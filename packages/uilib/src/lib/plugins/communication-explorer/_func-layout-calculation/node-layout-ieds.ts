@@ -4,7 +4,7 @@ import type { SelectedFilter } from "../_store-view-filter"
 import { Id, type Config } from "."
 
 export function generateIEDLayout(ieds: IEDCommInfo[], edges: IEDConnectionWithCustomValues[], config: Config, selectionFilter: SelectedFilter): IEDNode[] {
-	const hasSelection = Boolean(selectionFilter.selectedIED)
+	const hasSelection = Boolean(selectionFilter.selectedIEDs)
     
 	const relevantEdges = edges.filter(edge => edge.isRelevant)
 	const relevantNodes = new Set<string>()
@@ -15,7 +15,8 @@ export function generateIEDLayout(ieds: IEDCommInfo[], edges: IEDConnectionWithC
 	const children: IEDNode[] = ieds.map((ied, ii) => {
 		let isRelevant = true
 		if (hasSelection) {
-			isRelevant = relevantNodes.has(ied.iedName) || selectionFilter.selectedIED?.label === ied.iedName	
+			// TODO: smells, we should be independent of the label
+			isRelevant = relevantNodes.has(ied.iedName) || selectionFilter.selectedIEDs?.some(selectedIED => selectedIED.label === ied.iedName)
 		}
 
 		return {

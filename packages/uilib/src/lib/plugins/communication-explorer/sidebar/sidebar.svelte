@@ -19,8 +19,8 @@
 
     export let rootNode: RootNode
 
-    $: IEDSelectionID = $selectedIEDNode?.selectedIED?.id ?? ""
-    $: IEDSelection = $selectedIEDNode?.selectedIED ?? undefined
+    $: IEDSelectionIDs = $selectedIEDNode?.selectedIEDs.map(ied => ied.id)
+    $: IEDSelections = $selectedIEDNode?.selectedIEDs
     $: ConnectionSelection = $selectedIEDNode.selectedConnection
     $: selectedMessageTypes = $selectedIEDNode.selectedMessageTypes
     $: isIedFiltersDisabled =
@@ -38,10 +38,10 @@
     ): boolean {
     	if (iedFilterDisabled) return true
 
-    	const selectedIED = filter?.selectedIED?.id
+    	const selectedIEDs = filter?.selectedIEDs
     	const selectedCon = filter?.selectedConnection?.id
 
-    	return Boolean(selectedIED === undefined && selectedCon === undefined)
+    	return Boolean(selectedIEDs.length === 0 && selectedCon === undefined)
     }
 
     function setSelectedNode(e: Event) {
@@ -83,12 +83,17 @@
             <img src={ConnectionSelector} alt="connection selector" />
             <label>
                 <span>Select an IED</span>
-                <select value={IEDSelectionID} on:change={setSelectedNode}>
+                <!-- 
+                    TODO: we should remove this select
+                    I don't think it adds much user value
+                    and it is going to be hard to support
+                -->
+                <select value={IEDSelectionIDs[0]??""} on:change={setSelectedNode}>
                     <option value="" disabled>Select a IED</option>
                     {#if rootNode && rootNode.children && rootNode.children.length >= 0}
                         {#each rootNode.children as node}
                             <option
-                                selected={IEDSelectionID === node.id}
+                                selected={ (IEDSelectionIDs[0]??"") === node.id}
                                 value={node.id}
                                 >{node.label}
                             </option>
@@ -108,9 +113,11 @@
             filterDisabled={isIedFiltersDisabled}
         />
 
-        {#if IEDSelection !== undefined}
+        {#if IEDSelections !== undefined}
             <hr />
-            <IEDAccordion {IEDSelection} {rootNode} />
+            {#each IEDSelections as IEDSelections }
+                <IEDAccordion IEDSelection={IEDSelections} {rootNode} />
+            {/each}
         {/if}
 
         {#if ConnectionSelection !== undefined}

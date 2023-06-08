@@ -58,7 +58,7 @@
             on:iedclick={handleIEDClick}
             on:connectionclick={handleConnectionClick}
             on:clearclick={handleClearClick}
-            selectedIedID={$selectedIEDNode.selectedIED?.id}
+            selectedIedIDs={$selectedIEDNode.selectedIEDs?.map(ied => ied.id)}
             selectedConnectionID={$selectedIEDNode?.selectedConnection?.id}
         />
         {#if showSidebar}

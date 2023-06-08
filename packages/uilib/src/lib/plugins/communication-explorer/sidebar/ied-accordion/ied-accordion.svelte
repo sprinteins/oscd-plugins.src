@@ -15,9 +15,7 @@
 
     let relationsByServiceType: ServiceTypeSort = new Map()
     $: relations = getConnectedIEDsByLabel(rootNode, IEDSelection.label)
-    $: relationsByServiceType = sortRelationsByServiceType(
-    	relations.subscribedFrom
-    )
+    $: relationsByServiceType = sortRelationsByServiceType(relations.subscribedFrom)
 
     function sortRelationsByServiceType(
     	relations: ConnectedIED[]
@@ -25,8 +23,7 @@
     	let array: ServiceTypeSort = new Map()
 
     	relations.forEach((element) => {
-    		let serviceType: MessageType | "Unknown" | undefined =
-                element.serviceType
+    		let serviceType: MessageType | "Unknown" | undefined = element.serviceType
     		if (serviceType === undefined) serviceType = "Unknown"
 
     		let hasServiceTypeElement = array.has(element.serviceType)

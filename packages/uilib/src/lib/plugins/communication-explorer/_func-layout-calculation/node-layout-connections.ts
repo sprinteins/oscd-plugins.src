@@ -4,7 +4,7 @@ import type { SelectedFilter } from "../_store-view-filter"
 import {Id, messageTypeMap} from "./"
 
 export function generateConnectionLayout(ieds: IEDCommInfo[], selectionFilter: SelectedFilter): IEDConnectionWithCustomValues[] {
-	const hasSelection = Boolean(selectionFilter.selectedIED)
+	const hasSelection = Boolean(selectionFilter.selectedIEDs)
 	let connectionCounter = 0
     
 	const edges: IEDConnectionWithCustomValues[] = ieds.map( (targetIED, ii) => { 
@@ -65,20 +65,22 @@ export function generateConnectionLayout(ieds: IEDCommInfo[], selectionFilter: S
 }
 
 function checkRelevance(selectionFilter: SelectedFilter, targetIED: IEDCommInfo, sourceIED: IEDCommInfo): boolean {
-	let isRelevant = true
+	
+	const isTargetIEDSelected = selectionFilter.selectedIEDs?.some(selectedIED => selectedIED.label === targetIED.iedName)
+	const isSourceIEDSelected = selectionFilter.selectedIEDs?.some(selectedIED => selectedIED.label === sourceIED.iedName)
 
 	if (selectionFilter.outgoingConnections && !selectionFilter.incomingConnections) {
-		isRelevant = targetIED.iedName === selectionFilter.selectedIED?.label
+		return isTargetIEDSelected
 	}
 	
 	if (selectionFilter.incomingConnections && !selectionFilter.outgoingConnections) {
-		isRelevant = sourceIED.iedName === selectionFilter.selectedIED?.label
+		return isSourceIEDSelected
 	}
 	
 	if (selectionFilter.incomingConnections && selectionFilter.outgoingConnections) {
-		isRelevant = sourceIED.iedName === selectionFilter.selectedIED?.label ||
-			targetIED.iedName === selectionFilter.selectedIED?.label
+		return isSourceIEDSelected || isTargetIEDSelected
 	}
-
-	return isRelevant
+	
+	const everythingIsRelevantIfThereIsNoSelection = true
+	return everythingIsRelevantIfThereIsNoSelection
 }

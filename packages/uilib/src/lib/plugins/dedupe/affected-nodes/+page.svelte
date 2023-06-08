@@ -3,7 +3,7 @@
 	import { AffectedNodes, type Item } from "."
 
 	let items: Item[] = [
-		{ elementId: "a1", elementType: "DO", usedElementId: "b1"}
+		{ elementId: "a1", elementType: "dOIcon", usedElementId: "b1"}
 	]
 
 </script>
