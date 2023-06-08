@@ -19,23 +19,20 @@ export const messageTypeMap:{[key: string]: MessageType} = {
 }
 
 export async function calculateLayout(ieds: IEDCommInfo[], config: Config, selectionFilter: SelectedFilter): Promise<RootNode> {
-	const hasSelection = Boolean(selectionFilter.selectedIED)
 		
 	if(selectionFilter.nameFilter !== ""){
 		ieds = ieds.filter(ied => ied.iedName.toLowerCase().includes(selectionFilter.nameFilter.toLowerCase()))
 	}
 
-	let edges
-	const connectionsResult = generateConnectionLayout(ieds, selectionFilter)
-	edges = connectionsResult.edges
+	let edges = generateConnectionLayout(ieds, selectionFilter)
 	let children: IEDNode[] = generateIEDLayout(ieds, edges, config, selectionFilter)
-
-	const elk = new ELK()
 
 	if(selectionFilter.hideIrrelevantStuff){
 		children = children.filter(child => child.isRelevant)
 		edges = edges.filter(edge => edge.isRelevant)
 	}
+
+	const elk = new ELK()
 
 	// Need more configuration options of elk.js?
 	// 👉 https://www.eclipse.org/elk/reference/algorithms.html 
@@ -46,6 +43,7 @@ export async function calculateLayout(ieds: IEDCommInfo[], config: Config, selec
 			"org.eclipse.elk.layered.unnecessaryBendpoints":           "true",
 			"org.eclipse.elk.layered.nodePlacement.bk.fixedAlignment": "RIGHTUP",
 			"org.eclipse.elk.direction":                               "LEFT",
+			
 		},
 		children,
 		edges,

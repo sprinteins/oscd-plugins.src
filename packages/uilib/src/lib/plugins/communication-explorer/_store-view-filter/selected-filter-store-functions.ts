@@ -1,4 +1,4 @@
-import { selectedIEDNode } from "."
+import { selectedIEDNode } from "./selected-filter-store"
 import type { IEDConnectionWithCustomValues, IEDNode } from "../../../components/diagram"
 import { MessageType, allMessageTypes } from "@oscd-plugins/core"
 
@@ -7,6 +7,16 @@ export function selectIEDNode(node: IEDNode) {
 		return {
 			...selectedFilter,
 			selectedIED:        node,
+			selectedConnection: undefined,
+		}
+	})
+}
+
+export function clearIEDSelection() {
+	selectedIEDNode.update(selectedFilter => {
+		return {
+			...selectedFilter,
+			selectedIED:        undefined,
 			selectedConnection: undefined,
 		}
 	})

@@ -14,12 +14,12 @@
     }
 </script>
 
-<Example name="is NOT selectable">
+<Example name="IED is NOT selectable">
     <Ied isSelectable={false} isSelected={false} label="myIED label" />
     <Ied isSelectable={false} isSelected={true} label="myIED label" />
 </Example>
 
-<Example name="is selectable">
+<Example name="IED is selectable">
     <Ied
         isSelectable={true}
         label="myIED label"

@@ -2,7 +2,7 @@
 
 <script lang="ts">
 	import type { IEDNode, RootNode } from "./nodes"
-	import IED from "./ied.svelte"
+	import { IEDElement } from "./ied-element"
 	import Message from "./message.svelte"
 	import { createEventDispatcher } from "svelte"
 	import type { ElkExtendedEdge } from "elkjs"
@@ -17,21 +17,35 @@
 	//
 	// Setup
 	//
+
+	let svgRoot: SVGElement
+
 	const dispatch = createEventDispatcher()
 	function dispatchIEDClick(node: IEDNode) {
 		dispatch("iedclick", node)
 	}
+
 	function dispatchConnectionClick(connection: ElkExtendedEdge) {
 		dispatch("connectionclick", connection)
 	}
+
+	function handleSVGClick(e: Event){
+		if(e.target !== svgRoot){ return }
+		
+		dispatch("clearclick")
+	}
+
 </script>
 
 {#if rootNode}
 	<diagram>
 		<svg
+			bind:this={svgRoot}
 			viewBox={`0 0 ${rootNode.width} ${rootNode.height}`}
 			style={`--width:${rootNode.width}px; --height:${rootNode.height}`}
 			xmlns="http://www.w3.org/2000/svg"
+			on:click={handleSVGClick}
+			on:keypress
 		>
 			{#if rootNode.children}
 				{#each rootNode.children as node}
@@ -43,7 +57,7 @@
 						on:click={() => dispatchIEDClick(node)}
 						on:keydown
 					>
-						<IED {node} isSelected={node.id === selectedIedID} />
+						<IEDElement {node} isSelected={node.id === selectedIedID} />
 					</foreignObject>
 				{/each}
 			{/if}

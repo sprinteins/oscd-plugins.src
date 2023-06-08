@@ -29,7 +29,14 @@
 		[MessageType.SampledValues]: "var(--color-message-sampledvalues)",
 	}
 
+	const messageTypeToDashArray: { [key in MessageType]: string } = {
+		[MessageType.GOOSE]:         "0",
+		[MessageType.MMS]:           "10, 10",
+		[MessageType.SampledValues]: "10 5 5 5",
+	}
+
 	$: pathColor = calcPathColor(edge)
+	$: dashArray = calcDashArray(edge)
 
 	function drawLine(
 		edge: IEDConnection | undefined,
@@ -82,6 +89,14 @@
 		const color = messageTypeToColorMap[edge.messageType]
 		return color || defaultColor
 	}
+	function calcDashArray(edge?: IEDConnection): string {
+		if (!edge?.messageType) {
+			return "0"
+		}
+
+		const color = messageTypeToDashArray[edge.messageType]
+		return color || "0"
+	}
 
 	function calcArrow(
 		section: ElkEdgeSection,
@@ -114,12 +129,14 @@
 	{#if path}
 		<path d={path} class="path-hover-box" />
 		<path d={path} class="path-strong" />
-		<path d={path} class="path-selected" style="stroke: {pathColor};" />
+		<path d={path} class="path-selected" style="stroke: {pathColor};" stroke-dasharray={dashArray} stroke-linecap="round"/>
 		<path
 			d={path}
 			class:irrelevant={!edge.isRelevant}
 			class="path"
 			style="stroke: {pathColor};"
+			stroke-dasharray={dashArray}
+			stroke-linecap="round"
 		/>
 		{#if showConnectionArrows}
 			<path
@@ -148,8 +165,12 @@
 	}
 
 	.path {
-		stroke-width: 0.08rem;
-		stroke: var(--color-black, #000);
+		/* stroke-width: 0.08rem; */
+		stroke-width: 2px;
+		/* stroke: var(--color-black, #000); */
+		stroke: #288409;
+		background: #288409;
+		border: 1.5px solid #1C5907;
 	}
 
 	.path-hover-box {

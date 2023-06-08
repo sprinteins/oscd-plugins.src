@@ -1,5 +1,5 @@
 import ELK, { type ElkNode } from "elkjs/lib/elk.bundled"
-import type { IEDNode, RootNode } from "../components/diagram"
+import type { IEDConnection, IEDNode, RootNode } from "../components/diagram"
 
 const config = {
 	width:  100,
@@ -73,7 +73,7 @@ export async function generateMockRootNode(): Promise<RootNode>{
 		return String(edgeId++)
 	}
 	
-	const edges = [
+	const edges: IEDConnection[] = [
 		{id: EdgeID(), sources: ["1"], targets: ["2"]},
 		{id: EdgeID(), sources: ["2"], targets: ["1"]},
 		{id: EdgeID(), sources: ["2"], targets: ["3"]},
@@ -117,6 +117,9 @@ export async function generateMockRootNode(): Promise<RootNode>{
 		{id: EdgeID(), sources: ["39"], targets: ["13"]},
 		
 	]
+
+	children.forEach( (_, index ) => children[index].isRelevant = true )
+	edges.forEach( (_, index ) => edges[index].isRelevant = true )
 	
 	const elk = new ELK()
 	

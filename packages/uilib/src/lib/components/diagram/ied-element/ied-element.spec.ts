@@ -1,8 +1,8 @@
 import { render, screen } from "@testing-library/svelte"
 import {describe, it, expect} from "vitest"
 
-import IED from "./ied.svelte"
-import type { IEDNode } from "./nodes"
+import { IEDElement } from "."
+import type { IEDNode } from "../nodes"
 
 
 
@@ -23,7 +23,7 @@ describe("IED", () => {
 		}
 
 
-		render(IED, { node })
+		render(IEDElement, { node })
 		const stuff = screen.getByText(label)
 		expect(stuff).toBeTruthy()
 	})
@@ -43,13 +43,13 @@ describe("IED", () => {
 			edges:      [],
 		}
 
-		render(IED, { node })
+		render(IEDElement, { node })
 		const stuff = screen.getByText(label)
 		expect(stuff.classList.contains("isIrrelevant")).toBeTruthy()
 
 	})
 
-	it("applies 'focus' if the 'isSelected' prop is true", () => {
+	it("applies 'selected' if the 'isSelected' prop is true", () => {
 		
 		const label = "IED1"
 	
@@ -64,9 +64,9 @@ describe("IED", () => {
 			edges:      [],
 		}
 
-		render(IED, { node, isSelected: true })
+		render(IEDElement, { node, isSelected: true })
 		const stuff = screen.getByText(label)
-		expect(stuff.classList.contains("focus")).toBeTruthy()
+		expect(stuff.classList.contains("selected")).toBeTruthy()
 
 
 	})

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { CommunicationExplorer } from "./index"
+	import { CommunicationExplorer } from "."
 	import { xmlStr } from "../../../test-files/simple_v5"
 	import { Example } from "../../components/internal"
 

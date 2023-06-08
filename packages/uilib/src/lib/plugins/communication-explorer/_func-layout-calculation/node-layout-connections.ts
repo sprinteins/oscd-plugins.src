@@ -3,11 +3,7 @@ import type { IEDConnectionWithCustomValues } from "../../../components/diagram"
 import type { SelectedFilter } from "../_store-view-filter"
 import {Id, messageTypeMap} from "./"
 
-export type layoutConnectionResult = {
-    edges: IEDConnectionWithCustomValues[]
-}
-
-export function generateConnectionLayout(ieds: IEDCommInfo[], selectionFilter: SelectedFilter): layoutConnectionResult {
+export function generateConnectionLayout(ieds: IEDCommInfo[], selectionFilter: SelectedFilter): IEDConnectionWithCustomValues[] {
 	const hasSelection = Boolean(selectionFilter.selectedIED)
 	let connectionCounter = 0
     
@@ -65,9 +61,7 @@ export function generateConnectionLayout(ieds: IEDCommInfo[], selectionFilter: S
 		return iedConnections
 	}).flat() 
 
-	return {
-		edges,
-	}
+	return edges
 }
 
 function checkRelevance(selectionFilter: SelectedFilter, targetIED: IEDCommInfo, sourceIED: IEDCommInfo): boolean {

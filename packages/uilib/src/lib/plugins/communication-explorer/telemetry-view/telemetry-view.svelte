@@ -1,12 +1,14 @@
 <script lang="ts">
     import { calculateLayout } from "../_func-layout-calculation/node-layout"
-    import { Diagram, type RootNode } from "../../../components/diagram"
-    import { handleIEDClick, handleConnectionClick, config } from ".."
+    import { Diagram, type IEDConnection, type IEDConnectionWithCustomValues, type IEDNode, type RootNode } from "../../../components/diagram"
     import { Sidebar } from "../sidebar"
     import { getIEDs } from "../_func-layout-calculation/get-ieds"
     import {
     	selectedIEDNode,
     	type SelectedFilter,
+        selectConnection,
+        selectIEDNode,
+        clearIEDSelection,
     } from "../_store-view-filter"
 
     export let root: Element
@@ -28,6 +30,25 @@
     	const iedInfos = getIEDs(root)
     	rootNode = await calculateLayout(iedInfos, config, selectedFilter)
     }
+
+    export const config = {
+        width:  150,
+        height: 40,
+        // heightPerConnection: 20,
+    }
+
+    export function handleIEDClick(e: CustomEvent<IEDNode>) {
+        selectIEDNode(e.detail)
+    }
+    export function handleConnectionClick(e: CustomEvent<IEDConnection>) {
+        // temp till fully migrated: map element to enhanced data model
+        const selectedConnection = e.detail as IEDConnectionWithCustomValues
+        selectConnection(selectedConnection)
+    }
+    export function handleClearClick() {
+        clearIEDSelection()
+    }
+
 </script>
 
 <div class="root" class:showSidebar>
@@ -36,6 +57,7 @@
             {rootNode}
             on:iedclick={handleIEDClick}
             on:connectionclick={handleConnectionClick}
+            on:clearclick={handleClearClick}
             selectedIedID={$selectedIEDNode.selectedIED?.id}
             selectedConnectionID={$selectedIEDNode?.selectedConnection?.id}
         />
@@ -47,10 +69,10 @@
 
 <style>
     .root {
+        --header-height: 128px;
         display: grid;
         grid-template-columns: auto 0;
-        background-color: #ffffff;
-        height: calc(100vh - 128px);
+        height: calc(100vh - var(--header-height));
         width: 100%;
         overflow-x: hidden;
     }
