@@ -6,9 +6,9 @@
     import {
     	selectedIEDNode,
     	type SelectedFilter,
-        selectConnection,
-        selectIEDNode,
-        clearIEDSelection,
+    	selectConnection,
+    	selectIEDNode,
+    	clearIEDSelection,
     } from "../_store-view-filter"
 
     export let root: Element
@@ -32,21 +32,21 @@
     }
 
     export const config = {
-        width:  150,
-        height: 40,
-        // heightPerConnection: 20,
+    	width:  150,
+    	height: 40,
+    	// heightPerConnection: 20,
     }
 
     export function handleIEDClick(e: CustomEvent<IEDNode>) {
-        selectIEDNode(e.detail)
+    	selectIEDNode(e.detail)
     }
     export function handleConnectionClick(e: CustomEvent<IEDConnection>) {
-        // temp till fully migrated: map element to enhanced data model
-        const selectedConnection = e.detail as IEDConnectionWithCustomValues
-        selectConnection(selectedConnection)
+    	// temp till fully migrated: map element to enhanced data model
+    	const selectedConnection = e.detail as IEDConnectionWithCustomValues
+    	selectConnection(selectedConnection)
     }
     export function handleClearClick() {
-        clearIEDSelection()
+    	clearIEDSelection()
     }
 
 </script>

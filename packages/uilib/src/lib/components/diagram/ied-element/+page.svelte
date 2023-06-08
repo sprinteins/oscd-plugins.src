@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { IEDElement } from ".";
-	import { Example } from "../../internal";
-	import type { IEDNode } from "../nodes";
+	import { IEDElement } from "."
+	import { Example } from "../../internal"
+	import type { IEDNode } from "../nodes"
 
-	const node: IEDNode = {id: "0", width: 200, height: 100, label: "some longer IED name", isRelevant:true}
+	const node: IEDNode = {id: "0", width: 200, height: 100, label: "some longer IED name", isRelevant: true}
 
 	let containerWidth = 200
 	let containerHeight = 30
