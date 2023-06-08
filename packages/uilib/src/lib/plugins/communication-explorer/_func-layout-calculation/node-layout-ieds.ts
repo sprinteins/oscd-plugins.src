@@ -4,7 +4,7 @@ import type { SelectedFilter } from "../_store-view-filter"
 import { Id, type Config } from "."
 
 export function generateIEDLayout(ieds: IEDCommInfo[], edges: IEDConnectionWithCustomValues[], config: Config, selectionFilter: SelectedFilter): IEDNode[] {
-	const hasSelection = Boolean(selectionFilter.selectedIEDs)
+	const hasSelection = selectionFilter.selectedIEDs.length > 0
     
 	const relevantEdges = edges.filter(edge => edge.isRelevant)
 	const relevantNodes = new Set<string>()

@@ -4,7 +4,7 @@ import type { SelectedFilter } from "../_store-view-filter"
 import {Id, messageTypeMap} from "./"
 
 export function generateConnectionLayout(ieds: IEDCommInfo[], selectionFilter: SelectedFilter): IEDConnectionWithCustomValues[] {
-	const hasSelection = Boolean(selectionFilter.selectedIEDs)
+	const hasSelection = selectionFilter.selectedIEDs.length > 0
 	let connectionCounter = 0
     
 	const edges: IEDConnectionWithCustomValues[] = ieds.map( (targetIED, ii) => { 
