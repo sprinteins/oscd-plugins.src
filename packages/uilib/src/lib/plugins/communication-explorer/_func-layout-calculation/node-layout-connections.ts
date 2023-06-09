@@ -1,10 +1,10 @@
 import type { IEDCommInfo } from "@oscd-plugins/core"
 import type { IEDConnectionWithCustomValues } from "../../../components/diagram"
-import type { SelectedFilter } from "../_store-view-filter"
+import { hasActiveIEDSelection, isIEDSelected, type SelectedFilter } from "../_store-view-filter"
 import {Id, messageTypeMap} from "./"
 
 export function generateConnectionLayout(ieds: IEDCommInfo[], selectionFilter: SelectedFilter): IEDConnectionWithCustomValues[] {
-	const hasSelection = selectionFilter.selectedIEDs.length > 0
+	const hasSelection = hasActiveIEDSelection()
 	let connectionCounter = 0
     
 	const edges: IEDConnectionWithCustomValues[] = ieds.map( (targetIED, ii) => { 
@@ -66,8 +66,9 @@ export function generateConnectionLayout(ieds: IEDCommInfo[], selectionFilter: S
 
 function checkRelevance(selectionFilter: SelectedFilter, targetIED: IEDCommInfo, sourceIED: IEDCommInfo): boolean {
 	
-	const isTargetIEDSelected = selectionFilter.selectedIEDs?.some(selectedIED => selectedIED.label === targetIED.iedName)
-	const isSourceIEDSelected = selectionFilter.selectedIEDs?.some(selectedIED => selectedIED.label === sourceIED.iedName)
+	// Note: better then doing the search ourselves but still not optimal
+	const isTargetIEDSelected = isIEDSelected({label: targetIED.iedName})
+	const isSourceIEDSelected = isIEDSelected({label: sourceIED.iedName})
 
 	if (selectionFilter.outgoingConnections && !selectionFilter.incomingConnections) {
 		return isTargetIEDSelected

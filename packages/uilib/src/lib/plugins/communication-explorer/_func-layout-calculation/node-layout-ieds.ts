@@ -1,10 +1,11 @@
 import type { IEDCommInfo } from "@oscd-plugins/core"
 import type { IEDConnectionWithCustomValues, IEDNode } from "../../../components/diagram"
-import type { SelectedFilter } from "../_store-view-filter"
+import { hasActiveIEDSelection, isIEDSelected, type SelectedFilter } from "../_store-view-filter"
 import { Id, type Config } from "."
 
 export function generateIEDLayout(ieds: IEDCommInfo[], edges: IEDConnectionWithCustomValues[], config: Config, selectionFilter: SelectedFilter): IEDNode[] {
-	const hasSelection = selectionFilter.selectedIEDs.length > 0
+	const hasSelection = hasActiveIEDSelection()
+
     
 	const relevantEdges = edges.filter(edge => edge.isRelevant)
 	const relevantNodes = new Set<string>()
@@ -16,7 +17,9 @@ export function generateIEDLayout(ieds: IEDCommInfo[], edges: IEDConnectionWithC
 		let isRelevant = true
 		if (hasSelection) {
 			// TODO: smells, we should be independent of the label
-			isRelevant = relevantNodes.has(ied.iedName) || selectionFilter.selectedIEDs?.some(selectedIED => selectedIED.label === ied.iedName)
+			const isNodeRelevant = relevantNodes.has(ied.iedName)
+			const isNodeSelected = isIEDSelected({label: ied.iedName})
+			isRelevant = isNodeRelevant || isNodeSelected
 		}
 
 		return {

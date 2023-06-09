@@ -1,18 +1,19 @@
 
 
 <script lang="ts">
-	import type { IEDNode, RootNode } from "./nodes"
+	import type { IEDConnectionWithCustomValues, IEDNode, RootNode } from "./nodes"
 	import { IEDElement } from "./ied-element"
 	import Message from "./message.svelte"
 	import { createEventDispatcher } from "svelte"
 	import type { ElkExtendedEdge } from "elkjs"
+	import { isConnectionSelected, isIEDSelected } from "../../plugins/communication-explorer/_store-view-filter"
 
 	//
 	// Inputs
 	//
 	export let rootNode: RootNode
-	export let selectedIedIDs: string[] = []
-	export let selectedConnectionID: string | undefined = undefined
+	export let selectedIEDs: IEDNode[] = []
+	export let selectedConnection: IEDConnectionWithCustomValues | undefined
 
 	//
 	// Setup
@@ -47,6 +48,10 @@
 		dispatch("clearclick")
 	}
 
+	function isConnectionsAnyIEDSelected(connection: IEDConnectionWithCustomValues): boolean{
+		return isIEDSelected({label: connection.sourceIED.iedName} ) || isIEDSelected({label: connection.targetIED.iedName} )
+	}
+
 </script>
 
 {#if rootNode}
@@ -70,7 +75,8 @@
 						on:keydown
 					>
 						<!-- <IEDElement {node} isSelected={node.id === selectedIedIDs} /> -->
-						<IEDElement {node} isSelected={selectedIedIDs.includes(node.id)} />
+						<!-- <IEDElement {node} isSelected={selectedIedIDs.includes(node.id)} /> -->
+						<IEDElement {node} isSelected={isIEDSelected(node)} />
 					</foreignObject>
 				{/each}
 			{/if}
@@ -79,7 +85,8 @@
 				{#each rootNode.edges as edge}
 					<Message
 						{edge}
-						isSelected={selectedConnectionID === edge?.id}
+						isSelected={isConnectionSelected(edge)}
+						isIEDSelected={ isConnectionsAnyIEDSelected(edge) }
 						on:click={() => dispatchConnectionClick(edge)}
 					/>
 				{/each}

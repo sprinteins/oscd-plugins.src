@@ -10,7 +10,11 @@
 	//
 	export let edge: IEDConnection
 	export let isSelected = false
+	export let isIEDSelected = false
 
+	// 
+	// Internal
+	//
 	let path: string
 	$: path = drawLine(edge, showConnectionArrows)
 	$: showConnectionArrows = $selectedIEDNode.showConnectionArrows
@@ -124,12 +128,18 @@
 	on:keypress
 	class:show-selected-path={isSelected}
 	class:selected={isSelected}
+	class:ied-selected={isIEDSelected}
 	data-testid="connection"
 >
 	{#if path}
 		<path d={path} class="path-hover-box" />
 		<path d={path} class="path-strong" />
-		<path d={path} class="path-selected" style="stroke: {pathColor};" stroke-dasharray={dashArray} stroke-linecap="round"/>
+		<path 
+			d={path} 
+			class="path-selected" 
+			style="stroke: {pathColor};" 
+			stroke-dasharray={dashArray} 
+			stroke-linecap="round"/>
 		<path
 			d={path}
 			class:irrelevant={!edge.isRelevant}
@@ -190,8 +200,17 @@
 		display: none;
 	}
 
+	.ied-selected .path,
 	.selected .path-selected {
 		display: block;
+		animation-name: ied-connection-animation;
+  		animation-duration: 200s;
+		animation-iteration-count: infinite;
+		animation-timing-function: linear;
+	}
+
+	.selected .path{
+		display: none;
 	}
 
 	.path-hover-box:hover ~ .path-strong,
@@ -201,5 +220,15 @@
 
 	.irrelevant {
 		opacity: 0.2;
+	}
+
+	/* 
+		There is an weird jump when the animation restart
+		to make sure it stays smooth we just run the animation long
+		This is a workaround because a real solution does not really worth it
+	*/
+	@keyframes -global-ied-connection-animation {
+		from { stroke-dashoffset: 1000%; }
+		to {  stroke-dashoffset: 0%; }
 	}
 </style>
