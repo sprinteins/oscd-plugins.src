@@ -12,6 +12,8 @@
 	export let isSelected = false
 	export let isIEDSelected = false
 
+	$: console.log({level: "dev", msg: "message.svelte", edge: edge.id, isSelected, isIEDSelected})
+
 	// 
 	// Internal
 	//
@@ -35,7 +37,7 @@
 
 	const messageTypeToDashArray: { [key in MessageType]: string } = {
 		[MessageType.GOOSE]:         "0",
-		[MessageType.MMS]:           "10, 10",
+		[MessageType.MMS]:           "1, 4",
 		[MessageType.SampledValues]: "10 5 5 5",
 	}
 
@@ -121,6 +123,8 @@
 			arrowBottomWidth = section.endPoint.x - arrowSize
 		}
 	}
+
+	const cornerRadius = 20
 </script>
 
 <g
@@ -129,24 +133,38 @@
 	class:show-selected-path={isSelected}
 	class:selected={isSelected}
 	class:ied-selected={isIEDSelected}
+	class:needs-solid-animation={edge.messageType === MessageType.GOOSE}
 	data-testid="connection"
 >
 	{#if path}
-		<path d={path} class="path-hover-box" />
-		<path d={path} class="path-strong" />
+		<path d={path} class="path-hover-box"  />
+		<path d={path} class="path-strong"  />
 		<path 
 			d={path} 
 			class="path-selected" 
-			style="stroke: {pathColor};" 
+			style:stroke={pathColor}
 			stroke-dasharray={dashArray} 
-			stroke-linecap="round"/>
+			stroke-linecap="round"
+			stroke-linejoin="round"
+		/>
+		
 		<path
 			d={path}
 			class:irrelevant={!edge.isRelevant}
 			class="path"
-			style="stroke: {pathColor};"
+			style:stroke={pathColor}
 			stroke-dasharray={dashArray}
 			stroke-linecap="round"
+			stroke-linejoin="round"
+		/>
+		<path 
+			d={path} 
+			class="path-solid-animation" 
+			style:stroke={pathColor}
+			style:filter="saturate(2772%) brightness(143%) contrast(101%)"
+			stroke-dasharray="30 10"
+			stroke-linecap="round"
+			stroke-linejoin="round"
 		/>
 		{#if showConnectionArrows}
 			<path
@@ -169,9 +187,14 @@
 	.path,
 	.path-strong,
 	.path-hover-box,
+	.path-solid-animation,
 	.path-selected {
 		fill: none;
 		cursor: pointer;
+	}
+
+	.path-solid-animation{
+		display: none;
 	}
 
 	.path {
@@ -201,6 +224,8 @@
 	}
 
 	.ied-selected .path,
+	.ied-selected.needs-solid-animation .path-solid-animation,
+	.selected.needs-solid-animation .path-solid-animation,
 	.selected .path-selected {
 		display: block;
 		animation-name: ied-connection-animation;
@@ -228,7 +253,7 @@
 		This is a workaround because a real solution does not really worth it
 	*/
 	@keyframes -global-ied-connection-animation {
-		from { stroke-dashoffset: 1000%; }
-		to {  stroke-dashoffset: 0%; }
+		from { stroke-dashoffset: 5000px; }
+		to {  stroke-dashoffset: 0px; }
 	}
 </style>

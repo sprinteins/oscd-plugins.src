@@ -10,6 +10,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## Added
 - clicking on the background of the diagram will deselect all elements
+- multiple IED selection
+- animated connection to see better the direction of messages
+- add MMS messages
 
 ## Changed
 - new diagram design

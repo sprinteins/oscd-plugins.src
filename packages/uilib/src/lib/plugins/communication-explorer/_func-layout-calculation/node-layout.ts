@@ -4,27 +4,22 @@ import { MessageType } from "@oscd-plugins/core"
 import type { SelectedFilter } from "../_store-view-filter"
 import { generateConnectionLayout } from "."
 import type { IEDNode, RootNode } from "../../../components/diagram"
-import { generateIEDLayout } from "./node-layout-ieds"
+import { generateIEDLayout, type Config } from "./node-layout-ieds"
 
 
-export type Config = {
-	width: number,
-	height: number,
-	// heightPerConnection: number,
-}
 
-export const messageTypeMap:{[key: string]: MessageType} = {
-	"GOOSE": MessageType.GOOSE,
-	"SMV":   MessageType.SampledValues,
-}
-
-export async function calculateLayout(ieds: IEDCommInfo[], config: Config, selectionFilter: SelectedFilter): Promise<RootNode> {
+export async function calculateLayout(
+	ieds: IEDCommInfo[], 
+	config: Config, 
+	selectionFilter: SelectedFilter,
+): Promise<RootNode> {
 		
 	if(selectionFilter.nameFilter !== ""){
 		ieds = ieds.filter(ied => ied.iedName.toLowerCase().includes(selectionFilter.nameFilter.toLowerCase()))
 	}
 
 	let edges = generateConnectionLayout(ieds, selectionFilter)
+	console.log({level: "dev", msg: "calculateLayout", edges})
 	let children: IEDNode[] = generateIEDLayout(ieds, edges, config, selectionFilter)
 
 	if(selectionFilter.hideIrrelevantStuff){
@@ -53,8 +48,4 @@ export async function calculateLayout(ieds: IEDCommInfo[], config: Config, selec
 	const nodes = (await elk.layout(graph)) as RootNode
 
 	return nodes
-}
-
-export function Id(something: unknown): string {
-	return `ied-${something}`
 }

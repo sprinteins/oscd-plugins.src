@@ -2,7 +2,7 @@
     import { calculateLayout } from "../_func-layout-calculation/node-layout"
     import { Diagram, type IEDConnection, type IEDConnectionWithCustomValues, type IEDNode, type RootNode } from "../../../components/diagram"
     import { Sidebar } from "../sidebar"
-    import { getIEDs } from "../_func-layout-calculation/get-ieds"
+    import { extractIEDInfos } from "../_func-layout-calculation/get-ieds"
     import {
     	selectedIEDNode,
     	type SelectedFilter,
@@ -28,7 +28,7 @@
     		return []
     	}
 
-    	const iedInfos = getIEDs(root)
+    	const iedInfos = extractIEDInfos(root)
     	rootNode = await calculateLayout(iedInfos, config, selectedFilter)
     }
 

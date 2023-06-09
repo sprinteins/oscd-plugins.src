@@ -1,67 +1,172 @@
-import type { IEDCommInfo } from "@oscd-plugins/core"
+import { MessageType, type IEDCommInfo } from "@oscd-plugins/core"
 import type { IEDConnectionWithCustomValues } from "../../../components/diagram"
 import { hasActiveIEDSelection, isIEDSelected, type SelectedFilter } from "../_store-view-filter"
-import {Id, messageTypeMap} from "./"
+
+export const messageTypeMap:{[key: string]: MessageType} = {
+	"GOOSE": MessageType.GOOSE,
+	"SMV":   MessageType.SampledValues,
+	"MMS":   MessageType.MMS,
+}
 
 export function generateConnectionLayout(ieds: IEDCommInfo[], selectionFilter: SelectedFilter): IEDConnectionWithCustomValues[] {
-	const hasSelection = hasActiveIEDSelection()
-	let connectionCounter = 0
-    
-	const edges: IEDConnectionWithCustomValues[] = ieds.map( (targetIED, ii) => { 
-		const iedConnections: IEDConnectionWithCustomValues[] = []
-		targetIED.received.forEach( message => {
-
-			const sourceIEDName = message.iedName
-			const sourceIEDIndex = ieds.findIndex((sourceIED) => sourceIED.iedName === sourceIEDName)
-			if(sourceIEDIndex === -1) {
-				console.warn({level: "warn", msg: "calculateLayout: source IED not found, continuing", sourceIEDName, ieds})
-				return
-			}
-			const sourceIED = ieds[sourceIEDIndex]
-			const targetIED = ieds[ii]
-
-			const selectedMessageTypes: string[] = selectionFilter.selectedMessageTypes
-			const messageType = messageTypeMap[message.serviceType]
-
-			// check messageType for undefined so unknown message types are also displayed
-			const isRelevantMessageType: boolean = (selectedMessageTypes.includes(messageType) || messageType === undefined)
-
-			let isRelevant = true
-			if (hasSelection) {
-
-				isRelevant = checkRelevance(selectionFilter, targetIED, sourceIED)
 	
-				if (isRelevant && !isRelevantMessageType) {
-					isRelevant = false
-				} 
+	const hasSelection = hasActiveIEDSelection()
+	
+	const incomingEdges: IEDConnectionWithCustomValues[] = ieds.map( (targetIED, index) => { 
+		const receivedConnections = convertReceivedMessagesToConnections(
+			targetIED, 
+			ieds, 
+			index, 
+			selectionFilter, 
+			hasSelection, 
+		)
 
-			} else {
+		return receivedConnections
+	}).flat()
+	
 
-				if (!isRelevantMessageType) {
-					isRelevant = false
-				}
-				
+	const outgoingEdges: IEDConnectionWithCustomValues[] = ieds.map( (sourceIED, index) => {
+		const publishedConnections = convertPublishedMessagesToConnections(
+			sourceIED, 
+			ieds, 
+			index, 
+			selectionFilter, 
+			hasSelection, 
+		)
+
+		return publishedConnections
+	}).flat()
+	
+
+	return [...incomingEdges, ...outgoingEdges]
+}
+
+function convertPublishedMessagesToConnections(
+	sourceIED: IEDCommInfo, 
+	ieds: IEDCommInfo[], 
+	ii: number, 
+	selectionFilter: SelectedFilter, 
+	hasSelection: boolean, 
+): IEDConnectionWithCustomValues[] {
+
+	const iedConnections: IEDConnectionWithCustomValues[] = []
+	
+	sourceIED.published.forEach(message => {
+		// 
+		// Prepare
+		// 
+		const targetIEDName = message.targetIEDName
+		const targetIEDIndex = ieds.findIndex((targetIED) => targetIED.iedName === targetIEDName)
+		if (targetIEDIndex === -1) {
+			console.warn({ level: "warn", msg: "calculateLayout: source IED not found, continuing", targetIEDName, ieds })
+			return
+		}
+		const targetIED = ieds[targetIEDIndex]
+		const messageType = messageTypeMap[message.serviceType]
+		const connectionID = message.id
+
+		// 
+		// Relevancy
+		// 
+		const selectedMessageTypes: string[] = selectionFilter.selectedMessageTypes
+		const isUnknownMessageType: boolean = messageType === undefined
+		const isRelevantMessageType: boolean = (selectedMessageTypes.includes(messageType) || isUnknownMessageType)
+		
+		let isRelevant = true
+		if (hasSelection) {
+			isRelevant = checkRelevance(selectionFilter, targetIED, sourceIED)
+			if (isRelevant && !isRelevantMessageType) {
+				isRelevant = false
 			}
-			
-			const connectionID = `con_${Id(sourceIEDIndex)}_${Id(ii)}_${messageType}_${connectionCounter}`
-			connectionCounter++
-			
-			const connection = { 
-				id:               connectionID, 
-				sources:          [Id(sourceIEDIndex)], 
-				targets:          [Id(ii)], 
-				sourceIED:        sourceIED,
-				targetIED:        targetIED,
-				isRelevant,
-				relevantIEDNames: [targetIED.iedName, sourceIED.iedName],
-				messageType:      messageType,
-			} 
-			iedConnections.push(connection)
-		}) 
-		return iedConnections
-	}).flat() 
+		} else {
+			if (!isRelevantMessageType) {
+				isRelevant = false
+			}
+		}
 
-	return edges
+		// 
+		// Assembly
+		// 
+		const connection = {
+			id:               connectionID,
+			sources:          [Id(targetIEDIndex)],
+			targets:          [Id(ii)],
+			sourceIED:        sourceIED,
+			targetIED:        targetIED,
+			isRelevant,
+			relevantIEDNames: [sourceIED.iedName, targetIED.iedName],
+			messageType:      messageType,
+		}
+
+		iedConnections.push(connection)
+	})
+	return iedConnections
+}
+
+function convertReceivedMessagesToConnections(
+	targetIED: IEDCommInfo, 
+	ieds: IEDCommInfo[], 
+	ii: number, 
+	selectionFilter: SelectedFilter, 
+	hasSelection: boolean, 
+): IEDConnectionWithCustomValues[] {
+	let connectionCounter = 0
+	const iedConnections: IEDConnectionWithCustomValues[] = []
+	targetIED.received.forEach(message => {
+
+		// 
+		// Prepare
+		// 
+		const sourceIEDName = message.iedName
+		const sourceIEDIndex = ieds.findIndex((sourceIED) => sourceIED.iedName === sourceIEDName)
+		if (sourceIEDIndex === -1) {
+			console.warn({ level: "warn", msg: "calculateLayout: source IED not found, continuing", sourceIEDName, ieds })
+			return
+		}
+		const sourceIED = ieds[sourceIEDIndex]
+		const targetIED = ieds[ii]
+
+		const selectedMessageTypes: string[] = selectionFilter.selectedMessageTypes
+		const messageType = messageTypeMap[message.serviceType]
+
+		// 
+		// Relevancy
+		// 
+		// check messageType for undefined so unknown message types are also displayed
+		const isUnknownMessageType: boolean = messageType === undefined
+		const isRelevantMessageType: boolean = (selectedMessageTypes.includes(messageType) || isUnknownMessageType)
+
+		let isRelevant = true
+		if (hasSelection) {
+			isRelevant = checkRelevance(selectionFilter, targetIED, sourceIED)
+			if (isRelevant && !isRelevantMessageType) {
+				isRelevant = false
+			}
+		} else {
+			if (!isRelevantMessageType) {
+				isRelevant = false
+			}
+		}
+
+		const connectionID = `con_received_${Id(sourceIEDIndex)}_${Id(ii)}_${messageType}_${connectionCounter}`
+		connectionCounter++
+
+		// 
+		// Assembly
+		// 
+		const connection = {
+			id:               connectionID,
+			sources:          [Id(sourceIEDIndex)],
+			targets:          [Id(ii)],
+			sourceIED:        sourceIED,
+			targetIED:        targetIED,
+			isRelevant,
+			relevantIEDNames: [targetIED.iedName, sourceIED.iedName],
+			messageType:      messageType,
+		}
+		iedConnections.push(connection)
+	})
+	return iedConnections
 }
 
 function checkRelevance(selectionFilter: SelectedFilter, targetIED: IEDCommInfo, sourceIED: IEDCommInfo): boolean {
@@ -84,4 +189,8 @@ function checkRelevance(selectionFilter: SelectedFilter, targetIED: IEDCommInfo,
 	
 	const everythingIsRelevantIfThereIsNoSelection = true
 	return everythingIsRelevantIfThereIsNoSelection
+}
+
+export function Id(something: unknown): string {
+	return `ied-${something}`
 }
