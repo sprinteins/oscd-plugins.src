@@ -9,6 +9,7 @@
     	selectConnection,
     	selectIEDNode,
     	clearIEDSelection,
+    	toggleMultiSelectionOfIED,
     } from "../_store-view-filter"
 
     export let root: Element
@@ -37,8 +38,11 @@
     	// heightPerConnection: 20,
     }
 
-    export function handleIEDClick(e: CustomEvent<IEDNode>) {
+    export function handleIEDSelect(e: CustomEvent<IEDNode>) {
     	selectIEDNode(e.detail)
+    }
+    export function handleIEDAdditiveSelect(e: CustomEvent<IEDNode>) {
+    	toggleMultiSelectionOfIED(e.detail)
     }
     export function handleConnectionClick(e: CustomEvent<IEDConnection>) {
     	// temp till fully migrated: map element to enhanced data model
@@ -55,7 +59,8 @@
     {#if rootNode}
         <Diagram
             {rootNode}
-            on:iedclick={handleIEDClick}
+            on:iedselect={handleIEDSelect}
+            on:iedadditiveselect={handleIEDAdditiveSelect}
             on:connectionclick={handleConnectionClick}
             on:clearclick={handleClearClick}
             selectedIedIDs={$selectedIEDNode.selectedIEDs?.map(ied => ied.id)}

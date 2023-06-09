@@ -28,6 +28,7 @@ export let disabled = false
 		padding: 0.2rem;
 		transition: all 200ms ease-in-out;
 		box-sizing: border-box;
+		user-select: none;
 
 
 		/* TODO: extract colors */

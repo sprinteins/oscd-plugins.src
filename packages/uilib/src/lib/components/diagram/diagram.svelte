@@ -21,8 +21,20 @@
 	let svgRoot: SVGElement
 
 	const dispatch = createEventDispatcher()
-	function dispatchIEDClick(node: IEDNode) {
-		dispatch("iedclick", node)
+	function handleIEDClick(e: MouseEvent, node: IEDNode) {
+		const isAdditiveSelect = e.metaKey || e.ctrlKey || e.shiftKey
+		if(isAdditiveSelect){
+			dispatchIEDAdditiveSelect(node)
+			return
+		}
+
+		dispatchIEDSelect(node)
+	}
+	function dispatchIEDSelect(node: IEDNode) {
+		dispatch("iedselect", node)
+	}
+	function dispatchIEDAdditiveSelect(node: IEDNode) {
+		dispatch("iedadditiveselect", node)
 	}
 
 	function dispatchConnectionClick(connection: ElkExtendedEdge) {
@@ -54,7 +66,7 @@
 						y={node.y}
 						width={node.width}
 						height={node.height}
-						on:click={() => dispatchIEDClick(node)}
+						on:click={(e) => handleIEDClick(e,node)}
 						on:keydown
 					>
 						<!-- <IEDElement {node} isSelected={node.id === selectedIedIDs} /> -->

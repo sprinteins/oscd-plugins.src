@@ -113,11 +113,15 @@
             filterDisabled={isIedFiltersDisabled}
         />
 
-        {#if IEDSelections !== undefined}
+        {#if IEDSelections.length > 0 !== undefined}
             <hr />
+            <ul class="ied-detail-list">
             {#each IEDSelections as IEDSelections }
+            <li>
                 <IEDAccordion IEDSelection={IEDSelections} {rootNode} />
+            </li>
             {/each}
+            </ul>
         {/if}
 
         {#if ConnectionSelection !== undefined}
@@ -151,7 +155,7 @@
         </div>
 
         <label>
-            <span>IED search:</span>
+            <span>IED filter by name:</span>
             <input
                 type="text"
                 placeholder="e.g.: XAT"
@@ -227,5 +231,14 @@
     .centered {
         display: flex;
         justify-content: center;
+    }
+
+    .ied-detail-list{
+        list-style: none;
+        margin:0;
+        padding:0;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
     }
 </style>

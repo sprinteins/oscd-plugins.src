@@ -12,6 +12,29 @@ export function selectIEDNode(node: IEDNode) {
 	})
 }
 
+export function toggleMultiSelectionOfIED(node: IEDNode){
+	selectedIEDNode.update(selectedFilter => {
+
+		const selectedIEDs = selectedFilter.selectedIEDs
+		const isAlreadySelected = selectedIEDs.some(iedNode => iedNode.id === node.id)
+
+		let newSelectedIEDs: IEDNode[] = []
+		if(!isAlreadySelected){
+			newSelectedIEDs = [...selectedFilter.selectedIEDs, node]
+		}else{
+			newSelectedIEDs = selectedIEDs.filter(selectedIED => selectedIED.id !== node.id)
+		}
+
+		const newFilterState = {
+			...selectedFilter,
+			selectedIEDs:       newSelectedIEDs,
+			selectedConnection: undefined,
+		}
+		return newFilterState
+	})
+}
+
+
 export function clearIEDSelection() {
 	selectedIEDNode.update(selectedFilter => {
 		return {
