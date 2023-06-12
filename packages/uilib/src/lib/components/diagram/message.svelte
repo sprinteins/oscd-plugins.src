@@ -12,8 +12,6 @@
 	export let isSelected = false
 	export let isIEDSelected = false
 
-	$: console.log({level: "dev", msg: "message.svelte", edge: edge.id, isSelected, isIEDSelected})
-
 	// 
 	// Internal
 	//

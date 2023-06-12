@@ -1,3 +1,4 @@
+import { MessageType } from "./messages-types"
 
 export class SCDQueries {
 	constructor(
@@ -30,26 +31,30 @@ export class SCDQueries {
 		return this.searchElement<InputElement>(SCDQueries.SelectorInput,[],options)
 	}
 
+	
+
 	public static SelectorExtRef = "ExtRef"
+	public static AttributeListExtRef: AttributeList<InputExtRefElement>[] = [
+		"iedName",
+		"serviceType",
+		// "ldInst",
+		// "lnClass",
+		// "lnInst",
+		// "prefix",
+		// "doName",
+		// "daName",
+		// "srcLDInst",
+		// "srcPrefix",
+		"srcCBName",
+	]
 	public searchExtRef(options?: CommonOptions): InputExtRefElement[]{
-		return this.searchElement<InputExtRefElement>(
+		return this.searchElement<InputExtRefElement>( 
 			SCDQueries.SelectorExtRef, 
-			[
-				"iedName",
-				"serviceType",
-				// "ldInst",
-				// "lnClass",
-				// "lnInst",
-				// "prefix",
-				// "doName",
-				// "daName",
-				// "srcLDInst",
-				// "srcPrefix",
-				"srcCBName",
-			],
+			SCDQueries.AttributeListExtRef, 
 			options,
 		)
 	}
+
 	
 	public static SelectorDataSet = "DataSet"
 	public searchDataSetByName(name:string, options?:CommonOptions): Optional<DataSetElement>{

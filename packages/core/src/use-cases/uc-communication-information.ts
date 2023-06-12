@@ -28,7 +28,7 @@ export class UCCommunicationInformation {
 	private findPublishedMessages_V2(ied: IEDElement): PublishedMessage_V2[]{
 		const messages: PublishedMessage_V2[] = []
 		
-		const reportControlInfos = this.findReportControls(ied)
+		const reportControlInfos = this.findPublishedReportControls(ied)
 		for(const info of reportControlInfos){
 			messages.push({
 				id:            info.rptID,
@@ -111,7 +111,8 @@ export class UCCommunicationInformation {
 		return messages
 	}
 
-	private findReportControls(ied: IEDElement): ReportControlInfo[] {
+
+	private findPublishedReportControls(ied: IEDElement): ReportControlInfo[] {
 		const controls: ReportControlInfo[] = []
 		const reportControls = this.scdQueries.searchReportControls({root: ied.element})
 		for(const reportControl of reportControls){
