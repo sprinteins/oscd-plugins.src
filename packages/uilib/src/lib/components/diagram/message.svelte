@@ -131,27 +131,24 @@
 	class:show-selected-path={isSelected}
 	class:selected={isSelected}
 	class:ied-selected={isIEDSelected}
-	class:needs-solid-animation={edge.messageType === MessageType.GOOSE}
+	class:needs-solid-animation={true}
 	data-testid="connection"
 >
 	{#if path}
 		<path d={path} class="path-hover-box"  />
 		<path d={path} class="path-strong"  />
-		<path 
-			d={path} 
-			class="path-selected" 
-			style:stroke={pathColor}
-			stroke-dasharray={dashArray} 
-			stroke-linecap="round"
-			stroke-linejoin="round"
-		/>
-		
 		<path
 			d={path}
 			class:irrelevant={!edge.isRelevant}
 			class="path"
 			style:stroke={pathColor}
-			stroke-dasharray={dashArray}
+			stroke-linecap="round"
+			stroke-linejoin="round"
+		/>
+		<path 
+			d={path} 
+			class="path-selected" 
+			style:stroke={pathColor}
 			stroke-linecap="round"
 			stroke-linejoin="round"
 		/>
@@ -159,8 +156,8 @@
 			d={path} 
 			class="path-solid-animation" 
 			style:stroke={pathColor}
-			style:filter="saturate(2772%) brightness(143%) contrast(101%)"
-			stroke-dasharray="30 10"
+			style:filter="saturate(2000%) brightness(200%) contrast(300%)"
+			stroke-dasharray="20 20"
 			stroke-linecap="round"
 			stroke-linejoin="round"
 		/>
@@ -196,9 +193,8 @@
 	}
 
 	.path {
-		/* stroke-width: 0.08rem; */
-		stroke-width: 2px;
-		/* stroke: var(--color-black, #000); */
+		stroke-width: 0.16rem;
+		/* stroke-width: 2px; */
 		stroke: #288409;
 		background: #288409;
 		border: 1.5px solid #1C5907;
@@ -221,10 +217,13 @@
 		display: none;
 	}
 
-	.ied-selected .path,
-	.ied-selected.needs-solid-animation .path-solid-animation,
-	.selected.needs-solid-animation .path-solid-animation,
-	.selected .path-selected {
+	.selected .path-selected{
+		display: block;
+	}
+
+	.ied-selected .path-solid-animation,
+	.selected .path-solid-animation {
+		stroke-width: 0.275rem;
 		display: block;
 		animation-name: ied-connection-animation;
   		animation-duration: 200s;

@@ -12,8 +12,6 @@
 	// Inputs
 	//
 	export let rootNode: RootNode
-	export let selectedIEDs: IEDNode[] = []
-	export let selectedConnection: IEDConnectionWithCustomValues | undefined
 
 	//
 	// Setup
