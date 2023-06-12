@@ -1,18 +1,18 @@
 <script lang="ts">
-	import type { IEDCommInfo } from "@oscd-plugins/core";
+	import type { IEDCommInfo } from "@oscd-plugins/core"
 	import { Diagram, type IEDConnection, type IEDConnectionWithCustomValues, type IEDNode, type RootNode } from "."
 	import { generateMockRootNode } from "../../mocks/root-node"
 	import { Example } from "../internal"
-	import { calculateLayout } from "../../plugins/communication-explorer/_func-layout-calculation";
-	import { clearIEDSelection, selectConnection, selectIEDNode, selectedIEDNode, toggleMultiSelectionOfIED } from "../../plugins/communication-explorer/_store-view-filter";
-	import type { Config } from "../../plugins/communication-explorer/_func-layout-calculation/config";
+	import { calculateLayout } from "../../plugins/communication-explorer/_func-layout-calculation"
+	import { clearIEDSelection, selectConnection, selectIEDNode, selectedIEDNode, toggleMultiSelectionOfIED } from "../../plugins/communication-explorer/_store-view-filter"
+	import type { Config } from "../../plugins/communication-explorer/_func-layout-calculation/config"
 
 	const nodes = generateMockRootNode()
 
 	const _config: Config = {
-		height: 40,
-		width: 100,
-		spacingBase: 10,
+		height:              40,
+		width:               100,
+		spacingBase:         10,
 		spacingBetweenNodes: 100,
 	}
 	
@@ -28,19 +28,19 @@
 	]
 
 	iedInfos[0].published.push({
-		id: "1",
-		name: "name",
+		id:            "1",
+		name:          "name",
 		targetIEDName: iedInfos[1].iedName,
-		serviceType: "MMS",
+		serviceType:   "MMS",
 	})
 	iedInfos[2].received.push({
-		iedName: 	 iedInfos[3].iedName,
+		iedName: 	   iedInfos[3].iedName,
 		serviceType: "GOOSE",
 		srcCBName: 	 "Dataset_1",
 		data:        [],
 	})
 	iedInfos[4].received.push({
-		iedName: 	 iedInfos[5].iedName,
+		iedName: 	   iedInfos[5].iedName,
 		serviceType: "SMV",
 		srcCBName: 	 "Dataset_1",
 		data:        [],
@@ -54,19 +54,19 @@
 	}
 
 	function handleIEDSelect(e: CustomEvent<IEDNode>) {
-    	selectIEDNode(e.detail)
-    }
+		selectIEDNode(e.detail)
+	}
 	function handleIEDAdditiveSelect(e: CustomEvent<IEDNode>) {
-    	toggleMultiSelectionOfIED(e.detail)
-    }
+		toggleMultiSelectionOfIED(e.detail)
+	}
 	function handleConnectionClick(e: CustomEvent<IEDConnection>) {
-    	// temp till fully migrated: map element to enhanced data model
-    	const selectedConnection = e.detail as IEDConnectionWithCustomValues
-    	selectConnection(selectedConnection)
-    }
-    function handleClearClick() {
-    	clearIEDSelection()
-    }
+		// temp till fully migrated: map element to enhanced data model
+		const selectedConnection = e.detail as IEDConnectionWithCustomValues
+		selectConnection(selectedConnection)
+	}
+	function handleClearClick() {
+		clearIEDSelection()
+	}
 
 
 </script>
@@ -83,7 +83,7 @@
 				on:iedselect={handleIEDSelect}
 				on:iedadditiveselect={handleIEDAdditiveSelect} 
 				on:connectionclick={handleConnectionClick}
-            	on:clearclick={handleClearClick}
+				on:clearclick={handleClearClick}
 			/>
 		{/if}
 	</div>
