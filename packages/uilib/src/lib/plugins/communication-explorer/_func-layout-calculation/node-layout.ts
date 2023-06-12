@@ -1,25 +1,33 @@
 import ELK, { type ElkNode } from "elkjs/lib/elk.bundled"
 import type { IEDCommInfo } from "@oscd-plugins/core"
-import { MessageType } from "@oscd-plugins/core"
 import type { SelectedFilter } from "../_store-view-filter"
 import { generateConnectionLayout } from "."
 import type { IEDNode, RootNode } from "../../../components/diagram"
-import { generateIEDLayout, type Config } from "./node-layout-ieds"
+import { generateIEDLayout } from "./node-layout-ieds"
+import type { Config } from "./config"
 
 
+const defaultConfigs: Partial<Config> = {
+	spacingBase:         20,
+	spacingBetweenNodes: 20,
+}
 
 export async function calculateLayout(
 	ieds: IEDCommInfo[], 
 	config: Config, 
 	selectionFilter: SelectedFilter,
 ): Promise<RootNode> {
+
+	config = {
+		...defaultConfigs,
+		...config,
+	}
 		
 	if(selectionFilter.nameFilter !== ""){
 		ieds = ieds.filter(ied => ied.iedName.toLowerCase().includes(selectionFilter.nameFilter.toLowerCase()))
 	}
 
 	let edges = generateConnectionLayout(ieds, selectionFilter)
-	console.log({level: "dev", msg: "calculateLayout", edges})
 	let children: IEDNode[] = generateIEDLayout(ieds, edges, config, selectionFilter)
 
 	if(selectionFilter.hideIrrelevantStuff){
@@ -39,10 +47,17 @@ export async function calculateLayout(
 			"org.eclipse.elk.layered.nodePlacement.bk.fixedAlignment": "RIGHTUP",
 			"org.eclipse.elk.direction":                               "LEFT",
 			
+			// default: 20; a component is when multiple nodes are connected
+			// "org.eclipse.elk.spacing.componentComponent": "20", 
+			
+			"org.eclipse.elk.layered.spacing.baseValue":             String(config.spacingBase),
+			"org.eclipse.elk.layered.spacing.nodeNodeBetweenLayers": String(config.spacingBetweenNodes),
+			
 		},
 		children,
 		edges,
 	}
+	console.log({level: "dev", graph})
 
 	// message type information gets lost here
 	const nodes = (await elk.layout(graph)) as RootNode

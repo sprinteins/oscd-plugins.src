@@ -1,15 +1,16 @@
 import type { IEDCommInfo } from "@oscd-plugins/core"
 import type { IEDConnectionWithCustomValues, IEDNode } from "../../../components/diagram"
 import { hasActiveIEDSelection, isIEDSelected, type SelectedFilter } from "../_store-view-filter"
+import type { Config } from "./config"
 
 
-export type Config = {
-	width: number,
-	height: number,
-	// heightPerConnection: number,
-}
 
-export function generateIEDLayout(ieds: IEDCommInfo[], edges: IEDConnectionWithCustomValues[], config: Config, selectionFilter: SelectedFilter): IEDNode[] {
+export function generateIEDLayout(
+	ieds: IEDCommInfo[], 
+	edges: IEDConnectionWithCustomValues[], 
+	config: Config, 
+	selectionFilter: SelectedFilter,
+): IEDNode[] {
 	const hasSelection = hasActiveIEDSelection()
 
 	const relevantEdges = edges.filter(edge => edge.isRelevant)

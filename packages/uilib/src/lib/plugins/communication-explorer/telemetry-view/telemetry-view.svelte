@@ -11,6 +11,7 @@
     	clearIEDSelection,
     	toggleMultiSelectionOfIED,
     } from "../_store-view-filter"
+    import type { Config } from "../_func-layout-calculation/config"
 
     export let root: Element
     export let showSidebar = true
@@ -19,7 +20,7 @@
     $: initInfos(root, $selectedIEDNode)
 
     // Note: maybe have a mutex if there are too many changes
-    export async function initInfos(
+    async function initInfos(
     	root: Element,
     	selectedFilter: SelectedFilter
     ) {
@@ -32,24 +33,26 @@
     	rootNode = await calculateLayout(iedInfos, config, selectedFilter)
     }
 
-    export const config = {
+    const config: Config = {
     	width:  150,
     	height: 40,
+    	// spacingBetweenNodes: 100,
+    	// spacingBase: 40,
     	// heightPerConnection: 20,
     }
 
-    export function handleIEDSelect(e: CustomEvent<IEDNode>) {
+    function handleIEDSelect(e: CustomEvent<IEDNode>) {
     	selectIEDNode(e.detail)
     }
-    export function handleIEDAdditiveSelect(e: CustomEvent<IEDNode>) {
+    function handleIEDAdditiveSelect(e: CustomEvent<IEDNode>) {
     	toggleMultiSelectionOfIED(e.detail)
     }
-    export function handleConnectionClick(e: CustomEvent<IEDConnection>) {
+    function handleConnectionClick(e: CustomEvent<IEDConnection>) {
     	// temp till fully migrated: map element to enhanced data model
     	const selectedConnection = e.detail as IEDConnectionWithCustomValues
     	selectConnection(selectedConnection)
     }
-    export function handleClearClick() {
+    function handleClearClick() {
     	clearIEDSelection()
     }
 
@@ -63,8 +66,6 @@
             on:iedadditiveselect={handleIEDAdditiveSelect}
             on:connectionclick={handleConnectionClick}
             on:clearclick={handleClearClick}
-            selectedIEDs={$selectedIEDNode?.selectedIEDs}
-            selectedConnection={$selectedIEDNode?.selectedConnection}
         />
         {#if showSidebar}
             <Sidebar {rootNode} />
