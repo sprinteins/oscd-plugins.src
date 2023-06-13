@@ -193,6 +193,7 @@
 	}
 
 	.path {
+		/* TODO: extract colors */
 		stroke-width: 0.16rem;
 		/* stroke-width: 2px; */
 		stroke: #288409;
