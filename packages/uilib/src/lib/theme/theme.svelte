@@ -13,7 +13,7 @@
 	:root,
 	:host {
 		--color-white: #F9F7F1;
-
+		
 		--color-white-dark: #f2f2f2;
 		--color-yellow: #d9d800;
 		--color-blue: #004552;
@@ -27,47 +27,58 @@
 		--color-beige-2: blanchedalmond;
 		--color-beige-3: #f3ecda;
 		--color-beige-4: #fcf6e5;
+		--color-beige-5: #fdfbf2;
 		--color-pink: #c73c61;
 		--color-grey-1: #626262;
 		--color-grey-2: #808080;
+		
 		--color-grey-3: #bdbdbd;
+		--color-grey-dark: #4d5d63;
+		
 		--color-cyan: #2aa198;
-
-		--color-primary: var(--color-yellow);
+		--color-select-dropdown: #fffff4;
+		--color-select-dropdown-transparent: #fffff480;
+		
+		--color-border: #4d5d63;
+		
+		--color-primary: var(--color-cyan);
 		--color-secondary: var(--color-blue);
 		--color-text: var(--color-white);
-		--color-accent: #2aa198;
+		--color-accent: var(--color-cyan);
 		--color-text-disabled-1: rgba(0, 0, 0, 0.4);
-
+		
 		--border-radius: 5px;
-
+		
 		--font-family: "Roboto", sans-serif;
 		--letter-spacing: 0.2px;
 		--font-size: 12px;
-
+		--font-size-small: 8px;
+		--font-color: var(--color-grey-dark);
+		
 		--color-ied-focus: var(--color-beige-1);
 		--color-ied-focus-hover: var(--color-beige-2);
-
+		
 		--color-message-goose: var(--color-green);
 		--color-message-mms: var(--color-blue-1);
 		--color-message-sampledvalues: var(--color-pink);
 		--color-message-unknown: var(--color-black);
-
+		
+		--color-category-selector: var(--color-beige-5);
+		
 		/* cb = colorblind */
 		/* --color-message-goose-cb: #3BC40E; */
 		/* --color-message-mms-cb: #00BCBF; */
 		/* --color-message-sampledvalues-cb: #407CF5; */
-
+		
 		--sidebar-width: 400px;
-
+		
 		/* SMUI Variables */
-
+		
 		--mdc-theme-primary: var(--color-cyan);
-		--mdc-typography-button-text-transform: none;
 		--mdc-typography-button-font-weight: bold;
 		--mdc-theme-surface: var(--color-beige-3);
 	}
-
+	
 	:root,
 	:host {
 		font-family: var(--font-family);
