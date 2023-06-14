@@ -72,9 +72,11 @@
 						on:click={(e) => handleIEDClick(e,node)}
 						on:keydown
 					>
-						<!-- <IEDElement {node} isSelected={node.id === selectedIedIDs} /> -->
-						<!-- <IEDElement {node} isSelected={selectedIedIDs.includes(node.id)} /> -->
-						<IEDElement {node} isSelected={isIEDSelected(node)} />
+						<IEDElement 
+							{node} 
+							isSelected={isIEDSelected(node)} 
+							testid={`ied-${node.label}`}
+						/>
 					</foreignObject>
 				{/each}
 			{/if}
@@ -86,6 +88,7 @@
 						isSelected={isConnectionSelected(edge)}
 						isIEDSelected={ isConnectionsAnyIEDSelected(edge) }
 						on:click={() => dispatchConnectionClick(edge)}
+						testid={`connection-${edge.id}`}
 					/>
 				{/each}
 			{/if}

@@ -11,6 +11,7 @@
 	export let edge: IEDConnection
 	export let isSelected = false
 	export let isIEDSelected = false
+	export let testid = ""
 
 	// 
 	// Internal
@@ -132,7 +133,7 @@
 	class:selected={isSelected}
 	class:ied-selected={isIEDSelected}
 	class:needs-solid-animation={true}
-	data-testid="connection"
+	data-testid={testid}
 >
 	{#if path}
 		<path d={path} class="path-hover-box"  />

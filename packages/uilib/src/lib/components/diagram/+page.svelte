@@ -1,13 +1,10 @@
 <script lang="ts">
 	import type { IEDCommInfo } from "@oscd-plugins/core"
 	import { Diagram, type IEDConnection, type IEDConnectionWithCustomValues, type IEDNode, type RootNode } from "."
-	import { generateMockRootNode } from "../../mocks/root-node"
 	import { Example } from "../internal"
 	import { calculateLayout } from "../../plugins/communication-explorer/_func-layout-calculation"
 	import { clearIEDSelection, selectConnection, selectIEDNode, selectedIEDNode, toggleMultiSelectionOfIED } from "../../plugins/communication-explorer/_store-view-filter"
 	import type { Config } from "../../plugins/communication-explorer/_func-layout-calculation/config"
-
-	const nodes = generateMockRootNode()
 
 	const _config: Config = {
 		height:              40,
