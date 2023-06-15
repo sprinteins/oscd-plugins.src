@@ -1,5 +1,9 @@
 <script lang="ts">
-    import type { IEDCommInfo } from "@oscd-plugins/core"
+    import {
+    	SCDQueries,
+    	type IEDCommInfo,
+    	UCTypeDedupe,
+    } from "@oscd-plugins/core"
     import PrintTelemetry from "./print-telemetry/print-telemetry.svelte"
     import Pagebreak from "./pagebreak/pagebreak.svelte"
     import { calcIEDs } from "."
@@ -7,6 +11,27 @@
 
     export let scdData: Element
     let iedInfos: IEDCommInfo[] = calcIEDs(scdData)
+
+    let scdQueries: SCDQueries
+    let iedDetailedInfos: UCTypeDedupe
+
+    $: init(scdData)
+    async function init(document: Element) {
+    	if (!document) {
+    		return
+    	}
+    	scdQueries = new SCDQueries(document)
+    	iedDetailedInfos = new UCTypeDedupe(scdQueries)
+
+    	scdQueries.GetIEDwithDataTypes()
+
+    	// console.log(
+    	//     "iedDetailedInfos",
+    	//     await (
+    	//         await iedDetailedInfos.findAllTypes()
+    	//     ).LNodeTypes[0].element.outerHTML
+    	// );
+    }
 </script>
 
 <section class="network-explorer-print-content">

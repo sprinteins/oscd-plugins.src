@@ -1,4 +1,4 @@
-import { SCDElement, IdentifiableElement } from "../scd/scd-query"
+import { SCDElement, IdentifiableElement} from "../scd/scd-query"
 import { SCDQueries } from "../scd/scd-query"
 import { hashElement } from "../xml/hash"
 
@@ -11,6 +11,20 @@ export class UCTypeDedupe {
 	constructor(
 		private readonly scdQueries: SCDQueries,
 	){}
+
+	public async findAllTypes(): Promise<AllTypesCollection> {
+		const LNodeTypes: IdentifiableElement[] = await this.findDetailedTypes(await this.scdQueries.searchLNodeTypes.bind(this.scdQueries))
+		const DATypes = await this.findDetailedTypes(await this.scdQueries.searchDATypes.bind(this.scdQueries))
+		const DOTypes = await this.findDetailedTypes(await this.scdQueries.searchDOTypes.bind(this.scdQueries))
+		const EnumTypes = await this.findDetailedTypes(await this.scdQueries.searchEnumTypes.bind(this.scdQueries))
+
+		return {
+			LNodeTypes,
+			DATypes,
+			DOTypes,
+			EnumTypes,
+		}
+	}
 
 	public async findDuplicateDataObjectTypes(): Promise<HashedElementCollective> {
 		const duplicates = await this.findDuplicateTypes(this.scdQueries.searchDOTypes.bind(this.scdQueries))
@@ -33,7 +47,7 @@ export class UCTypeDedupe {
 	}
 	
 	public async findDuplicateTypes(searchElements: () => IdentifiableElement[]): Promise<HashedElementCollective>{
-		const types = await searchElements()
+		const types: IdentifiableElement[] = await searchElements()
 		const hashedTypes: HashedElement[] = await Promise.all(
 			types.map(this.createHashedElement.bind(this)),
 		)
@@ -41,6 +55,11 @@ export class UCTypeDedupe {
 		const duplicates = Object.values(grouped).filter(group => group.length > 1)
 
 		return duplicates
+	}
+
+	public async findDetailedTypes(searchElements: () => IdentifiableElement[]): Promise<IdentifiableElement[]>{
+		const types: IdentifiableElement[] = await searchElements()
+		return types
 	}
 
 
@@ -92,4 +111,11 @@ export type HashedElementCollective = HashedElementGroup[] // basically HashedEl
  */
 type GroupedHashedTypedElements = {
 	[hash: string]: HashedElement[]
+}
+
+type AllTypesCollection = {
+	LNodeTypes: IdentifiableElement[]; 
+	DATypes: IdentifiableElement[];
+	DOTypes: IdentifiableElement[];
+	EnumTypes: IdentifiableElement[];
 }

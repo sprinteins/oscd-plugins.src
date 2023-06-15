@@ -4,6 +4,14 @@ export class SCDQueries {
 		private readonly root: Element,
 	){}
 
+	public GetIEDwithDataTypes() {
+		const selector = "IED"
+		const root = this.determineRoot()
+		const elements = Array.from( root.querySelectorAll(selector) )
+		console.log("Elements: ")
+		console.log(elements)
+		return
+	} 
 	
 	public static SelectorGSE = "GSE"
 	public searchGSEs(options?:CommonOptions): GSEElement[]{
