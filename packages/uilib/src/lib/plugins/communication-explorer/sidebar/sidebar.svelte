@@ -19,7 +19,7 @@
 
     export let rootNode: RootNode
 
-    $: IEDSelectionIDs = $selectedIEDNode?.selectedIEDs.map(ied => ied.id)
+    $: IEDSelectionIDs = $selectedIEDNode?.selectedIEDs.map((ied) => ied.id)
     $: IEDSelections = $selectedIEDNode?.selectedIEDs
     $: ConnectionSelection = $selectedIEDNode.selectedConnection
     $: selectedMessageTypes = $selectedIEDNode.selectedMessageTypes
@@ -88,12 +88,16 @@
                     I don't think it adds much user value
                     and it is going to be hard to support
                 -->
-                <select value={IEDSelectionIDs[0]??""} on:change={setSelectedNode}>
+                <select
+                    value={IEDSelectionIDs[0] ?? ""}
+                    on:change={setSelectedNode}
+                >
                     <option value="" disabled>Select a IED</option>
                     {#if rootNode && rootNode.children && rootNode.children.length >= 0}
                         {#each rootNode.children as node}
                             <option
-                                selected={ (IEDSelectionIDs[0]??"") === node.id}
+                                selected={(IEDSelectionIDs[0] ?? "") ===
+                                    node.id}
                                 value={node.id}
                                 >{node.label}
                             </option>
@@ -116,11 +120,11 @@
         {#if IEDSelections.length > 0 !== undefined}
             <hr />
             <ul class="ied-detail-list">
-            {#each IEDSelections as IEDSelections }
-            <li>
-                <IEDAccordion IEDSelection={IEDSelections} {rootNode} />
-            </li>
-            {/each}
+                {#each IEDSelections as IEDSelections}
+                    <li>
+                        <IEDAccordion IEDSelection={IEDSelections} {rootNode} />
+                    </li>
+                {/each}
             </ul>
         {/if}
 
@@ -130,7 +134,18 @@
         {/if}
 
         <hr />
-        <h2>Experiments</h2>
+        <h2>Focus Mode</h2>
+
+        <label class="ied-search">
+            <span class="ied-search-headline">IED Search:</span>
+            <input
+                class="input"
+                type="text"
+                placeholder="e.g.: XAT"
+                value={$selectedIEDNode.nameFilter}
+                on:input={handleNameFilterChange}
+            />
+        </label>
 
         <div class="arrows-visible">
             <label>
@@ -139,7 +154,7 @@
                     checked={$selectedIEDNode.showConnectionArrows}
                     on:change={handleHideConnectionArrowsChange}
                 />
-                <span>Show arrows on connections</span>
+                <span class="show-arrows">Show arrows on connections</span>
             </label>
         </div>
 
@@ -150,19 +165,9 @@
                     checked={$selectedIEDNode.hideIrrelevantStuff}
                     on:change={handleHideIrrelevantStuffChange}
                 />
-                <span>Hide irrelevant stuff</span>
+                <span class="show-arrows">Focus on selected IED</span>
             </label>
         </div>
-
-        <label>
-            <span>IED filter by name:</span>
-            <input
-                type="text"
-                placeholder="e.g.: XAT"
-                value={$selectedIEDNode.nameFilter}
-                on:input={handleNameFilterChange}
-            />
-        </label>
     </div>
 </div>
 
@@ -233,12 +238,25 @@
         justify-content: center;
     }
 
-    .ied-detail-list{
+    .ied-detail-list {
         list-style: none;
-        margin:0;
-        padding:0;
+        margin: 0;
+        padding: 0;
         display: flex;
         flex-direction: column;
         gap: 2rem;
+    }
+    .ied-search {
+        display: inline-grid;
+    }
+
+    .ied-search-headline {
+        margin-bottom: 0.5rem;
+    }
+    .input {
+        margin-bottom: 1rem;
+    }
+    .show-arrows {
+        margin-bottom: 1rem;
     }
 </style>
