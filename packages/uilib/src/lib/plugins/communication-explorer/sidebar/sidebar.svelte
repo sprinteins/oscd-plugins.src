@@ -154,7 +154,7 @@
                     checked={$selectedIEDNode.showConnectionArrows}
                     on:change={handleHideConnectionArrowsChange}
                 />
-                <span class="show-arrows">Show arrows on connections</span>
+                <span>Show arrows on connections</span>
             </label>
         </div>
 
@@ -165,7 +165,7 @@
                     checked={$selectedIEDNode.hideIrrelevantStuff}
                     on:change={handleHideIrrelevantStuffChange}
                 />
-                <span class="show-arrows">Focus on selected IED</span>
+                <span>Focus on selected IED</span>
             </label>
         </div>
     </div>
@@ -254,9 +254,6 @@
         margin-bottom: 0.5rem;
     }
     .input {
-        margin-bottom: 1rem;
-    }
-    .show-arrows {
         margin-bottom: 1rem;
     }
 </style>
