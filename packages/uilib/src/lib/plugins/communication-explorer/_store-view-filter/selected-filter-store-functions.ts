@@ -55,6 +55,7 @@ export function changeMessageConnectionFilterDirection(incoming: boolean, outgoi
 	})
 }
 
+
 function addOrRemoveMessageType(list: string[], messageType: string, checked: boolean): string[] {
 	if (checked) {
 

@@ -42,7 +42,9 @@
 
 		--color-border: #4d5d63;
 
-		--color-primary: var(--color-cyan);
+		--color-filter-chips-background: #fdfbf2;
+
+		--color-primary: var(--color-yellow);
 		--color-secondary: var(--color-blue);
 		--color-text: var(--color-white);
 		--color-accent: var(--color-cyan);

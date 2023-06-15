@@ -4,9 +4,9 @@ import {describe, it, expect} from "vitest"
 import { ButtonGroup, type ButtonGroupOption } from "./"
 
 const options: ButtonGroupOption[] = [
-	{ value: "option1", label: "🍕 Pizza" },
-	{ value: "option2", label: "🍜 Noodles" },
-	{ value: "option3", label: "🍫 Chocolate" },
+	{ id: "option1", label: "🍕 Pizza" },
+	{ id: "option2", label: "🍜 Noodles" },
+	{ id: "option3", label: "🍫 Chocolate" },
 ]
 
 describe("Button Group", () => {
