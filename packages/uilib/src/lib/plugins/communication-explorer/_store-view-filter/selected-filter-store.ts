@@ -2,8 +2,12 @@ import { writable } from "svelte/store"
 import type { IEDConnectionWithCustomValues, IEDNode } from "../../../components/diagram"
 import { allMessageTypes } from "@oscd-plugins/core"
 
+// TODO: we need API that returns if there is an active selection
+// and another one to check if a given IED is selected
+// There are just too many places where we check and do the same way
+// If the check changes we have to go through all places and change it
 export type SelectedFilter = {
-    selectedIED: IEDNode | undefined;
+    selectedIEDs: IEDNode[];
 	selectedConnection: IEDConnectionWithCustomValues | undefined;
     incomingConnections: boolean;
     outgoingConnections: boolean;
@@ -14,7 +18,7 @@ export type SelectedFilter = {
 }
 
 export const defaultSelection: SelectedFilter = {
-	selectedIED:        undefined,
+	selectedIEDs:       [],
 	selectedConnection: undefined,
 	
 	incomingConnections: true,

@@ -1,31 +1,36 @@
 <script lang="ts">
     import { openSCDIcons } from "./"
 
-    type openSCDIconNames = keyof typeof openSCDIcons;
-    type iconSizes = "small" | "normal" | "rect";
+    type OpenSCDIconNames = keyof typeof openSCDIcons;
+    type IconSizes = "small" | "normal" | "rect";
 
-    export let name: openSCDIconNames
-    export let size: iconSizes
+    export let name: OpenSCDIconNames
+    export let size: IconSizes
 
     $: icon = openSCDIcons[name] ?? ""
 </script>
 
-<div class="icon-size icon-size-{size}">
+<div 
+    class="icon-size icon-size-{size}"
+    class:icon-size-small={size === "small"}
+    class:icon-size-normal={size === "normal"}
+>
     {@html icon}
 </div>
 
 <style lang="scss">
-    div.icon-size-small {
+    .icon-size-small {
         $size: 1rem;
         height: $size;
         width: $size;
-        svg {
+        /* TODO: remove if not needed */
+        /* svg {
             height: $size;
             width: $size;
-        }
+        } */
     }
 
-    div.icon-size-normal {
+    .icon-size-normal {
         $size: 24px;
         height: $size;
         width: $size;
@@ -55,9 +60,10 @@
         }
     }
 
-    svg {
+    /* TODO: remove if not needed */
+    /* svg {
         $size: 24px;
         height: $size;
         width: $size;
-    }
+    } */
 </style>

@@ -9,23 +9,17 @@ describe("Connection Type Filter", () => {
         type TestCase = {
             desc: string
             label: string
-            value: string
-            incoming: boolean
-            outgoing?: boolean 
-            expectedIncoming: boolean 
-            expectedOutgoing?: boolean 
-            expectedClasses?: string[]
+			expectedLabel: string
 			isSelected: boolean
+			expectedClasses?: string[]
         }
 
         const featureTests: TestCase[] = [
         	{
-        		desc:             "incoming chip has incoming === true",
-        		label:            "Publisher",
-        		value:            "Publisher",
-        		incoming:         true,
-        		expectedIncoming: true,
-        		isSelected:       true,
+        		desc:          "incoming chip has incoming === true",
+        		label:         "Publisher",
+        		expectedLabel: "Publisher",
+        		isSelected:    true,
         	},
         ]
 
@@ -36,25 +30,16 @@ describe("Connection Type Filter", () => {
         		//
         		// Arrange
         		//
-        		const options = {
-        			id:         "Publisher",
+        		const props = {
         			label:      tc.label,
-        			incoming:   false,
-        			outgoing:   false,
+        			testid:     "incoming-chip",
         			isSelected: true,
-
         		}
 
         		//
         		// Act
         		//
-        		const props = {
-        			chipOption: options,
-        			label:      tc.label,
-        			testid:     "incoming-chip",
-        			incoming:   tc.incoming,
-        			isSelected: true,
-        		}
+        		
         		render(FilterChip, props)
 
         		//
@@ -62,7 +47,7 @@ describe("Connection Type Filter", () => {
         		//
         		const chip = screen.getByTestId("incoming-chip")
         		const incomingProp = chip.querySelector(".button-label")
-        		expect(incomingProp?.innerHTML).toEqual(tc.expectedIncoming)
+        		expect(incomingProp?.innerHTML, incomingProp?.outerHTML).toEqual(tc.expectedLabel)
         		tc.expectedClasses?.forEach( cssClass => expect(Array.from(chip.classList)).toContain(cssClass) )
 
 

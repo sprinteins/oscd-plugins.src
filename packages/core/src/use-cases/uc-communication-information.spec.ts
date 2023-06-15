@@ -1,4 +1,4 @@
-import { expect, suite, test } from "vitest"
+import { expect, describe, it } from "vitest"
 import { InputExtRefElement, SCDQueries } from "../scd/scd-query"
 import { 
 	IEDCommInfo, 
@@ -8,8 +8,8 @@ import {
 } from "./uc-communication-information"
 import { xmlStr } from "../../testfiles/simple_v5"
 
-suite("UCCommunicationInformation", () => {
-	test("IEDCommInfos", () => {
+describe("UCCommunicationInformation", () => {
+	it("IEDCommInfos", () => {
 
 		// 
 		// Arrange
@@ -33,17 +33,29 @@ suite("UCCommunicationInformation", () => {
 		// 
 		const expectedIEDCommInfos: IEDCommInfo[] = [
 			{
-				iedName:   "IED1",
+				iedName:   "IED2",
 				published: [
 					{
-						gseControlName: "GCB",
-						dataSetName:    "GooseDataSet1",
-						LDeviceInst:    "CircuitBreaker_CB1",
-						subNetworkName: "StationBus",
+						id:            "IED2/CBSW/XSWI/SwitchGearBRCB_1",
+						name:          "ReportCb",
+						targetIEDName: "IED1",
+						serviceType:   "MMS",
+					},
+					{
+						id:            "IED2/CBSW/XSWI/SwitchGearBRCB_2",
+						name:          "ReportCb",
+						targetIEDName: "IED1",
+						serviceType:   "MMS",
 					},
 				],
 				received: [],
 			},
+			// {
+			// 	iedName: "IED2",
+			// 	published: [
+			// 		gseCont
+			// 	],
+			// }
 		]
 		
 		// we don't check it yet
@@ -54,7 +66,7 @@ suite("UCCommunicationInformation", () => {
 	})
 
 
-	suite("groupInputExtRefElementsByIedNameServiceTypeAndSrcCBName", () => {
+	describe("groupInputExtRefElementsByIedNameServiceTypeAndSrcCBName", () => {
 		type TestCase = {
             desc: 	  string
 			elements: InputExtRefElement[] 
@@ -144,13 +156,15 @@ suite("UCCommunicationInformation", () => {
 		testCases.forEach(testFeature)
 
 		function testFeature(tc: TestCase){
-			test(tc.desc, () => {
+			it(tc.desc, () => {
 				const messages = groupInputExtRefElementsByIedNameServiceTypeAndSrcCBName(tc.elements)
 				expect(messages).toEqual(tc.expectedGroups)
 			})
 		}
 
 	})
+
+
 })
 
 

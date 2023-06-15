@@ -4,7 +4,7 @@
 
 function describeEnumType(element: Element) {
 	let _a, _b
-	const vals = {}
+	const vals: {[key: string]: unknown} = {}
 
 	for (const val of Array.from(element.children)
 		.filter(child => child.tagName === "EnumVal")
@@ -20,7 +20,7 @@ function describeEnumType(element: Element) {
 
 function describeDAType(element: Element) {
 	let _a
-	const bdas = {}
+	const bdas: {[key: string]: unknown} = {}
 	for (const bda of Array.from(element.children)
 		.filter(child => child.tagName === "BDA")
 		.sort((c1, c2) => c1.outerHTML.localeCompare(c2.outerHTML))) {
@@ -36,14 +36,14 @@ function describeDAType(element: Element) {
 	return { bdas }
 }
 function describeDOType(element: Element) {
-	const sdos = {}
+	const sdos: {[key: string]: unknown} = {}
 	for (const sdo of Array.from(element.children)
 		.filter(child => child.tagName === "SDO")
 		.sort((c1, c2) => c1.outerHTML.localeCompare(c2.outerHTML))) {
 		const [name, type, transient] = ["name", "type", "transient"].map(attr => sdo.getAttribute(attr))
 		sdos[name !== null && name !== void 0 ? name : ""] = { type, transient }
 	}
-	const das = {}
+	const das: {[key: string]: unknown} = {}
 	for (const da of Array.from(element.children)
 		.filter(child => child.tagName === "DA")
 		.sort((c1, c2) => c1.outerHTML.localeCompare(c2.outerHTML))) {
@@ -72,7 +72,7 @@ function describeDOType(element: Element) {
 	}
 }
 function describeLNodeType(element: Element){
-	const dos = {}
+	const dos: {[key: string]: unknown} = {}
 	for (const doElement of Array.from(element.children)
 		.filter(child => child.tagName === "DO")
 		.sort((c1, c2) => c1.outerHTML.localeCompare(c2.outerHTML))) {

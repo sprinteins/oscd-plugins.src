@@ -1,5 +1,5 @@
 import type { IEDCommInfo } from "@oscd-plugins/core"
-import { getIEDs } from "../../communication-explorer/_func-layout-calculation"
+import { extractIEDInfos } from "../../communication-explorer/_func-layout-calculation"
 
 
 export function calcIEDs(root: Element): IEDCommInfo[] {
@@ -8,5 +8,5 @@ export function calcIEDs(root: Element): IEDCommInfo[] {
 		return []
 	}
 
-	return getIEDs(root)
+	return extractIEDInfos(root)
 }

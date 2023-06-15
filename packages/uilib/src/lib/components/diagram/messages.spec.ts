@@ -46,7 +46,7 @@ describe("Messages", () => {
 				],
 			}
 	
-			render(Message, { edge: connection, isSelected: tc.isSelected })
+			render(Message, { edge: connection, isSelected: tc.isSelected, testid: "connection" })
 			const element = screen.getByTestId("connection")
 			expect(element).toBeDefined
 			if(tc.isSelectedClassExpected) {

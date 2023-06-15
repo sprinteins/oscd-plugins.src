@@ -1,3 +1,4 @@
+import { MessageType } from "./messages-types"
 
 export class SCDQueries {
 	constructor(
@@ -11,8 +12,9 @@ export class SCDQueries {
 	}
 
 	public static SelectorIED = "IED"
+	public static AttributeListIED: AttributeList<IEDElement>[] = ["name"]
 	public searchIEDs(options?:CommonOptions): IEDElement[]{
-		return this.searchElement<IEDElement>(SCDQueries.SelectorIED, ["name"], options)
+		return this.searchElement<IEDElement>(SCDQueries.SelectorIED, SCDQueries.AttributeListIED, options)
 	}
 
 	public static SelectorGSEControl = "GSEControl"
@@ -29,26 +31,30 @@ export class SCDQueries {
 		return this.searchElement<InputElement>(SCDQueries.SelectorInput,[],options)
 	}
 
+	
+
 	public static SelectorExtRef = "ExtRef"
+	public static AttributeListExtRef: AttributeList<InputExtRefElement>[] = [
+		"iedName",
+		"serviceType",
+		// "ldInst",
+		// "lnClass",
+		// "lnInst",
+		// "prefix",
+		// "doName",
+		// "daName",
+		// "srcLDInst",
+		// "srcPrefix",
+		"srcCBName",
+	]
 	public searchExtRef(options?: CommonOptions): InputExtRefElement[]{
-		return this.searchElement<InputExtRefElement>(
+		return this.searchElement<InputExtRefElement>( 
 			SCDQueries.SelectorExtRef, 
-			[
-				"iedName",
-				"serviceType",
-				// "ldInst",
-				// "lnClass",
-				// "lnInst",
-				// "prefix",
-				// "doName",
-				// "daName",
-				// "srcLDInst",
-				// "srcPrefix",
-				"srcCBName",
-			],
+			SCDQueries.AttributeListExtRef, 
 			options,
 		)
 	}
+
 	
 	public static SelectorDataSet = "DataSet"
 	public searchDataSetByName(name:string, options?:CommonOptions): Optional<DataSetElement>{
@@ -140,6 +146,23 @@ export class SCDQueries {
 		return this.searchElement<LNodeTypeElement>(SCDQueries.SelectorLNodeType, ["id", "lnClass"], options)
 	}
 
+	public static SelectorReportControl = "ReportControl"
+	public searchReportControls(options?:CommonOptions): ReportControlElement[]{
+		return this.searchElement<ReportControlElement>(SCDQueries.SelectorReportControl, ["rptID", "name", "datSet"], options)
+	}
+
+	public searchElementsParentIED(element: Element): Optional<IEDElement>{
+		const parentSelector = SCDQueries.SelectorIED
+		const parentIED = this.searchElementParent<IEDElement>(element, parentSelector, SCDQueries.AttributeListIED)
+
+		return parentIED
+	}
+
+	public static SelectorClientLN = "ClientLN"
+	public searcClientLNs(options?:CommonOptions): ClientLNElement[]{
+		return this.searchElement<ClientLNElement>(SCDQueries.SelectorClientLN, ["iedName"], options)
+	}
+
 	public searchElementsByTypeAttr(type: string, options?: CommonOptions): SCDElement[]{
 		const selector = `[type='${type}']`
 		return this.searchElement<SCDElement>(selector, [], options)
@@ -167,6 +190,19 @@ export class SCDQueries {
 		}
 
 		return options.root
+	}
+
+	private searchElementParent<T extends SCDElement>(
+		element:Element, 
+		parentSelector: string, 
+		attributeList: AttributeList<T>[],
+	): Optional<T>{
+		const parentEl = element.closest(parentSelector)
+		if(!parentEl){
+			return
+		}
+
+		return createElement<T>(parentEl, attributeList)
 	}
 }
 
@@ -240,6 +276,16 @@ export type LDeviceElement = SCDElement & {
 
 export type SubNetworkElement = SCDElement & {
 	name: string
+}
+
+export type ReportControlElement = SCDElement & {
+	rptID: string
+	name: string
+	datSet: string
+}
+
+export type ClientLNElement = SCDElement & {
+	iedName: string
 }
 
 export type InputElement = SCDElement

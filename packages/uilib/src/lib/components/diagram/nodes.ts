@@ -18,7 +18,8 @@ export type IEDConnectionWithCustomValues = IEDConnection & {
 	targetIED: IEDCommInfo
 }
 
-export type RootNode = Omit<ElkNode, "children"> & {
+export type RootNode = Omit<ElkNode, "children" | "edges"> & {
 	children: IEDNode[],
+	edges?: IEDConnectionWithCustomValues[]
 }
 

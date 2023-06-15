@@ -1,10 +1,12 @@
 <script lang="ts">
-  import type { IEDNode } from "../nodes"
+	import type { IEDNode } from "../nodes"
 
+	// Input
+	export let node: IEDNode
+	export let isSelected = false
+	export let disabled = false
+	export let testid = ""
 
-export let node: IEDNode
-export let isSelected = false
-export let disabled = false
 </script>
 
 {#if node}
@@ -13,6 +15,7 @@ export let disabled = false
 		class:isIrrelevant={!node.isRelevant}
 		class:disabled
 		class:selected={isSelected}
+		data-testid={testid}
 	>
 		{node.label}
 	</div>
@@ -28,6 +31,7 @@ export let disabled = false
 		padding: 0.2rem;
 		transition: all 200ms ease-in-out;
 		box-sizing: border-box;
+		user-select: none;
 
 
 		/* TODO: extract colors */

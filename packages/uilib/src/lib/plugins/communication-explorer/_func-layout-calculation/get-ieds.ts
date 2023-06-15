@@ -1,7 +1,7 @@
 import type { IEDCommInfo } from "@oscd-plugins/core"
 import { UCCommunicationInformation, SCDQueries } from "@oscd-plugins/core"
 
-export function getIEDs(root: Element): IEDCommInfo[] {
+export function extractIEDInfos(root: Element): IEDCommInfo[] {
 	if (!root) {
 		console.info({ level: "info", msg: "initInfos: no root" })
 		return []

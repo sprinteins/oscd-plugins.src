@@ -1,4 +1,5 @@
-import { IEDElement, InputExtRefElement, SCDQueries } from "../scd/scd-query"
+import { MessageType } from "../scd"
+import type { IEDElement, InputExtRefElement, SCDQueries } from "../scd/scd-query"
 
 /** 
  * The name is temporary, rename it if you have a better one
@@ -16,23 +17,54 @@ export class UCCommunicationInformation {
 		const commInfos: IEDCommInfo[] = ieds.map(ied => {
 			return {
 				iedName:   ied.name,
-				published: this.findPublishedMessages(ied),
+				// published: this.findPublishedMessages(ied),
+				published: this.findPublishedMessages_V2(ied),
 				received:  this.findReceivedMessages(ied),
 			}
 		})
 		return commInfos
 	}
+
+	private findPublishedMessages_V2(ied: IEDElement): PublishedMessage_V2[]{
+		const messages: PublishedMessage_V2[] = []
+		
+		const reportControlInfos = this.findPublishedReportControls(ied)
+		for(const info of reportControlInfos){
+			messages.push({
+				id:            info.rptID,
+				name:          info.name,
+				targetIEDName: info.clientIEDName,
+				serviceType:   MessageType.MMS,
+			})
+		}
+
+		return messages
+	}
 	
 
+	/**
+	 *
+	 * Note: we currenlty not using the result of this function
+	 * because GOOSE and Sampled Measure Values are always are inside an input
+	 * at the receiving IED and we use that to create the connections
+	 * This leads to that, that we ignore published messages that nobody receives
+	 * 
+	 * The current version takes only GOOSE messages into consideration
+	 * an therefore not compatible with Sampled Measured Values and MMS (ReportControls)
+	 * So we deprecate this function and rewrite it in a more general way
+	 *  
+	 * @deprecated
+	 * @param ied 
+	 * @returns 
+	 */
 	private findPublishedMessages(ied: IEDElement): PublishedMessage[] {
 		const published = []
 
 		const gseControls = this.scdQueries.searchGSEControls({ root: ied.element })
 
 		for (const gseControl of gseControls) {
-			// GSEControls without a data set are irrelevant
-			if (gseControl.datSet === "") { continue} 
-
+			const isGSEControlIrrelevant = gseControl.datSet === ""
+			if (isGSEControlIrrelevant) { continue} 
 
 			const message: Partial<PublishedMessage> = {}
 			message.gseControlName = gseControl.name
@@ -79,21 +111,57 @@ export class UCCommunicationInformation {
 		return messages
 	}
 
+
+	private findPublishedReportControls(ied: IEDElement): ReportControlInfo[] {
+		const controls: ReportControlInfo[] = []
+		const reportControls = this.scdQueries.searchReportControls({root: ied.element})
+		for(const reportControl of reportControls){
+			const clientLNs = this.scdQueries.searcClientLNs({root: reportControl.element })
+
+			for(const clientLN of clientLNs){
+				controls.push({
+					clientIEDName: clientLN.iedName,
+					rptID:         reportControl.rptID,
+					name:          reportControl.name,
+				})
+			}
+			
+		}
+		
+		return controls
+	}
+
 }
 
 export type MessageSourceMap = {[iedName: string]: ReceivedMessage[]}
 
+export type ReportControlInfo = {
+	clientIEDName: string
+	rptID: string
+	name: string
+}
 
 export type IEDCommInfo = {
 	iedName: string
-	published: PublishedMessage[]
+	published: PublishedMessage_V2[]
 	received: ReceivedMessage[]
 }
+
+/**
+ * @deprecated see `findPublishedMessages`
+ */
 export type PublishedMessage = {
 	dataSetName: 	string
 	gseControlName: string
 	LDeviceInst: 	string
 	subNetworkName: string
+}
+
+export type PublishedMessage_V2 = {
+	id: string,
+	name: string
+	targetIEDName: string
+	serviceType: string
 }
 
 export type ReceivedMessage = {

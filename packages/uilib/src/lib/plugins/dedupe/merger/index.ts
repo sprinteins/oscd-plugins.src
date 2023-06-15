@@ -1,1 +1,0 @@
-export { default as Merger } from "./merger.svelte"

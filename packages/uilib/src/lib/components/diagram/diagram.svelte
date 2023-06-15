@@ -1,18 +1,19 @@
 
 
 <script lang="ts">
-	import type { IEDNode, RootNode } from "./nodes"
+	import type { IEDConnectionWithCustomValues, IEDNode, RootNode } from "./nodes"
 	import { IEDElement } from "./ied-element"
 	import Message from "./message.svelte"
 	import { createEventDispatcher } from "svelte"
 	import type { ElkExtendedEdge } from "elkjs"
+	import { isConnectionSelected, isIEDSelected } from "../../plugins/communication-explorer/_store-view-filter"
 
 	//
 	// Inputs
 	//
 	export let rootNode: RootNode
-	export let selectedIedID: string | undefined = undefined
-	export let selectedConnectionID: string | undefined = undefined
+	export let playAnimation = true
+	export let showConnectionArrows = true
 
 	//
 	// Setup
@@ -21,8 +22,20 @@
 	let svgRoot: SVGElement
 
 	const dispatch = createEventDispatcher()
-	function dispatchIEDClick(node: IEDNode) {
-		dispatch("iedclick", node)
+	function handleIEDClick(e: MouseEvent, node: IEDNode) {
+		const isAdditiveSelect = e.metaKey || e.ctrlKey || e.shiftKey
+		if(isAdditiveSelect){
+			dispatchIEDAdditiveSelect(node)
+			return
+		}
+
+		dispatchIEDSelect(node)
+	}
+	function dispatchIEDSelect(node: IEDNode) {
+		dispatch("iedselect", node)
+	}
+	function dispatchIEDAdditiveSelect(node: IEDNode) {
+		dispatch("iedadditiveselect", node)
 	}
 
 	function dispatchConnectionClick(connection: ElkExtendedEdge) {
@@ -33,6 +46,10 @@
 		if(e.target !== svgRoot){ return }
 		
 		dispatch("clearclick")
+	}
+
+	function isConnectionsAnyIEDSelected(connection: IEDConnectionWithCustomValues): boolean{
+		return isIEDSelected({label: connection.sourceIED.iedName} ) || isIEDSelected({label: connection.targetIED.iedName} )
 	}
 
 </script>
@@ -54,10 +71,14 @@
 						y={node.y}
 						width={node.width}
 						height={node.height}
-						on:click={() => dispatchIEDClick(node)}
+						on:click={(e) => handleIEDClick(e,node)}
 						on:keydown
 					>
-						<IEDElement {node} isSelected={node.id === selectedIedID} />
+						<IEDElement 
+							{node} 
+							isSelected={isIEDSelected(node)} 
+							testid={`ied-${node.label}`}
+						/>
 					</foreignObject>
 				{/each}
 			{/if}
@@ -66,8 +87,12 @@
 				{#each rootNode.edges as edge}
 					<Message
 						{edge}
-						isSelected={selectedConnectionID === edge?.id}
+						isSelected={isConnectionSelected(edge)}
+						isIEDSelected={ isConnectionsAnyIEDSelected(edge) }
 						on:click={() => dispatchConnectionClick(edge)}
+						testid={`connection-${edge.id}`}
+						playAnimation={playAnimation}
+						showConnectionArrows={showConnectionArrows}
 					/>
 				{/each}
 			{/if}

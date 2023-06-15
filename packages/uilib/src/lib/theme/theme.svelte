@@ -13,15 +13,16 @@
 	:root,
 	:host {
 		--color-white: #f9f7f1;
-
 		--color-white-dark: #f2f2f2;
 		--color-yellow: #d9d800;
 		--color-blue: #004552;
 		--color-blue-dark: #14343e;
 		--color-blue-1: #3253a8;
+		--color-blue-1-light: #00C0F9;
 		--color-blue-light: #e5ecee;
 		--color-torques: #007d80;
 		--color-green: #288409;
+		--color-green-light: #9BFF00;
 		--color-black: #000000;
 		--color-beige-1: burlywood;
 		--color-beige-2: blanchedalmond;
@@ -29,6 +30,7 @@
 		--color-beige-4: #fcf6e5;
 		--color-beige-5: #fdfbf2;
 		--color-pink: #c73c61;
+		--color-pink-light: #FF40A7;
 		--color-grey-1: #626262;
 		--color-grey-2: #808080;
 
@@ -62,8 +64,11 @@
 		--color-ied-focus-hover: var(--color-beige-2);
 
 		--color-message-goose: var(--color-green);
+		--color-message-highlight-goose: var(--color-green-light);
 		--color-message-mms: var(--color-blue-1);
+		--color-message-highlight-mms: var(--color-blue-1-light);
 		--color-message-sampledvalues: var(--color-pink);
+		--color-message-highlight-sampledvalues: var(--color-pink-light);
 		--color-message-unknown: var(--color-black);
 
 		--color-category-selector: var(--color-beige-5);
@@ -87,5 +92,11 @@
 		font-family: var(--font-family);
 		letter-spacing: var(--letter-spacing);
 		font-size: var(--font-size);
+
+	}
+
+	:global(input[type="checkbox"]) {
+		accent-color: var(--color-accent);
+		/* margin: 0; */
 	}
 </style>
