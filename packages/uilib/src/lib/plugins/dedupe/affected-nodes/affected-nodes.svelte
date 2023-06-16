@@ -1,46 +1,36 @@
 <script lang="ts">
-	import { Icons, openSCDIcons } from "../../../components/icons"
-	import type { Item as AffectedNodeItem } from "./item"
-	import List, {
-		Item,
-		Graphic,
-		Meta,
-		Text,
-		PrimaryText,
-		SecondaryText,
-	} from "@smui/list"
+  import type { IconKeys, openSCDIcons } from "../../../components/icons"
+  import { type Item, List } from "../../../components/list"
+  import type { Item as AffectedNodeItem } from "./item"
 
-	// Input
-	export let items: AffectedNodeItem[]
+  // Input
 
-	// Internal
-	type IconKeys = keyof typeof openSCDIcons;
-	const iconMap: { [key: string]: IconKeys } = {
-		DAType:    "dAIcon",
-		DOType:    "dOIcon",
-		DO:        "dOIcon",
-		LNodeType: "lNIcon",
-	}
+  // export let items: AffectedNodeItem[];
+  export let items: Item[]
+  // Internal
 </script>
 
 <affected-nodes>
-	<List twoLine avatarList nonInteractive>
-		{#each items as item, i}
-			<Item>
-				<Graphic>
-					<Icons name={iconMap[item.elementType]} size={"normal"} />
-				</Graphic>
-				<Text>
-					<PrimaryText>{item.elementId}</PrimaryText>
-					<SecondaryText>{item.usedElementId}</SecondaryText>
-				</Text>
-			</Item>
-		{/each}
-	</List>
+  <List {items} />
 </affected-nodes>
 
 <style>
-	affected-nodes {
-		overflow: auto;
-	}
+  affected-nodes {
+    overflow: auto;
+
+    margin-top: -1rem;
+  }
+  :global(affected-nodes .affected-nodes-names) {
+    margin-left: -1.5rem;
+  }
+  :global(affected-nodes .list-dedupe-affected-nodes) {
+    margin-top: -1.5rem;
+  }
+  :global(affected-nodes .secondary-text-affected-nodes) {
+    margin-top: -2.25rem;
+  }
+  :global(affected-nodes .item-dedupe-affected-nodes) {
+    margin-bottom: -2.25rem;
+    padding-left: 0.75rem;
+  }
 </style>

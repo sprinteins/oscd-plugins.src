@@ -81,8 +81,10 @@
                     gap: 0.8rem;
                     list-style-type: none;
                     padding: 0 1rem;
+                    margin: 0.5rem 0;
                     li {
                         div.ied-component {
+                            /* TODO: extract colors */
                             background-color: #fdfbf2;
                             border: 1px solid #4d5d63;
                             border-radius: 5px;

@@ -7,20 +7,20 @@
 		type HashedElementCollective,
 		type HashedElementGroup,
 	} from "@oscd-plugins/core"
-	import GroupCardList from "./group-card-list/group-card-list.svelte"
+	import { GroupCardList } from "./group-card-list"
 	import {
 		NullParentElement,
 		type ParentElement,
 	} from "./merger/mergable-items"
-	import Theme from "../../theme/theme.svelte"
+	import { Theme } from "../../theme"
 	import Snackbar, { Actions, Label } from "@smui/snackbar"
 	import IconButton from "@smui/icon-button"
-	import IconClose from "../../components/icons/icon-close.svelte"
-	import CategorySelector from "./category-selector/category-selector.svelte"
+	import { IconClose } from "../../components/icons"
+	import {CategorySelector} from "./category-selector"
 	import type { EventDetailCategorySelect } from "./category-selector"
 	import type { ElementCategory } from "./category-selector/categories"
-	import TypeLinker from "./type-linker/type-linker.svelte"
-	import AffectedNodes from "./affected-nodes/affected-nodes.svelte"
+	import {TypeLinker} from "./type-linker"
+	import {AffectedNodes} from "./affected-nodes"
 	import type {
 		EventDetailRelink,
 		EventDetailTypeLinkerSelect,
@@ -28,6 +28,8 @@
 	import type { Item as AffectedNodeItem } from "./affected-nodes"
 	import { Structure, type Item as StructureItem } from "./structure"
 	import { Layout } from "./layout"
+	import type { Item } from "../../components/list"
+	import type { IconKeys } from "../../components/icons"
 
 	// Input
 	export let doc: Element
@@ -113,11 +115,13 @@
 	function handleCategorySelect(e: CustomEvent<EventDetailCategorySelect>) {
 		const selectedCategoryIndices = e.detail.selection
 
-		const selectedCategories = selectedCategoryIndices.map((idx) => categoryKeys[idx])
+		const selectedCategories = selectedCategoryIndices.map(
+			(idx) => categoryKeys[idx]
+		)
 		selectedFlattenCollectives = selectedCategories
 			.map((catKey) => categories[catKey])
 			.flat()
-		
+
 		// TODO: group selection should stay if we only add new groups
 		selectedGroup = []
 		structure = []
@@ -134,7 +138,7 @@
 		affectedNodes = []
 	}
 
-	let structure: StructureItem[] = []
+	let structure: Item[] = []
 	$: loadStructure(selectedGroup)
 	function loadStructure(group: HashedElementGroup) {
 		const firstElement = group[0]
@@ -144,13 +148,22 @@
 		const children = Array.from(firstElement.element.element.children)
 		structure = children.map((child) => {
 			return {
-				label: child.getAttribute("name") ?? child.textContent ?? "~",
-				type:  child.getAttribute("bType") ?? child.tagName ?? "~",
+				primaryText:
+					child.getAttribute("name") ?? child.textContent ?? "~",
+				secondaryText:
+					child.getAttribute("bType") ?? child.tagName ?? "~",
 			}
 		})
 	}
 
-	let affectedNodes: AffectedNodeItem[] = []
+	const iconMap: { [key: string]: IconKeys } = {
+		DAType:    "dAIcon",
+		DOType:    "dOIcon",
+		DO:        "dOIcon",
+		LNodeType: "lNIcon",
+	}
+
+	let affectedNodes: Item[] = []
 	function handleSourceSelect(
 		event: CustomEvent<EventDetailTypeLinkerSelect>
 	) {
@@ -161,13 +174,13 @@
 				const parents = element.usages.map(getParent)
 				return parents.map((parent) => {
 					return {
-						elementType:   parent.type,
-						elementId:     parent.name,
-						usedElementId: element.element.id,
+						icon:          iconMap[parent.type],
+						primaryText:   parent.name,
+						secondaryText: element.element.id,
 					}
 				})
 			})
-			.flat() as AffectedNodeItem[]
+			.flat()
 	}
 
 	function handleRelink(e: CustomEvent<EventDetailRelink>) {
@@ -290,6 +303,7 @@
 		display: block;
 		padding: 1rem;
 		overflow: hidden;
+		color: var(--font-color);
 	}
 
 	.success :global(.mdc-snackbar__surface) {

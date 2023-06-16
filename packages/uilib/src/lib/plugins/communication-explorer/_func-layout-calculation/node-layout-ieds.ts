@@ -1,11 +1,18 @@
 import type { IEDCommInfo } from "@oscd-plugins/core"
 import type { IEDConnectionWithCustomValues, IEDNode } from "../../../components/diagram"
-import type { SelectedFilter } from "../_store-view-filter"
-import { Id, type Config } from "."
+import { hasActiveIEDSelection, isIEDSelected, type SelectedFilter } from "../_store-view-filter"
+import type { Config } from "./config"
 
-export function generateIEDLayout(ieds: IEDCommInfo[], edges: IEDConnectionWithCustomValues[], config: Config, selectionFilter: SelectedFilter): IEDNode[] {
-	const hasSelection = Boolean(selectionFilter.selectedIED)
-    
+
+
+export function generateIEDLayout(
+	ieds: IEDCommInfo[], 
+	edges: IEDConnectionWithCustomValues[], 
+	config: Config, 
+	selectionFilter: SelectedFilter,
+): IEDNode[] {
+	const hasSelection = hasActiveIEDSelection()
+
 	const relevantEdges = edges.filter(edge => edge.isRelevant)
 	const relevantNodes = new Set<string>()
 	relevantEdges.forEach(edge => {
@@ -15,7 +22,10 @@ export function generateIEDLayout(ieds: IEDCommInfo[], edges: IEDConnectionWithC
 	const children: IEDNode[] = ieds.map((ied, ii) => {
 		let isRelevant = true
 		if (hasSelection) {
-			isRelevant = relevantNodes.has(ied.iedName) || selectionFilter.selectedIED?.label === ied.iedName	
+			// TODO: smells, we should be independent of the label
+			const isNodeRelevant = relevantNodes.has(ied.iedName)
+			const isNodeSelected = isIEDSelected({label: ied.iedName})
+			isRelevant = isNodeRelevant || isNodeSelected
 		}
 
 		return {
@@ -28,4 +38,8 @@ export function generateIEDLayout(ieds: IEDCommInfo[], edges: IEDConnectionWithC
 	})
 
 	return children
+}
+
+export function Id(something: unknown): string {
+	return `ied-${something}`
 }

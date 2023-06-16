@@ -7,14 +7,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [Unreleased]
 
 ## Communication Explorer [Unreleased]
+## Dedupe [Unreleased]
+
+
+## Communication Explorer [0.0.22] - 2023-06-15
 
 ## Added
 - clicking on the background of the diagram will deselect all elements
+- multiple IED selection
+- animated connections to see better the direction of messages
+- toggleable animation
+- MMS messages
+- preferences are persisted in local storage
 
 ## Changed
 - new diagram design
-
-## Dedupe [Unreleased]
+- sidebar has separate sections for focus mode and preferences
 
 ## Dedupe [0.0.11] - 2023-06-07
 

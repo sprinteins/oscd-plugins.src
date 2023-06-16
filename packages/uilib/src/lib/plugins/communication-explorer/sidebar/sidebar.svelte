@@ -16,11 +16,12 @@
     import { MessageTypeFilter } from "./message-type-filter"
     import ConnectionInformation from "./connection-information/connection-information.svelte"
     import IEDAccordion from "./ied-accordion/ied-accordion.svelte"
+    import { preferences$ } from "../_store-preferences"
 
     export let rootNode: RootNode
 
-    $: IEDSelectionID = $selectedIEDNode?.selectedIED?.id ?? ""
-    $: IEDSelection = $selectedIEDNode?.selectedIED ?? undefined
+    $: IEDSelectionIDs = $selectedIEDNode?.selectedIEDs.map((ied) => ied.id)
+    $: IEDSelections = $selectedIEDNode?.selectedIEDs
     $: ConnectionSelection = $selectedIEDNode.selectedConnection
     $: selectedMessageTypes = $selectedIEDNode.selectedMessageTypes
     $: isIedFiltersDisabled =
@@ -38,10 +39,10 @@
     ): boolean {
     	if (iedFilterDisabled) return true
 
-    	const selectedIED = filter?.selectedIED?.id
+    	const selectedIEDs = filter?.selectedIEDs
     	const selectedCon = filter?.selectedConnection?.id
 
-    	return Boolean(selectedIED === undefined && selectedCon === undefined)
+    	return Boolean(selectedIEDs.length === 0 && selectedCon === undefined)
     }
 
     function setSelectedNode(e: Event) {
@@ -83,12 +84,21 @@
             <img src={ConnectionSelector} alt="connection selector" />
             <label>
                 <span>Select an IED</span>
-                <select value={IEDSelectionID} on:change={setSelectedNode}>
+                <!-- 
+                    TODO: we should remove this select
+                    I don't think it adds much user value
+                    and it is going to be hard to support
+                -->
+                <select
+                    value={IEDSelectionIDs[0] ?? ""}
+                    on:change={setSelectedNode}
+                >
                     <option value="" disabled>Select a IED</option>
                     {#if rootNode && rootNode.children && rootNode.children.length >= 0}
                         {#each rootNode.children as node}
                             <option
-                                selected={IEDSelectionID === node.id}
+                                selected={(IEDSelectionIDs[0] ?? "") ===
+                                    node.id}
                                 value={node.id}
                                 >{node.label}
                             </option>
@@ -108,9 +118,15 @@
             filterDisabled={isIedFiltersDisabled}
         />
 
-        {#if IEDSelection !== undefined}
+        {#if IEDSelections.length > 0 !== undefined}
             <hr />
-            <IEDAccordion {IEDSelection} {rootNode} />
+            <ul class="ied-detail-list">
+                {#each IEDSelections as IEDSelections}
+                    <li>
+                        <IEDAccordion IEDSelection={IEDSelections} {rootNode} />
+                    </li>
+                {/each}
+            </ul>
         {/if}
 
         {#if ConnectionSelection !== undefined}
@@ -119,14 +135,42 @@
         {/if}
 
         <hr />
-        <h2>Experiments</h2>
+
+        <h2>Focus Mode</h2>
+
+        
+
+        <label class="ied-search">
+            <span class="ied-search-headline">Filter IEDs by name:</span>
+            <input
+                class="input"
+                type="text"
+                placeholder="e.g.: XAT"
+                value={$selectedIEDNode.nameFilter}
+                on:input={handleNameFilterChange}
+            />
+        </label>
+
+        <div class="checkbox-group">
+            <label>
+                <input
+                    type="checkbox"
+                    bind:checked={$preferences$.isFocusModeOn}
+                />
+                <span>Focus on selected IED</span>
+            </label>
+        </div>
+
+        
+
+
+        <h2>Preferences</h2>
 
         <div class="arrows-visible">
             <label>
                 <input
                     type="checkbox"
-                    checked={$selectedIEDNode.showConnectionArrows}
-                    on:change={handleHideConnectionArrowsChange}
+                    bind:checked={$preferences$.showConnectionArrows}
                 />
                 <span>Show arrows on connections</span>
             </label>
@@ -136,22 +180,12 @@
             <label>
                 <input
                     type="checkbox"
-                    checked={$selectedIEDNode.hideIrrelevantStuff}
-                    on:change={handleHideIrrelevantStuffChange}
+                    bind:checked={$preferences$.playConnectionAnimation}
                 />
-                <span>Hide irrelevant stuff</span>
+                <span>Play data flow animation</span>
             </label>
         </div>
 
-        <label>
-            <span>IED search:</span>
-            <input
-                type="text"
-                placeholder="e.g.: XAT"
-                value={$selectedIEDNode.nameFilter}
-                on:input={handleNameFilterChange}
-            />
-        </label>
     </div>
 </div>
 
@@ -220,5 +254,24 @@
     .centered {
         display: flex;
         justify-content: center;
+    }
+
+    .ied-detail-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+    .ied-search {
+        display: inline-grid;
+    }
+
+    .ied-search-headline {
+        margin-bottom: 0.5rem;
+    }
+    .input {
+        margin-bottom: 1rem;
     }
 </style>

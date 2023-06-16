@@ -70,7 +70,6 @@ export function getConnectedIEDsByLabel(nodes: RootNode, label?: string): Connec
 		}
 
 	})
-	console.log(connectedIEDs)
 	return connectedIEDs
 }
 

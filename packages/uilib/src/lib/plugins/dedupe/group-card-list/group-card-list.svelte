@@ -35,6 +35,6 @@
 		flex-direction: column;
 		gap: 1rem;
 		overflow-y: auto;
-		padding: 1rem;
+		padding: 1rem 0;
 	}
 </style>

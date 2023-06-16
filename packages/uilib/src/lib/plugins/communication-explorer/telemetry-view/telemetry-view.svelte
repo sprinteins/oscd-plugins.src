@@ -1,83 +1,93 @@
 <script lang="ts">
-    import { calculateLayout } from "../_func-layout-calculation/node-layout"
-    import { Diagram, type IEDConnection, type IEDConnectionWithCustomValues, type IEDNode, type RootNode } from "../../../components/diagram"
-    import { Sidebar } from "../sidebar"
-    import { getIEDs } from "../_func-layout-calculation/get-ieds"
-    import {
-    	selectedIEDNode,
-    	type SelectedFilter,
-    	selectConnection,
-    	selectIEDNode,
-    	clearIEDSelection,
-    } from "../_store-view-filter"
-
-    export let root: Element
-    export let showSidebar = true
-
-    let rootNode: RootNode | undefined = undefined
-    $: initInfos(root, $selectedIEDNode)
-
-    // Note: maybe have a mutex if there are too many changes
-    export async function initInfos(
-    	root: Element,
-    	selectedFilter: SelectedFilter
-    ) {
-    	if (!root) {
-    		console.info({ level: "info", msg: "initInfos: no root" })
-    		return []
-    	}
-
-    	const iedInfos = getIEDs(root)
-    	rootNode = await calculateLayout(iedInfos, config, selectedFilter)
-    }
-
-    export const config = {
-    	width:  150,
-    	height: 40,
-    	// heightPerConnection: 20,
-    }
-
-    export function handleIEDClick(e: CustomEvent<IEDNode>) {
-    	selectIEDNode(e.detail)
-    }
-    export function handleConnectionClick(e: CustomEvent<IEDConnection>) {
-    	// temp till fully migrated: map element to enhanced data model
-    	const selectedConnection = e.detail as IEDConnectionWithCustomValues
-    	selectConnection(selectedConnection)
-    }
-    export function handleClearClick() {
-    	clearIEDSelection()
-    }
-
+	import { calculateLayout } from "../_func-layout-calculation/node-layout"
+	import { Diagram, type IEDConnection, type IEDConnectionWithCustomValues, type IEDNode, type RootNode } from "../../../components/diagram"
+	import { Sidebar } from "../sidebar"
+	import { extractIEDInfos } from "../_func-layout-calculation/get-ieds"
+	import {
+		selectedIEDNode,
+		type SelectedFilter,
+		selectConnection,
+		selectIEDNode,
+		clearIEDSelection,
+		toggleMultiSelectionOfIED,
+	} from "../_store-view-filter"
+	import type { Config } from "../_func-layout-calculation/config"
+	import { preferences$, type Preferences  } from "../_store-preferences"
+	
+	export let root: Element
+	export let showSidebar = true
+	
+	let rootNode: RootNode | undefined = undefined
+	$: initInfos(root, $selectedIEDNode, $preferences$)
+	
+	// Note: maybe have a mutex if there are too many changes
+	async function initInfos(
+		root: Element,
+		selectedFilter: SelectedFilter,
+		preferences: Preferences,
+	) {
+		if (!root) {
+			console.info({ level: "info", msg: "initInfos: no root" })
+			return []
+		}
+		
+		const iedInfos = extractIEDInfos(root)
+		rootNode = await calculateLayout(iedInfos, config, selectedFilter, preferences)
+	}
+	
+	const config: Config = {
+		width:  150,
+		height: 40,
+		// spacingBetweenNodes: 100,
+		// spacingBase: 40,
+		// heightPerConnection: 20,
+	}
+	
+	function handleIEDSelect(e: CustomEvent<IEDNode>) {
+		selectIEDNode(e.detail)
+	}
+	function handleIEDAdditiveSelect(e: CustomEvent<IEDNode>) {
+		toggleMultiSelectionOfIED(e.detail)
+	}
+	function handleConnectionClick(e: CustomEvent<IEDConnection>) {
+		// temp till fully migrated: map element to enhanced data model
+		const selectedConnection = e.detail as IEDConnectionWithCustomValues
+		selectConnection(selectedConnection)
+	}
+	function handleClearClick() {
+		clearIEDSelection()
+	}
+	
 </script>
 
 <div class="root" class:showSidebar>
-    {#if rootNode}
-        <Diagram
-            {rootNode}
-            on:iedclick={handleIEDClick}
-            on:connectionclick={handleConnectionClick}
-            on:clearclick={handleClearClick}
-            selectedIedID={$selectedIEDNode.selectedIED?.id}
-            selectedConnectionID={$selectedIEDNode?.selectedConnection?.id}
-        />
-        {#if showSidebar}
-            <Sidebar {rootNode} />
-        {/if}
-    {/if}
+	{#if rootNode}
+		<Diagram
+			{rootNode}
+			playAnimation={$preferences$.playConnectionAnimation}
+			showConnectionArrows={$preferences$.showConnectionArrows}
+			on:iedselect={handleIEDSelect}
+			on:iedadditiveselect={handleIEDAdditiveSelect}
+			on:connectionclick={handleConnectionClick}
+			on:clearclick={handleClearClick}
+		/>
+		{#if showSidebar}
+			<Sidebar {rootNode} />
+		{/if}
+	{/if}
 </div>
 
 <style>
-    .root {
-        --header-height: 128px;
-        display: grid;
-        grid-template-columns: auto 0;
-        height: calc(100vh - var(--header-height));
-        width: 100%;
-        overflow-x: hidden;
-    }
-
-    .root.showSidebar {
-        grid-template-columns: auto var(--sidebar-width);
-    }
+	.root {
+		--header-height: 128px;
+		display: grid;
+		grid-template-columns: auto 0;
+		height: calc(100vh - var(--header-height));
+		width: 100%;
+		overflow-x: hidden;
+	}
+	
+	.root.showSidebar {
+		grid-template-columns: auto var(--sidebar-width);
+	}
 </style>

@@ -1,38 +1,27 @@
 <script lang="ts">
-	import type { Item as StructureItem } from "./item"
-	import List, {
-		Item,
-		Text,
-		PrimaryText,
-		SecondaryText,
-	} from "@smui/list"
+  import { type Item, List } from "../../../components/list"
 
-	// Input
-	export let items: StructureItem[]
-
-
+  // Input
+  export let items: Item[]
 </script>
 
 <structure>
-	<List
-		twoLine
-		avatarList
-		nonInteractive
-	>
-		{#each items as item, i}
-			<Item>
-				<Text>
-					<PrimaryText>{item.label}</PrimaryText>
-					<SecondaryText>{item.type}</SecondaryText>
-				</Text>
-			</Item>
-		{/each}
-	</List>
-
+  <List {items} />
 </structure>
 
-<style>
-	structure{
-		overflow: auto
-	}
+<style lang="scss">
+  structure {
+    overflow: auto;
+    margin-top: -1rem;
+  }
+  :global(structure .secondary-text-structure) {
+    margin-top: -2.25rem;
+  }
+  :global(structure .list-dedupe-structure) {
+    margin-top: -1.5rem;
+  }
+  :global(structure .item-dedupe-structure) {
+    margin-bottom: -2.25rem;
+    padding-left: 0.75rem;
+  }
 </style>

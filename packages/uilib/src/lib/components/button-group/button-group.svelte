@@ -36,7 +36,7 @@
         {...dataProps}
     >
         <Segment {segment} {disabled} {...{"data-testid": `${dataProps["data-testid"]}_${segment.value}`}}>
-        <Label disabled="asdf">{segment.label}</Label>
+        <Label disabled>{segment.label}</Label>
         </Segment>
     </SegmentedButton>
 </button-group>
