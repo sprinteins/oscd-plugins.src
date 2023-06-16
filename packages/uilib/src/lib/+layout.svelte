@@ -54,19 +54,20 @@
   </content>
 </main>
 
-<style>
+<style lang="scss">
   main {
     display: grid;
     grid-template-columns: 200px 1fr;
     padding: 0;
     margin: 0;
+    font-size: 12px;
   }
 
   sidebar {
     height: 100vh;
     border-right: thin gray solid;
     text-align: center;
-    padding: 0.5rem 0;
+    padding: 0.5em 0;
   }
 
   sidebar ul {
@@ -76,7 +77,7 @@
   }
   sidebar li {
     padding: 6px 8px;
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.25em;
     border-radius: 6px;
     text-align: left;
   }
@@ -95,7 +96,7 @@
     color: var(--color-blue-1);
   }
   content {
-    padding: 2rem 1rem;
+    padding: 2em 1em;
   }
 
   :global(body) {

@@ -12,19 +12,26 @@ export class UCTypeDedupe {
 		private readonly scdQueries: SCDQueries,
 	){}
 
-	public async findAllTypes(): Promise<AllTypesCollection> {
-		const LNodeTypes: IdentifiableElement[] = await this.findDetailedTypes(await this.scdQueries.searchLNodeTypes.bind(this.scdQueries))
-		const DATypes = await this.findDetailedTypes(await this.scdQueries.searchDATypes.bind(this.scdQueries))
-		const DOTypes = await this.findDetailedTypes(await this.scdQueries.searchDOTypes.bind(this.scdQueries))
-		const EnumTypes = await this.findDetailedTypes(await this.scdQueries.searchEnumTypes.bind(this.scdQueries))
 
-		return {
-			LNodeTypes,
-			DATypes,
-			DOTypes,
-			EnumTypes,
-		}
-	}
+	/**
+	 * 	GOOD: GETS IED INFOS 
+	 * 	CONTRA: BUT CANNOT REFERENCE IED
+	 * 
+	 */
+	
+	// public async findAllTypes(): Promise<AllTypesCollection> {
+	// 	const LNodeTypes: IdentifiableElement[] = await this.findDetailedTypes(await this.scdQueries.searchLNodeTypes.bind(this.scdQueries))
+	// 	const DATypes = await this.findDetailedTypes(await this.scdQueries.searchDATypes.bind(this.scdQueries))
+	// 	const DOTypes = await this.findDetailedTypes(await this.scdQueries.searchDOTypes.bind(this.scdQueries))
+	// 	const EnumTypes = await this.findDetailedTypes(await this.scdQueries.searchEnumTypes.bind(this.scdQueries))
+
+	// 	return {
+	// 		LNodeTypes,
+	// 		DATypes,
+	// 		DOTypes,
+	// 		EnumTypes,
+	// 	}
+	// }
 
 	public async findDuplicateDataObjectTypes(): Promise<HashedElementCollective> {
 		const duplicates = await this.findDuplicateTypes(this.scdQueries.searchDOTypes.bind(this.scdQueries))

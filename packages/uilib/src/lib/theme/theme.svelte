@@ -18,11 +18,11 @@
 		--color-blue: #004552;
 		--color-blue-dark: #14343e;
 		--color-blue-1: #3253a8;
-		--color-blue-1-light: #00C0F9;
+		--color-blue-1-light: #00c0f9;
 		--color-blue-light: #e5ecee;
 		--color-torques: #007d80;
 		--color-green: #288409;
-		--color-green-light: #9BFF00;
+		--color-green-light: #9bff00;
 		--color-black: #000000;
 		--color-beige-1: burlywood;
 		--color-beige-2: blanchedalmond;
@@ -30,7 +30,7 @@
 		--color-beige-4: #fcf6e5;
 		--color-beige-5: #fdfbf2;
 		--color-pink: #c73c61;
-		--color-pink-light: #FF40A7;
+		--color-pink-light: #ff40a7;
 		--color-grey-1: #626262;
 		--color-grey-2: #808080;
 
@@ -56,7 +56,7 @@
 
 		--font-family: "Roboto", sans-serif;
 		--letter-spacing: 0.2px;
-		--font-size: 12px;
+		--font-size: 16px;
 		--font-size-small: 8px;
 		--font-color: var(--color-grey-dark);
 
@@ -92,7 +92,6 @@
 		font-family: var(--font-family);
 		letter-spacing: var(--letter-spacing);
 		font-size: var(--font-size);
-
 	}
 
 	:global(input[type="checkbox"]) {
