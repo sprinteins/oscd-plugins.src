@@ -18,7 +18,13 @@
     }
 </script>
 
-<div class="ied" class:selected={isSelected} on:click={selectIED} on:keydown>
+<!-- "ied-node-component" is used for printing adaptions -->
+<div
+    class="ied ied-node-component"
+    class:selected={isSelected}
+    on:click={selectIED}
+    on:keydown
+>
     <span>{label}</span>
 </div>
 

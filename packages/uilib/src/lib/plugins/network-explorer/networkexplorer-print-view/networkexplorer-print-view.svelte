@@ -5,9 +5,9 @@
     	UCTypeDedupe,
     } from "@oscd-plugins/core"
     import PrintTelemetry from "./print-telemetry/print-telemetry.svelte"
-    import Pagebreak from "./pagebreak/pagebreak.svelte"
     import { calcIEDs } from "."
     import PrintDocumentation from "./print-documentation/print-documentation.svelte"
+    import { PdfType, pdfExportStore } from "../_store-pdf-export"
 
     export let scdData: Element
     let iedInfos: IEDCommInfo[] = calcIEDs(scdData)
@@ -35,12 +35,11 @@
 </script>
 
 <section class="network-explorer-print-content">
-    <h1>Network Explorer</h1>
-    <PrintTelemetry bind:scdData />
-
-    <Pagebreak />
-
-    <PrintDocumentation {iedInfos} />
+    {#if $pdfExportStore.type === PdfType.Telegram}
+        <PrintTelemetry bind:scdData />
+    {:else if $pdfExportStore.type === PdfType.Documentation}
+        <PrintDocumentation {iedInfos} />
+    {/if}
 </section>
 
 <style lang="scss">
