@@ -28,7 +28,7 @@ export function disableOpenSCDComponentsForPrintView() {
 			createCSSRuleByID(openSCDHeader, "component", elementName)
 		})
 	}
-}
+}1
 
 
 function createCSSRuleByID(

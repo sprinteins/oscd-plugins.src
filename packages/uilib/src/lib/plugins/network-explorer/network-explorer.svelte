@@ -1,14 +1,20 @@
 <script lang="ts">
-	
 	import { onMount } from "svelte"
 	import NetworkExplorerPrintView from "./networkexplorer-print-view/networkexplorer-print-view.svelte"
 	import NetworkExplorerWebView from "./networkexplorer-web-view/networkexplorer-web-view.svelte"
 	import { disableOpenSCDComponentsForPrintView } from "."
+	import { TestCommunicationInformation } from "@oscd-plugins/core"
 
 	export let root: Element
 
 	onMount(() => {
 		disableOpenSCDComponentsForPrintView()
+
+		console.log("root", root)
+
+		const testInst = new TestCommunicationInformation()
+		const testdata = testInst.findIEDsWithLnDoDaEnums(root)
+		console.log(testdata)
 	})
 </script>
 
@@ -17,7 +23,5 @@
 	<NetworkExplorerWebView />
 </network-explorer>
 
-
 <style>
-
 </style>
