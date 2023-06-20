@@ -19,11 +19,13 @@
 		--color-blue: #004552;
 		--color-blue-dark: #14343e;
 		--color-blue-1: #3253a8;
-		--color-blue-1-light: #00C0F9;
+		--color-blue-1-light: #00c0f9;
 		--color-blue-light: #e5ecee;
 		--color-torques: #007d80;
+		--color-torques-30-opacity: #007d804d;
 		--color-green: #288409;
-		--color-green-light: #9BFF00;
+		--color-green-30pc-opacity: #2884094d;
+		--color-green-light: #9bff00;
 		--color-black: #000000;
 		--color-beige-1: burlywood;
 		--color-beige-2: blanchedalmond;
@@ -31,13 +33,14 @@
 		--color-beige-4: #fcf6e5;
 		--color-beige-5: #fdfbf2;
 		--color-pink: #c73c61;
-		--color-pink-light: #FF40A7;
+		--color-pink-30-pc-opacity: #c73c614d;
+		--color-pink-light: #ff40a7;
 		--color-grey-1: #626262;
 		--color-grey-2: #808080;
 
 		--color-grey-3: #bdbdbd;
 		--color-grey-dark: #4d5d63;
-		--color-grey-dark-70: #4d5d63b3;
+		--color-grey-dark-70pc-opacity: #4d5d63b3;
 
 		--color-cyan: #2aa198;
 		--color-select-dropdown: #fffff4;
@@ -66,10 +69,13 @@
 
 		--color-message-goose: var(--color-green);
 		--color-message-highlight-goose: var(--color-green-light);
+		--color-message-disabled-goose: var(--color-green-30pc-opacity);
 		--color-message-mms: var(--color-blue-1);
 		--color-message-highlight-mms: var(--color-blue-1-light);
+		--color-message-disabled-mms: var(--color-torques-30-opacity);
 		--color-message-sampledvalues: var(--color-pink);
 		--color-message-highlight-sampledvalues: var(--color-pink-light);
+		--color-message-disabled-samplevalues: var(--color-pink-30-pc-opacity);
 		--color-message-unknown: var(--color-black);
 
 		--color-category-selector: var(--color-beige-5);
@@ -93,7 +99,6 @@
 		font-family: var(--font-family);
 		letter-spacing: var(--letter-spacing);
 		font-size: var(--font-size);
-
 	}
 
 	:global(input[type="checkbox"]) {

@@ -4,8 +4,14 @@ import { setSelectedMessageTypes } from "../../_store-view-filter"
 export function isSelected(
 	messageType: MessageType,
 	selectedMessages: string[] = [],
-) {
-	return selectedMessages.includes(messageType)
+	checkboxIsSelected?: boolean,	
+) 
+{
+	const doesInclude = selectedMessages.includes(messageType)
+	if (checkboxIsSelected === undefined) {
+		return doesInclude
+	}
+	return doesInclude && checkboxIsSelected
 }
 
 export function setTargetMessageType(e: Event) {
