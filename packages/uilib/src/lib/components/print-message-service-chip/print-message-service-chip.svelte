@@ -30,60 +30,74 @@
 		}
 </script>
 
-<div class="chip-size">
-	<Button
-		componentClasses={"tscd-button tscd-button-service-type-" +
-			variantClass[type]}
-	>
-		<div class="tscd-button-chip">
-			<Icons name={variantIconName[type]} size={"small"} />
-			<span>{variantLabel[type]}</span>
-		</div>
-	</Button>
+<div class="print-message-type-chip">
+	<div class="chip-size">
+		<Button
+			componentClasses={"tscd-button tscd-button-service-type-" +
+				variantClass[type]}
+		>
+			<div class="tscd-button-chip">
+				<Icons name={variantIconName[type]} size={"small"} />
+				<span>{variantLabel[type]}</span>
+			</div>
+		</Button>
+	</div>
 </div>
 
 <style lang="scss">
-	$size: 0.8rem;
-	.chip-size {
-		span {
-			font-size: $size;
-			display: block;
+	.print-message-type-chip {
+		$size: 0.8rem;
+		.chip-size {
+			span {
+				font-size: $size;
+				display: block;
+			}
+			:global(button.tscd-button) {
+				padding: 0.1rem 0.3rem;
+			}
+			:global(div.icon-size svg) {
+				height: $size;
+				width: $size;
+			}
+			:global(div.icon-size) {
+				height: $size;
+				width: $size;
+			}
 		}
+
+		div.tscd-button-chip {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: center;
+			gap: 0.3rem;
+		}
+
 		:global(button.tscd-button) {
-			padding: 0.1rem 0.3rem;
+			print-color-adjust: exact;
+			-webkit-print-color-adjust: exact;
+			border: 2px solid var(--color-black);
+			background-color: var(--color-paper-white) !important;
+			color: var(--color-black) !important;
 		}
-		:global(div.icon-size svg) {
-			height: $size;
-			width: $size;
+		:global(button.mdc-button--raised) {
+			box-shadow: none;
 		}
-		:global(div.icon-size) {
-			height: $size;
-			width: $size;
+		:global(button.tscd-button-service-type-goose) {
+			border-color: var(--color-message-goose) !important;
+			color: var(--color-message-goose) !important;
 		}
-	}
-
-	div.tscd-button-chip {
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		justify-content: center;
-		gap: 0.3rem;
-	}
-
-	:global(button.tscd-button) {
-		print-color-adjust: exact;
-		-webkit-print-color-adjust: exact;
-	}
-	:global(button.tscd-button-service-type-goose) {
-		background-color: var(--color-message-goose) !important;
-	}
-	:global(button.tscd-button-service-type-mms) {
-		background-color: var(--color-message-mms) !important;
-	}
-	:global(button.tscd-button-service-type-sampledvalues) {
-		background-color: var(--color-message-sampledvalues) !important;
-	}
-	:global(button.tscd-button-service-type-undefined) {
-		background-color: var(--color-black) !important;
+		:global(button.tscd-button-service-type-mms) {
+			border-color: var(--color-message-mms) !important;
+			color: var(--color-message-mms) !important;
+		}
+		:global(button.tscd-button-service-type-sampledvalues) {
+			border-color: var(--color-message-sampledvalues) !important;
+			color: var(--color-message-sampledvalues) !important;
+		}
+		:global(button.tscd-button-service-type-undefined) {
+			border-color: var(--color-black) !important;
+			color: var(--color-black) !important;
+		}
 	}
 </style>

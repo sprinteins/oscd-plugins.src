@@ -4,6 +4,7 @@
 	import NetworkExplorerWebView from "./networkexplorer-web-view/networkexplorer-web-view.svelte"
 	import { disableOpenSCDComponentsForPrintView } from "."
 	import { TestCommunicationInformation } from "@oscd-plugins/core"
+	import { Theme } from "../../theme"
 
 	export let root: Element
 
@@ -18,10 +19,12 @@
 	})
 </script>
 
-<network-explorer>
-	<NetworkExplorerPrintView bind:scdData={root} />
-	<NetworkExplorerWebView />
-</network-explorer>
+<Theme>
+	<network-explorer>
+		<NetworkExplorerPrintView bind:scdData={root} />
+		<NetworkExplorerWebView />
+	</network-explorer>
+</Theme>
 
 <style>
 </style>
