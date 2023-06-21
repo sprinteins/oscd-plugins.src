@@ -1,4 +1,4 @@
-name: "Plugin: Dedupe"
+name: "Plugin: Type Switcher"
 on:
   push:
     branches:
