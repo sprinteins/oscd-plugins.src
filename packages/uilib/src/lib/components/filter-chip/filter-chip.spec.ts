@@ -2,7 +2,6 @@
 import { describe, it, expect } from "vitest"
 import { FilterChip } from "."
 import { render, screen } from "@testing-library/svelte"
-import type { Options } from "../../plugins/communication-explorer/sidebar/connection-type-filter"
 
 describe("Filter Chip", () => {
 
@@ -46,19 +45,11 @@ describe("Filter Chip", () => {
         		// 
         		// Arrange
         		// 
-        		const option: Options = {
-        			id:       "not important",
-        			label:    tc.label,
-        			incoming: false,
-        			outgoing: false,
-        		
-        		}
 
         		//
         		// Act
         		//
         		const props = {
-        			chipOption: option, 
         			label:      tc.label, 
         			testid:     "a-chip", 
         			isSelected: tc.isSelected,

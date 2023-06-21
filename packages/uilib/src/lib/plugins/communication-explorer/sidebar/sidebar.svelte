@@ -6,9 +6,7 @@
     import {
     	selectIEDNode,
     	clearSelection,
-    	setHideIrrelevantStuff,
     	setNameFilter,
-    	setHideConnectionArrows,
     } from "../_store-view-filter/selected-filter-store-functions"
     import ConnectionSelector from "./assets/connection-selector.svg"
     import type { IEDNode, RootNode } from "../../../components/diagram"
@@ -53,16 +51,6 @@
     	if (selectedNode) {
     		selectIEDNode(selectedNode)
     	}
-    }
-
-    function handleHideIrrelevantStuffChange(e: Event) {
-    	const target = e.target as HTMLInputElement
-    	setHideIrrelevantStuff(target.checked)
-    }
-
-    function handleHideConnectionArrowsChange(e: Event) {
-    	const target = e.target as HTMLInputElement
-    	setHideConnectionArrows(target.checked)
     }
 
     function handleNameFilterChange(e: Event) {

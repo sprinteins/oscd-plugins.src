@@ -23,6 +23,7 @@
 		},
 		"fix": {
 			"cache": false
-		}
+		},
+		"check": {}
 	}
 }

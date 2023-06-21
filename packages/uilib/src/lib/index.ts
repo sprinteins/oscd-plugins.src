@@ -1,5 +1,5 @@
 // Reexport your entry components here
 export * from "./plugins/communication-explorer"
-export * from "./plugins/network-explorer"
+export * from "./plugins/documentation"
 export * from "./plugins/diffing-tool"
-export * from "./plugins/dedupe"
+export * from "./plugins/type-switcher"

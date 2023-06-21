@@ -1,5 +1,4 @@
 <script lang="ts">
-    import type { MessageType } from "@oscd-plugins/core"
     import type { IEDNode } from "../../diagram"
     import IconArrowDropDown from "../../icons/icon-arrow-drop-down.svelte"
 

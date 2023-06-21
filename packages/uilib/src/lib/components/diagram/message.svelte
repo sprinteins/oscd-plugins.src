@@ -3,7 +3,6 @@
 	import type { IEDConnection } from "./nodes"
 	import { MessageType } from "@oscd-plugins/core"
 	import type { ElkEdgeSection } from "elkjs"
-	import { selectedIEDNode } from "../../plugins/communication-explorer/_store-view-filter"
 
 	//
 	// Input
@@ -156,7 +155,6 @@
 		}
 	}
 
-	const cornerRadius = 20
 </script>
 
 <g

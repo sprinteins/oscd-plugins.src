@@ -1,2 +1,2 @@
 export * from "./uc-communication-information"
-export * from "./uc-type-dedupe"
+export * from "./uc-type-type-switcher"

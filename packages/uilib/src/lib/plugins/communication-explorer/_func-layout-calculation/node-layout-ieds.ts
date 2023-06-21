@@ -1,6 +1,6 @@
 import type { IEDCommInfo } from "@oscd-plugins/core"
 import type { IEDConnectionWithCustomValues, IEDNode } from "../../../components/diagram"
-import { hasActiveIEDSelection, isIEDSelected, type SelectedFilter } from "../_store-view-filter"
+import { hasActiveIEDSelection, isIEDSelected } from "../_store-view-filter"
 import type { Config } from "./config"
 
 
@@ -9,7 +9,6 @@ export function generateIEDLayout(
 	ieds: IEDCommInfo[], 
 	edges: IEDConnectionWithCustomValues[], 
 	config: Config, 
-	selectionFilter: SelectedFilter,
 ): IEDNode[] {
 	const hasSelection = hasActiveIEDSelection()
 

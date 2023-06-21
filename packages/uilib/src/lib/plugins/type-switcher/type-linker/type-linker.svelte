@@ -1,10 +1,14 @@
 <script lang="ts">
 	import { Button } from "../../../components/button"
+	// import { Checkbox } from "../../../components/checkbox"
 	import { createEventDispatcher } from "svelte"
+	import type {
+		EventDetailRelink,
+		EventDetailTypeLinkerSelect,
+	} from "./events"
 	import List, { Item, Meta, Label, Graphic } from "@smui/list"
 	import Checkbox from "@smui/checkbox"
 	import { Select } from "../../../components/select"
-import type { EventDetailRelink, EventDetailTypeLinkerSelect } from "../../type-switcher/type-linker/events"
 
 	// Import
 	export let items: { label: string }[] = []

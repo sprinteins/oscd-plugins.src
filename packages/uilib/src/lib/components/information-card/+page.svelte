@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { PdfType } from "../../plugins/network-explorer/_store-pdf-export"
+  import { PdfType } from "../../plugins/documentation/_store-pdf-export"
   import { Example } from "../internal"
   import InformationCard from "./information-card.svelte"
 
@@ -20,7 +20,7 @@
     </InformationCard>
   </div></Example
 >
-<Example name="Download Network-Explorer">
+<Example name="Download Documentation">
   <InformationCard
     on:buttonClick={(e) => downloadPdf(e, PdfType.Documentation)}
   >

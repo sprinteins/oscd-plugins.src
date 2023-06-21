@@ -10,14 +10,11 @@ uilib: _install ## Start UI-Lib in dev mode
 communication-explorer: _install ## Start the communication explorer plugin in dev mode
 	pnpm -C ./packages/plugins/communication-explorer run build:watch
 
-network-explorer: _install ## Start the network explorer plugin in dev mode
-	pnpm -C ./packages/plugins/network-explorer run build:watch
+documentation: _install ## Start the documentation plugin in dev mode
+	pnpm -C ./packages/plugins/documentation run build:watch
 
-diffing-tool: _install ## Start the network explorer plugin in dev mode
-	pnpm -C ./packages/plugins/diffing-tool run build:watch
-
-dedupe: _install ## Start the communication explorer plugin in dev mode
-	pnpm -C ./packages/plugins/dedupe run build:watch
+type-switcher: _install ## Start the type switcher plugin in dev mode
+	pnpm -C ./packages/plugins/type-switcher run build:watch
 
 fix: _install ## Fix eslint errors
 	pnpm turbo fix

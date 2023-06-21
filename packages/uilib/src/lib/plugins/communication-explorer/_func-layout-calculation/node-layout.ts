@@ -30,7 +30,7 @@ export async function calculateLayout(
 	}
 
 	let edges = generateConnectionLayout(ieds, selectionFilter)
-	let children: IEDNode[] = generateIEDLayout(ieds, edges, config, selectionFilter)
+	let children: IEDNode[] = generateIEDLayout(ieds, edges, config)
 
 	if(preferences.isFocusModeOn){
 		children = children.filter(child => child.isRelevant)

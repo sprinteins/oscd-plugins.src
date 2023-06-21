@@ -33,7 +33,22 @@ export async function generateMockRootNode(): Promise<RootNode>{
 	}
 	
 	const edges: IEDConnectionWithCustomValues[] = [
-		{id: EdgeID(), sourceIED: children[0], tergetIED: children[1], sources: [children[0].id], targets: [children[1].id]},
+
+		{
+			id:        EdgeID(), 
+			sources:   [children[0].id], 
+			targets:   [children[1].id], 
+			sourceIED: {iedName: children[0].label, published: [], received: []},
+			targetIED: {iedName: children[1].label, published: [], received: []},
+		},
+		{
+			id:        EdgeID(), 
+			sourceIED: {iedName: children[1].label, published: [], received: []},
+			targetIED: {iedName: children[2].label, published: [], received: []},
+			sources:   [children[0].id], 
+			targets:   [children[1].id],
+		},
+
 		
 	]
 

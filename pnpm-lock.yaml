@@ -127,7 +127,72 @@ importers:
         specifier: ^3.1.1
         version: 3.1.1(vite@4.1.4)
 
-  packages/plugins/dedupe:
+  packages/plugins/diffing-tool:
+    dependencies:
+      '@oscd-plugins/uilib':
+        specifier: ../../uilib
+        version: link:../../uilib
+      concurrently:
+        specifier: ^7.6.0
+        version: 7.6.0
+    devDependencies:
+      '@sveltejs/vite-plugin-svelte':
+        specifier: ^2.0.2
+        version: 2.0.2(svelte@3.55.1)(vite@4.1.4)
+      '@tsconfig/svelte':
+        specifier: ^3.0.0
+        version: 3.0.0
+      svelte:
+        specifier: ^3.55.1
+        version: 3.55.1
+      svelte-check:
+        specifier: ^2.10.3
+        version: 2.10.3(sass@1.62.0)(svelte@3.55.1)
+      tslib:
+        specifier: ^2.5.0
+        version: 2.5.0
+      typescript:
+        specifier: ^4.9.3
+        version: 4.9.4
+      vite:
+        specifier: ^4.1.0
+        version: 4.1.4(sass@1.62.0)
+
+  packages/plugins/documentation:
+    dependencies:
+      '@oscd-plugins/uilib':
+        specifier: ../../uilib
+        version: link:../../uilib
+      concurrently:
+        specifier: ^7.6.0
+        version: 7.6.0
+    devDependencies:
+      '@sveltejs/vite-plugin-svelte':
+        specifier: ^2.0.2
+        version: 2.0.2(svelte@3.55.1)(vite@4.3.1)
+      '@tsconfig/svelte':
+        specifier: ^3.0.0
+        version: 3.0.0
+      svelte:
+        specifier: ^3.55.1
+        version: 3.55.1
+      svelte-check:
+        specifier: ^2.10.3
+        version: 2.10.3(sass@1.62.0)(svelte@3.55.1)
+      tslib:
+        specifier: ^2.5.0
+        version: 2.5.0
+      typescript:
+        specifier: ^4.9.3
+        version: 4.9.4
+      vite:
+        specifier: ^4.1.0
+        version: 4.3.1(@types/node@18.11.18)(sass@1.62.0)
+      vite-plugin-css-injected-by-js:
+        specifier: ^3.1.1
+        version: 3.1.1(vite@4.3.1)
+
+  packages/plugins/type-switcher:
     dependencies:
       '@oscd-plugins/uilib':
         specifier: ../../uilib
@@ -163,71 +228,6 @@ importers:
       vite-plugin-css-injected-by-js:
         specifier: ^3.1.1
         version: 3.1.1(vite@4.3.1)
-
-  packages/plugins/diffing-tool:
-    dependencies:
-      '@oscd-plugins/uilib':
-        specifier: ../../uilib
-        version: link:../../uilib
-      concurrently:
-        specifier: ^7.6.0
-        version: 7.6.0
-    devDependencies:
-      '@sveltejs/vite-plugin-svelte':
-        specifier: ^2.0.2
-        version: 2.0.2(svelte@3.55.1)(vite@4.1.4)
-      '@tsconfig/svelte':
-        specifier: ^3.0.0
-        version: 3.0.0
-      svelte:
-        specifier: ^3.55.1
-        version: 3.55.1
-      svelte-check:
-        specifier: ^2.10.3
-        version: 2.10.3(sass@1.62.0)(svelte@3.55.1)
-      tslib:
-        specifier: ^2.5.0
-        version: 2.5.0
-      typescript:
-        specifier: ^4.9.3
-        version: 4.9.4
-      vite:
-        specifier: ^4.1.0
-        version: 4.1.4(sass@1.62.0)
-
-  packages/plugins/network-explorer:
-    dependencies:
-      '@oscd-plugins/uilib':
-        specifier: ../../uilib
-        version: link:../../uilib
-      concurrently:
-        specifier: ^7.6.0
-        version: 7.6.0
-    devDependencies:
-      '@sveltejs/vite-plugin-svelte':
-        specifier: ^2.0.2
-        version: 2.0.2(svelte@3.55.1)(vite@4.1.4)
-      '@tsconfig/svelte':
-        specifier: ^3.0.0
-        version: 3.0.0
-      svelte:
-        specifier: ^3.55.1
-        version: 3.55.1
-      svelte-check:
-        specifier: ^2.10.3
-        version: 2.10.3(sass@1.62.0)(svelte@3.55.1)
-      tslib:
-        specifier: ^2.5.0
-        version: 2.5.0
-      typescript:
-        specifier: ^4.9.3
-        version: 4.9.4
-      vite:
-        specifier: ^4.1.0
-        version: 4.1.4(sass@1.62.0)
-      vite-plugin-css-injected-by-js:
-        specifier: ^3.1.1
-        version: 3.1.1(vite@4.1.4)
 
   packages/uilib:
     dependencies:
@@ -2229,7 +2229,7 @@ packages:
       vite: ^4.0.0
     dependencies:
       debug: 4.3.4
-      deepmerge: 4.2.2
+      deepmerge: 4.3.1
       kleur: 4.1.5
       magic-string: 0.27.0
       svelte: 3.55.1
@@ -2248,7 +2248,7 @@ packages:
       vite: ^4.0.0
     dependencies:
       debug: 4.3.4
-      deepmerge: 4.2.2
+      deepmerge: 4.3.1
       kleur: 4.1.5
       magic-string: 0.27.0
       svelte: 3.55.1
@@ -3402,11 +3402,6 @@ packages:
   /deepmerge-ts@5.0.0:
     resolution: {integrity: sha512-esq9xUO8+CQCG63IlpkoOBNlpm1m4WBm0NRLFrGL/dcgzqWi1tmTLfG7QTvffqYt6T+dS+xaxrHxdexqGWkV1g==}
     engines: {node: '>=16.0.0'}
-    dev: true
-
-  /deepmerge@4.2.2:
-    resolution: {integrity: sha512-FJ3UgI4gIl+PHZm53knsuSFpE+nESMr7M4v9QcgB7S63Kj/6WqMiFQJpBBYz1Pt+66bZpP3Q7Lye0Oo9MPKEdg==}
-    engines: {node: '>=0.10.0'}
     dev: true
 
   /deepmerge@4.3.1:
@@ -6315,8 +6310,8 @@ packages:
       picocolors: 1.0.0
       sade: 1.8.1
       svelte: 3.55.1
-      svelte-preprocess: 4.10.7(sass@1.62.0)(svelte@3.55.1)(typescript@5.0.2)
-      typescript: 5.0.2
+      svelte-preprocess: 4.10.7(sass@1.62.0)(svelte@3.55.1)(typescript@4.9.4)
+      typescript: 4.9.4
     transitivePeerDependencies:
       - '@babel/core'
       - coffeescript
@@ -6425,7 +6420,7 @@ packages:
       - typescript
     dev: false
 
-  /svelte-preprocess@4.10.7(sass@1.62.0)(svelte@3.55.1)(typescript@5.0.2):
+  /svelte-preprocess@4.10.7(sass@1.62.0)(svelte@3.55.1)(typescript@4.9.4):
     resolution: {integrity: sha512-sNPBnqYD6FnmdBrUmBCaqS00RyCsCpj2BG58A1JBswNF7b0OKviwxqVrOL/CKyJrLSClrSeqQv5BXNg2RUbPOw==}
     engines: {node: '>= 9.11.2'}
     requiresBuild: true
@@ -6474,7 +6469,7 @@ packages:
       sorcery: 0.10.0
       strip-indent: 3.0.0
       svelte: 3.55.1
-      typescript: 5.0.2
+      typescript: 4.9.4
     dev: true
 
   /svelte-preprocess@5.0.1(sass@1.62.0)(svelte@3.55.0)(typescript@4.9.4):
@@ -6813,12 +6808,6 @@ packages:
     resolution: {integrity: sha512-Uz+dTXYzxXXbsFpM86Wh3dKCxrQqUcVMxwU54orwlJjOpO3ao8L7j5lH+dWfTwgCwIuM9GQ2kvVotzYJMXTBZg==}
     engines: {node: '>=4.2.0'}
     hasBin: true
-
-  /typescript@5.0.2:
-    resolution: {integrity: sha512-wVORMBGO/FAs/++blGNeAVdbNKtIh1rbBL2EyQ1+J9lClJ93KiiKe8PmFIVdXhHcyv44SL9oglmfeSsndo0jRw==}
-    engines: {node: '>=12.20'}
-    hasBin: true
-    dev: true
 
   /ua-parser-js@1.0.34:
     resolution: {integrity: sha512-K9mwJm/DaB6mRLZfw6q8IMXipcrmuT6yfhYmwhAkuh+81sChuYstYA+znlgaflUPaYUa3odxKPKGw6Vw/lANew==}
@@ -7517,7 +7506,3 @@ packages:
   /zod@3.21.4:
     resolution: {integrity: sha512-m46AKbrzKVzOzs/DZgVnG5H55N1sv1M8qZU3A8RIKbs3mrACDNeIOeilDymVb2HdmP8uwshOCF4uJ8uM9rCqJw==}
     dev: false
-
-settings:
-  autoInstallPeers: false
-  excludeLinksFromLockfile: false

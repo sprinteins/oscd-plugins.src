@@ -25,7 +25,7 @@
 <Example name="Select">
   <Select
     on:change={handleTargetInputChange}
-    bind:index={selectedLinkTargetIndex}
+    bind:linkTargetIndex={selectedLinkTargetIndex}
     {items}
   /></Example
 >

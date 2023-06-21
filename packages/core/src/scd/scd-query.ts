@@ -1,5 +1,3 @@
-import { MessageType } from "./messages-types"
-
 export class SCDQueries {
 	constructor(
 		private readonly root: Element,

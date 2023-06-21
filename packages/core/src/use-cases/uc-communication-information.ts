@@ -57,50 +57,50 @@ export class UCCommunicationInformation {
 	 * @param ied 
 	 * @returns 
 	 */
-	private findPublishedMessages(ied: IEDElement): PublishedMessage[] {
-		const published = []
+	// private findPublishedMessages(ied: IEDElement): PublishedMessage[] {
+	// 	const published = []
 
-		const gseControls = this.scdQueries.searchGSEControls({ root: ied.element })
+	// 	const gseControls = this.scdQueries.searchGSEControls({ root: ied.element })
 
-		for (const gseControl of gseControls) {
-			const isGSEControlIrrelevant = gseControl.datSet === ""
-			if (isGSEControlIrrelevant) { continue} 
+	// 	for (const gseControl of gseControls) {
+	// 		const isGSEControlIrrelevant = gseControl.datSet === ""
+	// 		if (isGSEControlIrrelevant) { continue} 
 
-			const message: Partial<PublishedMessage> = {}
-			message.gseControlName = gseControl.name
-			message.dataSetName = gseControl.datSet
-			const ldevice = this.scdQueries.searchElementsLDParent(gseControl.element)
-			if (!ldevice) {
-				console.warn({ level: "warning", msg: "could not find GSE Control's parent LD, continuing", gseControl, ied: ied.name })
-				continue
-			}
-			message.LDeviceInst = ldevice.inst
+	// 		const message: Partial<PublishedMessage> = {}
+	// 		message.gseControlName = gseControl.name
+	// 		message.dataSetName = gseControl.datSet
+	// 		const ldevice = this.scdQueries.searchElementsLDParent(gseControl.element)
+	// 		if (!ldevice) {
+	// 			console.warn({ level: "warning", msg: "could not find GSE Control's parent LD, continuing", gseControl, ied: ied.name })
+	// 			continue
+	// 		}
+	// 		message.LDeviceInst = ldevice.inst
 
-			// Note: need it later whe we display information about the message
-			// const dataSets = this.scdQueries.searchDataSetByName(gseControl.datSet, {root:ied.element})
-			const gse = this.scdQueries.searchGSE(ldevice.inst, gseControl.name)
-			if (!gse) {
-				console.warn({
-					level:          "warning",
-					msg:            "could not find GSE, continuing ",
-					ldInst:         ldevice.inst,
-					gseControlName: gseControl.name,
-					ied:            ied.name,
-				})
-				continue
-			}
-			const subNetwork = this.scdQueries.searchElementsParentSubnetwork(gse.element)
-			if (!subNetwork) {
-				console.warn({ level: "warnin", msg: "could not find GSE's parent SubNetwork, continuing", gse })
-				continue
-			}
-			message.subNetworkName = subNetwork.name
+	// 		// Note: need it later whe we display information about the message
+	// 		// const dataSets = this.scdQueries.searchDataSetByName(gseControl.datSet, {root:ied.element})
+	// 		const gse = this.scdQueries.searchGSE(ldevice.inst, gseControl.name)
+	// 		if (!gse) {
+	// 			console.warn({
+	// 				level:          "warning",
+	// 				msg:            "could not find GSE, continuing ",
+	// 				ldInst:         ldevice.inst,
+	// 				gseControlName: gseControl.name,
+	// 				ied:            ied.name,
+	// 			})
+	// 			continue
+	// 		}
+	// 		const subNetwork = this.scdQueries.searchElementsParentSubnetwork(gse.element)
+	// 		if (!subNetwork) {
+	// 			console.warn({ level: "warnin", msg: "could not find GSE's parent SubNetwork, continuing", gse })
+	// 			continue
+	// 		}
+	// 		message.subNetworkName = subNetwork.name
 
-			published.push(message as PublishedMessage)
-		}
+	// 		published.push(message as PublishedMessage)
+	// 	}
 
-		return published
-	}
+	// 	return published
+	// }
 
 	private findReceivedMessages(ied: IEDElement ): ReceivedMessage[] {
 		const inputs = this.scdQueries.searchInputs({ root: ied.element })
