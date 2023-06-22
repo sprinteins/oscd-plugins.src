@@ -1,77 +1,42 @@
 export class TestCommunicationInformation {
 
 	// eslint-disable-next-line @typescript-eslint/no-empty-function
-	constructor(){}
+	constructor(
+		private doc: Element,
+	){}
 
-	public findIEDsWithLnDoDaEnums(doc: Element): Array<unknown> {
-		const iedElements = doc.getElementsByTagName("IED")
-		const ieds = []
+	public findIEDsWithLnDoDaEnums() {
+		const sclElement = this.doc.querySelector("SCL")
+		const iedElements = this.doc.querySelectorAll("SCL > IED")
+		const namespace = sclElement?.namespaceURI
 
 		for (const iedElement of iedElements) {
-			const name = this.getAttribute(iedElement, "name")
-			const lnodes = this.extractNodes(iedElement)
-			ieds.push({name, lnodes})
+			if (iedElement.baseURI !== namespace) {
+				console.log(iedElement.querySelectorAll("LN > DOI, LN0 > DOI"))
+			}
 		}
-		return ieds
 	}
 
-	private extractNodes(iedElement: Element): Array<unknown> {
-		const lnode0Elements = iedElement.getElementsByTagName("LN0")
-		const lnodeElements = iedElement.getElementsByTagName("LNode")
-		const lnodes = []
-		
-		for (const lnodeElement of lnode0Elements) {
-			const lnClass = this.getAttribute(lnodeElement, "lnClass")
-			const dos = this.extractDOs(lnodeElement)
-			lnodes.push({lnClass, dos})
-		}
-
-		for (const lnodeElement of lnodeElements) {
-			const lnClass = this.getAttribute(lnodeElement, "lnClass")
-			const dos = this.extractDOs(lnodeElement)
-			lnodes.push({lnClass, dos})
-		}
-
-		return lnodes
-	}
-
-	private extractDOs(lnodeElement: Element): Array<unknown> {
-		const doElements = lnodeElement.getElementsByTagName("DO")
-		const doiElements = lnodeElement.getElementsByTagName("DOI")
-		const dos = []
-        
-		for (const doElement of doElements) {
-			const das = this.extractDAs(doElement)
-			const name = this.getAttribute(doElement, "name")
-			dos.push({name, das})
-		}
-		for (const doiElement of doiElements) {
-			const das = this.extractDAs(doiElement)
-			const name = this.getAttribute(doiElement, "name")
-			dos.push({name, das})
-		}
-		return dos
-	}
-
-	private extractDAs(doElement: Element): Array<unknown> {
-		const daElements = doElement.getElementsByTagName("DA")
-		const daiElements = doElement.getElementsByTagName("DAI")
-		const das: unknown[] = []
-        
-		for (const daElement of daElements) {
-			const das = this.extractDAs(daElement)
-			const name = this.getAttribute(daElement, "name")
-			das.push({name, das})
-		}
-		for (const daiElement of daiElements) {
-			const das = this.extractDAs(daiElement)
-			const name = this.getAttribute(daiElement, "name")
-			das.push({name, das})
-		}
-		return das
-	}
-
-	private getAttribute(element: Element, name: string): string | null {
-		return element.getAttribute(name)
-	}
+	/**
+	 * 
+	 * @param parent could be LDevice/Server/LN0/LN/DO/SDO/DA/BDA
+	 * @returns 
+	 */
+	private  getDataModelChildren(parent: Element): Element[] {
+		if (["LDevice", "Server"].includes(parent.tagName))
+			return Array.from(parent.children).filter(
+				child =>
+					child.tagName === "LDevice" ||
+          child.tagName === "LN0" ||
+          child.tagName === "LN",
+			)
+  
+		const id = parent.tagName === "LN" || parent.tagName === "LN0" ? parent.getAttribute("lnType") : parent.getAttribute("type")
+  
+		return Array.from(
+			parent.ownerDocument.querySelectorAll(
+				`LNodeType[id="${id}"] > DO, DOType[id="${id}"] > SDO, DOType[id="${id}"] > DA, DAType[id="${id}"] > BDA`,
+			),
+		)
+	} 
 }

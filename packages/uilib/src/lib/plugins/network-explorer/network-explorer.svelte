@@ -13,9 +13,8 @@
 
 		console.log("root", root)
 
-		const testInst = new TestCommunicationInformation()
-		const testdata = testInst.findIEDsWithLnDoDaEnums(root)
-		console.log(testdata)
+		const testInst = new TestCommunicationInformation(root)
+		const testdata = testInst.findIEDsWithLnDoDaEnums()
 	})
 </script>
 
