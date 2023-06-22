@@ -20,6 +20,7 @@
 	//
 
 	let svgRoot: SVGElement
+	let root: HTMLElement
 
 	const dispatch = createEventDispatcher()
 	function handleIEDClick(e: MouseEvent, node: IEDNode) {
@@ -43,7 +44,7 @@
 	}
 
 	function handleSVGClick(e: Event){
-		if(e.target !== svgRoot){ return }
+		if(e.target !== svgRoot && e.target !== root){ return }
 		
 		dispatch("clearclick")
 	}
@@ -55,14 +56,19 @@
 </script>
 
 {#if rootNode}
-	<diagram>
+	<diagram
+		bind:this={root} 
+		on:click={handleSVGClick} 
+		on:keypress
+	>
 		<svg
 			bind:this={svgRoot}
-			viewBox={`0 0 ${rootNode.width} ${rootNode.height}`}
-			style={`--width:${rootNode.width}px; --height:${rootNode.height}`}
-			xmlns="http://www.w3.org/2000/svg"
-			on:click={handleSVGClick}
+			on:click={handleSVGClick} 
 			on:keypress
+			viewBox={`0 0 ${rootNode.width} ${rootNode.height}`}
+			style:--width={`${rootNode.width}px`}
+			style:--height={`${rootNode.height}px`}
+			xmlns="http://www.w3.org/2000/svg"
 		>
 			{#if rootNode.children}
 				{#each rootNode.children as node}

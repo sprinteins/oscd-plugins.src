@@ -4,7 +4,7 @@
 	import List, { Item, Meta, Label, Graphic } from "@smui/list"
 	import Checkbox from "@smui/checkbox"
 	import { Select } from "../../../components/select"
-import type { EventDetailRelink, EventDetailTypeLinkerSelect } from "../../type-switcher/type-linker/events"
+	import type { EventDetailRelink, EventDetailTypeLinkerSelect } from "../../type-switcher/type-linker/events"
 
 	// Import
 	export let items: { label: string }[] = []

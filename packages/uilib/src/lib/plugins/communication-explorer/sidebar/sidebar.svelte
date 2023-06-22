@@ -145,7 +145,7 @@
                     type="checkbox"
                     bind:checked={$preferences$.isFocusModeOn}
                 />
-                <span>Focus on selected IED</span>
+                <span>Focus on selected IEDs</span>
             </label>
         </div>
 
