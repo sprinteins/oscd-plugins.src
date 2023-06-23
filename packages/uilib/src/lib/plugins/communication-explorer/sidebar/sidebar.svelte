@@ -189,7 +189,7 @@
     .sidebar .sidebar-content {
         padding: 1rem;
         background-color: #fcf6e5;
-        height: 100%;
+        height: calc(100% - 2rem);
         overflow: auto;
         min-width: 330px;
     }

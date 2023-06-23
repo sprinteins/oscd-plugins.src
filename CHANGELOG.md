@@ -6,11 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 
 ## Communication Explorer [Unreleased]
-
-
 ## Type Switcher [Unreleased]
 ## Documentation [Unreleased]
 
+
+## Communication Explorer [0.0.25] - 2023-06-23
+
+### Fixed
+- last content of the sidebar was not visible when scrollable
 
 ## Communication Explorer [0.0.24] - 2023-06-23
 
