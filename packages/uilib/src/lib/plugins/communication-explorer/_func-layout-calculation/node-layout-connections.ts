@@ -25,11 +25,11 @@ export function generateConnectionLayout(ieds: IEDCommInfo[], selectionFilter: S
 	}).flat()
 	
 
-	const outgoingEdges: IEDConnectionWithCustomValues[] = ieds.map( (sourceIED, index) => {
+	const outgoingEdges: IEDConnectionWithCustomValues[] = ieds.map( (sourceIED, iedIndex) => {
 		const publishedConnections = convertPublishedMessagesToConnections(
 			sourceIED, 
 			ieds, 
-			index, 
+			iedIndex, 
 			selectionFilter, 
 			hasSelection, 
 		)
@@ -41,10 +41,11 @@ export function generateConnectionLayout(ieds: IEDCommInfo[], selectionFilter: S
 	return [...incomingEdges, ...outgoingEdges]
 }
 
+// TODO: probably would be nice to test this function
 function convertPublishedMessagesToConnections(
 	sourceIED: IEDCommInfo, 
 	ieds: IEDCommInfo[], 
-	ii: number, 
+	iedIndex: number, 
 	selectionFilter: SelectedFilter, 
 	hasSelection: boolean, 
 ): IEDConnectionWithCustomValues[] {
@@ -64,7 +65,7 @@ function convertPublishedMessagesToConnections(
 		}
 		const targetIED = ieds[targetIEDIndex]
 		const messageType = messageTypeMap[message.serviceType]
-		const connectionID = `con_published_${Id(targetIEDIndex)}_${Id(ii)}_${messageType}_${connectionCounter++}`
+		const connectionID = `con_published_${Id(targetIEDIndex)}_${Id(iedIndex)}_${messageType}_${connectionCounter++}`
 
 		// 
 		// Relevancy
@@ -84,14 +85,15 @@ function convertPublishedMessagesToConnections(
 				isRelevant = false
 			}
 		}
+		// console.log({level: "dev", msg: "IEDConnectionWithCustomValues", message, checkRelevance: checkRelevance(selectionFilter, targetIED, sourceIED), isRelevant, isRelevantMessageType, selectedMessageTypes, messageType, selectionFilter, targetIED, sourceIED})
 
 		// 
 		// Assembly
 		// 
 		const connection = {
 			id:               connectionID,
-			sources:          [Id(targetIEDIndex)],
-			targets:          [Id(ii)],
+			sources:          [Id(iedIndex)],
+			targets:          [Id(targetIEDIndex)],
 			sourceIED:        sourceIED,
 			targetIED:        targetIED,
 			isRelevant,
@@ -107,7 +109,7 @@ function convertPublishedMessagesToConnections(
 function convertReceivedMessagesToConnections(
 	targetIED: IEDCommInfo, 
 	ieds: IEDCommInfo[], 
-	ii: number, 
+	iedIndex: number, 
 	selectionFilter: SelectedFilter, 
 	hasSelection: boolean, 
 ): IEDConnectionWithCustomValues[] {
@@ -125,7 +127,7 @@ function convertReceivedMessagesToConnections(
 			return
 		}
 		const sourceIED = ieds[sourceIEDIndex]
-		const targetIED = ieds[ii]
+		const targetIED = ieds[iedIndex]
 
 		const selectedMessageTypes: string[] = selectionFilter.selectedMessageTypes
 		const messageType = messageTypeMap[message.serviceType]
@@ -149,7 +151,7 @@ function convertReceivedMessagesToConnections(
 			}
 		}
 
-		const connectionID = `con_received_${Id(sourceIEDIndex)}_${Id(ii)}_${messageType}_${connectionCounter}`
+		const connectionID = `con_received_${Id(sourceIEDIndex)}_${Id(iedIndex)}_${messageType}_${connectionCounter}`
 		connectionCounter++
 
 		// 
@@ -158,7 +160,7 @@ function convertReceivedMessagesToConnections(
 		const connection = {
 			id:               connectionID,
 			sources:          [Id(sourceIEDIndex)],
-			targets:          [Id(ii)],
+			targets:          [Id(iedIndex)],
 			sourceIED:        sourceIED,
 			targetIED:        targetIED,
 			isRelevant,
@@ -172,7 +174,6 @@ function convertReceivedMessagesToConnections(
 
 function checkRelevance(selectionFilter: SelectedFilter, targetIED: IEDCommInfo, sourceIED: IEDCommInfo): boolean {
 	
-	// Note: better then doing the search ourselves but still not optimal
 	const isTargetIEDSelected = isIEDSelected({label: targetIED.iedName})
 	const isSourceIEDSelected = isIEDSelected({label: sourceIED.iedName})
 
