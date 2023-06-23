@@ -106,7 +106,7 @@
             filterDisabled={isIedFiltersDisabled}
         />
 
-        {#if IEDSelections.length > 0 !== undefined}
+        {#if IEDSelections.length > 0 }
             <hr />
             <ul class="ied-detail-list">
                 {#each IEDSelections as IEDSelections}
@@ -125,8 +125,6 @@
         <hr />
 
         <h2>Focus Mode</h2>
-
-        
 
         <label class="ied-search">
             <span class="ied-search-headline">Filter IEDs by name:</span>
@@ -185,13 +183,14 @@
     .sidebar {
         height: 100%;
         width: var(--sidebar-width);
+        overflow: hidden;
     }
 
     .sidebar .sidebar-content {
         padding: 1rem;
         background-color: #fcf6e5;
         height: 100%;
-        overflow-y: scroll;
+        overflow: auto;
         min-width: 330px;
     }
 

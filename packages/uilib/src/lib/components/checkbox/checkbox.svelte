@@ -9,7 +9,7 @@
 
 <checkbox data-testid={testid}>
   <label>
-    <input type="checkbox" bind:value on:change on:input bind:checked />
+    <input type="checkbox" {value} on:change on:input bind:checked />
     <span>{label}</span>
   </label>
 </checkbox>

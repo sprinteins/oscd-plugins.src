@@ -19,8 +19,7 @@
 	//
 	let path: string
 	$: path = drawLine(edge, showConnectionArrows)
-	$: shouldPlayAnimation =
-		playAnimation && edge.isRelevant && (isSelected || isIEDSelected)
+	$: shouldPlayAnimation = playAnimation && edge.isRelevant && (isSelected || isIEDSelected)
 
 	let arrowRightHeight = 0
 	let arrowRightWidth = 0
@@ -186,7 +185,7 @@
 			stroke-linecap="round"
 			stroke-linejoin="round"
 		/>
-		{#if playAnimation && (isSelected || isIEDSelected)}
+		{#if shouldPlayAnimation }
 			<path
 				d={path}
 				class="path-animation-border"

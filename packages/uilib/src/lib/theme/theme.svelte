@@ -12,7 +12,7 @@
 <style>
 	:root,
 	:host {
-		--color-paper-white: #ffffff
+		--color-paper-white: #ffffff;
 		--color-white: #f9f7f1;
 		--color-white-dark: #f2f2f2;
 		--color-yellow: #d9d800;

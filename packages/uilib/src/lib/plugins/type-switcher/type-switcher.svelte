@@ -21,7 +21,7 @@
 		EventDetailRelink,
 		EventDetailTypeLinkerSelect,
 	} from "./type-linker/events"
-	import { Structure, type Item as StructureItem } from "./structure"
+	import { Structure } from "./structure"
 	import { Layout } from "./layout"
 	import type { Item } from "../../components/list"
 	import type { IconKeys } from "../../components/icons"

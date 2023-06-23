@@ -7,6 +7,7 @@
 	import { createEventDispatcher } from "svelte"
 	import type { ElkExtendedEdge } from "elkjs"
 	import { isConnectionSelected, isIEDSelected } from "../../plugins/communication-explorer/_store-view-filter"
+import type { Mouse } from "@playwright/test"
 
 	//
 	// Inputs
@@ -43,8 +44,18 @@
 		dispatch("connectionclick", connection)
 	}
 
-	function handleSVGClick(e: Event){
+	function handleClick(e: Event){
 		if(e.target !== svgRoot && e.target !== root){ return }
+		
+		if(isDragging){
+			isDragging = false
+			draggingEnabled = false
+			return
+		}
+		if(draggingEnabled){
+			isDragging = false
+			draggingEnabled = false
+		}
 		
 		dispatch("clearclick")
 	}
@@ -53,17 +64,57 @@
 		return isIEDSelected({label: connection.sourceIED.iedName} ) || isIEDSelected({label: connection.targetIED.iedName} )
 	}
 
+	// 
+	// Draggable Diagram
+	// 
+	let pos = { top: 0, left: 0, x: 0, y: 0 }
+	let draggingEnabled = false
+	let isDragging = false
+	function handleMouseDown(e: MouseEvent){
+		if(e.target !== svgRoot && e.target !== root){ return }
+
+		draggingEnabled = true
+		pos = {
+			// The current scroll
+			left: root.scrollLeft,
+			top:  root.scrollTop,
+			// Get the current mouse position
+			x:    e.clientX,
+			y:    e.clientY,
+		}
+	}
+	function handleMouseMove(e: MouseEvent){
+		if(!draggingEnabled){ return }
+		isDragging = true
+		// How far the mouse has been moved
+		const dx = e.clientX - pos.x
+		const dy = e.clientY - pos.y
+
+		// Scroll the element
+		root.scrollTop = pos.top - dy
+		root.scrollLeft = pos.left - dx
+	}
+
+	function handleMouseLeave(e: MouseEvent){
+		isDragging = false
+		draggingEnabled = false
+	}
+
 </script>
 
 {#if rootNode}
 	<diagram
 		bind:this={root} 
-		on:click={handleSVGClick} 
+		on:click={handleClick} 
 		on:keypress
+		on:mousedown={handleMouseDown}
+		on:mousemove={handleMouseMove}
+		on:mouseleave={handleMouseLeave}
+		class:isDragging
+
 	>
 		<svg
 			bind:this={svgRoot}
-			on:click={handleSVGClick} 
 			on:keypress
 			viewBox={`0 0 ${rootNode.width} ${rootNode.height}`}
 			style:--width={`${rootNode.width}px`}
@@ -108,14 +159,21 @@
 
 <style>
 	diagram {
-		display:  block;
-		width: 	  100%;
-		height:   100%;
-		overflow: auto;
+		display:       block;
+		width: 	       100%;
+		height:        100%;
+		overflow:      auto;
+		cursor:        grab;
+	}
+
+	diagram.isDragging {
+		cursor: grabbing;
 	}
 
 	svg {
-		width:  var(--width);
-		height: var(--height);
+		width:   var(--width);
+		height:  var(--height);
+		display: block;
+		margin:  auto;
 	}
 </style>

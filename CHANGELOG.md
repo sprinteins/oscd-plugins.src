@@ -4,10 +4,31 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [Unreleased]
 
 ## Communication Explorer [Unreleased]
-## Dedupe [Unreleased]
+
+### Added
+- draggable diagram
+
+### Changed
+
+- diagrams are centered
+
+### Fixed
+- MMS messages had the wrong direction
+- deselecting by clicking in empty areas worked only in the SVG
+  now it works in the whole panel
+- irrelevant connections were animated
+- selection were persisted even if the user opened a new file causing
+  an invalid state where everything was irrelevant
+- typo in the sidebar
+- removed misleading color of filter chips when clicked
+- empty section in sidebar
+- unnecessary scrollbar in sidebar
+
+## Type Switcher [Unreleased]
+## Documentation [Unreleased]
+
 
 
 ## Communication Explorer [0.0.22] - 2023-06-15

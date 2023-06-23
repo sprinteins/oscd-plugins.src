@@ -17,6 +17,7 @@
 	<Button class="tscd-button" on:click {disabled}>
 		<Label class="button-label">{label}</Label>
 	</Button>
+	
 </div>
 
 <style lang="scss">
@@ -28,6 +29,11 @@
 			color: var(--color-accent);
 		}
 	}
+
+	.chip :global(.mdc-button .mdc-button__ripple::before){
+		background-color: unset;
+	}
+
 	.chip {
 		display: inline-flex;
 

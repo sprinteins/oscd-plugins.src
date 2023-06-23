@@ -129,7 +129,7 @@
 			disabled={!isMergePossible}
 			on:click={handleRelink}
 		>
-			switch switch
+			Switch
 		</Button>
 	</div>
 </type-linker>
@@ -144,10 +144,6 @@
 	}
 	.select-all-container {
 		display: flex;
-		div {
-			display: flex;
-			align-items: center;
-		}
 	}
 
 	label {
