@@ -14,12 +14,13 @@
 	export let playAnimation = true
 	export let showConnectionArrows = true
 
-	// 
+	//
 	// Internal
 	//
 	let path: string
 	$: path = drawLine(edge, showConnectionArrows)
-	$: shouldPlayAnimation = playAnimation && edge.isRelevant && (isSelected || isIEDSelected ) 
+	$: shouldPlayAnimation =
+		playAnimation && edge.isRelevant && (isSelected || isIEDSelected)
 
 	let arrowRightHeight = 0
 	let arrowRightWidth = 0
@@ -34,15 +35,16 @@
 		[MessageType.SampledValues]: "var(--color-message-sampledvalues)",
 		[MessageType.MMS]:           "var(--color-message-mms)",
 	}
-	
+
 	const defaultHighlightColor = "var(--color-grey-3)"
 	const messageTypeToHighlightColorMap: { [key in MessageType]: string } = {
-		[MessageType.GOOSE]:         "var(--color-message-highlight-goose)",
-		[MessageType.SampledValues]: "var(--color-message-highlight-sampledvalues)",
-		[MessageType.MMS]:           "var(--color-message-highlight-mms)",
+		[MessageType.GOOSE]: "var(--color-message-highlight-goose)",
+		[MessageType.SampledValues]:
+			"var(--color-message-highlight-sampledvalues)",
+		[MessageType.MMS]: "var(--color-message-highlight-mms)",
 	}
 
-	const defaultPattern="4, 32"
+	const defaultPattern = "4, 32"
 	const messageTypeToDashArray: { [key in MessageType]: string } = {
 		// [MessageType.GOOSE]:         "4, 8",
 		// [MessageType.MMS]:           "16, 8, 16, 32",
@@ -105,7 +107,7 @@
 		}
 
 		const color = messageTypeToColorMap[edge.messageType]
-		if(!color){
+		if (!color) {
 			return defaultColor
 		}
 
@@ -117,7 +119,7 @@
 		}
 
 		const color = messageTypeToHighlightColorMap[edge.messageType]
-		if(!color){
+		if (!color) {
 			return defaultHighlightColor
 		}
 
@@ -130,7 +132,7 @@
 		}
 
 		const dashArray = messageTypeToDashArray[edge.messageType]
-		if(!dashArray){
+		if (!dashArray) {
 			return defaultPattern
 		}
 		return dashArray
@@ -155,7 +157,6 @@
 			arrowBottomWidth = section.endPoint.x - arrowSize
 		}
 	}
-
 </script>
 
 <g
@@ -167,11 +168,10 @@
 	class:needs-solid-animation={true}
 	class:irrelevant={!edge.isRelevant}
 	data-testid={testid}
-
 >
 	{#if path}
-		<path d={path} class="path-hover-box"  />
-		<path d={path} class="path-strong"  />
+		<path d={path} class="path-hover-box" />
+		<path d={path} class="path-strong" style:stroke={pathColor} />
 		<path
 			d={path}
 			class="path"
@@ -179,32 +179,32 @@
 			stroke-linecap="round"
 			stroke-linejoin="round"
 		/>
-		<path 
-			d={path} 
-			class="path-selected" 
+		<path
+			d={path}
+			class="path-selected"
 			style:stroke={pathColor}
 			stroke-linecap="round"
 			stroke-linejoin="round"
 		/>
-		{#if shouldPlayAnimation}
-			<path 
-				d={path} 
-				class="path-animation-border" 
+		{#if playAnimation && (isSelected || isIEDSelected)}
+			<path
+				d={path}
+				class="path-animation-border"
 				style:stroke="black"
 				stroke-dasharray={dashArray}
 				stroke-linecap="round"
 				stroke-linejoin="round"
 			/>
-			<path 
-				d={path} 
-				class="path-animation" 
+			<path
+				d={path}
+				class="path-animation"
 				style:stroke={pathHighlightColor}
 				stroke-dasharray={dashArray}
 				stroke-linecap="round"
 				stroke-linejoin="round"
 			/>
 		{/if}
-		
+
 		{#if showConnectionArrows}
 			<path
 				class="path-end"
@@ -228,20 +228,18 @@
 		cursor: pointer;
 	}
 
-	
 	.path-animation-border,
-	.path-animation{
+	.path-animation {
 		display: none;
 	}
 
-	.path-animation-border{
+	.path-animation-border {
 		stroke-width: 0.3rem;
 	}
 
-	.path-animation{
+	.path-animation {
 		stroke-width: 0.2rem;
 	}
-
 
 	.path {
 		/* TODO: extract colors */
@@ -249,7 +247,7 @@
 		/* stroke-width: 2px; */
 		stroke: #288409;
 		background: #288409;
-		border: 1.5px solid #1C5907;
+		border: 1.5px solid #1c5907;
 	}
 
 	.path-hover-box {
@@ -260,7 +258,6 @@
 
 	.path-strong {
 		stroke-width: 0.275rem;
-		stroke: var(--color-yellow);
 		opacity: 0;
 	}
 
@@ -269,7 +266,7 @@
 		display: none;
 	}
 
-	.selected .path-selected{
+	.selected .path-selected {
 		display: block;
 	}
 
@@ -279,12 +276,12 @@
 	.selected .path-animation {
 		display: block;
 		animation-name: ied-connection-animation;
-  		animation-duration: 200s;
+		animation-duration: 200s;
 		animation-iteration-count: infinite;
 		animation-timing-function: linear;
 	}
 
-	.selected .path{
+	.selected .path {
 		display: none;
 	}
 
@@ -303,7 +300,11 @@
 		This is a workaround because a real solution does not really worth it
 	*/
 	@keyframes -global-ied-connection-animation {
-		from { stroke-dashoffset: 5000px; }
-		to {  stroke-dashoffset: 0px; }
+		from {
+			stroke-dashoffset: 5000px;
+		}
+		to {
+			stroke-dashoffset: 0px;
+		}
 	}
 </style>

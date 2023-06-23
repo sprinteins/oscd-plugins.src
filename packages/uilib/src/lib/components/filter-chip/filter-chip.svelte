@@ -1,13 +1,13 @@
 <script lang="ts">
 	import Button, { Label } from "@smui/button"
-	
+
 	// Input
 	export let label: string
 	export let isSelected: boolean
-	
+
 	export let testid = ""
 	export let disabled = false
-	
+
 	$: dataProps = {
 		"data-testid": testid,
 	}
@@ -30,7 +30,7 @@
 	}
 	.chip {
 		display: inline-flex;
-		
+
 		:global(.mdc-button) {
 			background-color: var(--color-filter-chips-background);
 			color: var(--font-color);
@@ -44,16 +44,16 @@
 			margin: 0.5rem;
 		}
 		:global(button.tscd-button:hover) {
+			background-color: var(--color-filter-chips-background);
 			outline: 1px var(--mdc-theme-primary) dashed;
 			cursor: pointer;
 		}
-		
+
 		// :global(.mdc-button.clicked) {
-			//   border-color: black;
-			// }
-			// :global(.mdc-button--ripple) {
-				//   background-color: black;
-				// }
-			}
-		</style>
-		
+		//   border-color: black;
+		// }
+		// :global(.mdc-button--ripple) {
+		//   background-color: black;
+		// }
+	}
+</style>
