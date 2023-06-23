@@ -1,61 +1,88 @@
 <script lang="ts">
-	import { Button } from "../../../components/button"
-	import { createEventDispatcher } from "svelte"
-	import List, { Item, Meta, Label, Graphic } from "@smui/list"
-	import Checkbox from "@smui/checkbox"
-	import { Select } from "../../../components/select"
-	import type { EventDetailRelink, EventDetailTypeLinkerSelect } from "../../type-switcher/type-linker/events"
+	import { Button } from "../../../components/button";
+	import type {
+		EventDetailRelink,
+		EventDetailTypeLinkerSelect,
+	} from "./events";
+	import { Select } from "../../../components/select";
+	import { Checkbox } from "../../../components/checkbox";
+	import { createEventDispatcher } from "svelte/internal";
 
 	// Import
-	export let items: { label: string }[] = []
-	export let testid = "type-linker"
+	export let items: { label: string }[] = [];
+	export let testid = "type-linker";
 
 	// Internal
-	const dispatch = createEventDispatcher()
-	let selectedLinkTargetIndex = -1
+	const dispatch = createEventDispatcher();
+	let selectedLinkTargetIndex = -1;
+	let isSelected = false;
 
-	$: isTargetSelected = selectedLinkTargetIndex > -1
-	$: isSomeDuplicateSelected = selected.length > 0
-	$: isMergePossible = isSomeDuplicateSelected && isTargetSelected
-	let checkedIndexes: Set<number> = new Set()
-
-	$: {
-		const detail: EventDetailTypeLinkerSelect = {
-			indexes: selected,
-		}
-		dispatch("select", detail)
-	}
+	$: isTargetSelected = selectedLinkTargetIndex > -1;
+	$: isSomeDuplicateSelected = selected.length > 0;
+	$: isMergePossible = isSomeDuplicateSelected && isTargetSelected;
+	let checkedIndexes: Set<number> = new Set();
 
 	function handleSelectAll(e: Event) {
-		items.forEach((_, index) => checkedIndexes.add(index))
-		checkedIndexes = checkedIndexes
+		if (isSelected === false) {
+			isSelected = true;
+			setAllCheckboxesChecked();
+		} else {
+			isSelected = false;
+			setAllCheckboxesUnChecked();
+		}
+		const detail: EventDetailTypeLinkerSelect = {
+			indexes: selected,
+		};
+		dispatch("select", detail);
+	}
+
+	function setAllCheckboxesChecked() {
+		items.forEach((_, index) => checkedIndexes.add(index));
+		checkedIndexes = checkedIndexes;
 		selected = Array(items.length)
 			.fill(true)
-			.map((_, i) => i)
+			.map((_, i) => i);
+	}
+
+	function setAllCheckboxesUnChecked() {
+		items.forEach((_, index) => checkedIndexes.delete(index));
+		checkedIndexes = checkedIndexes;
+		selected = [];
 	}
 
 	function handleTargetInputChange(e: CustomEvent<{ index: number }>) {
-		const index = e.detail.index
-		selectedLinkTargetIndex = index
+		const index = e.detail.index;
+		selectedLinkTargetIndex = index;
 	}
 
 	function handleRelink(e: Event): void {
 		if (!isMergePossible) {
-			return
+			return;
 		}
 		const detail: EventDetailRelink = {
 			sourceIndexes: selected,
-			targetIndex:   selectedLinkTargetIndex,
-		}
-		dispatch("relink", detail)
+			targetIndex: selectedLinkTargetIndex,
+		};
+		dispatch("relink", detail);
 	}
 
-	let selected: number[] = []
+	let selected: number[] = [];
 
-	function handleSelectionChange(
-		e: CustomEvent<{ changedIndices: number[] }>
-	) {
-		const { changedIndices } = e.detail
+	function handleSelectionChange(e: Event) {
+		const node = e.target as HTMLInputElement;
+		const value = node.value;
+		const isCheckboxChecked = node.checked;
+		var valueAsNumber = parseInt(value, 10);
+
+		if (isCheckboxChecked) selected.push(valueAsNumber);
+		else selected = selected.filter((n) => n != valueAsNumber);
+
+		isSelected = Array.from(selected).length === Array.from(items).length;
+
+		const detail: EventDetailTypeLinkerSelect = {
+			indexes: selected,
+		};
+		dispatch("select", detail);
 	}
 </script>
 
@@ -70,7 +97,6 @@
 				{items}
 			>
 				<option value={-1} disabled selected />
-				<!-- <option value={-1} disabled selected>{item.label}</option> -->
 				{#each items as item, index}
 					<option value={index}>{item.label}</option>
 				{/each}
@@ -79,36 +105,23 @@
 	</label>
 
 	<div class="select-all-container">
-		<Button
-			testid="merger_select-all"
-			type="tertiary"
-			on:click={handleSelectAll}
-		>
-			Select All
-		</Button>
+		<Checkbox
+			label="Select All"
+			checked={isSelected}
+			on:change={handleSelectAll}
+		/>
 	</div>
 
-	<List
-		class="type-linker__list"
-		checkList
-		on:SMUIList:selectionChange={handleSelectionChange}
-	>
+	<div>
 		{#each items as item, ii}
-			<Item class="item-typeswitcher-selected">
-				<Graphic>
-					<Checkbox
-						bind:group={selected}
-						value={ii}
-						checked={checkedIndexes.has(ii)}
-						label={item.label}
-					/>
-				</Graphic>
-				<Label class="label-type-linker">
-					{item.label}
-				</Label>
-			</Item>
+			<Checkbox
+				label={item.label}
+				value={ii}
+				checked={checkedIndexes.has(ii)}
+				on:change={handleSelectionChange}
+			/>
 		{/each}
-	</List>
+	</div>
 
 	<div class="action">
 		<Button
@@ -116,7 +129,7 @@
 			disabled={!isMergePossible}
 			on:click={handleRelink}
 		>
-			switch
+			switch switch
 		</Button>
 	</div>
 </type-linker>
@@ -128,6 +141,13 @@
 		grid-template-rows: auto auto 1fr auto;
 		gap: 1rem;
 		overflow: hidden;
+	}
+	.select-all-container {
+		display: flex;
+		div {
+			display: flex;
+			align-items: center;
+		}
 	}
 
 	label {

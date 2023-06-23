@@ -1,29 +1,38 @@
 <script lang="ts">
 	import Example from "../../../components/internal/example/example.svelte"
 	import { TypeLinker } from "."
-import type { EventDetailRelink, EventDetailTypeLinkerSelect } from "./events"
+	import type {
+		EventDetailRelink,
+		EventDetailTypeLinkerSelect,
+	} from "./events"
 
-	const items: string[] = ["phaseA", "phaseB", "phaseC","phaseD","phaseE","phaseF"]
+	const items: string[] = [
+		"phaseA",
+		"phaseB",
+		"phaseC",
+		"phaseD",
+		"phaseE",
+		"phaseF",
+	]
 
 	let selectedIndex = -1
 
 	let selection: string[] = []
-	function handleSelect(event:CustomEvent<EventDetailTypeLinkerSelect>){
+	function handleSelect(event: CustomEvent<EventDetailTypeLinkerSelect>) {
 		const indexes = event.detail.indexes
-		selection = indexes.map( ix => items[ix] )
+		selection = indexes.map((ix) => items[ix])
 	}
 
 	let eventFired: EventDetailRelink
-	function handleRelink(event: CustomEvent<EventDetailRelink>){
+	function handleRelink(event: CustomEvent<EventDetailRelink>) {
 		eventFired = event.detail
 	}
-
 </script>
 
 <Example name="Type Linker">
 	<div class="container">
-		<TypeLinker 
-			items={items.map((item) => ({label: item}) )}
+		<TypeLinker
+			items={items.map((item) => ({ label: item }))}
 			on:select={handleSelect}
 			on:relink={handleRelink}
 		/>
@@ -40,7 +49,7 @@ import type { EventDetailRelink, EventDetailTypeLinkerSelect } from "./events"
 </Example>
 
 <style>
-	.container{
-		width: 200px;
+	.container {
+		width: 250px;
 	}
 </style>
