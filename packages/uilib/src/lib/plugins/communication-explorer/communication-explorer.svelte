@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Theme from "../../theme/theme.svelte"
-import { clearSelection } from "./_store-view-filter"
+	import { clearSelection } from "./_store-view-filter"
 	import TelemetryView from "./telemetry-view/telemetry-view.svelte"
 
 	export let root: Element
@@ -10,7 +10,9 @@ import { clearSelection } from "./_store-view-filter"
 
 <Theme>
 	<communication-explorer>
-		<TelemetryView bind:root />
+		{#key root}
+		<TelemetryView {root} />
+		{/key}
 	</communication-explorer>
 </Theme>
 

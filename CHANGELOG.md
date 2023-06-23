@@ -7,8 +7,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## Communication Explorer [Unreleased]
 
+
+## Type Switcher [Unreleased]
+## Documentation [Unreleased]
+
+
+## Communication Explorer [0.0.24] - 2023-06-23
+
 ### Added
-- draggable diagram
+- draggable diagram when holding space bar
+- zoomable diagram with mouse wheel (not the best but works)
 
 ### Changed
 
@@ -25,10 +33,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - removed misleading color of filter chips when clicked
 - empty section in sidebar
 - unnecessary scrollbar in sidebar
-
-## Type Switcher [Unreleased]
-## Documentation [Unreleased]
-
 
 
 ## Communication Explorer [0.0.22] - 2023-06-15
