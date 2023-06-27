@@ -3,18 +3,19 @@
     import PrintTelemetry from "./print-telemetry/print-telemetry.svelte"
     import { calcIEDs } from "."
     import PrintDocumentation from "./print-documentation/print-documentation.svelte"
-    import { PdfType, pdfExportStore } from "../_store-pdf-export"
 
     export let scdData: Element
     let iedInfos: IEDCommInfo[] = calcIEDs(scdData)
 </script>
 
-<section class="documentation-print-content">
-    {#if $pdfExportStore.type === PdfType.Telegram}
+<section class="documentation-print-content" id="documentation-print-content">
+    <div id="tscd-documentation-print-content-communication">
         <PrintTelemetry bind:scdData />
-    {:else if $pdfExportStore.type === PdfType.Documentation}
+    </div>
+
+    <div id="documentation-print-content-documentation">
         <PrintDocumentation {iedInfos} />
-    {/if}
+    </div>
 </section>
 
 <style lang="scss">

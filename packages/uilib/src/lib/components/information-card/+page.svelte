@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { PdfType } from "../../plugins/documentation/_store-pdf-export"
+  import { PdfType } from "../../plugins/documentation/documentation-web-view"
   import { Example } from "../internal"
   import InformationCard from "./information-card.svelte"
 

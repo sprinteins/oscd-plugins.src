@@ -1,45 +1,54 @@
 <script lang="ts">
     import type { IEDCommInfo } from "@oscd-plugins/core"
     import { PrintMessageServiceChip } from "../../../../../../components/print-message-service-chip"
+    import { convertIEDNameToID } from "../../_shared-functions"
 
     export let publishedServiceTypes: string[]
     export let ied: IEDCommInfo
+
+    const gotoIedNameID = convertIEDNameToID(ied.iedName, false)
 </script>
 
-<h4>{ied.iedName}</h4>
-{#if publishedServiceTypes.length > 0}
-    <div>
-        <h5>Publisher</h5>
-        <ul class="show-publiished-service-types">
-            {#each publishedServiceTypes as serviceType}
-                <li>
-                    <PrintMessageServiceChip
-                        type={serviceType.toLocaleLowerCase()}
-                    />
-                </li>
-            {/each}
-        </ul>
-    </div>
-{/if}
-{#if ied.received.length > 0}
-    <div>
-        <h5>Subscriber</h5>
-        <ul class="subscriber-list">
-            {#each ied.received as subscriber}
-                <li>
-                    <div class="chip">
+<div class="ied-node" id={gotoIedNameID}>
+    <h4>
+        {ied.iedName}
+    </h4>
+    {#if publishedServiceTypes.length > 0}
+        <div>
+            <h5>Publisher</h5>
+            <ul class="show-publiished-service-types">
+                {#each publishedServiceTypes as serviceType}
+                    <li>
                         <PrintMessageServiceChip
-                            type={subscriber.serviceType.toLocaleLowerCase()}
+                            type={serviceType.toLocaleLowerCase()}
                         />
-                    </div>
-                    <span>
-                        {subscriber.iedName}
-                    </span>
-                </li>
-            {/each}
-        </ul>
-    </div>
-{/if}
+                    </li>
+                {/each}
+            </ul>
+        </div>
+    {/if}
+    {#if ied.received.length > 0}
+        <div>
+            <h5>Subscriber</h5>
+            <ul class="subscriber-list">
+                {#each ied.received as subscriber}
+                    <li>
+                        <div class="chip">
+                            <PrintMessageServiceChip
+                                type={subscriber.serviceType.toLocaleLowerCase()}
+                            />
+                        </div>
+                        <a href={convertIEDNameToID(subscriber.iedName, true)}>
+                            <span>
+                                {subscriber.iedName}
+                            </span>
+                        </a>
+                    </li>
+                {/each}
+            </ul>
+        </div>
+    {/if}
+</div>
 
 <style lang="scss">
     ul.subscriber-list {

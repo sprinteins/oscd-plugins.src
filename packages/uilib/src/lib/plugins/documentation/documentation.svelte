@@ -14,10 +14,7 @@
 
 <Theme>
 	<documentation>
-		<DocumentationPrintView bind:scdData={root} />
 		<DocumentationWebView />
+		<DocumentationPrintView bind:scdData={root} />
 	</documentation>
 </Theme>
-
-<style>
-</style>

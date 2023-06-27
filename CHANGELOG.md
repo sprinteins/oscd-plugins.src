@@ -9,6 +9,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## Type Switcher [Unreleased]
 ## Documentation [Unreleased]
 
+### Added
+- href to navigate easier through the page
+
+### Changed
+- pdf export works now via new tab
 
 ## Communication Explorer [0.0.25] - 2023-06-23
 

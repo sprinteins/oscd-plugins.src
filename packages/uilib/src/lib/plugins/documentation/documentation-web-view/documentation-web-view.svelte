@@ -1,18 +1,11 @@
 <script lang="ts">
+  import { PdfType, exportPdfInNewTab } from "."
   import InformationCard from "../../../components/information-card/information-card.svelte"
-  import { PdfType, setPdfConfigurationType } from "../_store-pdf-export"
-
-  function downloadPdf(e: CustomEvent, type: PdfType) {
-  	setPdfConfigurationType(type)
-  	setTimeout(() => {
-  		print()
-  	}, 100)
-  }
 </script>
 
 <section class="documentation-web-content">
   <div class="pdf-downloads">
-    <InformationCard on:buttonClick={(e) => downloadPdf(e, PdfType.Telegram)}>
+    <InformationCard on:buttonClick={() => exportPdfInNewTab(PdfType.Telegram)}>
       <span slot="header">Communication Explorer</span>
       <span slot="description"
         >Downloading the Communication Explorer including an overview about the
@@ -21,7 +14,7 @@
       <span slot="button-text">Download</span>
     </InformationCard>
     <InformationCard
-      on:buttonClick={(e) => downloadPdf(e, PdfType.Documentation)}
+      on:buttonClick={() => exportPdfInNewTab(PdfType.Documentation)}
     >
       <span slot="header">Documentation</span>
       <span slot="description"
