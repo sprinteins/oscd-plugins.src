@@ -38,7 +38,7 @@
     height: auto;
     padding: var(--padding) calc(var(--padding) * 2);
   }
-  :global(button.mdc-button:not(:disabled)) {
-    color: var(--font-color);
+  :global(button.mdc-button) {
+    color: var(--font-color) !important;
   }
 </style>
