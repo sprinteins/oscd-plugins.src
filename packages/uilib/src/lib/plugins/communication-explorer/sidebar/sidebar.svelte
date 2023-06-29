@@ -15,6 +15,7 @@
     import ConnectionInformation from "./connection-information/connection-information.svelte"
     import IEDAccordion from "./ied-accordion/ied-accordion.svelte"
     import { preferences$ } from "../_store-preferences"
+    import { Button } from "../../../components/button"
 
     export let rootNode: RootNode
 
@@ -63,9 +64,9 @@
     <div class="sidebar-content">
         <!-- svelte-ignore a11y-missing-attribute -->
         <div class="actions">
-            <a class="clear-all" on:keypress on:click={clearSelection}>
+            <Button type="tertiary" on:keypress on:click={clearSelection}>
                 Clear all
-            </a>
+            </Button>
         </div>
 
         <div class="ied-nodes">
@@ -106,7 +107,7 @@
             filterDisabled={isIedFiltersDisabled}
         />
 
-        {#if IEDSelections.length > 0 }
+        {#if IEDSelections.length > 0}
             <hr />
             <ul class="ied-detail-list">
                 {#each IEDSelections as IEDSelections}
@@ -147,9 +148,6 @@
             </label>
         </div>
 
-        
-
-
         <h2>Preferences</h2>
 
         <div class="arrows-visible">
@@ -171,7 +169,6 @@
                 <span>Play data flow animation</span>
             </label>
         </div>
-
     </div>
 </div>
 
