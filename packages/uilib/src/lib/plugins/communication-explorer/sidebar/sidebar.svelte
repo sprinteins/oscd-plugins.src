@@ -72,7 +72,7 @@
         <div class="ied-nodes">
             <img src={ConnectionSelector} alt="connection selector" />
             <label>
-                <span>Select an IED</span>
+                <span>Show connections </span>
                 <!-- 
                     TODO: we should remove this select
                     I don't think it adds much user value
