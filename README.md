@@ -1,31 +1,44 @@
 # OpenSCD Plugins
+![Maintainance Status](https://img.shields.io/badge/maintainance_status-pending-orange)
 
-This repository contains plugins for the [OpenSCD ↗](https://github.com/openscd/open-scd) project.
+A collection from feature enhancing plugins
+A collection of feature enhancing plugins for better planning of substation with [OpenSCD ↗](https://github.com/openscd/open-scd)
 
-## Documentation
+## 📦 What this repo contains
+This repository contains the source code for the:
+- 🖥️ **[Community Explorer Plugin](./packages/uilib/src/lib/plugins/communication-explorer)**  
+    For an overview of which IEDs communicate with each other
+- 🖨️ **[PDF Exporter](./packages/uilib/src/lib/plugins/documentation)**  
+    To export a printed version of the connections and configurations for offline usages
+- 🧩 **[Type Switcher](./packages/uilib/src/lib/plugins/type-switcher)**  
+    Allows you to resolve redundancies in data types, when planning a substation
 
-A high-level overview of how the documentation is organized will help you know where to look for certain things:
+for the [OpenSCD ↗](https://github.com/openscd/open-scd) project. This project was created in cooperation with [TransnetBW ↗](https://www.transnetbw.de/de)
 
-- [☑ How-Tos](#how-tos) guide you through the steps involved in addressing key problems and use-cases. They are more advanced than tutorials and assume some knowledge of how BZ-Cockpit works.
-- [👷 Guides](#guides) describe best practices and principles we follow.
-- [🗃 References](#references) contain technical reference for APIs and other aspects of BZ-Cockpits They describe how it works and how to use it but assume that you have a basic understanding of key concepts.
-- [👩‍🏫 Explanations](#explanations) about the architecture and general design of the project
-
-## ☑ How-Tos
-
-- [Setup Project](./doc//how-to/setup.md)
-
-## 👷 Guides
-
-- [Documentation Guidelines](./doc/guidelines/doc_guidelines.md)
-- [Documentation Style Guide](./doc/guidelines/doc_styleguide.md)
-
-## 👩‍🏫 Explanations
-- [1. Record architecture decisions](./doc/adr/0001-record-architecture-decisions.md)
-- [2. Use Monorepo-Polypackage Setup](./doc/adr/0002-use-monorepo-polypackage-setup.md)
-- [3. Release Process](./doc/adr/0003-release-process.md)
+## 🔎 Try out the newest version on our test distribution
+You can find our test environment here:  
+[https://openscd.sprinteins.com/ ↗](https://openscd.sprinteins.com/)
 
 
-## 🗃 References
+## 👨🏻‍💻 How to install the plugins
 
-- [Release Process](./doc/references/architecture/release-process.md)
+- **Communication Explorer**  
+    latest: https://sprinteins.github.io/oscd-plugins/communication-explorer/index.js
+- **PDF Exporter**  
+    latest: https://sprinteins.github.io/oscd-plugins/network-explorer/index.js
+- **Type Switcher**  
+    latest: https://sprinteins.github.io/oscd-plugins/diffing-tool/index.js
+
+### 📦 Install it on your distribution 
+```js
+export const officialPlugins = [{
+    name: 'Communication Explorer',
+    src: `https://sprinteins.github.io/oscd-plugins/communication-explorer/index.js`,
+    icon: 'edit',
+    default: true,
+    kind: 'editor',
+}]
+```
+
+
+
