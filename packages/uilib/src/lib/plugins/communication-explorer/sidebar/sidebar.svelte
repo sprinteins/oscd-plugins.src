@@ -95,6 +95,7 @@
                 </select>
             </label>
         </div>
+        <hr class="seperation-line" />
 
         <div class="centered">
             <ConnectionTypeFilter disabled={isConnectionDirectionDisabled} />
@@ -107,7 +108,7 @@
         />
 
         {#if IEDSelections.length > 0}
-            <hr />
+            <hr class="seperation-line" />
             <ul class="ied-detail-list">
                 {#each IEDSelections as IEDSelections}
                     <li>
@@ -122,7 +123,7 @@
             <ConnectionInformation {ConnectionSelection} />
         {/if}
 
-        <hr />
+        <hr class="seperation-line" />
 
         <h2>Focus Mode</h2>
 
@@ -259,5 +260,9 @@
     }
     .dashed-line {
         border: 0.1rem dashed var(--color-cyan-30-pc-opacity);
+    }
+    .seperation-line {
+        border: none;
+        border-top: 0.1rem solid var(--color-accent);
     }
 </style>
