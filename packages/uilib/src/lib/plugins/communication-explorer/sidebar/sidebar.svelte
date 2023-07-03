@@ -100,13 +100,13 @@
             <ConnectionTypeFilter disabled={isConnectionDirectionDisabled} />
         </div>
 
-        <hr />
+        <hr class="dashed-line" />
         <MessageTypeFilter
             {selectedMessageTypes}
             filterDisabled={isIedFiltersDisabled}
         />
 
-        {#if IEDSelections.length > 0 }
+        {#if IEDSelections.length > 0}
             <hr />
             <ul class="ied-detail-list">
                 {#each IEDSelections as IEDSelections}
@@ -147,9 +147,6 @@
             </label>
         </div>
 
-        
-
-
         <h2>Preferences</h2>
 
         <div class="arrows-visible">
@@ -171,7 +168,6 @@
                 <span>Play data flow animation</span>
             </label>
         </div>
-
     </div>
 </div>
 
@@ -260,5 +256,8 @@
     }
     .input {
         margin-bottom: 1rem;
+    }
+    .dashed-line {
+        border: 0.1rem dashed var(--color-cyan-30-pc-opacity);
     }
 </style>

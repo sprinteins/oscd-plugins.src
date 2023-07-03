@@ -43,6 +43,7 @@
 		--color-grey-dark-70pc-opacity: #4d5d63b3;
 
 		--color-cyan: #2aa198;
+		--color-cyan-30-pc-opacity: #2aa1984d;
 		--color-select-dropdown: #fffff4;
 		--color-select-dropdown-transparent: #fffff480;
 
