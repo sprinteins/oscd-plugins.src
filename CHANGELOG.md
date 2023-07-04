@@ -11,6 +11,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added
 - href to navigate easier through the page
+- add bay documentation
+- add bus documentation
 
 ### Changed
 - pdf export works now via new tab
