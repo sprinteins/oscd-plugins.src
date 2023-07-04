@@ -1,6 +1,7 @@
 <script lang="ts">
     import { MessageType } from "@oscd-plugins/core"
     import { isSelected, setTargetMessageType } from "."
+    import Icons from "../../../../components/icons/icons.svelte"
 
     export let filterDisabled: boolean
     export let selectedMessageTypes: string[]
@@ -24,7 +25,9 @@
             class="mms-checkbox"
         />
         <div class="message-label">
-            <span class="message-color-block message-color-mms" />
+            <div class="icon">
+                <Icons size={"normal"} name={"tscdMmsIcon"} />
+            </div>
             <span class="text">MMS</span>
         </div>
     </label>
@@ -42,7 +45,9 @@
             class="goose-checkbox"
         />
         <div class="message-label">
-            <span class="message-color-block message-color-goose" />
+            <div class="icon">
+                <Icons size={"normal"} name={"tscdGooseIcon"} />
+            </div>
             <span class="text">GOOSE</span>
         </div>
     </label>
@@ -60,7 +65,9 @@
             class="sampledvalues-checkbox"
         />
         <div class="message-label">
-            <span class="message-color-block message-color-sampledvalues" />
+            <div class="icon">
+                <Icons size={"normal"} name={"tscdSvIcon"} />
+            </div>
             <span class="text">Sampled Values</span>
         </div>
     </label>
@@ -91,51 +98,25 @@
         align-items: center;
         gap: 0.5rem;
         margin-bottom: -0.1rem;
-    }
-
-    .message-color-block {
-        height: 0.8rem;
-        width: 0.8rem;
-    }
-
-    .message-label-checkbox-checked {
-        height: 0.8rem;
-        width: 0.8rem;
-        gap: 1.3rem;
-        white-space: nowrap;
-    }
-
-    .message-color-mms {
-        background-color: var(--color-message-disabled-mms);
+        opacity: 0.4;
     }
 
     // rule applies, when checkbox is checked AND not disabled
     // affects the div.message-label class
     .mms-checkbox:checked:not([disabled]) + div.message-label {
-        @extend .message-label-checkbox-checked;
-        background-color: var(--color-message-mms);
-    }
-
-    .message-color-goose {
-        background-color: var(--color-message-disabled-goose);
+        opacity: 1;
     }
 
     // rule applies, when checkbox is checked AND not disabled
     // affects the div.message-label class
     .goose-checkbox:checked:not([disabled]) + div.message-label {
-        @extend .message-label-checkbox-checked;
-        background-color: var(--color-message-goose);
-    }
-
-    .message-color-sampledvalues {
-        background-color: var(--color-message-disabled-samplevalues);
+        opacity: 1;
     }
 
     // rule applies, when checkbox is checked AND not disabled
     // affects the div.message-label class
     .sampledvalues-checkbox:checked:not([disabled]) + div.message-label {
-        @extend .message-label-checkbox-checked;
-        background-color: var(--color-message-sampledvalues);
+        opacity: 1;
     }
 
     .message-type label input[disabled] + div.message-label {

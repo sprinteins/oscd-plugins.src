@@ -22,11 +22,11 @@
 
 	const variantIconName: { [key in typeof type]: keyof typeof openSCDIcons } =
 		{
-			goose:         "gooseIcon",
-			mms:           "reportIcon",
-			reportcontrol: "reportIcon",
-			sampledvalues: "smvIcon",
-			smv:           "smvIcon",
+			goose:         "tscdGooseIcon",
+			mms:           "tscdMmsIcon",
+			reportcontrol: "tscdMmsIcon",
+			sampledvalues: "tscdSvIcon",
+			smv:           "tscdSvIcon",
 		}
 </script>
 
@@ -47,6 +47,7 @@
 <style lang="scss">
 	.print-message-type-chip {
 		$size: 0.8rem;
+		$iconSize: 1.5rem;
 		.chip-size {
 			span {
 				font-size: $size;
@@ -56,12 +57,12 @@
 				padding: 0.1rem 0.3rem;
 			}
 			:global(div.icon-size svg) {
-				height: $size;
-				width: $size;
+				height: $iconSize;
+				width: $iconSize;
 			}
 			:global(div.icon-size) {
-				height: $size;
-				width: $size;
+				height: $iconSize;
+				width: $iconSize;
 			}
 		}
 

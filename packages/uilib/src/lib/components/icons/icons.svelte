@@ -10,7 +10,7 @@
     $: icon = openSCDIcons[name] ?? ""
 </script>
 
-<div 
+<div
     class="icon-size icon-size-{size}"
     class:icon-size-small={size === "small"}
     class:icon-size-normal={size === "normal"}
@@ -23,11 +23,6 @@
         $size: 1rem;
         height: $size;
         width: $size;
-        /* TODO: remove if not needed */
-        /* svg {
-            height: $size;
-            width: $size;
-        } */
     }
 
     .icon-size-normal {
@@ -39,7 +34,7 @@
             width: 24px;
         }
     }
-    
+
     div.icon-size-normal {
         $size: 24px;
         height: $size;
@@ -49,7 +44,7 @@
             width: $size;
         }
     }
-    
+
     div.icon-size-rect {
         $size: 24px;
         height: $size;
@@ -59,11 +54,4 @@
             width: 24px;
         }
     }
-
-    /* TODO: remove if not needed */
-    /* svg {
-        $size: 24px;
-        height: $size;
-        width: $size;
-    } */
 </style>
