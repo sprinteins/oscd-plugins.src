@@ -9,13 +9,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## Type Switcher [Unreleased]
 ## Documentation [Unreleased]
 
+
+## Network Explorer [0.0.13] - 2023-07-04
+
 ### Added
 - href to navigate easier through the page
 - add bay documentation
 - add bus documentation
 
 ### Changed
-- pdf export works now via new tab
+- pdf export works now via new tab (technical)
 
 ## Communication Explorer [0.0.25] - 2023-06-23
 
@@ -144,3 +147,4 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - pdf can be generated
 - button for pdf download
+
