@@ -3,7 +3,7 @@
     import { PrintMessageServiceChip } from "../../../../../../components/print-message-service-chip"
     import { convertIEDNameToID } from "../../_shared-functions"
 
-    export let publishedServiceTypes: string[]
+    export let publishedServiceTypes: string[] | undefined = undefined
     export let ied: IEDCommInfo
 
     const gotoIedNameID = convertIEDNameToID(ied.iedName, false)
@@ -13,7 +13,7 @@
     <h4>
         {ied.iedName}
     </h4>
-    {#if publishedServiceTypes.length > 0}
+    {#if publishedServiceTypes != undefined && publishedServiceTypes.length > 0}
         <div>
             <h5>Publisher</h5>
             <ul class="show-publiished-service-types">

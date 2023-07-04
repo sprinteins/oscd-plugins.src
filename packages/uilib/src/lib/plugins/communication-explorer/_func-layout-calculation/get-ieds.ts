@@ -12,3 +12,27 @@ export function extractIEDInfos(root: Element): IEDCommInfo[] {
 
 	return iedInfos
 }
+
+export function extractIEDInfosWithBay(root: Element): Map<string, IEDCommInfo[]> {
+	if (!root) {
+		console.info({ level: "info", msg: "initInfos: no root" })
+		return new Map()
+	}
+	const scdQueries = new SCDQueries(root)
+	const ucci = new UCCommunicationInformation(scdQueries)
+	const iedInfosByBay = ucci.IEDCommInfosByBay()
+
+	return iedInfosByBay
+}
+
+export function extractIEDInfosWithBus(root: Element): Map<string, IEDCommInfo[]> {
+	if (!root) {
+		console.info({ level: "info", msg: "initInfos: no root" })
+		return new Map()
+	}
+	const scdQueries = new SCDQueries(root)
+	const ucci = new UCCommunicationInformation(scdQueries)
+	const iedInfosByBus = ucci.IEDCommInfosByBus()
+
+	return iedInfosByBus
+}

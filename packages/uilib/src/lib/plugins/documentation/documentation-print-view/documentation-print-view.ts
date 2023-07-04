@@ -1,12 +1,23 @@
 import type { IEDCommInfo } from "@oscd-plugins/core"
-import { extractIEDInfos } from "../../communication-explorer/_func-layout-calculation"
+import { extractIEDInfosWithBay, extractIEDInfosWithBus } from "../../communication-explorer/_func-layout-calculation"
 
 
-export function calcIEDs(root: Element): IEDCommInfo[] {
+export function calcBayIEDs(root: Element): Map<string, IEDCommInfo[]> {
 	if (!root) {
 		console.info({ level: "info", msg: "initInfos: no root" })
-		return []
+		return new Map()
 	}
 
-	return extractIEDInfos(root)
+	return extractIEDInfosWithBay(root)
 }
+
+export function calcBusIEDs(root: Element): Map<string, IEDCommInfo[]> {
+	if (!root) {
+		console.info({ level: "info", msg: "initInfos: no root" })
+		return new Map()
+	}
+
+	return extractIEDInfosWithBus(root)
+}
+
+

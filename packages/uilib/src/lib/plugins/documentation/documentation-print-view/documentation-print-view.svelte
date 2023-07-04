@@ -1,11 +1,14 @@
 <script lang="ts">
     import type { IEDCommInfo } from "@oscd-plugins/core"
     import PrintTelemetry from "./print-telemetry/print-telemetry.svelte"
-    import { calcIEDs } from "."
+    import { calcBusIEDs, calcBayIEDs } from "."
     import PrintDocumentation from "./print-documentation/print-documentation.svelte"
 
     export let scdData: Element
-    let iedInfos: IEDCommInfo[] = calcIEDs(scdData)
+
+    let iedByBay: Map<string, IEDCommInfo[]> = calcBayIEDs(scdData)
+    let iedByBus: Map<string, IEDCommInfo[]> = calcBusIEDs(scdData)
+    $: console.log("data", { iedByBay }, { iedByBus })
 </script>
 
 <section class="documentation-print-content" id="documentation-print-content">
@@ -13,8 +16,8 @@
         <PrintTelemetry bind:scdData />
     </div>
 
-    <div id="documentation-print-content-documentation">
-        <PrintDocumentation {iedInfos} />
+    <div id="tscd-documentation-print-content-documentation">
+        <PrintDocumentation {iedByBay} {iedByBus} />
     </div>
 </section>
 

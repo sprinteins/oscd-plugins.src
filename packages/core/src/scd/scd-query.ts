@@ -15,6 +15,47 @@ export class SCDQueries {
 		return this.searchElement<IEDElement>(SCDQueries.SelectorIED, SCDQueries.AttributeListIED, options)
 	}
 
+	public getBaysByIEDName(name: string): Set<string> {
+		const root = this.determineRoot()
+		const selector = `SCL Substation VoltageLevel Bay LNode[iedName='${name}']`
+		// const selector = `SCL > Substation > VoltageLevel > Bay > LNode[iedName='${name}']`
+
+		const lnodes = Array.from(root.querySelectorAll(selector))
+		const connections = new Set<string>
+
+		for (const lnode of lnodes) {
+			if (lnode != null){
+				const bay = lnode.closest("Bay")
+				const bayName = bay?.getAttribute("name") 
+
+				if (bayName != null)
+					connections.add(bayName)
+			}
+		}
+
+		return connections
+	}
+
+	public getBusesByIEDName(name: string): Set<string> {
+		const root = this.determineRoot()
+		const selector = `SCL > Communication > SubNetwork > ConnectedAP[iedName='${name}']`
+
+		const lnodes = Array.from(root.querySelectorAll(selector))
+		const connections = new Set<string>
+
+		for (const lnode of lnodes) {
+			if (lnode != null){
+				const bay = lnode.closest("SubNetwork")
+				const bayName = bay?.getAttribute("name") 
+
+				if (bayName != null)
+					connections.add(bayName)
+			}
+		}
+
+		return connections
+	}
+
 	public static SelectorGSEControl = "GSEControl"
 	public searchGSEControls(options?:CommonOptions): GSEControlElement[] {
 		return this.searchElement<GSEControlElement>(

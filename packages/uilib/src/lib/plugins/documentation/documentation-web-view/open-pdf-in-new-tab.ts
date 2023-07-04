@@ -17,7 +17,7 @@ export async function exportPdfInNewTab(type: PdfType) {
 		printContent = document
 			?.querySelector("open-scd")?.shadowRoot
 			?.querySelector(".editor")?.shadowRoot
-			?.querySelector("#documentation-print-content-documentation")
+			?.querySelector("#tscd-documentation-print-content-documentation")
 	} else {
 		alert("unknown pdf export type")
 		return

@@ -1,7 +1,7 @@
 <script lang="ts">
     import { Example } from "../../components/internal"
     import { NetworkExplorer } from "./index"
-    import { xmlStr } from "../../../test-files/simple_v5"
+    import { xmlStr } from "../../../test-files/simple_v6"
 
     const parser = new DOMParser()
     const doc = parser.parseFromString(

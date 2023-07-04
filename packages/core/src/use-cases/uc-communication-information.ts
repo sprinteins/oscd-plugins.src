@@ -25,6 +25,48 @@ export class UCCommunicationInformation {
 		return commInfos
 	}
 
+	public IEDCommInfosByBay(): Map<string, IEDCommInfo[]> {
+		const ieds = this.IEDCommInfos()
+
+		const baysWithIEDs = new Map<string, IEDCommInfo[]>()
+		ieds.forEach((ied) => {
+			const bayNames = this.scdQueries.getBaysByIEDName(ied.iedName)
+			
+			bayNames.forEach((bayName) => {
+				let setList: IEDCommInfo[] | undefined = []
+
+				if (!baysWithIEDs.has(bayName)) 
+					baysWithIEDs.set(bayName, [])
+
+				setList = baysWithIEDs.get(bayName)
+				setList?.push(ied)
+			})
+		})
+
+		return baysWithIEDs
+	}
+
+	public IEDCommInfosByBus(): Map<string, IEDCommInfo[]> {
+		const ieds = this.IEDCommInfos()
+
+		const busesWithIEDs = new Map<string, IEDCommInfo[]>()
+		ieds.forEach((ied) => {
+			const busNames = this.scdQueries.getBusesByIEDName(ied.iedName)
+			
+			busNames.forEach((busName) => {
+				let setList: IEDCommInfo[] | undefined = []
+
+				if (!busesWithIEDs.has(busName)) 
+					busesWithIEDs.set(busName, [])
+
+				setList = busesWithIEDs.get(busName)
+				setList?.push(ied)
+			})
+		})
+
+		return busesWithIEDs
+	}
+
 	private findPublishedMessages_V2(ied: IEDElement): PublishedMessage_V2[]{
 		const messages: PublishedMessage_V2[] = []
 		

@@ -1,39 +1,34 @@
 <script lang="ts">
     import type { IEDCommInfo } from "@oscd-plugins/core"
     import PrintIeds from "./print-ieds/print-ieds.svelte"
+    import { calcPublished } from "./_shared-functions"
 
-    export let iedInfos: IEDCommInfo[]
-
-    function calcPublished(iedName: string): string[] {
-    	let publishedServiceTypes: string[] = []
-
-    	for (const checkIed of iedInfos) {
-    		for (const received of checkIed.received) {
-    			if (received.iedName === iedName) {
-    				publishedServiceTypes.push(received.serviceType)
-    			}
-    		}
-    	}
-
-    	// make entries unique before returning them
-    	return [...new Set(publishedServiceTypes)]
-    }
+    export let iedByBay: Map<string, IEDCommInfo[]>
+    $: bayNames = Array.from(iedByBay.keys())
 </script>
 
 <div class="bay-list">
     <h2>List with all Bays</h2>
     <ul>
-        <li>
-            <h3>Only Bay</h3>
-            <ul>
-                {#each iedInfos as ied}
-                    {@const publishedServiceTypes = calcPublished(ied.iedName)}
-                    <li>
-                        <PrintIeds {ied} {publishedServiceTypes} />
-                    </li>
-                {/each}
-            </ul>
-        </li>
+        {#each bayNames as bayName}
+            {@const bayIeds = iedByBay.get(bayName)}
+            <li>
+                <h3>{bayName}</h3>
+                <ul>
+                    {#if bayIeds != undefined}
+                        {#each bayIeds as ied}
+                            {@const publishedServiceTypes = calcPublished(
+                                ied.iedName,
+                                iedByBay
+                            )}
+                            <li>
+                                <PrintIeds {ied} {publishedServiceTypes} />
+                            </li>
+                        {/each}
+                    {/if}
+                </ul>
+            </li>
+        {/each}
     </ul>
 </div>
 

@@ -47,4 +47,5 @@ suite("SCD Queries", () => {
 			})
 		}
 	}) // GSE Queries
+
 }) // SCD Queries

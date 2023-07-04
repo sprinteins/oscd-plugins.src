@@ -3,8 +3,9 @@
     import { PrintBays } from "./print-bays"
     import { PrintBus } from "./print-bus"
 
-    export let iedInfos: IEDCommInfo[]
+    export let iedByBay: Map<string, IEDCommInfo[]>
+    export let iedByBus: Map<string, IEDCommInfo[]>
 </script>
 
-<PrintBus {iedInfos} />
-<PrintBays {iedInfos} />
+<PrintBus {iedByBus} />
+<PrintBays {iedByBay} />
