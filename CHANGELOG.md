@@ -53,6 +53,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - empty section in sidebar
 - unnecessary scrollbar in sidebar
 
+### Added
+
+- groups have icons to show which type they are
+
+### Changed
+
+- long texts indicated with an ellipsis
+- adjusted paddings and margins
+
+### Fix
+
+- selecting a node did not trigger change detection
+
 
 ## Communication Explorer [0.0.22] - 2023-06-15
 

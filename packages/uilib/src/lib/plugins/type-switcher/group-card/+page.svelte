@@ -12,8 +12,8 @@
 </script>
   
 <Example name="Group Card">
-	<GroupCard  {items} on:click={console.log}/>
-	<GroupCard  items={items.slice(0,2)} on:click={console.log}/>
-	<GroupCard  items={items.slice(0,1)} on:click={console.log}/>
-	<GroupCard  items={items.slice(0,3)} on:click={console.log}/>
+	<GroupCard icon="dOIcon" {items} on:click={console.log}/>
+	<GroupCard icon="dOIcon" items={items.slice(0,2)} on:click={console.log}/>
+	<GroupCard icon="dOIcon" items={items.slice(0,1)} on:click={console.log}/>
+	<GroupCard icon="dOIcon" items={items.slice(0,3)} on:click={console.log}/>
 </Example>

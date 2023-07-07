@@ -21,13 +21,20 @@
 	<div class="select" class:isFocused>
 		<Select bind:value={linkTargetIndex} on:click={handleFocus}>
 			{#each items as item, index}
-			<Option value={index}>{item.label}</Option>
+				<Option value={index}
+					><span class="select-option">{item.label}</span></Option
+				>
 			{/each}
 		</Select>
 	</div>
 </div>
 
-<style>
+<style lang="scss">
+	.select-option {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
 	:global(.select) {
 		height: 3rem;
 		border-color: var(--color-border);
@@ -38,12 +45,13 @@
 		display: grid;
 		box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 	}
+
 	:global(.select:hover) {
 		border-color: var(--mdc-theme-primary);
 		border-style: dashed;
 		background-color: var(--color-select-dropdown);
 	}
-	
+
 	:global(.smui-select--standard .mdc-select__anchor) {
 		border-bottom-style: none;
 		height: 3rem;
@@ -58,7 +66,7 @@
 		margin-bottom: 1.5rem;
 		margin-top: 1.5rem;
 	}
-	
+
 	:global(.mdc-menu-surface--fullwidth) {
 		background-color: var(--color-select-dropdown);
 	}

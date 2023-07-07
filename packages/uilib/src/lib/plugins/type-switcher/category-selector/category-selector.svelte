@@ -85,7 +85,8 @@
 
     :global(.mdc-chip:hover) {
       outline-style: dashed;
-      outline-color: var(--color-primary);
+      outline-color: var(--color-accent);
+      outline-width: 0.1rem;
     }
 
     :global(.mdc-chip--selected) {

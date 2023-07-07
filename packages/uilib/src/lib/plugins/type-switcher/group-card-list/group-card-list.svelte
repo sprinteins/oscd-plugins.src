@@ -1,9 +1,10 @@
 <script lang="ts">
 	import { GroupCard } from "../group-card"
 	import { createEventDispatcher } from "svelte"
+	import type { CardItem } from "./card-item"
 
 	// Input
-	export let itemSets: string[][] = []
+	export let itemSets: CardItem[] = []
 
 	// Internal
 	let selectedIndex = -1
@@ -18,7 +19,8 @@
 <group-card-list>
 	{#each itemSets as itemSet, ii}
 		<GroupCard
-			items={itemSet}
+			icon={itemSet.icon}
+			items={itemSet.items}
 			on:click={() => handleClick(ii)}
 			dataTestid={`card_${ii}`}
 			selected={selectedIndex === ii}
@@ -33,5 +35,6 @@
 		gap: 1rem;
 		overflow-y: auto;
 		padding: 1rem 0;
+		/* overflow: auto; */
 	}
 </style>

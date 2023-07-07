@@ -17,6 +17,7 @@
     overflow: auto;
 
     margin-top: -1rem;
+    margin-left: 1rem;
   }
   :global(affected-nodes .affected-nodes-names) {
     margin-left: -1.5rem;

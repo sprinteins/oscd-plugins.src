@@ -13,6 +13,7 @@
   structure {
     overflow: auto;
     margin-top: -1rem;
+    margin-left: 1rem;
   }
   :global(structure .secondary-text-structure) {
     margin-top: -2.25rem;

@@ -34,7 +34,7 @@
     font-size: 14px;
     margin-top: 0.5rem;
     padding-bottom: 1rem;
-    margin-left: 0.5rem;
+    margin-left: 1rem;
   }
 
   .columns {

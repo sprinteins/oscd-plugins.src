@@ -72,10 +72,13 @@
 		const node = e.target as HTMLInputElement
 		const value = node.value
 		const isCheckboxChecked = node.checked
-		var valueAsNumber = parseInt(value, 10)
+		const valueAsNumber = parseInt(value, 10)
 
-		if (isCheckboxChecked) selected.push(valueAsNumber)
-		else selected = selected.filter((n) => n != valueAsNumber)
+		if (isCheckboxChecked) {
+			selected = [...selected, valueAsNumber]
+		} else {
+			selected = selected.filter((n) => n != valueAsNumber)
+		}
 
 		isSelected = Array.from(selected).length === Array.from(items).length
 
@@ -112,7 +115,7 @@
 		/>
 	</div>
 
-	<div>
+	<div class="select-container">
 		{#each items as item, ii}
 			<Checkbox
 				label={item.label}
@@ -144,6 +147,17 @@
 	}
 	.select-all-container {
 		display: flex;
+		margin-left: 1rem;
+		div {
+			display: flex;
+			align-items: center;
+		}
+	}
+	.select-container {
+		margin-left: 1rem;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 	}
 
 	label {

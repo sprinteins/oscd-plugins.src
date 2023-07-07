@@ -2,14 +2,15 @@ import { render, screen } from "@testing-library/svelte"
 import {describe, it, expect, vi} from "vitest"
 import { GroupCardList } from "."
 import { fireEvent } from "@testing-library/svelte"
+import type { CardItem } from "./card-item"
 
 
 describe("Group Card List", () => {
 
-	const itemSets: string[][] = [
-		["phaseA", "phaseB", "phaseC","phaseD","phaseE","phaseF"],
-		["phaseA", "phaseB", "phaseC","phaseD"],
-		["phaseA", "phaseB", "phaseC","phaseD","phaseF"],
+	const itemSets: CardItem[] = [
+		{ icon: "lNIcon", items: ["phaseA", "phaseB", "phaseC","phaseD","phaseE","phaseF"] },
+		{ icon: "dAIcon", items: ["phaseA", "phaseB", "phaseC","phaseD"] },
+		{ icon: "dOIcon", items: ["phaseA", "phaseB", "phaseC","phaseD","phaseF"] },
 	]
 
 	it("Select a group", async () => {

@@ -47,13 +47,22 @@
 	.text-container {
 		margin: 0;
 		padding: 0;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 	}
 
 	.primary-text {
 		font-size: 12px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 	}
 	.secondary-text {
 		font-size: 10px;
 		color: var(--color-grey-dark-70pc-opacity);
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 	}
 </style>

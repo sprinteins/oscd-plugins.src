@@ -6,9 +6,9 @@
 </script>
 
 <counter>
-	<div>
+	<span>
 		{label}
-	</div>
+	</span>
 </counter>
 
 <style>
@@ -17,9 +17,9 @@
 		background-color: var(--mdc-theme-primary);
 		color: var(--color-white);
 		border-radius: 2rem;
-		height: 1.75rem;
-		width: 1.75rem;
-		font-size: 1rem;
+		height: 1.25rem;
+		width: 1.25rem;
+		font-size: 0.875rem;
 		display: inline-grid;
 		place-items: center;
 	}

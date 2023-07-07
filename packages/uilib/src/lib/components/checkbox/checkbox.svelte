@@ -9,12 +9,17 @@
 
 <checkbox data-testid={testid}>
   <label>
-    <input type="checkbox" {value} on:change on:input bind:checked />
-    <span>{label}</span>
+    <input type="checkbox" bind:value on:change on:input bind:checked />
+    <span class="checkbox">{label}</span>
   </label>
 </checkbox>
 
 <style>
+  .checkbox {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
   label {
     display: flex;
     align-items: center;

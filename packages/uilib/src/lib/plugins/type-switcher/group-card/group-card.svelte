@@ -1,8 +1,10 @@
 <script lang="ts">
   import { Counter } from "../../../components/counter"
+  import { Icons, type IconKeys } from "../../../components/icons"
 
   // Input
   export let items: string[] = []
+  export let icon: IconKeys | undefined
   export let dataTestid = ""
   export let selected = false
 
@@ -20,15 +22,20 @@
   title={titleText}
 >
   <div class="left">
+    {#if icon}
+      <div class="icon-placeholder">
+        <Icons name={icon} size="rect" />
+      </div>
+    {:else}{/if}
     <ul>
       {#each displayedItems as item}
         <li>{item}</li>
       {/each}
     </ul>
   </div>
-  <div class="right">
+  <span class="right">
     <Counter count={items.length} />
-  </div>
+  </span>
 </group-card>
 
 <style lang="scss">
@@ -36,7 +43,7 @@
     display: inline-grid;
 
     cursor: pointer;
-    height: 80px;
+    height: 90px;
     padding: 0rem;
 
     background: var(--mdc-theme-surface);
@@ -61,8 +68,8 @@
     }
 
     .left {
-      --padding: 1rem;
-      padding: 2rem 0 var(--padding) var(--padding);
+      padding: 0.5rem 0 0.5rem 0.75rem;
+
       overflow: hidden;
     }
 
@@ -79,6 +86,10 @@
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
+    }
+    .icon-placeholder {
+      padding-bottom: 0.2rem;
+      //margin-top: 0.5rem;
     }
   }
 </style>

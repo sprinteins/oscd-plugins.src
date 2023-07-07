@@ -25,7 +25,7 @@
 	import { Layout } from "./layout"
 	import type { Item } from "../../components/list"
 	import type { IconKeys } from "../../components/icons"
-import { NullParentElement, type ParentElement } from "./parent-element"
+	import { NullParentElement, type ParentElement } from "./parent-element"
 
 	// Input
 	export let doc: Element
@@ -106,17 +106,32 @@ import { NullParentElement, type ParentElement } from "./parent-element"
 		return parentElement
 	}
 
+	type HashedElementTypedCollective = {
+		items: HashedElementGroup;
+		type: string;
+	}[]; // basically HashedElement[][]
 	// let selectedCategories: ElementCategory[] = []
-	let selectedFlattenCollectives: HashedElementCollective = []
+	let selectedFlattenCollectives: HashedElementTypedCollective = []
 	function handleCategorySelect(e: CustomEvent<EventDetailCategorySelect>) {
 		const selectedCategoryIndices = e.detail.selection
 
 		const selectedCategories = selectedCategoryIndices.map(
 			(idx) => categoryKeys[idx]
 		)
+		// selectedFlattenCollectives = selectedCategories
+		// 	.map((catKey) => categories[catKey])
+		// 	.flat()
 		selectedFlattenCollectives = selectedCategories
-			.map((catKey) => categories[catKey])
+			.map((catKey) => {
+				return categories[catKey].map((cat) => {
+					return {
+						type:  catKey,
+						items: cat,
+					}
+				})
+			})
 			.flat()
+			.filter((cat) => cat.items.length > 0)
 
 		// TODO: group selection should stay if we only add new groups
 		selectedGroup = []
@@ -130,7 +145,7 @@ import { NullParentElement, type ParentElement } from "./parent-element"
 	let selectedGroup: HashedElementGroup = []
 	function handleGroupSelect(e: CustomEvent<{ index: number }>) {
 		const selectedGroupIndex = e.detail.index
-		selectedGroup = selectedFlattenCollectives[selectedGroupIndex]
+		selectedGroup = selectedFlattenCollectives[selectedGroupIndex].items
 		affectedNodes = []
 	}
 
@@ -152,11 +167,12 @@ import { NullParentElement, type ParentElement } from "./parent-element"
 		})
 	}
 
-	const iconMap: { [key: string]: IconKeys } = {
+	const iconMap: { [xmlTagName: string]: IconKeys } = {
 		DAType:    "dAIcon",
 		DOType:    "dOIcon",
 		DO:        "dOIcon",
 		LNodeType: "lNIcon",
+		EnumType:  "enumIcon",
 	}
 
 	let affectedNodes: Item[] = []
@@ -246,9 +262,16 @@ import { NullParentElement, type ParentElement } from "./parent-element"
 			<svelte:fragment slot="group-card-list">
 				{#key selectedFlattenCollectives}
 					<GroupCardList
-						itemSets={selectedFlattenCollectives.map((itemSet) =>
-							itemSet.map((item) => item.element.id)
-						)}
+						itemSets={selectedFlattenCollectives.map((itemSet) => {
+							const tagName =
+								itemSet.items[0]?.element.element.tagName
+							return {
+								icon:  iconMap[tagName],
+								items: itemSet.items.map(
+									(item) => item.element.id
+								),
+							}
+						})}
 						on:select={handleGroupSelect}
 					/>
 				{/key}

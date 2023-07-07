@@ -1,11 +1,12 @@
 <script lang="ts">
 	import Example from "../../../components/internal/example/example.svelte"
 	import { GroupCardList } from "."
+	import type { CardItem } from "./card-item"
 
-	const itemSets: string[][] = [
-		["phaseA", "phaseB", "phaseC","phaseD","phaseE","phaseF"],
-		["phaseA", "phaseB", "phaseC","phaseD"],
-		["phaseA", "phaseB", "phaseC","phaseD","phaseF"],
+	const itemSets: CardItem[] = [
+		{ icon: "lNIcon", items: ["phaseA", "phaseB", "phaseC","phaseD","phaseE","phaseF"] },
+		{ icon: "dAIcon", items: ["phaseA", "phaseB", "phaseC","phaseD"] },
+		{ icon: "dOIcon", items: ["phaseA", "phaseB", "phaseC","phaseD","phaseF"] },
 	]
 
 	let selectedIndex = -1
