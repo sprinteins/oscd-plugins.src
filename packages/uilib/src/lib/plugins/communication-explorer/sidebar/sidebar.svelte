@@ -100,14 +100,14 @@
             <ConnectionTypeFilter disabled={isConnectionDirectionDisabled} />
         </div>
 
-        <hr />
+        <hr class="dashed-line" />
         <MessageTypeFilter
             {selectedMessageTypes}
             filterDisabled={isIedFiltersDisabled}
         />
 
         {#if IEDSelections.length > 0}
-            <hr />
+            <hr class="seperation-line" />
             <ul class="ied-detail-list">
                 {#each IEDSelections as IEDSelections}
                     <li>
@@ -118,11 +118,11 @@
         {/if}
 
         {#if ConnectionSelection !== undefined}
-            <hr />
+            <hr class="seperation-line" />
             <ConnectionInformation {ConnectionSelection} />
         {/if}
 
-        <hr />
+        <hr class="seperation-line" />
 
         <h2>Focus Mode</h2>
 
@@ -256,5 +256,12 @@
     }
     .input {
         margin-bottom: 1rem;
+    }
+    .dashed-line {
+        border: 0.1rem dashed var(--color-cyan-30-pc-opacity);
+    }
+    .seperation-line {
+        border: none;
+        border-top: 0.1rem solid var(--color-accent);
     }
 </style>
