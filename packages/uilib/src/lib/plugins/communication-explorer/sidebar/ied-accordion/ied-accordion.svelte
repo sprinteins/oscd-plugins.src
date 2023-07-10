@@ -7,6 +7,7 @@
     	getConnectedIEDsByLabel,
     	type ConnectedIED,
     } from "../../_func-layout-calculation/get-connected-ieds"
+    import { selectedIEDNode } from "../../_store-view-filter"
 
     export let rootNode: RootNode
     export let IEDSelection: IEDNode
@@ -15,7 +16,9 @@
 
     let relationsByServiceType: ServiceTypeSort = new Map()
     $: relations = getConnectedIEDsByLabel(rootNode, IEDSelection.label)
-    $: relationsByServiceType = sortRelationsByServiceType(relations.subscribedFrom)
+    $: relationsByServiceType = sortRelationsByServiceType(
+    	relations.subscribedFrom
+    )
 
     function sortRelationsByServiceType(
     	relations: ConnectedIED[]
@@ -23,7 +26,8 @@
     	let array: ServiceTypeSort = new Map()
 
     	relations.forEach((element) => {
-    		let serviceType: MessageType | "Unknown" | undefined = element.serviceType
+    		let serviceType: MessageType | "Unknown" | undefined =
+                element.serviceType
     		if (serviceType === undefined) serviceType = "Unknown"
 
     		let hasServiceTypeElement = array.has(element.serviceType)
@@ -42,6 +46,7 @@
     	SampledValues: "--color-message-sampledvalues",
     	Unknown:       "--color-message-unknown",
     }
+    $: console.log($selectedIEDNode)
 </script>
 
 <div class="ied">

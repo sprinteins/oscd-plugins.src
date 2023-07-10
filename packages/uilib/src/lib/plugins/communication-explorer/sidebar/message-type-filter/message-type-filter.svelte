@@ -71,6 +71,26 @@
             <span class="text">Sampled Values</span>
         </div>
     </label>
+    <label>
+        <input
+            type="checkbox"
+            on:change={setTargetMessageType}
+            checked={isSelected(
+                MessageType.Unknown,
+                selectedMessageTypes,
+                checkboxIsClicked
+            )}
+            disabled={filterDisabled}
+            name={MessageType.Unknown}
+            class="undefined-checkbox"
+        />
+        <div class="message-label">
+            <div class="icon">
+                <Icons size={"normal"} name={"unknownIcon"} />
+            </div>
+            <span class="text">Undefined</span>
+        </div>
+    </label>
 </div>
 
 <style lang="scss">
@@ -116,6 +136,10 @@
     // rule applies, when checkbox is checked AND not disabled
     // affects the div.message-label class
     .sampledvalues-checkbox:checked:not([disabled]) + div.message-label {
+        opacity: 1;
+    }
+
+    .undefined-checkbox:checked:not([disabled]) + div.message-label {
         opacity: 1;
     }
 

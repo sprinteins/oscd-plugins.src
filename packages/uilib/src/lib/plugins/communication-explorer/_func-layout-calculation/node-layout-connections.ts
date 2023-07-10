@@ -3,9 +3,10 @@ import type { IEDConnectionWithCustomValues } from "../../../components/diagram"
 import { hasActiveIEDSelection, isIEDSelected, type SelectedFilter } from "../_store-view-filter"
 
 export const messageTypeMap:{[key: string]: MessageType} = {
-	"GOOSE": MessageType.GOOSE,
-	"SMV":   MessageType.SampledValues,
-	"MMS":   MessageType.MMS,
+	"GOOSE":   MessageType.GOOSE,
+	"SMV":     MessageType.SampledValues,
+	"MMS":     MessageType.MMS,
+	"UNKNOWN": MessageType.Unknown,
 }
 
 export function generateConnectionLayout(ieds: IEDCommInfo[], selectionFilter: SelectedFilter): IEDConnectionWithCustomValues[] {
@@ -136,7 +137,7 @@ function convertReceivedMessagesToConnections(
 		// Relevancy
 		// 
 		// check messageType for undefined so unknown message types are also displayed
-		const isUnknownMessageType: boolean = messageType === undefined
+		const isUnknownMessageType: boolean = (messageType === undefined && selectedMessageTypes.includes("Unknown"))
 		const isRelevantMessageType: boolean = (selectedMessageTypes.includes(messageType) || isUnknownMessageType)
 
 		let isRelevant = true

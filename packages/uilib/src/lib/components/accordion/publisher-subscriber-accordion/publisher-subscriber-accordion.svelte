@@ -20,8 +20,7 @@
                 {:else if label === "MMS"}
                     <Icons size={"normal"} name={"tscdMmsIcon"} />
                 {:else if label === "Unknown"}
-                    <!-- here will be the unknown icon instead of error. It is a placeholder for the moment -->
-                    <Icons size={"normal"} name={"error"} />
+                    <Icons size={"normal"} name={"unknownIcon"} />
                 {/if}
                 <span class="label">{label}</span>
                 <div class="icon">

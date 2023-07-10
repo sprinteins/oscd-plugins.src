@@ -19,7 +19,8 @@
 	//
 	let path: string
 	$: path = drawLine(edge, showConnectionArrows)
-	$: shouldPlayAnimation = playAnimation && edge.isRelevant && (isSelected || isIEDSelected)
+	$: shouldPlayAnimation =
+		playAnimation && edge.isRelevant && (isSelected || isIEDSelected)
 
 	let arrowRightHeight = 0
 	let arrowRightWidth = 0
@@ -33,6 +34,7 @@
 		[MessageType.GOOSE]:         "var(--color-message-goose)",
 		[MessageType.SampledValues]: "var(--color-message-sampledvalues)",
 		[MessageType.MMS]:           "var(--color-message-mms)",
+		[MessageType.Unknown]:       "var(--color-message-unknown)",
 	}
 
 	const defaultHighlightColor = "var(--color-grey-3)"
@@ -40,7 +42,8 @@
 		[MessageType.GOOSE]: "var(--color-message-highlight-goose)",
 		[MessageType.SampledValues]:
 			"var(--color-message-highlight-sampledvalues)",
-		[MessageType.MMS]: "var(--color-message-highlight-mms)",
+		[MessageType.MMS]:     "var(--color-message-highlight-mms)",
+		[MessageType.Unknown]: "var(--color-message-unknown)",
 	}
 
 	const defaultPattern = "4, 32"
@@ -51,6 +54,7 @@
 		[MessageType.GOOSE]:         "16,8, 16,8, 4,8, 4,8 4,8 ",
 		[MessageType.SampledValues]: "4, 8",
 		[MessageType.MMS]:           "16, 40",
+		[MessageType.Unknown]:       "16,40",
 	}
 
 	$: pathColor = calcPathColor(edge)
@@ -185,7 +189,7 @@
 			stroke-linecap="round"
 			stroke-linejoin="round"
 		/>
-		{#if shouldPlayAnimation }
+		{#if shouldPlayAnimation}
 			<path
 				d={path}
 				class="path-animation-border"
