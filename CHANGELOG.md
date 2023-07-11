@@ -16,6 +16,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 - changed service-type icons
 
+## Type Switcher [0.0.15] - 2023-07-11
+- select all checkbox
+- styling enhancements
 ## Network Explorer [0.0.13] - 2023-07-04
 
 ### Added
