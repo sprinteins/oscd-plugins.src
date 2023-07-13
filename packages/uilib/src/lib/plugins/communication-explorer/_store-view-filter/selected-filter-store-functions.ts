@@ -9,6 +9,9 @@ export function selectIEDNode(node: IEDNode) {
 			...selectedFilter,
 			selectedIEDs:       [node],
 			selectedConnection: undefined,
+			// incomingConnections: true,
+			// outgoingConnections: true,
+
 		}
 	})
 }
