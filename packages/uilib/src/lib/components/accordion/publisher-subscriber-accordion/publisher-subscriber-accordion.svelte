@@ -61,9 +61,13 @@
             padding-right: 1rem;
         }
         .infoblock-headline {
-            display: contents;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            width: 100%;
+
             .label {
-                margin-right: 20rem;
+                flex-grow: 1;
             }
         }
 

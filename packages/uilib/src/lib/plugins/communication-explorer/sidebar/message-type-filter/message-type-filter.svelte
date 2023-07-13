@@ -88,7 +88,7 @@
             <div class="icon">
                 <Icons size={"normal"} name={"unknownIcon"} />
             </div>
-            <span class="text">Undefined</span>
+            <span class="text">Unknown</span>
         </div>
     </label>
 </div>
