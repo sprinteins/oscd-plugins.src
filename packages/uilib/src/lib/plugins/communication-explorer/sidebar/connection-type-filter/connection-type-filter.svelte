@@ -1,53 +1,36 @@
 <script lang="ts">
 	import FilterChip from "../../../../components/filter-chip/filter-chip.svelte"
 	import { changeMessageConnectionFilterDirection } from "../../_store-view-filter"
-
 	export let disabled = false
-
-	let uiInc = false
-	let uiOut = false
+	export let isFilterIncomingActive = false
+	export let isFilterOutgoingActive = false
 
 	function handleClickOnPublisher() {
-		calculateState(!uiInc, uiOut)
+		changeMessageConnectionFilterDirection(
+			!isFilterIncomingActive,
+			isFilterOutgoingActive
+		)
 	}
 
 	function handleClickOnSubscriber() {
-		calculateState(uiInc, !uiOut)
+		changeMessageConnectionFilterDirection(
+			isFilterIncomingActive,
+			!isFilterOutgoingActive
+		)
 	}
-
-	function calculateState(inc: boolean, out: boolean) {
-		uiInc = inc
-		uiOut = out
-
-		let incoming = true
-		let outgoing = true
-
-		if (inc || out) {
-			incoming = inc
-			outgoing = out
-		}
-
-		if (!inc && !out) {
-			incoming = true
-			outgoing = true
-		}
-		changeMessageConnectionFilterDirection(incoming, outgoing)
-	}
-
-	calculateState(uiInc, uiOut)
 </script>
 
 <div class="ButtonGroup">
 	<FilterChip
 		label={"Published"}
 		{disabled}
-		isSelected={uiInc}
+		isSelected={isFilterIncomingActive}
 		on:click={handleClickOnPublisher}
 	/>
 	<FilterChip
 		label={"Subscribed"}
 		{disabled}
-		isSelected={uiOut}
+		isSelected={isFilterOutgoingActive}
 		on:click={handleClickOnSubscriber}
 	/>
 </div>

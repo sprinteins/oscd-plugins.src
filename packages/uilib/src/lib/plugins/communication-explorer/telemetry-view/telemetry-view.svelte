@@ -4,7 +4,7 @@
 	import { Sidebar } from "../sidebar"
 	import { extractIEDInfos } from "../_func-layout-calculation/get-ieds"
 	import {
-		selectedIEDNode,
+		filterState,
 		type SelectedFilter,
 		selectConnection,
 		selectIEDNode,
@@ -18,7 +18,7 @@
 	export let showSidebar = true
 	
 	let rootNode: RootNode | undefined = undefined
-	$: initInfos(root, $selectedIEDNode, $preferences$)
+	$: initInfos(root, $filterState, $preferences$)
 	
 	// Note: maybe have a mutex if there are too many changes
 	async function initInfos(

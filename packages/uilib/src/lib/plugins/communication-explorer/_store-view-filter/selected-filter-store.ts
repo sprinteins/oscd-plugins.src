@@ -11,6 +11,8 @@ export type SelectedFilter = {
 	selectedConnection: IEDConnectionWithCustomValues | undefined;
     incomingConnections: boolean;
     outgoingConnections: boolean;
+	incomingMessageFilterActive: boolean;
+	outgoingMessageFilterActive: boolean;
     selectedMessageTypes: string[];
 	hideIrrelevantStuff: boolean;
 	showConnectionArrows: boolean;
@@ -24,10 +26,13 @@ export const defaultSelection: SelectedFilter = {
 	incomingConnections: true,
 	outgoingConnections: true,
 
+	incomingMessageFilterActive: false,
+	outgoingMessageFilterActive: false,
+
 	hideIrrelevantStuff: 	false,
 	showConnectionArrows: true,
 	nameFilter:          	"",
 	selectedMessageTypes: [ ...allMessageTypes ],
 }
 
-export const selectedIEDNode = writable<SelectedFilter>(defaultSelection)
+export const filterState = writable<SelectedFilter>(defaultSelection)

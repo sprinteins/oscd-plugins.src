@@ -7,7 +7,7 @@
     	getConnectedIEDsByLabel,
     	type ConnectedIED,
     } from "../../_func-layout-calculation/get-connected-ieds"
-    import { selectedIEDNode } from "../../_store-view-filter"
+    import { filterState } from "../../_store-view-filter"
 
     export let rootNode: RootNode
     export let IEDSelection: IEDNode
@@ -46,7 +46,7 @@
     	SampledValues: "--color-message-sampledvalues",
     	Unknown:       "--color-message-unknown",
     }
-    $: console.log($selectedIEDNode)
+    $: console.log($filterState)
 </script>
 
 <div class="ied">

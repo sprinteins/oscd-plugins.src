@@ -3,7 +3,7 @@
 	import { Diagram, type IEDConnection, type IEDConnectionWithCustomValues, type IEDNode, type RootNode } from "."
 	import { Example } from "../internal"
 	import { calculateLayout } from "../../plugins/communication-explorer/_func-layout-calculation"
-	import { clearIEDSelection, selectConnection, selectIEDNode, selectedIEDNode, toggleMultiSelectionOfIED } from "../../plugins/communication-explorer/_store-view-filter"
+	import { clearIEDSelection, selectConnection, selectIEDNode, filterState, toggleMultiSelectionOfIED } from "../../plugins/communication-explorer/_store-view-filter"
 	import type { Config } from "../../plugins/communication-explorer/_func-layout-calculation/config"
 	import { preferences$ } from "../../plugins/communication-explorer/_store-preferences"
 
@@ -47,7 +47,7 @@
 	let rootNode: RootNode	
 	$: {
 		(async function (){
-			rootNode = await calculateLayout(iedInfos, _config, $selectedIEDNode, $preferences$)
+			rootNode = await calculateLayout(iedInfos, _config, $filterState, $preferences$)
 		})()
 	}
 

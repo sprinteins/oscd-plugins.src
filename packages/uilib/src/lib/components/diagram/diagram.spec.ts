@@ -5,7 +5,7 @@ import type { IEDConnection } from "./nodes"
 import type { Config } from "../../plugins/communication-explorer/_func-layout-calculation/config"
 import type { IEDCommInfo } from "@oscd-plugins/core"
 import { calculateLayout } from "../../plugins/communication-explorer/_func-layout-calculation"
-import { clearIEDSelection, selectConnection, selectIEDNode, selectedIEDNode, toggleMultiSelectionOfIED } from "../../plugins/communication-explorer/_store-view-filter"
+import { clearIEDSelection, selectConnection, selectIEDNode, filterState, toggleMultiSelectionOfIED } from "../../plugins/communication-explorer/_store-view-filter"
 import { get } from "svelte/store"
 import userEvent from "@testing-library/user-event"
 import { preferences$ } from "../../plugins/communication-explorer/_store-preferences"
@@ -80,7 +80,7 @@ describe("Diagram", () => {
 					spacingBetweenNodes: 100,
 				}
 
-				const rootNode = await calculateLayout(tc.IEDs, _config, get(selectedIEDNode), get(preferences$))
+				const rootNode = await calculateLayout(tc.IEDs, _config, get(filterState), get(preferences$))
 				clearIEDSelection()
 					
 				
@@ -209,7 +209,7 @@ describe("Diagram", () => {
 					spacingBetweenNodes: 100,
 				}
 
-				const rootNode = await calculateLayout(tc.IEDs, _config, get(selectedIEDNode), get(preferences$))
+				const rootNode = await calculateLayout(tc.IEDs, _config, get(filterState), get(preferences$))
 				clearIEDSelection()
 					
 				

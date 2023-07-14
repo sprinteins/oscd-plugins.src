@@ -1,6 +1,6 @@
 <script lang="ts">
     import {
-    	selectedIEDNode,
+    	filterState,
     	type SelectedFilter,
     } from "../_store-view-filter/selected-filter-store"
     import {
@@ -18,14 +18,14 @@
 
     export let rootNode: RootNode
 
-    $: IEDSelectionIDs = $selectedIEDNode?.selectedIEDs.map((ied) => ied.id)
-    $: IEDSelections = $selectedIEDNode?.selectedIEDs
-    $: ConnectionSelection = $selectedIEDNode.selectedConnection
-    $: selectedMessageTypes = $selectedIEDNode.selectedMessageTypes
+    $: IEDSelectionIDs = $filterState?.selectedIEDs.map((ied) => ied.id)
+    $: IEDSelections = $filterState?.selectedIEDs
+    $: ConnectionSelection = $filterState.selectedConnection
+    $: selectedMessageTypes = $filterState.selectedMessageTypes
     $: isIedFiltersDisabled =
-        $selectedIEDNode?.selectedConnection !== undefined
+        $filterState?.selectedConnection !== undefined
     $: isConnectionDirectionDisabled = handleConnectionDirectionDisabled(
-    	$selectedIEDNode,
+    	$filterState,
     	isIedFiltersDisabled
     )
 
@@ -97,7 +97,11 @@
         </div>
 
         <div class="centered">
-            <ConnectionTypeFilter disabled={isConnectionDirectionDisabled} />
+            <ConnectionTypeFilter 
+                disabled={isConnectionDirectionDisabled} 
+                isFilterIncomingActive={$filterState.incomingMessageFilterActive}
+                isFilterOutgoingActive={$filterState.outgoingMessageFilterActive}
+            />
         </div>
 
         <hr class="dashed-line" />
@@ -132,7 +136,7 @@
                 class="input"
                 type="text"
                 placeholder="e.g.: XAT"
-                value={$selectedIEDNode.nameFilter}
+                value={$filterState.nameFilter}
                 on:input={handleNameFilterChange}
             />
         </label>
