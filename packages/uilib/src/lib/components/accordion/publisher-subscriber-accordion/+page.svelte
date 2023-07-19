@@ -1,9 +1,13 @@
 <script lang="ts">
     import { Example } from "../../internal"
     import { IEDAccordion } from "."
-    import type { ServiceObject } from "../../../plugins/communication-explorer/sidebar/ied-accordion"
+    import type {
+    	ConnectionTypeDirection,
+    	ServiceObject,
+    } from "../../../plugins/communication-explorer/sidebar/ied-accordion"
 
     const exampleValues: ServiceObject[] | undefined = []
+    let connection: ConnectionTypeDirection
 </script>
 
 <Example name={"closed"}>
@@ -12,6 +16,7 @@
             color={"--color-message-goose"}
             serviceType={"Label of GOOSE ?Disc_QB1 / XSWI 1?"}
             affectedIEDObjects={exampleValues}
+            connectionDirection={connection}
         />
     </div>
 </Example>
@@ -23,6 +28,7 @@
             open={true}
             serviceType={"Label of GOOSE ?Disc_QB1 / XSWI 1?"}
             affectedIEDObjects={exampleValues}
+            connectionDirection={connection}
         />
     </div>
 </Example>
@@ -34,6 +40,7 @@
             open={true}
             serviceType={"Label of GOOSE ?Disc_QB1 / XSWI 1?"}
             affectedIEDObjects={[]}
+            connectionDirection={connection}
         />
     </div>
 </Example>

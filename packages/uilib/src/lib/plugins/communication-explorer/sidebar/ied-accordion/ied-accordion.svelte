@@ -3,19 +3,20 @@
     import PublisherSubscriberAccordion from "../../../../components/accordion/publisher-subscriber-accordion/publisher-subscriber-accordion.svelte"
     import type { IEDNode, RootNode } from "../../../../components/diagram"
     import { IED } from "../../../../components/ied"
+    import { getConnectedIEDsByLabel } from "../../_func-layout-calculation/get-connected-ieds"
     import {
-    	getConnectedIEDsByLabel,
-    } from "../../_func-layout-calculation/get-connected-ieds"
-    import { groupRelationsByServiceType, type ServiceTypeGroup } from "."
+    	ConnectionTypeDirection,
+    	groupRelationsByServiceType,
+    	type ServiceTypeGroup,
+    } from "."
+    import { filterState } from "../../_store-view-filter"
 
     export let rootNode: RootNode
     export let IEDSelection: IEDNode
 
     let relationsByServiceType: ServiceTypeGroup = new Map()
     $: relations = getConnectedIEDsByLabel(rootNode, IEDSelection.label)
-    $: relationsByServiceType = groupRelationsByServiceType(
-    	relations.subscribedFrom
-    )
+    $: relationsByServiceType = groupRelationsByServiceType(relations)
     $: serviceTypes = Array.from(relationsByServiceType.entries())
 
     const serviceTypeColor: { [key in MessageType | "Unknown"]: string } = {
@@ -34,15 +35,33 @@
         {@const service = serviceType[1]}
         {@const type = service[0].serviceType}
         {@const typeLabel = service[0].serviceTypeLabel}
-        
-        <div class="accordion">
-            <PublisherSubscriberAccordion
-                color={serviceTypeColor[type]}
-                serviceType={type}
-                serviceLabel={typeLabel}
-                affectedIEDObjects={service}
-            />
-        </div>
+        {@const connection = service[0].connectionDirection}
+        {#if $filterState.incomingConnections}
+            {#if connection === ConnectionTypeDirection.INCOMING}
+                <div class="accordion">
+                    <PublisherSubscriberAccordion
+                        color={serviceTypeColor[type]}
+                        serviceType={type}
+                        serviceLabel={typeLabel}
+                        affectedIEDObjects={service}
+                        connectionDirection={connection}
+                    />
+                </div>
+            {/if}
+        {/if}
+        {#if $filterState.outgoingConnections}
+            {#if connection === ConnectionTypeDirection.OUTGOING}
+                <div class="accordion">
+                    <PublisherSubscriberAccordion
+                        color={serviceTypeColor[type]}
+                        serviceType={type}
+                        serviceLabel={typeLabel}
+                        affectedIEDObjects={service}
+                        connectionDirection={connection}
+                    />
+                </div>
+            {/if}
+        {/if}
     {/each}
 </div>
 
