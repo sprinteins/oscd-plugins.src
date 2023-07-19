@@ -1,28 +1,33 @@
 <script lang="ts">
-    import type { IEDNode } from "../../diagram"
+    import type { ServiceObject } from "../../../plugins/communication-explorer/sidebar/ied-accordion"
     import IconArrowDropDown from "../../icons/icon-arrow-drop-down.svelte"
     import Icons from "../../icons/icons.svelte"
 
     export let open = false
-    export let label: string
-    export let affectedIEDs: IEDNode[] = []
+    export let serviceType: string
+    export let serviceLabel: string | undefined = ""
+    export let affectedIEDObjects: ServiceObject[] = []
     export let color: string
+
+    $: affectedIEDs = affectedIEDObjects.map((el) => {
+    	return el.node
+    })
 </script>
 
-<div class="accordion">
+<div class="accordion" >
     <details bind:open>
         <summary style="border-color: var({color})" class="summary">
             <div class="infoblock-headline">
-                {#if label === "GOOSE"}
+                {#if serviceType === "GOOSE"}
                     <Icons size={"normal"} name={"tscdGooseIcon"} />
-                {:else if label === "Sampled Values"}
+                {:else if serviceType === "Sampled Values"}
                     <Icons size={"normal"} name={"tscdSvIcon"} />
-                {:else if label === "MMS"}
+                {:else if serviceType === "MMS"}
                     <Icons size={"normal"} name={"tscdMmsIcon"} />
-                {:else if label === "Unknown"}
+                {:else if serviceType === "Unknown"}
                     <Icons size={"normal"} name={"unknownIcon"} />
                 {/if}
-                <span class="label">{label}</span>
+                <span class="label">{serviceType} - {serviceLabel}</span>
                 <div class="icon">
                     <IconArrowDropDown />
                 </div>
@@ -31,8 +36,8 @@
         <div class="accordion-open">
             <hr class="dashed-line" />
             <div class="infomation-block">
-                <div>ID:</div>
-                <div>MessageType: {label}</div>
+                <div>Label: {serviceLabel}</div>
+                <div>MessageType: {serviceType}</div>
             </div>
 
             <hr class="seperation-line" />
@@ -63,9 +68,8 @@
         .infoblock-headline {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: .5rem;
             width: 100%;
-
             .label {
                 flex-grow: 1;
             }

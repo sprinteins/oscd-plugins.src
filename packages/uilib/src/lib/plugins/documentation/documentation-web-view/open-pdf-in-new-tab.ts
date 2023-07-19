@@ -5,7 +5,8 @@ export enum PdfType {
 
 
 export async function exportPdfInNewTab(type: PdfType) {
-	let printContent = undefined
+	let printContent: Element | null | undefined = undefined
+	let websiteRunsInLocalUiLib = false
 
 	if (type === PdfType.Telegram) {
 		printContent = document
@@ -21,6 +22,19 @@ export async function exportPdfInNewTab(type: PdfType) {
 	} else {
 		alert("unknown pdf export type")
 		return
+	}
+
+	// just for debugging puroses, so it works in uilib
+	if (printContent === undefined) {
+		if(type === PdfType.Telegram) {
+			printContent = document.querySelector("#tscd-documentation-print-content-communication")
+		} else if (type === PdfType.Documentation) {
+			printContent = document.querySelector("#tscd-documentation-print-content-documentation")
+		}
+		// make 100% sure, code runs in uilib 
+		if(printContent !== undefined) {
+			websiteRunsInLocalUiLib = true
+		}
 	}
 
 	const printPreview = window.open("about:blank", "_blank")
@@ -43,8 +57,10 @@ export async function exportPdfInNewTab(type: PdfType) {
 		}
 	})
 	setTimeout(() => {
-		printPreview?.print()
-		printPreview?.close()
+		if (websiteRunsInLocalUiLib === false) {
+			printPreview?.print()
+			printPreview?.close()
+		}
 	}, 200)
 }
 

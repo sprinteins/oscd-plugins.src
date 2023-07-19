@@ -1,11 +1,10 @@
-import { render, screen, fireEvent, act } from "@testing-library/svelte"
+import { render, screen} from "@testing-library/svelte"
 import {describe, it, expect } from "vitest"
 import { Diagram } from "."
-import type { IEDConnection } from "./nodes"
 import type { Config } from "../../plugins/communication-explorer/_func-layout-calculation/config"
 import type { IEDCommInfo } from "@oscd-plugins/core"
 import { calculateLayout } from "../../plugins/communication-explorer/_func-layout-calculation"
-import { clearIEDSelection, selectConnection, selectIEDNode, filterState, toggleMultiSelectionOfIED } from "../../plugins/communication-explorer/_store-view-filter"
+import { clearIEDSelection, filterState, toggleMultiSelectionOfIED } from "../../plugins/communication-explorer/_store-view-filter"
 import { get } from "svelte/store"
 import userEvent from "@testing-library/user-event"
 import { preferences$ } from "../../plugins/communication-explorer/_store-preferences"
@@ -47,11 +46,11 @@ describe("Diagram", () => {
 				desc: "can render MMS, SMV and GOOSE connections",
 				IEDs: [
 					{iedName:   "IED_1-1", published: [
-						{ id: "0", name: "name", targetIEDName: "IED_2-1", serviceType: "MMS" },
+						{ id: "0", name: "name", targetIEDName: "IED_2-1", serviceType: "MMS", serviceCbName: "", serviceDatSet: "" },
 					], received: []},
 					{iedName:   "IED_2-1", published: [], received:  [
-						{ iedName: "IED_1-1", serviceType: "SMV", srcCBName: "irrelevant", data: [] },
-						{ iedName: "IED_1-1", serviceType: "GOOSE", srcCBName: "irrelevant", data: [] },
+						{ iedName: "IED_1-1", serviceType: "SMV", srcCBName: "irrelevant", data: [], datSet: "" },
+						{ iedName: "IED_1-1", serviceType: "GOOSE", srcCBName: "irrelevant", data: [], datSet: "" },
 					]},
 					{iedName: "IED_3-4", published: [], received: []},
 				],
@@ -158,13 +157,13 @@ describe("Diagram", () => {
 				desc: "if an IED is selected, its published connections are highlighted and other connections are set to irrelevant",
 				IEDs: [
 					{iedName:   "IED_1-1", published: [
-						{ id: "0", name: "name", targetIEDName: "IED_1-2", serviceType: "MMS" },
+						{ id: "0", name: "name", targetIEDName: "IED_1-2", serviceType: "MMS", serviceCbName: "", serviceDatSet: "" },
 					], received: []},
 					
 					{iedName: "IED_1-2", published: [], received: []},
 
 					{iedName:   "IED_1-3", published: [], received:  [
-						{ iedName: "IED_1-2", serviceType: "GOOSE", srcCBName: "irrelevant", data: [] },
+						{ iedName: "IED_1-2", serviceType: "GOOSE", srcCBName: "irrelevant", data: [], datSet: "" },
 					]},
 				],
 				selectIndices:           [1],

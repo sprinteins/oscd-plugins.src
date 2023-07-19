@@ -10,11 +10,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 - changed service-type icons
 
+### Added
+- add serviceType Label
+
 ## Type Switcher [Unreleased]
 ## Documentation [Unreleased]
 
 ### Changed
 - changed service-type icons
+
+### Added
+- add serviceType Label
 
 ## Type Switcher [0.0.15] - 2023-07-11
 - select all checkbox

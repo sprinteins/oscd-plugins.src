@@ -26,23 +26,27 @@
 	]
 
 	iedInfos[0].received.push({
-		iedName: 	   iedInfos[1].iedName,
+		iedName:     iedInfos[1].iedName,
 		serviceType: "GOOSE",
-		srcCBName: 	 "Dataset_1",
+		srcCBName:   "Dataset_1",
 		data:        [],
-	})
+		datSet:      ""
+})
 	iedInfos[2].received.push({
-		iedName: 	   iedInfos[3].iedName,
+		iedName:     iedInfos[3].iedName,
 		serviceType: "SMV",
-		srcCBName: 	 "Dataset_1",
+		srcCBName:   "Dataset_1",
 		data:        [],
-	})
+		datSet:      ""
+})
 	iedInfos[4].published.push({
 		id:            "1",
 		name:          "name",
 		targetIEDName: iedInfos[5].iedName,
 		serviceType:   "MMS",
-	})
+		serviceDatSet: "",
+		serviceCbName: ""
+})
 
 	let rootNode: RootNode	
 	$: {

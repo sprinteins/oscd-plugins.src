@@ -36,20 +36,19 @@ export class SCDQueries {
 		return connections
 	}
 
-	public getBusesByIEDName(name: string): Set<string> {
+	public getSubnetworksByIEDName(name: string): Set<Element> {
 		const root = this.determineRoot()
 		const selector = `SCL > Communication > SubNetwork > ConnectedAP[iedName='${name}']`
 
-		const lnodes = Array.from(root.querySelectorAll(selector))
-		const connections = new Set<string>
+		const connectedAPs = Array.from(root.querySelectorAll(selector))
+		const connections = new Set<Element>
 
-		for (const lnode of lnodes) {
-			if (lnode != null){
-				const bay = lnode.closest("SubNetwork")
-				const bayName = bay?.getAttribute("name") 
+		for (const connectedAP of connectedAPs) {
+			if (connectedAP != null){
+				const bay = connectedAP.closest("SubNetwork")
 
-				if (bayName != null)
-					connections.add(bayName)
+				if (bay != null)
+					connections.add(bay)
 			}
 		}
 
@@ -63,6 +62,14 @@ export class SCDQueries {
 			["name", "datSet"],
 			options,
 		)
+	}
+
+	public searchGSEControlByIEDNameAndName(iedName: string, cbName: string, options?:CommonOptions): GSEControlElement {
+		return this.searchElement<GSEControlElement>(
+			`SCL > IED[name='${iedName}'] GSEControl[name='${cbName}']`,
+			["name", "datSet"],
+			options,
+		)[0]
 	}
 
 	public static SelectorInput = "Inputs"
@@ -341,6 +348,10 @@ export type InputExtRefElement = SCDElement & {
 	srcLDInst: 	 string,
 	srcPrefix: 	 string,
 	srcCBName: 	 string,
+}
+
+export type InputExtRefElementWithDatSet = InputExtRefElement & {
+	datSet: string
 }
 
 export type Optional<T> = T | undefined

@@ -8,7 +8,6 @@
 
     let iedByBay: Map<string, IEDCommInfo[]> = calcBayIEDs(scdData)
     let iedByBus: Map<string, IEDCommInfo[]> = calcBusIEDs(scdData)
-    $: console.log("data", { iedByBay }, { iedByBus })
 </script>
 
 <section class="documentation-print-content" id="documentation-print-content">

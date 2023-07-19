@@ -1,5 +1,5 @@
 import { MessageType } from "../scd"
-import type { IEDElement, InputExtRefElement, SCDQueries } from "../scd/scd-query"
+import type { IEDElement, InputExtRefElement, InputExtRefElementWithDatSet, SCDQueries } from "../scd/scd-query"
 
 /** 
  * The name is temporary, rename it if you have a better one
@@ -46,21 +46,28 @@ export class UCCommunicationInformation {
 		return baysWithIEDs
 	}
 
-	public IEDCommInfosByBus(): Map<string, IEDCommInfo[]> {
+	public IEDCommInfosBySubnetworkBus(): Map<string, IEDCommInfo[]> {
 		const ieds = this.IEDCommInfos()
 
 		const busesWithIEDs = new Map<string, IEDCommInfo[]>()
 		ieds.forEach((ied) => {
-			const busNames = this.scdQueries.getBusesByIEDName(ied.iedName)
+			const subnetworks = this.scdQueries.getSubnetworksByIEDName(ied.iedName)
 			
-			busNames.forEach((busName) => {
+			subnetworks.forEach((subnetwork) => {
 				let setList: IEDCommInfo[] | undefined = []
 
-				if (!busesWithIEDs.has(busName)) 
-					busesWithIEDs.set(busName, [])
+				const subnetworkName = subnetwork.getAttribute("name")
 
-				setList = busesWithIEDs.get(busName)
-				setList?.push(ied)
+				if (subnetworkName !== null) {
+
+					if (!busesWithIEDs.has(subnetworkName)) 
+						busesWithIEDs.set(subnetworkName, [])
+	
+					setList = busesWithIEDs.get(subnetworkName)
+					setList?.push(ied)
+
+				}
+
 			})
 		})
 
@@ -77,6 +84,8 @@ export class UCCommunicationInformation {
 				name:          info.name,
 				targetIEDName: info.clientIEDName,
 				serviceType:   MessageType.MMS,
+				serviceCbName: "MMS",
+				serviceDatSet: "not implemented yet",
 			})
 		}
 
@@ -95,7 +104,7 @@ export class UCCommunicationInformation {
 	 * an therefore not compatible with Sampled Measured Values and MMS (ReportControls)
 	 * So we deprecate this function and rewrite it in a more general way
 	 *  
-	 * @deprecated
+	 * deprecated
 	 * @param ied 
 	 * @returns 
 	 */
@@ -147,8 +156,21 @@ export class UCCommunicationInformation {
 	private findReceivedMessages(ied: IEDElement ): ReceivedMessage[] {
 		const inputs = this.scdQueries.searchInputs({ root: ied.element })
 		const extRefs = inputs.map(input => this.scdQueries.searchExtRef({ root: input.element })).flat()
-		
-		const messages = groupInputExtRefElementsByIedNameServiceTypeAndSrcCBName(extRefs)
+
+		const extRefsWithConnectionID = extRefs.map((el) => {
+			const iedName = el.iedName
+			const srcCBName = el.srcCBName
+			const connection = this.scdQueries.searchGSEControlByIEDNameAndName(iedName, srcCBName)
+			const datSet = connection?.datSet
+
+			const newInput: InputExtRefElementWithDatSet = {
+				...el,
+				datSet: datSet,
+			}
+			return newInput
+		})
+
+		const messages = groupInputExtRefElementsByIedNameServiceTypeAndSrcCBName(extRefsWithConnectionID)
 
 		return messages
 	}
@@ -167,7 +189,6 @@ export class UCCommunicationInformation {
 					name:          reportControl.name,
 				})
 			}
-			
 		}
 		
 		return controls
@@ -204,27 +225,30 @@ export type PublishedMessage_V2 = {
 	name: string
 	targetIEDName: string
 	serviceType: string
+	serviceDatSet: string
+	serviceCbName: string
 }
 
 export type ReceivedMessage = {
 	iedName: 	 string // to show
 	serviceType: string // to filter
 	srcCBName: 	 string // to show
-	data:        InputExtRefElement[] 
+	datSet: 	 string // to show
+	data:        InputExtRefElementWithDatSet[] 
 }
 
 
-type TempKey = {iedName: string, serviceType: string, srcCBName: string}
+type TempKey = {iedName: string, serviceType: string, srcCBName: string, datSet: string}
 export function groupInputExtRefElementsByIedNameServiceTypeAndSrcCBName(
-	elements: InputExtRefElement[],
+	elements: InputExtRefElementWithDatSet[],
 ): ReceivedMessage[] {
 	
-	const indexed: { [key: string]: {elements:InputExtRefElement[], key: TempKey} } = {}
+	const indexed: { [key: string]: {elements:InputExtRefElementWithDatSet[], key: TempKey} } = {}
 	for (const element of elements) {
 		if(element.iedName === ""){ continue }
 
-		const key = `${element.iedName}_${element.serviceType}_${element.srcCBName}`
-		const tempKey = {iedName: element.iedName, serviceType: element.serviceType, srcCBName: element.srcCBName}
+		const key = `${element.iedName}_${element.serviceType}_${element.srcCBName}_${element.datSet}`
+		const tempKey = {iedName: element.iedName, serviceType: element.serviceType, srcCBName: element.srcCBName, datSet: element.datSet}
         
 		if (!indexed[key]) {
 			indexed[key] = {elements: [], key: tempKey}
@@ -236,10 +260,10 @@ export function groupInputExtRefElementsByIedNameServiceTypeAndSrcCBName(
 	const grouped: ReceivedMessage[] = []
     
 	for (const obj of Object.values(indexed)) {
-		const {iedName, serviceType, srcCBName} = obj.key
+		const {iedName, serviceType, srcCBName, datSet} = obj.key
         
-		grouped.push({ iedName, serviceType, srcCBName, data: obj.elements })
+		grouped.push({ iedName, serviceType, srcCBName, datSet, data: obj.elements })
 	}
-    
+
 	return grouped
 }

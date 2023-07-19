@@ -1,17 +1,17 @@
 <script lang="ts">
     import { Example } from "../../internal"
     import { IEDAccordion } from "."
-    import type { IEDNode } from "../../diagram"
+    import type { ServiceObject } from "../../../plugins/communication-explorer/sidebar/ied-accordion"
 
-    const exampleValues: IEDNode[] | undefined = []
+    const exampleValues: ServiceObject[] | undefined = []
 </script>
 
 <Example name={"closed"}>
     <div class="max-width-300px">
         <IEDAccordion
             color={"--color-message-goose"}
-            label={"Label of GOOSE ?Disc_QB1 / XSWI 1?"}
-            affectedIEDs={exampleValues}
+            serviceType={"Label of GOOSE ?Disc_QB1 / XSWI 1?"}
+            affectedIEDObjects={exampleValues}
         />
     </div>
 </Example>
@@ -21,8 +21,8 @@
         <IEDAccordion
             color={"--color-message-goose"}
             open={true}
-            label={"Label of GOOSE ?Disc_QB1 / XSWI 1?"}
-            affectedIEDs={exampleValues}
+            serviceType={"Label of GOOSE ?Disc_QB1 / XSWI 1?"}
+            affectedIEDObjects={exampleValues}
         />
     </div>
 </Example>
@@ -32,8 +32,8 @@
         <IEDAccordion
             color={"--color-message-goose"}
             open={true}
-            label={"Label of GOOSE ?Disc_QB1 / XSWI 1?"}
-            affectedIEDs={[]}
+            serviceType={"Label of GOOSE ?Disc_QB1 / XSWI 1?"}
+            affectedIEDObjects={[]}
         />
     </div>
 </Example>

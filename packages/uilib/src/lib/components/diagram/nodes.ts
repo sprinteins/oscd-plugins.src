@@ -11,6 +11,7 @@ export type IEDConnection = ElkExtendedEdge & {
 	isRelevant?: boolean
 	relevantIEDNames?: string[]
 	messageType?: MessageType
+	messageTypeLabel?: string
 }
 
 export type IEDConnectionWithCustomValues = IEDConnection & {

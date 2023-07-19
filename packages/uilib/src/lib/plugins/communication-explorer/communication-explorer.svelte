@@ -11,7 +11,7 @@
 <Theme>
 	<communication-explorer>
 		{#key root}
-		<TelemetryView {root} />
+			<TelemetryView {root} />
 		{/key}
 	</communication-explorer>
 </Theme>

@@ -172,6 +172,7 @@
 	class:irrelevant={!edge.isRelevant}
 	data-testid={testid}
 >
+	<title>{`${edge.messageType} - ${edge.messageTypeLabel}`}</title>
 	{#if path}
 		<path d={path} class="path-hover-box" />
 		<path d={path} class="path-strong" style:stroke={pathColor} />

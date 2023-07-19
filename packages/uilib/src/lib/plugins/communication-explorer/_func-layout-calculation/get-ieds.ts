@@ -9,7 +9,7 @@ export function extractIEDInfos(root: Element): IEDCommInfo[] {
 	const scdQueries = new SCDQueries(root)
 	const ucci = new UCCommunicationInformation(scdQueries)
 	const iedInfos = ucci.IEDCommInfos()
-
+	
 	return iedInfos
 }
 
@@ -32,7 +32,7 @@ export function extractIEDInfosWithBus(root: Element): Map<string, IEDCommInfo[]
 	}
 	const scdQueries = new SCDQueries(root)
 	const ucci = new UCCommunicationInformation(scdQueries)
-	const iedInfosByBus = ucci.IEDCommInfosByBus()
+	const iedInfosByBus = ucci.IEDCommInfosBySubnetworkBus()
 
 	return iedInfosByBus
 }

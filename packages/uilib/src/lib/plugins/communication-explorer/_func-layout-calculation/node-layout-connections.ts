@@ -66,7 +66,8 @@ function convertPublishedMessagesToConnections(
 		}
 		const targetIED = ieds[targetIEDIndex]
 		const messageType = messageTypeMap[message.serviceType]
-		const connectionID = `con_published_${Id(targetIEDIndex)}_${Id(iedIndex)}_${messageType}_${connectionCounter++}`
+		const messageTypeLabel = message.serviceCbName
+		const connectionID = `con_published_${Id(targetIEDIndex)}_${Id(iedIndex)}_${messageType}_${messageTypeLabel}_${connectionCounter++}`
 
 		// 
 		// Relevancy
@@ -100,6 +101,7 @@ function convertPublishedMessagesToConnections(
 			isRelevant,
 			relevantIEDNames: [sourceIED.iedName, targetIED.iedName],
 			messageType:      messageType,
+			messageTypeLabel: messageTypeLabel,
 		}
 
 		iedConnections.push(connection)
@@ -132,6 +134,7 @@ function convertReceivedMessagesToConnections(
 
 		const selectedMessageTypes: string[] = selectionFilter.selectedMessageTypes
 		const messageType = messageTypeMap[message.serviceType]
+		const messageTypeLabel = message.srcCBName
 
 		// 
 		// Relevancy
@@ -167,6 +170,7 @@ function convertReceivedMessagesToConnections(
 			isRelevant,
 			relevantIEDNames: [targetIED.iedName, sourceIED.iedName],
 			messageType:      messageType,
+			messageTypeLabel: messageTypeLabel,
 		}
 		iedConnections.push(connection)
 	})

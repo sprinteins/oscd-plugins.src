@@ -1,13 +1,22 @@
 import type { IEDCommInfo } from "@oscd-plugins/core"
 import { getAllIEDsFromBay } from "."
 
-export function calcPublished(iedName: string, iedByBay: Map<string, IEDCommInfo[]>): string[] {
-	const publishedServiceTypes: string[] = []
+export type IEDConnection = {
+	serviceType: string,
+	serviceTypeLabel: string,
+}
+
+export function calcPublished(iedName: string, iedByBay: Map<string, IEDCommInfo[]>): IEDConnection[] {
+	const publishedServiceTypes: IEDConnection[] = []
 
 	for (const checkIed of getAllIEDsFromBay(iedByBay)) {
 		for (const received of checkIed.received) {
 			if (received.iedName === iedName) {
-				publishedServiceTypes.push(received.serviceType)
+				const data: IEDConnection = {
+					serviceType:      received.serviceType,
+					serviceTypeLabel: received.srcCBName,
+				} 
+				publishedServiceTypes.push(data)
 			}
 		}
 	}

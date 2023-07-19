@@ -9,6 +9,7 @@ export type ConnectedIEDs = {
 export type ConnectedIED = {
 	node: IEDNode
 	serviceType: MessageType | undefined
+	serviceTypeLabel: string | undefined
 }
 
 export function getConnectedIEDsByLabel(nodes: RootNode, label?: string): ConnectedIEDs {
@@ -39,6 +40,7 @@ export function getConnectedIEDsByLabel(nodes: RootNode, label?: string): Connec
 			const sources = edge.sources
 			const targets = edge.targets
 			const messageType = edge.messageType
+			const messageTypeLabel = edge.messageTypeLabel
 	
 			const isConnectedSource = sources.includes(selectedNodeID)
 			const isConnectedTarget = targets.includes(selectedNodeID)
@@ -50,8 +52,9 @@ export function getConnectedIEDsByLabel(nodes: RootNode, label?: string): Connec
 
 				if (targetNode) {
 					connectedIEDs.publishedTo.push({
-						node:        targetNode,
-						serviceType: messageType,
+						node:             targetNode,
+						serviceType:      messageType,
+						serviceTypeLabel: messageTypeLabel,
 					})
 				}
 			}
@@ -62,8 +65,9 @@ export function getConnectedIEDsByLabel(nodes: RootNode, label?: string): Connec
 
 				if (sourceNode) {
 					connectedIEDs.subscribedFrom.push({
-						node:        sourceNode,
-						serviceType: messageType,
+						node:             sourceNode,
+						serviceType:      messageType,
+						serviceTypeLabel: messageTypeLabel,
 					})
 				}
 			}

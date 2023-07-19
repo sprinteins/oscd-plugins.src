@@ -5,40 +5,18 @@
     import { IED } from "../../../../components/ied"
     import {
     	getConnectedIEDsByLabel,
-    	type ConnectedIED,
     } from "../../_func-layout-calculation/get-connected-ieds"
-    import { filterState } from "../../_store-view-filter"
+    import { groupRelationsByServiceType, type ServiceTypeGroup } from "."
 
     export let rootNode: RootNode
     export let IEDSelection: IEDNode
 
-    type ServiceTypeSort = Map<MessageType | "Unknown" | undefined, IEDNode[]>;
-
-    let relationsByServiceType: ServiceTypeSort = new Map()
+    let relationsByServiceType: ServiceTypeGroup = new Map()
     $: relations = getConnectedIEDsByLabel(rootNode, IEDSelection.label)
-    $: relationsByServiceType = sortRelationsByServiceType(
+    $: relationsByServiceType = groupRelationsByServiceType(
     	relations.subscribedFrom
     )
-
-    function sortRelationsByServiceType(
-    	relations: ConnectedIED[]
-    ): ServiceTypeSort {
-    	let array: ServiceTypeSort = new Map()
-
-    	relations.forEach((element) => {
-    		let serviceType: MessageType | "Unknown" | undefined =
-                element.serviceType
-    		if (serviceType === undefined) serviceType = "Unknown"
-
-    		let hasServiceTypeElement = array.has(element.serviceType)
-    		if (!hasServiceTypeElement) {
-    			array.set(serviceType, [])
-    		}
-    		let serviceTypeElement = array.get(serviceType)
-    		serviceTypeElement?.push(element.node)
-    	})
-    	return array
-    }
+    $: serviceTypes = Array.from(relationsByServiceType.entries())
 
     const serviceTypeColor: { [key in MessageType | "Unknown"]: string } = {
     	GOOSE:         "--color-message-goose",
@@ -46,19 +24,23 @@
     	SampledValues: "--color-message-sampledvalues",
     	Unknown:       "--color-message-unknown",
     }
-    $: console.log($filterState)
 </script>
 
 <div class="ied">
     <IED label={IEDSelection.label} isSelected={true} isSelectable={false} />
 </div>
 <div class="accordions">
-    {#each Array.from(relationsByServiceType.entries()) as serviceType}
+    {#each serviceTypes as serviceType}
+        {@const service = serviceType[1]}
+        {@const type = service[0].serviceType}
+        {@const typeLabel = service[0].serviceTypeLabel}
+        
         <div class="accordion">
             <PublisherSubscriberAccordion
-                color={serviceTypeColor[serviceType[0] ?? "Unknown"]}
-                label={serviceType[0] ?? "Unknown"}
-                affectedIEDs={serviceType[1] ?? []}
+                color={serviceTypeColor[type]}
+                serviceType={type}
+                serviceLabel={typeLabel}
+                affectedIEDObjects={service}
             />
         </div>
     {/each}

@@ -3,8 +3,9 @@
 	import { Icons, openSCDIcons } from "../icons"
 
 	export let type = "unknown"
+	$: serviceType = type.toLocaleLowerCase()
 
-	const variantLabel: { [key in typeof type]: string } = {
+	const variantLabel: { [key in typeof serviceType]: string } = {
 		goose:         "GOOSE",
 		mms:           "MMS",
 		reportcontrol: "MMS",
@@ -12,7 +13,7 @@
 		smv:           "SMV",
 	}
 
-	const variantClass: { [key in typeof type]: string } = {
+	const variantClass: { [key in typeof serviceType]: string } = {
 		goose:         "goose",
 		mms:           "mms",
 		reportcontrol: "mms",
@@ -20,7 +21,7 @@
 		smv:           "sampledvalues",
 	}
 
-	const variantIconName: { [key in typeof type]: keyof typeof openSCDIcons } =
+	const variantIconName: { [key in typeof serviceType]: keyof typeof openSCDIcons } =
 		{
 			goose:         "tscdGooseIcon",
 			mms:           "tscdMmsIcon",
@@ -34,11 +35,11 @@
 	<div class="chip-size">
 		<Button
 			componentClasses={"tscd-button tscd-button-service-type-" +
-				variantClass[type]}
+				variantClass[serviceType]}
 		>
 			<div class="tscd-button-chip">
-				<Icons name={variantIconName[type]} size={"small"} />
-				<span>{variantLabel[type]}</span>
+				<Icons name={variantIconName[serviceType]} size={"small"} />
+				<span>{variantLabel[serviceType]}</span>
 			</div>
 		</Button>
 	</div>

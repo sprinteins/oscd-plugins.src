@@ -1,6 +1,6 @@
 <script lang="ts">
     import type { IEDCommInfo } from "@oscd-plugins/core"
-    import PrintIeds from "./print-ieds/print-ieds.svelte"
+    import { PrintIEDs } from "./print-ieds"
     import { calcPublished } from "./_shared-functions"
 
     export let iedByBay: Map<string, IEDCommInfo[]>
@@ -22,7 +22,7 @@
                                 iedByBay
                             )}
                             <li>
-                                <PrintIeds {ied} {publishedServiceTypes} />
+                                <PrintIEDs {ied} {publishedServiceTypes} />
                             </li>
                         {/each}
                     {/if}

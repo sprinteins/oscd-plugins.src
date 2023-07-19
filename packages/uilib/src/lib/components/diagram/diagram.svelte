@@ -1,12 +1,17 @@
-
-
 <script lang="ts">
-	import type { IEDConnectionWithCustomValues, IEDNode, RootNode } from "./nodes"
+	import type {
+		IEDConnectionWithCustomValues,
+		IEDNode,
+		RootNode,
+	} from "./nodes"
 	import { IEDElement } from "./ied-element"
 	import Message from "./message.svelte"
 	import { createEventDispatcher } from "svelte"
 	import type { ElkExtendedEdge } from "elkjs"
-	import { isConnectionSelected, isIEDSelected } from "../../plugins/communication-explorer/_store-view-filter"
+	import {
+		isConnectionSelected,
+		isIEDSelected,
+	} from "../../plugins/communication-explorer/_store-view-filter"
 
 	//
 	// Inputs
@@ -24,9 +29,11 @@
 
 	const dispatch = createEventDispatcher()
 	function handleIEDClick(e: MouseEvent, node: IEDNode) {
-		if(draggingEnabled){ return }
+		if (draggingEnabled) {
+			return
+		}
 		const isAdditiveSelect = e.metaKey || e.ctrlKey || e.shiftKey
-		if(isAdditiveSelect){
+		if (isAdditiveSelect) {
 			dispatchIEDAdditiveSelect(node)
 			return
 		}
@@ -41,40 +48,53 @@
 	}
 
 	function dispatchConnectionClick(connection: ElkExtendedEdge) {
-		if(draggingEnabled){ return }
+		if (draggingEnabled) {
+			return
+		}
 		dispatch("connectionclick", connection)
 	}
 
-	function handleClick(e: Event){
-		if(draggingEnabled || isDragging){ return }
-		if(e.target !== svgRoot && e.target !== root){ return }
-		
-		
+	function handleClick(e: Event) {
+		if (draggingEnabled || isDragging) {
+			return
+		}
+		if (e.target !== svgRoot && e.target !== root) {
+			return
+		}
+
 		dispatch("clearclick")
 	}
 
-	function isConnectionsAnyIEDSelected(connection: IEDConnectionWithCustomValues): boolean{
-		return isIEDSelected({label: connection.sourceIED.iedName} ) || isIEDSelected({label: connection.targetIED.iedName} )
+	function isConnectionsAnyIEDSelected(
+		connection: IEDConnectionWithCustomValues
+	): boolean {
+		return (
+			isIEDSelected({ label: connection.sourceIED.iedName }) ||
+			isIEDSelected({ label: connection.targetIED.iedName })
+		)
 	}
 
-	// 
+	//
 	// Draggable Diagram
-	// 
+	//
 	let pos = { top: 0, left: 0, x: 0, y: 0 }
 	let draggingEnabled = false
 	let isDragging = false
-	function handleKeyDown(e: KeyboardEvent){
-		if(e.code !== "Space"){ return }
+	function handleKeyDown(e: KeyboardEvent) {
+		if (e.code !== "Space") {
+			return
+		}
 
 		draggingEnabled = true
 		e.stopImmediatePropagation()
 		e.stopPropagation()
 		e.preventDefault()
-
 	}
-	function handleMouseDown(e: MouseEvent){
-		if( !draggingEnabled ){ return }
-		
+	function handleMouseDown(e: MouseEvent) {
+		if (!draggingEnabled) {
+			return
+		}
+
 		isDragging = true
 		pos = {
 			// The current scroll
@@ -89,9 +109,10 @@
 		e.stopPropagation()
 		e.preventDefault()
 	}
-	function handleMouseMove(e: MouseEvent){
-		
-		if(!isDragging){ return }
+	function handleMouseMove(e: MouseEvent) {
+		if (!isDragging) {
+			return
+		}
 
 		// How far the mouse has been moved
 		const dx = e.clientX - pos.x
@@ -102,58 +123,56 @@
 		root.scrollLeft = pos.left - dx
 	}
 
-	function handleMouseUp(e: MouseEvent){
+	function handleMouseUp(e: MouseEvent) {
 		isDragging = false
 		e.stopImmediatePropagation()
 		e.stopPropagation()
 		e.preventDefault()
 	}
 
-	function handleMouseLeave(e: MouseEvent){
+	function handleMouseLeave(e: MouseEvent) {
 		disableDragging()
 	}
 
-	function handleKeyUp(e: KeyboardEvent){
+	function handleKeyUp(e: KeyboardEvent) {
 		disableDragging()
 	}
-	function disableDragging(){
+	function disableDragging() {
 		draggingEnabled = false
 		isDragging = false
 	}
 
-	// 
+	//
 	// Zoom
-	// 
+	//
 	let zoomModifier = 1
 	let zoomStep = 0.1
-	let svgWidth = rootNode.width??0
-	let svgHeight = rootNode.height??0
+	let svgWidth = rootNode.width ?? 0
+	let svgHeight = rootNode.height ?? 0
 
-	async function handleMouseWheel(e: WheelEvent	){
-		if( !e.ctrlKey && !e.metaKey ){ return }
+	async function handleMouseWheel(e: WheelEvent) {
+		if (!e.ctrlKey && !e.metaKey) {
+			return
+		}
 
 		const direction = e.deltaY < 0 ? 1 : -1
-		const zooming = zoomModifier + (zoomStep * direction)
+		const zooming = zoomModifier + zoomStep * direction
 		const newSVGWidth = svgWidth * zooming
 		const newSVGHeight = svgHeight * zooming
-		if(newSVGWidth < 0 || newSVGHeight < 0){ return }
-		
+		if (newSVGWidth < 0 || newSVGHeight < 0) {
+			return
+		}
+
 		svgHeight = newSVGHeight
 		svgWidth = newSVGWidth
-		
 	}
-
 </script>
 
-<svelte:body 
-	on:keydown={handleKeyDown}
-	on:keyup={handleKeyUp}
-
-/>
+<svelte:body on:keydown={handleKeyDown} on:keyup={handleKeyUp} />
 
 {#if rootNode}
 	<diagram
-		bind:this={root} 
+		bind:this={root}
 		on:click={handleClick}
 		on:keypress
 		on:mousedown={handleMouseDown}
@@ -163,7 +182,6 @@
 		on:mousewheel={handleMouseWheel}
 		class:draggingEnabled
 		class:isDragging
-
 	>
 		<svg
 			bind:this={svgRoot}
@@ -180,12 +198,12 @@
 						y={node.y}
 						width={node.width}
 						height={node.height}
-						on:click={(e) => handleIEDClick(e,node)}
+						on:click={(e) => handleIEDClick(e, node)}
 						on:keydown
 					>
-						<IEDElement 
-							{node} 
-							isSelected={isIEDSelected(node)} 
+						<IEDElement
+							{node}
+							isSelected={isIEDSelected(node)}
 							testid={`ied-${node.label}`}
 						/>
 					</foreignObject>
@@ -197,11 +215,11 @@
 					<Message
 						{edge}
 						isSelected={isConnectionSelected(edge)}
-						isIEDSelected={ isConnectionsAnyIEDSelected(edge) }
+						isIEDSelected={isConnectionsAnyIEDSelected(edge)}
 						on:click={() => dispatchConnectionClick(edge)}
 						testid={`connection-${edge.id}`}
-						playAnimation={playAnimation}
-						showConnectionArrows={showConnectionArrows}
+						{playAnimation}
+						{showConnectionArrows}
 					/>
 				{/each}
 			{/if}
@@ -211,13 +229,13 @@
 
 <style>
 	diagram {
-		display:       block;
-		width: 	       100%;
-		height:        100%;
-		overflow:      auto;
+		display: block;
+		width: 100%;
+		height: 100%;
+		overflow: auto;
 	}
-	
-	diagram.draggingEnabled{
+
+	diagram.draggingEnabled {
 		cursor: grab;
 	}
 
@@ -226,9 +244,9 @@
 	}
 
 	svg {
-		width:   var(--width);
-		height:  var(--height);
+		width: var(--width);
+		height: var(--height);
 		display: block;
-		margin:  auto;
+		margin: auto;
 	}
 </style>
