@@ -7,14 +7,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## Communication Explorer [Unreleased]
 
+## Type Switcher [Unreleased]
+## Documentation [Unreleased]
+
+## Network Explorer [0.0.14] - 2023-07-19
 ### Changed
 - changed service-type icons
 
 ### Added
 - add serviceType Label
 
-## Type Switcher [Unreleased]
-## Documentation [Unreleased]
+## Communication Explorer [0.0.26] - 2023-07-19
 
 ### Changed
 - changed service-type icons
