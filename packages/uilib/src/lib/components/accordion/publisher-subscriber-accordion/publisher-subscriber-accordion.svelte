@@ -1,8 +1,6 @@
 <script lang="ts">
-    import {
-    	ConnectionTypeDirection,
-    	type ServiceObject,
-    } from "../../../plugins/communication-explorer/sidebar/ied-accordion"
+    import type { ServiceObject } from "../../../plugins/communication-explorer/sidebar/ied-accordion"
+    import { ConnectionTypeDirection } from "../../../plugins/communication-explorer/sidebar/ied-accordion"
     import IconArrowDropDown from "../../icons/icon-arrow-drop-down.svelte"
     import Icons from "../../icons/icons.svelte"
 
@@ -25,7 +23,7 @@
                 <div class="infoblock-headline">
                     {#if serviceType === "GOOSE"}
                         <Icons size={"normal"} name={"gooseIncomingIcon"} />
-                    {:else if serviceType === "Sampled Values"}
+                    {:else if serviceType === "SampledValues"}
                         <Icons size={"normal"} name={"svIncomingIcon"} />
                     {:else if serviceType === "MMS"}
                         <Icons size={"normal"} name={"mmsIncomingIcon"} />

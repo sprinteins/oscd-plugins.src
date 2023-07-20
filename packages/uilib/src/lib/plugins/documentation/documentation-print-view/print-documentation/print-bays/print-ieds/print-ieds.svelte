@@ -75,7 +75,7 @@
                     <div class="service">
                         <div class="service-type-grouper service-{serviceTyp.toLocaleLowerCase()}">
                             <p>{`${serviceTyp} - ${serviceTypLabel}`}</p>
-                            <p>ID: {serviceTypLabel}</p>
+                            <p>Label: {serviceTypLabel}</p>
                             <p>ServiceType: {serviceTyp}</p>
                         </div>
                         <ul class="subscriber-list">
@@ -131,10 +131,10 @@
                 &.service-goose {
                     border-color: var(--color-message-goose);
                 }
-                &.service-mms, .service-reportcontrol {
+                &.service-mms, &.service-reportcontrol {
                     border-color: var(--color-message-mms);
                 }
-                &.service-sampledvalues, .service-smv {
+                &.service-sampledvalues, &.service-smv {
                     border-color: var(--color-message-sampledvalues);
                 }
             }
