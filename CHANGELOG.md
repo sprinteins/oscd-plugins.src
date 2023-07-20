@@ -10,6 +10,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## Type Switcher [Unreleased]
 ## Documentation [Unreleased]
 
+## Communication Explorer [0.0.28] - 2023-07-20
+### Fixed
+- show sampled values icon in sidebar
+
+## Network Explorer [0.0.15] - 2023-07-20
+### Fixed
+- replace id with label
+- show sampled value display color
+
 ## Network Explorer [0.0.14] - 2023-07-19
 ### Changed
 - changed service-type icons
