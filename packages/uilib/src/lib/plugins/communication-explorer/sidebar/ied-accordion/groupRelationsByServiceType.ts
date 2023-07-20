@@ -1,29 +1,55 @@
 import type { MessageType } from "@oscd-plugins/core"
-import type { ServiceObject, ServiceTypeGroup } from "."
-import type { ConnectedIED } from "../../_func-layout-calculation"
+import { ConnectionTypeDirection, type ServiceObject, type ServiceTypeGroup } from "."
+import type { ConnectedIEDs } from "../../_func-layout-calculation"
 
-export function groupRelationsByServiceType( relations: ConnectedIED[] ): ServiceTypeGroup {
+export function groupRelationsByServiceType( relations: ConnectedIEDs ): ServiceTypeGroup {
 
 	const array: ServiceTypeGroup = new Map()
     
-	relations.forEach((element) => {
+	relations.subscribedFrom.forEach((element) => {
 		let serviceType: MessageType | "Unknown" | undefined = element.serviceType
-		if (serviceType === undefined) { serviceType = "Unknown" }
+		if (serviceType === undefined) { serviceType = "Unknown" }{
 
-		const keyName = `${element.serviceType}_${element.serviceTypeLabel}`
-		const content: ServiceObject = {
-			node:             element.node,
-			serviceType:      serviceType,
-			serviceTypeLabel: element.serviceTypeLabel,
-		}
+			const keyName = `${element.serviceType}_${element.serviceTypeLabel}_Outgoing`
+			const content: ServiceObject = {
+				node:                element.node,
+				serviceType:         serviceType,
+				serviceTypeLabel:    element.serviceTypeLabel,
+				connectionDirection: ConnectionTypeDirection.OUTGOING,
+				
+			}
 
-		const hasServiceTypeElement = array.has(keyName)
-		if (!hasServiceTypeElement) {
-			array.set(keyName, []) 
-		}
+			const hasServiceTypeElement = array.has(keyName)
+			if (!hasServiceTypeElement) {
+				array.set(keyName, []) 
+			}
 
-		const serviceTypeElement = array.get(keyName)
-		serviceTypeElement?.push(content)
+			const serviceTypeElement = array.get(keyName)
+			serviceTypeElement?.push(content)}
+	})
+
+	relations.publishedTo.forEach((element) => {
+		let serviceType: MessageType | "Unknown" | undefined = element.serviceType
+		if (serviceType === undefined) { serviceType = "Unknown" }{
+
+			const keyName = `${element.serviceType}_${element.serviceTypeLabel}_Incoming`
+			const content: ServiceObject = {
+				node:                element.node,
+				serviceType:         serviceType,
+				serviceTypeLabel:    element.serviceTypeLabel,
+				connectionDirection: ConnectionTypeDirection.INCOMING,
+				
+			}
+
+			const hasServiceTypeElement = array.has(keyName)
+			if (!hasServiceTypeElement) {
+				array.set(keyName, []) 
+			}
+
+			const serviceTypeElement = array.get(keyName)
+			serviceTypeElement?.push(content)}
 	})
 	return array
+
+
 }
