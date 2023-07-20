@@ -36,32 +36,24 @@
         {@const type = service[0].serviceType}
         {@const typeLabel = service[0].serviceTypeLabel}
         {@const connection = service[0].connectionDirection}
-        {#if $filterState.incomingConnections}
-            {#if connection === ConnectionTypeDirection.INCOMING}
-                <div class="accordion">
-                    <PublisherSubscriberAccordion
-                        color={serviceTypeColor[type]}
-                        serviceType={type}
-                        serviceLabel={typeLabel}
-                        affectedIEDObjects={service}
-                        connectionDirection={connection}
-                    />
-                </div>
-            {/if}
+
+        {@const shouldMessageTypeBeShown = $filterState.selectedMessageTypes.includes(type)}
+        {@const shouldMessageDirectionShownIncoming = $filterState.incomingConnections && (connection === ConnectionTypeDirection.INCOMING)}
+        {@const shouldMessageDirectionShownOutgoing = $filterState.outgoingConnections && (connection === ConnectionTypeDirection.OUTGOING)}
+
+    
+        {#if shouldMessageTypeBeShown && (shouldMessageDirectionShownIncoming || shouldMessageDirectionShownOutgoing)}
+            <div class="accordion">
+                <PublisherSubscriberAccordion
+                    color={serviceTypeColor[type]}
+                    serviceType={type}
+                    serviceLabel={typeLabel}
+                    affectedIEDObjects={service}
+                    connectionDirection={connection}
+                />
+            </div>
         {/if}
-        {#if $filterState.outgoingConnections}
-            {#if connection === ConnectionTypeDirection.OUTGOING}
-                <div class="accordion">
-                    <PublisherSubscriberAccordion
-                        color={serviceTypeColor[type]}
-                        serviceType={type}
-                        serviceLabel={typeLabel}
-                        affectedIEDObjects={service}
-                        connectionDirection={connection}
-                    />
-                </div>
-            {/if}
-        {/if}
+
     {/each}
 </div>
 

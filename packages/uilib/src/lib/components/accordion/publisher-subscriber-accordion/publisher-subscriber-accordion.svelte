@@ -2,7 +2,7 @@
     import type { ServiceObject } from "../../../plugins/communication-explorer/sidebar/ied-accordion"
     import { ConnectionTypeDirection } from "../../../plugins/communication-explorer/sidebar/ied-accordion"
     import IconArrowDropDown from "../../icons/icon-arrow-drop-down.svelte"
-    import Icons from "../../icons/icons.svelte"
+    import {Icons, type OpenSCDIconNames} from "../../icons"
 
     export let open = false
     export let serviceType: string
@@ -14,97 +14,68 @@
     $: affectedIEDs = affectedIEDObjects.map((el) => {
     	return el.node
     })
+
+    $: iconName = calcIconName(serviceType, connectionDirection)
+
+    function calcIconName(serviceType: string, connectionDirection: ConnectionTypeDirection): OpenSCDIconNames {
+    	let serviceTypeShort = ""
+    	let serviceTypeDirection = ""
+        
+    	if (serviceType === "GOOSE") 
+    		serviceTypeShort = "goose"
+    	else if (serviceType === "SampledValues")
+    		serviceTypeShort = "sv"
+    	else if (serviceType === "MMS")
+    		serviceTypeShort = "mms"
+    	else
+    		serviceTypeShort = "undefined"
+
+    	if (connectionDirection === ConnectionTypeDirection.INCOMING) 
+    		serviceTypeDirection = "Incoming"
+    	else 
+    		serviceTypeDirection = "Outgoing"
+
+    	const iconName = `${serviceTypeShort}${serviceTypeDirection}Icon`
+
+    	return iconName as OpenSCDIconNames
+    }
 </script>
 
 <div class="accordion">
-    {#if connectionDirection === ConnectionTypeDirection.INCOMING}
-        <details bind:open>
-            <summary style="border-color: var({color})" class="summary">
-                <div class="infoblock-headline">
-                    {#if serviceType === "GOOSE"}
-                        <Icons size={"normal"} name={"gooseIncomingIcon"} />
-                    {:else if serviceType === "SampledValues"}
-                        <Icons size={"normal"} name={"svIncomingIcon"} />
-                    {:else if serviceType === "MMS"}
-                        <Icons size={"normal"} name={"mmsIncomingIcon"} />
-                    {:else if serviceType === "Unknown"}
-                        <Icons size={"normal"} name={"undefinedIncomingIcon"} />
-                    {/if}
-                    <span class="label">{serviceType} - {serviceLabel}</span>
-                    <div class="icon">
-                        <IconArrowDropDown />
-                    </div>
+    <details bind:open>
+        <summary style="border-color: var({color})" class="summary">
+            <div class="infoblock-headline">
+                <Icons size={"normal"} name={iconName} />
+                <span class="label">{serviceType} - {serviceLabel}</span>
+                <div class="icon">
+                    <IconArrowDropDown />
                 </div>
-            </summary>
-            <div class="accordion-open">
-                <hr class="dashed-line" />
-                <div class="infomation-block">
-                    <div>Label: {serviceLabel}</div>
-                    <div>MessageType: {serviceType}</div>
-                </div>
-
-                <hr class="seperation-line" />
-                {#if affectedIEDs.length > 0}
-                    <ul>
-                        Subscribers
-                        {#each affectedIEDs as ied}
-                            <li>
-                                <div class="ied-component">
-                                    {ied.label}
-                                </div>
-                            </li>
-                        {/each}
-                    </ul>
-                {:else}
-                    <p>No items found</p>
-                {/if}
             </div>
-        </details>
-    {/if}
-    {#if connectionDirection === ConnectionTypeDirection.OUTGOING}
-        <details bind:open>
-            <summary style="border-color: var({color})" class="summary">
-                <div class="infoblock-headline">
-                    {#if serviceType === "GOOSE"}
-                        <Icons size={"normal"} name={"gooseOutgoingIcon"} />
-                    {:else if serviceType === "Sampled Values"}
-                        <Icons size={"normal"} name={"svOutgoingIcon"} />
-                    {:else if serviceType === "MMS"}
-                        <Icons size={"normal"} name={"mmsOutgoingIcon"} />
-                    {:else if serviceType === "Unknown"}
-                        <Icons size={"normal"} name={"undefinedOutgoingIcon"} />
-                    {/if}
-                    <span class="label">{serviceType} - {serviceLabel}</span>
-                    <div class="icon">
-                        <IconArrowDropDown />
-                    </div>
-                </div>
-            </summary>
-            <div class="accordion-open">
-                <hr class="dashed-line" />
-                <div class="infomation-block">
-                    <div>Label: {serviceLabel}</div>
-                    <div>MessageType: {serviceType}</div>
-                </div>
-
-                <hr class="seperation-line" />
-                {#if affectedIEDs.length > 0}
-                    <ul>
-                        Publishers
-                        {#each affectedIEDs as ied}
-                            <li>
-                                <div class="ied-component">
-                                    {ied.label}
-                                </div>
-                            </li>
-                        {/each}
-                    </ul>
-                {:else}
-                    <p>No items found</p>
-                {/if}
+        </summary>
+        <div class="accordion-open">
+            <hr class="dashed-line" />
+            <div class="infomation-block">
+                <div>Label: {serviceLabel}</div>
+                <div>MessageType: {serviceType}</div>
             </div>
-        </details>
-    {/if}
+
+            <hr class="seperation-line" />
+            {#if affectedIEDs.length > 0}
+                <ul>
+                    Subscribers
+                    {#each affectedIEDs as ied}
+                        <li>
+                            <div class="ied-component">
+                                {ied.label}
+                            </div>
+                        </li>
+                    {/each}
+                </ul>
+            {:else}
+                <p>No items found</p>
+            {/if}
+        </div>
+    </details>
 </div>
 
 <style lang="scss">

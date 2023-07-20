@@ -1,7 +1,6 @@
 <script lang="ts">
-    import { openSCDIcons } from "./"
+    import { openSCDIcons, type OpenSCDIconNames } from "./"
 
-    type OpenSCDIconNames = keyof typeof openSCDIcons;
     type IconSizes = "small" | "normal" | "rect" | "big";
 
     export let name: OpenSCDIconNames

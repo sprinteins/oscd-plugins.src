@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## Communication Explorer [Unreleased]
 ### Fixed
 - align filter pills correctly
+- sampled values icon publish is missing
+
+## Changed
+- accordion is now reacting to filtered service types
 
 ## Type Switcher [Unreleased]
 ## Documentation [Unreleased]
