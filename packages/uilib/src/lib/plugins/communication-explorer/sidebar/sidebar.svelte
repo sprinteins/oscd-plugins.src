@@ -240,7 +240,7 @@
 
     .centered {
         display: flex;
-        justify-content: center;
+        justify-content: flex-start;
     }
 
     .ied-detail-list {

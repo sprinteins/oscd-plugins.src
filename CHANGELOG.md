@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 
 ## Communication Explorer [Unreleased]
+### Fixed
+- align filter pills correctly
 
 ## Type Switcher [Unreleased]
 ## Documentation [Unreleased]

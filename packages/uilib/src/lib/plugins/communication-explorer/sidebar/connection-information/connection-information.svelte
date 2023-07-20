@@ -18,7 +18,11 @@
         <td>{ConnectionSelection.targetIED?.iedName}</td>
     </tr>
     <tr>
-        <td>MessageType:</td>
+        <td>ServiceType:</td>
         <td>{ConnectionSelection.messageType}</td>
+    </tr>
+    <tr>
+        <td>ServiceType Label:</td>
+        <td>{ConnectionSelection.messageTypeLabel}</td>
     </tr>
 </table>

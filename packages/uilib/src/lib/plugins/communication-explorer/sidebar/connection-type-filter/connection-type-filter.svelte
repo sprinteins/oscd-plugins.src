@@ -38,6 +38,11 @@
 <style>
 	:global(.ButtonGroup) {
 		border-radius: 1rem;
-		margin-left: -13rem;
+	}
+	:global(.ButtonGroup .chip:first-of-type button) {
+		margin-left: 0;
+	}
+	:global(.ButtonGroup .chip:last-of-type button) {
+		margin-right: 0;
 	}
 </style>
