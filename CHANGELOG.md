@@ -16,6 +16,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## Type Switcher [Unreleased]
 ## Documentation [Unreleased]
 
+## Communication Explorer [0.0.29] - 2023-07-20
+### Fixed
+- align filter pills correctly
+- show sampled value icon
+
+## Added
+- add service type filter in accordion view
+
 ## Communication Explorer [0.0.28] - 2023-07-20
 ### Fixed
 - show sampled values icon in sidebar
