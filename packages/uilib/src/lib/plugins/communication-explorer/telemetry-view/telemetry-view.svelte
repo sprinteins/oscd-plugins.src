@@ -13,12 +13,15 @@
 	} from "../_store-view-filter"
 	import type { Config } from "../_func-layout-calculation/config"
 	import { preferences$, type Preferences  } from "../_store-preferences"
+	import type { IEDCommInfo } from "@oscd-plugins/core"
 	
 	export let root: Element
 	export let showSidebar = true
 	
 	let rootNode: RootNode | undefined = undefined
 	$: initInfos(root, $filterState, $preferences$)
+	let lastUsedRoot: Element | undefined = undefined
+	let lastExtractedInfos: IEDCommInfo[] = []
 	
 	// Note: maybe have a mutex if there are too many changes
 	async function initInfos(
@@ -31,8 +34,12 @@
 			return []
 		}
 		
-		const iedInfos = extractIEDInfos(root)
-		rootNode = await calculateLayout(iedInfos, config, selectedFilter, preferences)
+		if(root !== lastUsedRoot) {
+			const iedInfos = extractIEDInfos(root)
+			lastExtractedInfos = iedInfos
+			lastUsedRoot = root
+		}
+		rootNode = await calculateLayout(lastExtractedInfos, config, selectedFilter, preferences)
 	}
 	
 	const config: Config = {

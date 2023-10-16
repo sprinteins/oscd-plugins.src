@@ -179,7 +179,7 @@
 		on:mousemove={handleMouseMove}
 		on:mouseup={handleMouseUp}
 		on:mouseleave={handleMouseLeave}
-		on:mousewheel={handleMouseWheel}
+		on:wheel={handleMouseWheel}
 		class:draggingEnabled
 		class:isDragging
 	>
