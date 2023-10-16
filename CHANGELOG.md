@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Fixed
 - align filter pills correctly
 - sampled values icon publish is missing
+- caching extracted information to improve performance
 
 ## Changed
 - accordion is now reacting to filtered service types
