@@ -36,11 +36,15 @@ export class SCDQueries {
 		return connections
 	}
 
-	public getSubnetworksByIEDName(name: string): Set<Element> {
+	public getConnectedAPByIEDName(name: string): Set<Element> {
 		const root = this.determineRoot()
 		const selector = `SCL > Communication > SubNetwork > ConnectedAP[iedName='${name}']`
 
-		const connectedAPs = Array.from(root.querySelectorAll(selector))
+		return new Set(root.querySelectorAll(selector))
+	}
+
+	public getSubnetworksByIEDName(name: string): Set<Element> {
+		const connectedAPs = this.getConnectedAPByIEDName(name)
 		const connections = new Set<Element>
 
 		for (const connectedAP of connectedAPs) {

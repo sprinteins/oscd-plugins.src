@@ -4,6 +4,7 @@ import type { IEDCommInfo, MessageType } from "@oscd-plugins/core"
 export type IEDNode = Omit<ElkNode, "edges"> & {
 	label: string,
 	isRelevant?: boolean
+	isBayNode?: boolean
 	edges?: IEDConnection[]
 }
 
@@ -20,7 +21,16 @@ export type IEDConnectionWithCustomValues = IEDConnection & {
 }
 
 export type RootNode = Omit<ElkNode, "children" | "edges"> & {
-	children: IEDNode[],
+	children: IEDNode[] | BayNode[],
 	edges?: IEDConnectionWithCustomValues[]
 }
 
+export type BayNode = Omit<ElkNode, "children"> & {
+	label: string;
+	isBayNode: boolean;
+	children: IEDNode[]
+}
+
+export function isBayNode(node: IEDNode | BayNode): node is BayNode {
+	return Boolean(node.isBayNode)
+}

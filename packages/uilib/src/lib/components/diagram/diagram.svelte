@@ -2,8 +2,9 @@
 	import type {
 		IEDConnectionWithCustomValues,
 		IEDNode,
-		RootNode,
+		RootNode
 	} from "./nodes"
+	import { isBayNode } from "./nodes"
 	import { IEDElement } from "./ied-element"
 	import Message from "./message.svelte"
 	import { createEventDispatcher } from "svelte"
@@ -12,6 +13,7 @@
 		isConnectionSelected,
 		isIEDSelected,
 	} from "../../plugins/communication-explorer/_store-view-filter"
+import BayContainer from "./bay-container/bay-container.svelte"
 
 	//
 	// Inputs
@@ -193,20 +195,34 @@
 		>
 			{#if rootNode.children}
 				{#each rootNode.children as node}
-					<foreignObject
-						x={node.x}
-						y={node.y}
-						width={node.width}
-						height={node.height}
-						on:click={(e) => handleIEDClick(e, node)}
-						on:keydown
-					>
-						<IEDElement
-							{node}
-							isSelected={isIEDSelected(node)}
-							testid={`ied-${node.label}`}
-						/>
-					</foreignObject>
+					{#if isBayNode(node)}
+						<foreignObject
+							x={node.x}
+							y={node.y}
+							width={node.width}
+							height={node.height}
+						>
+							<BayContainer
+								{node}
+								testid={`bay-${node.label}`}
+							/>
+						</foreignObject>
+					{:else}
+						<foreignObject
+							x={node.x}
+							y={node.y}
+							width={node.width}
+							height={node.height}
+							on:click={(e) => handleIEDClick(e, node)}
+							on:keydown
+						>
+							<IEDElement
+								{node}
+								isSelected={isIEDSelected(node)}
+								testid={`ied-${node.label}`}
+							/>
+						</foreignObject>
+					{/if}
 				{/each}
 			{/if}
 
