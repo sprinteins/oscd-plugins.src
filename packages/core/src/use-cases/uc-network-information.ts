@@ -1,4 +1,4 @@
-import { SCDQueries } from "scd"
+import type { SCDQueries } from "../scd"
 
 export interface IPInfo {
 	ip: string

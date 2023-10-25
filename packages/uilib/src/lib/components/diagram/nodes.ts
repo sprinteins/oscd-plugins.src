@@ -21,7 +21,7 @@ export type IEDConnectionWithCustomValues = IEDConnection & {
 }
 
 export type RootNode = Omit<ElkNode, "children" | "edges"> & {
-	children: IEDNode[] | BayNode[],
+	children: Array<IEDNode | BayNode>,
 	edges?: IEDConnectionWithCustomValues[]
 }
 
