@@ -1,7 +1,7 @@
 import ELK, { type ElkNode } from "elkjs/lib/elk.bundled"
 import type { IEDNetworkInfo, SubnetworkConnection } from "@oscd-plugins/core"
 import type { Config } from "../../communication-explorer/_func-layout-calculation/config"
-import type { BayNode, IEDNode, RootNode, SubnetworkEdge } from "../../../components/diagram"
+import type { BayNode, IEDConnection, IEDNode, RootNode, SubnetworkEdge } from "../../../components/diagram"
 
 const defaultConfigs: Partial<Config> = {
 	spacingBase:         20,
@@ -49,25 +49,23 @@ function generateSubnetworks(ieds: IEDNetworkInfo[]): IEDNode[] {
 
 	subnetworkNodes.forEach(node => {
 		const edges = generateSubnetworkConnections(node, ieds)
-
-		console.log(edges)
-
 		node.edges = edges
 	})
 
 	return subnetworkNodes
 }
 
-function generateSubnetworkConnections(subnetwork: IEDNode, ieds: IEDNetworkInfo[]): SubnetworkEdge[] {
-	const connections: SubnetworkEdge[] = []
+function generateSubnetworkConnections(subnetwork: IEDNode, ieds: IEDNetworkInfo[]): IEDConnection[] {
+	const connections: IEDConnection[] = []
 
 	const connectedIeds = ieds.filter(ied => ied.subneworkConnections.some(sc => sc.subnetwork === subnetwork.label))
 
-	if (connectedIeds.length === 1) {
+	for (const connectedIed of connectedIeds) {
 		connections.push({
-			id:      `con_subnetwork_${subnetwork.label}`,
-			targets: [ subnetwork.id ],
-			sources: connectedIeds.map(ied => `ied-${ied.iedName}`),
+			id:         `con_subnetwork_${subnetwork.label}-${connectedIed.iedName}`,
+			isRelevant: true,
+			targets:    [ subnetwork.id ],
+			sources:    [ `ied-${connectedIed.iedName}` ],
 		})
 	}
 
@@ -81,7 +79,10 @@ export async function calculateLayout(
 	const allIeds = Array.from(iedsByBay.values()).flat()
 	const subnetworkNodes = generateSubnetworks(allIeds)
 
-	const edges = subnetworkNodes.map(node => node.edges).flat()
+	const edges: IEDConnection[] = subnetworkNodes
+		.filter(node => node.edges !== undefined)
+		.map(node => node.edges)
+		.flat() as IEDConnection[]
 	console.log(edges)
 
 	const children = [...bayNodes, ...subnetworkNodes]
@@ -107,6 +108,7 @@ export async function calculateLayout(
 			"org.eclipse.elk.layered.spacing.nodeNodeBetweenLayers": String(defaultConfigs.spacingBetweenNodes),
 		},
 		children,
+		edges,
 	}
 
 	// message type information gets lost here

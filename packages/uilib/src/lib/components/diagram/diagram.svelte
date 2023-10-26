@@ -71,8 +71,8 @@ import BayContainer from "./bay-container/bay-container.svelte"
 		connection: IEDConnectionWithCustomValues
 	): boolean {
 		return (
-			isIEDSelected({ label: connection.sourceIED.iedName }) ||
-			isIEDSelected({ label: connection.targetIED.iedName })
+			isIEDSelected({ label: connection.sourceIED?.iedName }) ||
+			isIEDSelected({ label: connection.targetIED?.iedName })
 		)
 	}
 
