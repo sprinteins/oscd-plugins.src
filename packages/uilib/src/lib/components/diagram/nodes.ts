@@ -25,6 +25,10 @@ export type RootNode = Omit<ElkNode, "children" | "edges"> & {
 	edges?: IEDConnectionWithCustomValues[]
 }
 
+export type SubnetworkEdge = ElkExtendedEdge & {
+	isRelevant?: boolean
+}
+
 export type BayNode = Omit<ElkNode, "children"> & {
 	label: string;
 	isBayNode: boolean;
