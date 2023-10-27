@@ -102,7 +102,8 @@ export async function calculateLayout(
 			// default: 20; a component is when multiple nodes are connected
 			// "org.eclipse.elk.spacing.componentComponent": "20", 
 
-			"org.eclipse.elk.hierarchyHandling": "INCLUDE_CHILDREN",
+			"org.eclipse.elk.hierarchyHandling":  "INCLUDE_CHILDREN",
+			"org.eclipse.elk.layered.mergeEdges": "true",
 			
 			"org.eclipse.elk.layered.spacing.baseValue":             String(defaultConfigs.spacingBase),
 			"org.eclipse.elk.layered.spacing.nodeNodeBetweenLayers": String(defaultConfigs.spacingBetweenNodes),
