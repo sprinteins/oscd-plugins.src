@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { calculateLayout } from "../_func-layout-calculation/node-layout"
-	import { Diagram, type IEDConnection, type IEDConnectionWithCustomValues, type IEDNode, type RootNode } from "../../../components/diagram"
+	import { Diagram, DiagramV2, type IEDConnection, type IEDConnectionWithCustomValues, type IEDNode, type RootNode } from "../../../components/diagram"
 	import { Sidebar } from "../sidebar"
 	import { extractIEDInfos } from "../_func-layout-calculation/get-ieds"
 	import {
@@ -41,10 +41,11 @@
 		}
 		rootNode = await calculateLayout(lastExtractedInfos, config, selectedFilter, preferences)
 	}
+	$: console.log({level: "dev", lastExtractedInfos})
 	
 	const config: Config = {
-		width:  150,
-		height: 40,
+		width:  250,
+		height: 70,
 		// spacingBetweenNodes: 100,
 		// spacingBase: 40,
 		// heightPerConnection: 20,
@@ -69,7 +70,7 @@
 
 <div class="root" class:showSidebar>
 	{#if rootNode}
-		<Diagram
+		<DiagramV2
 			{rootNode}
 			playAnimation={$preferences$.playConnectionAnimation}
 			showConnectionArrows={$preferences$.showConnectionArrows}

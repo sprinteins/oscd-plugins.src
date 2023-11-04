@@ -8,15 +8,15 @@ const isDevelopment = process.env.NODE_ENV === 'development'
 export default defineConfig({
 	plugins: [
 		svelte(),
-		cssInjectedByJsPlugin({
-            styleId: process.env.npm_package_name,
-            injectCodeFunction: function injectCodeCustomRunTimeFunction(cssCode: string, options: any) {
-                if(!globalThis.pluginStyle){
-                    globalThis.pluginStyle = {}
-                }
-                globalThis.pluginStyle[options.styleId] = cssCode
-            }
-        }),
+		// cssInjectedByJsPlugin({
+        //     styleId: process.env.npm_package_name,
+        //     injectCodeFunction: function injectCodeCustomRunTimeFunction(cssCode: string, options: any) {
+        //         if(!globalThis.pluginStyle){
+        //             globalThis.pluginStyle = {}
+        //         }
+        //         globalThis.pluginStyle[options.styleId] = cssCode
+        //     }
+        // }),
 	],
 	build:{
 		lib:{
@@ -25,5 +25,11 @@ export default defineConfig({
 			fileName: "index",
 		},
 		sourcemap: isDevelopment ? "inline" : false,
+		rollupOptions: {
+			output: {
+				// manualChunks: false,
+				inlineDynamicImports: true,
+			}
+		}
 	}
 })

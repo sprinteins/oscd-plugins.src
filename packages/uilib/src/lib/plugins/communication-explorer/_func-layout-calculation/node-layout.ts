@@ -9,7 +9,7 @@ import type { Preferences } from "../_store-preferences"
 
 
 const defaultConfigs: Partial<Config> = {
-	spacingBase:         20,
+	spacingBase:         60,
 	spacingBetweenNodes: 20,
 }
 

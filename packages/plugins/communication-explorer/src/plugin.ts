@@ -14,9 +14,18 @@ export default class NewPlugin extends HTMLElement {
 			}
 		});
 
-		const style = document.createElement("style");
-        style.innerHTML = globalThis.pluginStyle[pkg.name];
-        this.shadowRoot.appendChild(style);
+		const fileURL = new URL(import.meta.url)
+		const origin = fileURL.origin
+		console.log({level:"dev", origin})
+		const styleCss = fetch(`${origin}/style.css`).then( async(response) => {
+			const content = await response.text()
+			const style = document.createElement("style");
+			style.innerHTML = content;
+			this.shadowRoot.appendChild(style);
+		})
+		// const style = document.createElement("style");
+        // style.innerHTML = globalThis.pluginStyle[pkg.name];
+        // this.shadowRoot.appendChild(style);
 	}
 
 	private _doc: XMLDocument
