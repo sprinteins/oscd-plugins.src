@@ -44,10 +44,12 @@ export async function calculateLayout(
 	const graph: ElkNode = {
 		id:            "graph-root",
 		layoutOptions: {
-			"elk.algorithm":                                           "org.eclipse.elk.layered",
-			"org.eclipse.elk.layered.unnecessaryBendpoints":           "true",
-			"org.eclipse.elk.layered.nodePlacement.bk.fixedAlignment": "RIGHTUP",
-			"org.eclipse.elk.direction":                               "LEFT",
+			"elk.algorithm":                                 "org.eclipse.elk.layered",
+			"elk.spacing.nodeNode":                          "80",
+			"org.eclipse.elk.layered.unnecessaryBendpoints": "true",
+			// "org.eclipse.elk.layered.nodePlacement.bk.fixedAlignment": "RIGHTUP",
+    		"elk.layered.spacing.nodeNodeBetweenLayers":     "100",
+			// "org.eclipse.elk.direction":                               "LEFT",
 			
 			// default: 20; a component is when multiple nodes are connected
 			// "org.eclipse.elk.spacing.componentComponent": "20", 

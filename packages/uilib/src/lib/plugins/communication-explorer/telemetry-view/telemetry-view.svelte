@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { calculateLayout } from "../_func-layout-calculation/node-layout"
 	import { Diagram, type IEDConnection, type IEDConnectionWithCustomValues, type IEDNode, type RootNode } from "../../../components/diagram"
+	import DiagramV2 from "../../../components/diagram/diagram-v2.svelte"
 	import { Sidebar } from "../sidebar"
 	import { extractIEDInfos } from "../_func-layout-calculation/get-ieds"
 	import {
@@ -14,11 +15,16 @@
 	import type { Config } from "../_func-layout-calculation/config"
 	import { preferences$, type Preferences  } from "../_store-preferences"
 	import type { IEDCommInfo } from "@oscd-plugins/core"
+    import { Position, type Edge, type Node } from "@xyflow/svelte";
+    import { generateIEDLayout } from "../_func-layout-calculation/node-layout-ieds";
 	
 	export let root: Element
 	export let showSidebar = true
 	
 	let rootNode: RootNode | undefined = undefined
+	let nodes: Node[] = []
+	let edges: Edge[] = []
+
 	$: initInfos(root, $filterState, $preferences$)
 	let lastUsedRoot: Element | undefined = undefined
 	let lastExtractedInfos: IEDCommInfo[] = []
@@ -40,7 +46,34 @@
 			lastUsedRoot = root
 		}
 		rootNode = await calculateLayout(lastExtractedInfos, config, selectedFilter, preferences)
+		nodes = rootNode.children.map(child => {
+			return {
+				...child,
+				position: {
+					x: child.x!,
+					y: child.y!,
+				},
+				data:{
+					label: child.label,
+				},
+				targetPosition: Position.Top,
+				sourcePosition: Position.Bottom,
+			}
+		})
+		edges = rootNode.edges.map(edge => {
+				return {
+					id: edge.id,
+					source: edge.sources[0],
+					target: edge.targets[0],
+					type: "smoothstep",
+				}
+		});
 	}
+
+	// TODO: extract
+	
+
+	$: console.log({level:"dev", rootNode})
 	
 	const config: Config = {
 		width:  150,
@@ -64,12 +97,13 @@
 	function handleClearClick() {
 		clearIEDSelection()
 	}
+
 	
 </script>
 
 <div class="root" class:showSidebar>
 	{#if rootNode}
-		<Diagram
+		<!-- <Diagram
 			{rootNode}
 			playAnimation={$preferences$.playConnectionAnimation}
 			showConnectionArrows={$preferences$.showConnectionArrows}
@@ -77,6 +111,10 @@
 			on:iedadditiveselect={handleIEDAdditiveSelect}
 			on:connectionclick={handleConnectionClick}
 			on:clearclick={handleClearClick}
+		/> -->
+		<DiagramV2
+			{nodes}
+			{edges}
 		/>
 		{#if showSidebar}
 			<Sidebar {rootNode} />

@@ -9,7 +9,10 @@ export const messageTypeMap:{[key: string]: MessageType} = {
 	"UNKNOWN": MessageType.Unknown,
 }
 
-export function generateConnectionLayout(ieds: IEDCommInfo[], selectionFilter: SelectedFilter): IEDConnectionWithCustomValues[] {
+export function generateConnectionLayout(
+	ieds: IEDCommInfo[], 
+	selectionFilter: SelectedFilter,
+): IEDConnectionWithCustomValues[] {
 	
 	const hasSelection = hasActiveIEDSelection()
 	

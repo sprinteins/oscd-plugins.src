@@ -15,8 +15,7 @@
 		"test": "npm run test:watch -- --run",
 		"test:watch": "vitest",
 		"coverage": "npm run test:watch -- --run --coverage",
-		"lint": "eslint .",
-		"fix": "eslint . --fix --quiet"
+		"lint": "eslint ."
 	},
 	"dependencies": {
 		"@material/typography": "^14.0.0",
@@ -28,8 +27,9 @@
 		"@smui/icon-button": "7.0.0-beta.8",
 		"@smui/list": "7.0.0-beta.8",
 		"@smui/segmented-button": "7.0.0-beta.8",
-		"@smui/snackbar": "7.0.0-beta.8",
 		"@smui/select": "7.0.0-beta.8",
+		"@smui/snackbar": "7.0.0-beta.8",
+		"@xyflow/svelte": "^0.0.26",
 		"d3-path": "^3.1.0",
 		"elkjs": "^0.8.2",
 		"sass": "^1.61.0",
