@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Theme from "../../theme/theme.svelte"
-	import { TelemetryView } from "./telemetry-view"
+	import { DiagramContainer } from "./diagram-container"
 
 	export let root: Element
 </script>
@@ -8,7 +8,7 @@
 <Theme>
 	<network-explorer>
 		{#key root}
-			<TelemetryView {root} />
+			<DiagramContainer {root} />
 		{/key}
 	</network-explorer>
 </Theme>

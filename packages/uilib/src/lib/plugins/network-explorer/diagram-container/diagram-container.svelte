@@ -1,7 +1,7 @@
 <script lang="ts">
-    import { Diagram, type RootNode } from "../../../components/diagram"
 import { extractIEDInfos, extractIEDInfosWithBay } from "../_func-layout-calculation/get-ieds"
 import { calculateLayout } from "../_func-layout-calculation/node-layout"
+    import Diagram from "./diagram.svelte";
 
 export let root: Element
 
@@ -17,18 +17,15 @@ async function initInfos(
 	}
 		
 	const iedInfos = extractIEDInfosWithBay(root)
-	console.log(iedInfos)
 	rootNode = await calculateLayout(iedInfos)
-	console.log(rootNode)
+	console.log({level:"dev", iedInfos, rootNode})
 }
 </script>
 
 
 <div class="root">
 	{#if rootNode}
-		<Diagram
-			{rootNode}
-		/>
+		<Diagram nodes={[]} />
 	{/if}
 </div>
 

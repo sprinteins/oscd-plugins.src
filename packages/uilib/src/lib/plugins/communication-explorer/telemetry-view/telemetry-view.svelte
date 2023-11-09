@@ -14,6 +14,9 @@
 	import type { Config } from "../_func-layout-calculation/config"
 	import { preferences$, type Preferences  } from "../_store-preferences"
 	
+	// 
+	// INPUT
+	// 
 	export let root: Element
 	export let showSidebar = true
 	

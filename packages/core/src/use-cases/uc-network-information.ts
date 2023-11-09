@@ -34,21 +34,22 @@ export class UCNetworkInformation {
 
 			const subneworkConnections: SubnetworkConnection[] = []
 			for (const connectedAP of connectedAPs) {
-				if (connectedAP != null){
-					const subnetwork = connectedAP.closest("SubNetwork")
-					const subnetworkName = subnetwork?.getAttribute("name")
+				if(connectedAP === null){ continue }
 
-					const ipInfo = this.IPInfoFromAP(connectedAP)
+				const subnetwork = connectedAP.closest("SubNetwork")
+				const subnetworkName = subnetwork?.getAttribute("name")
+
+				const ipInfo = this.IPInfoFromAP(connectedAP)
 	
-					if (subnetwork != null && subnetworkName != null) {
-						subneworkConnections.push({
-							subnetwork: subnetworkName,
-							ip:         ipInfo?.ip ?? "",
-							ipSubnet:   ipInfo?.ipSubnet ?? "",
-							ipGateway:  ipInfo?.ipGateway ?? "",
-						})
-					}
+				if (subnetwork != null && subnetworkName != null) {
+					subneworkConnections.push({
+						subnetwork: subnetworkName,
+						ip:         ipInfo?.ip ?? "",
+						ipSubnet:   ipInfo?.ipSubnet ?? "",
+						ipGateway:  ipInfo?.ipGateway ?? "",
+					})
 				}
+
 			}
 
 			return {
@@ -96,6 +97,8 @@ export class UCNetworkInformation {
 
 		const addressEntries = address.querySelectorAll("P")
 
+		// TODO: why not find the P with the type attribute?
+		// like: const ip = address.querySelector("P[type=IP]")?.innerHTML
 		for (const addressEntry of addressEntries) {
 			const type = addressEntry.getAttribute("type")
 
