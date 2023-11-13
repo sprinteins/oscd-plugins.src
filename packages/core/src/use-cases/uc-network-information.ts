@@ -4,7 +4,17 @@ export interface IPInfo {
 	ip: string
 	ipSubnet: string
 	ipGateway: string
+	cables: Cable[]
 }
+
+export interface NetworkInfo {
+	ip: string
+	ipSubnet: string
+	ipGateway: string
+	cables: Cable[]
+}
+
+export type Cable = string
 
 export interface SubnetworkConnection extends IPInfo {
 	subnetwork: string
@@ -14,6 +24,9 @@ export type IEDNetworkInfo = {
 	iedName: string
 	subneworkConnections: SubnetworkConnection[]
 }
+
+export type IEDNetworkInfoV2 = {[iedName: string]: IPInfo}
+export type IEDNetworkInfoV3 = {iedName: string, networkInfo: NetworkInfo}
 
 export class UCNetworkInformation {
 	constructor(
@@ -81,24 +94,38 @@ export class UCNetworkInformation {
 		return baysWithIEDs
 	}
 
+	public IEDNetworkInfoV3(): IEDNetworkInfoV3[] { 
+		const connectedAPs = this.scdQueries.searchConnectedAPs()
+		const info = connectedAPs.map( (cap) => {
+			return {
+				iedName:     cap.iedName,
+				networkInfo: this.IPInfoFromAPv2(cap.element),
+			}
+		})
+		return info
+	}
+
 	private IPInfoFromAP(apElement: Element): IPInfo | null {
 		const ipInfo: IPInfo = {
 			ip:        "",
 			ipSubnet:  "",
 			ipGateway: "",
+			cables:    [],
 		}
 
+		
+		// 
+		// ADDRESS
+		// 
+		// TODO: why not find the P with the type attribute?
+		// like: const ip = address.querySelector("P[type=IP]")?.innerHTML
 		const addressQuery = "Address"
 		const address = apElement.querySelector(addressQuery)
 
 		if (!address) {
 			return null
 		}
-
 		const addressEntries = address.querySelectorAll("P")
-
-		// TODO: why not find the P with the type attribute?
-		// like: const ip = address.querySelector("P[type=IP]")?.innerHTML
 		for (const addressEntry of addressEntries) {
 			const type = addressEntry.getAttribute("type")
 
@@ -118,6 +145,53 @@ export class UCNetworkInformation {
 			}
 		}
 
+		// 
+		// PhysConn
+		// 
+		const cableSelector = "PhysConn[type='Connection'] P[type='Cable']"
+		const cableElements = Array.from(apElement.querySelectorAll(cableSelector))
+		const cables = cableElements.map(cable => cable.innerHTML)
+		ipInfo.cables = cables
+
+		
 		return ipInfo
 	}
+
+	private IPInfoFromAPv2(apElement: Element): IPInfo {
+		
+		const address = this.extractAddressFromAP(apElement)
+		const cables = this.extractCablesFromAP(apElement)
+
+		return {
+			...address,
+			cables,
+		}
+	}
+
+
+	private extractAddressFromAP(apElement: Element): Address {
+				
+		const ip = this.scdQueries.searchConnectedAPIP({root: apElement})?.element?.innerHTML
+		const ipSubnet = this.scdQueries.searchConnectedAPIPSubnet({root: apElement})?.element?.innerHTML
+		const ipGateway = this.scdQueries.searchConnectedAPIPGateway({root: apElement})?.element?.innerHTML
+
+		return {
+			ip:        ip        ?? "",
+			ipSubnet:  ipSubnet  ?? "",
+			ipGateway: ipGateway ?? "",
+		} satisfies Address
+	}
+
+	private extractCablesFromAP(apElement: Element): Cable[] {
+		const cableElements = this.scdQueries.searchConnectedAPCables({root: apElement})
+		const cables = cableElements.map(cable => cable.element.innerHTML)
+		return cables
+	}
+}
+
+
+type Address = {
+	ip: string
+	ipSubnet: string
+	ipGateway: string
 }

@@ -1,12 +1,33 @@
 <script lang="ts">
-import { extractIEDInfos, extractIEDInfosWithBay } from "../_func-layout-calculation/get-ieds"
-import { calculateLayout } from "../_func-layout-calculation/node-layout"
-    import Diagram from "./diagram.svelte";
+import type { IEDNetworkInfoV3 } from "@oscd-plugins/core";
+import { extractIEDInfos, extractIEDInfosWithBay, extractIEDNetworkInfoV2 } from "../layout/get-ieds"
+import { calculateLayout, calculateLayoutV2, type Config } from "../layout/node-layout"
+import Diagram from "./diagram.svelte";
+import { Position, type Edge, type Node } from "@xyflow/svelte";
+import type { RootNode } from "../../../components/diagram";
 
+
+// 
+// INPUT
+// 
 export let root: Element
+
+// 
+// CONFIG
+// 
+const config: Config = {
+	width: 	200,
+	height: 100,
+
+	spacingBase:         0,
+	spacingBetweenNodes: 0,
+}
 
 let rootNode: RootNode | undefined = undefined
 $: initInfos(root)
+
+let nodes: Node[] = []
+let edges: Edge[] = []
 
 async function initInfos(
 	root: Element
@@ -18,14 +39,50 @@ async function initInfos(
 		
 	const iedInfos = extractIEDInfosWithBay(root)
 	rootNode = await calculateLayout(iedInfos)
-	console.log({level:"dev", iedInfos, rootNode})
+	const iedNetworkInfo = extractIEDNetworkInfoV2(root)
+	rootNode = await calculateLayoutV2(iedNetworkInfo, config)
+
+
+	nodes = rootNode?.children.map(child => {
+		return {
+			...child,
+			position: {
+				x: child.x!,
+				y: child.y!,
+			},
+			data:{
+				label: child.label,
+			},
+			targetPosition: Position.Top,
+			sourcePosition: Position.Bottom,
+		}
+	})
+
+	edges = rootNode?.edges?.map(edge => {
+			return {
+				id: edge.id,
+				source: edge.sources[0],
+				target: edge.targets[0],
+				type: "smoothstep",
+			}
+	}) ?? [];
+
+	console.log({level:"dev", iedInfos, iedNetworkInfo, rootNode, nodes})
 }
+
+
+
 </script>
 
 
 <div class="root">
 	{#if rootNode}
-		<Diagram nodes={[]} />
+		{#key nodes}
+		<Diagram 
+			{nodes} 
+			{edges} 
+		/>	
+		{/key}
 	{/if}
 </div>
 

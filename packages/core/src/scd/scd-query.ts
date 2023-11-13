@@ -223,6 +223,67 @@ export class SCDQueries {
 		return this.searchElement<SCDElement>(selector, [], options)
 	}
 
+
+	public static SelectorConnectedAP = "ConnectedAP"
+	public static AttributeListConnectedAP: AttributeList<ConnectedAPElement>[] = [
+		"apName", 
+		"iedName", 
+		"redProt",
+	]
+	public searchConnectedAPs(options?:CommonOptions): ConnectedAPElement[]{
+		
+		const apElements  = this.searchElement<ConnectedAPElement>(
+			SCDQueries.SelectorConnectedAP,
+			SCDQueries.AttributeListConnectedAP, 
+			options,
+		)
+
+		return apElements
+	}
+	
+	public static SelectorIP = "Address > P[type='IP']"
+	public static AttributeListIP: AttributeList<ConnectedAPIPElement>[] = []
+	public searchConnectedAPIP(options?:CommonOptions): ConnectedAPIPElement | undefined {
+		const ipElements  = this.searchElement<ConnectedAPIPElement>(
+			SCDQueries.SelectorIP, 
+			SCDQueries.AttributeListIP, 
+			options,
+		)
+		const ipElement = ipElements[0]
+		
+		return ipElement
+	}
+	
+	public static SelectorIPSubnet = "Address > P[type='IP-SUBNET']"
+	public static AttributeListIPSubnet: AttributeList<ConnectedAPIPSubnetElement>[] = []
+	public searchConnectedAPIPSubnet(options?:CommonOptions): ConnectedAPIPSubnetElement | undefined {
+		const ipSubnetElements = this.searchElement<ConnectedAPIPSubnetElement>(
+			SCDQueries.SelectorIPSubnet, 
+			SCDQueries.AttributeListIPSubnet, 
+			options,
+		)
+		const ipSubnetElement = ipSubnetElements[0]
+
+		return ipSubnetElement
+	}
+	
+	public static SelectorIPGateway = "Address > P[type='IP-GATEWAY']"
+	public static AttributeListIPGateway: AttributeList<ConnectedAPIPGatewayElement>[] = []
+	public searchConnectedAPIPGateway(options?:CommonOptions): ConnectedAPIPGatewayElement | undefined {
+		const ipGatewayElements  = this.searchElement<ConnectedAPIPGatewayElement>(SCDQueries.SelectorIPGateway, SCDQueries.AttributeListIPGateway, options)
+		const ipGatewayElement = ipGatewayElements[0]
+
+		return ipGatewayElement
+	}
+	
+	public static SelectorCable = "PhysConn[type='Connection'] P[type='Cable']"
+	public static AttributeListCable: AttributeList<ConnectedAPCableElement>[] = []
+	public searchConnectedAPCables(options?:CommonOptions): ConnectedAPCableElement[]{
+		const cableElements  = this.searchElement<ConnectedAPCableElement>(SCDQueries.SelectorCable, SCDQueries.AttributeListCable, options)
+
+		return cableElements
+	}
+
 	
 	// 
 	// Privates
@@ -357,6 +418,18 @@ export type InputExtRefElement = SCDElement & {
 export type InputExtRefElementWithDatSet = InputExtRefElement & {
 	datSet: string
 }
+
+// <ConnectedAP apName="F" iedName="AARSC_CcC_1101" redProt="prp">
+export type ConnectedAPElement = SCDElement & {
+	apName: string
+	iedName: string
+	redProt: string
+}
+
+export type ConnectedAPIPElement = SCDElement
+export type ConnectedAPIPSubnetElement = SCDElement
+export type ConnectedAPIPGatewayElement = SCDElement
+export type ConnectedAPCableElement = SCDElement
 
 export type Optional<T> = T | undefined
 export type AttributeList<T extends SCDElement> = Exclude<keyof T, keyof SCDElement>

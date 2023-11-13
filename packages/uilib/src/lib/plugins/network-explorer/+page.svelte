@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { NetworkExplorer } from "."
-	import { xmlStr } from "../../../test-files/simple_v7"
+	import { xmlStr } from "../../../test-files/.local_demo"
 	import { Example } from "../../components/internal"
 
 	const parser = new DOMParser()
